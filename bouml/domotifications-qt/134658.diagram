@@ -1,0 +1,32 @@
+format 224
+
+deploymentnodecanvas 128130 deploymentnode_ref 128002 // Poubelle
+  xyzwh 46 25 2000 92 50
+end
+deploymentnodecanvas 128514 deploymentnode_ref 128130 // Machine à laver
+  xyzwh 21 116 2000 126 50
+end
+deploymentnodecanvas 128642 deploymentnode_ref 128258 // Boîte aux lettres
+  xyzwh 25 209 2000 128 50
+end
+deploymentnodecanvas 128770 deploymentnode_ref 128386 // Station lumineuse
+  xyzwh 290 86 2006 225 117
+end
+deploymentnodecanvas 129026 deploymentnode_ref 128642 // PC
+  xyzwh 633 94 2000 201 101
+end
+artifactcanvas 130690 artifact_ref 128002 // domotifications-qt
+  xyz 647 138 2005
+end
+artifactcanvas 130818 artifact_ref 128130 // notifications
+  xyz 320 138 2011
+end
+line 130050 ----
+  from ref 128770 z 2007 label "WiFi" max_width 255 xyz 558.5 129 2007 stereotype "<<HTTP Rest>>" xyz 519.5 144 2007 to ref 129026
+line 130178 ----
+  from ref 128130 z 2007 label "WiFi" max_width 255 xyz 192.5 64.5 2007 stereotype "<<HTTP Rest>>" xyz 153.5 79.5 2007 to ref 128770
+line 130306 ----
+  from ref 128514 z 2007 label "WiFi" max_width 255 xyz 203 120 2007 stereotype "<<HTTP Rest>>" xyz 164 135 2007 to ref 128770
+line 130434 ----
+  from ref 128642 z 2007 label "WiFi" max_width 255 xyz 203 175 2007 stereotype "<<HTTP Rest>>" xyz 164 190 2007 to ref 128770
+end

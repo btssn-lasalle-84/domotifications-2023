@@ -1,12 +1,16 @@
 format 224
 
-classcanvas 128130 class_ref 134914 // IHMDomotification
+classcanvas 128130 class_ref 134914 // Domotifications
   classdiagramsettings show_members_full_definition yes show_members_visibility yes show_members_stereotype yes member_max_width 0 show_parameter_dir yes show_parameter_name yes class_drawing_mode class drawing_language uml end
   xyzwh 42 693 2006 333 149
 end
 classcanvas 128514 class_ref 141570 // Communication
   classdiagramsettings show_members_full_definition yes show_members_visibility yes member_max_width 0 drawing_language uml end
   xyzwh 481 701 2000 335 169
+end
+classcanvas 128770 class_ref 141570 // Communication
+  classdiagramsettings member_max_width 0 end
+  xyz 240 202 2000
 end
 relationcanvas 128642 relation_ref 128002 // <association>
   decenter_end 427

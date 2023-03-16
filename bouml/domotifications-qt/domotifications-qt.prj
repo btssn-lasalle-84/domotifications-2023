@@ -1,6 +1,6 @@
 format 224
-"domotifications"
-  revision 3
+"domotifications-qt"
+  revision 5
   modified_by 2 "btssn2"
 
 
@@ -8,7 +8,7 @@ format 224
   // class settings
   default_attribute_visibility private default_relation_visibility private default_operation_visibility public
   
-  classdiagramsettings draw_all_relations yes hide_attributes no hide_operations no hide_getset_operations no hide_ports no show_members_full_definition no show_members_visibility no show_members_stereotype no show_members_context no show_members_multiplicity no show_members_initialization no show_attribute_modifiers no member_max_width 127 show_parameter_dir yes show_parameter_name yes package_name_in_tab no class_drawing_mode natural drawing_language uml show_context_mode no auto_label_position yes show_relation_modifiers no show_relation_visibility no show_infonote no shadow yes gradient none show_stereotype_properties no end
+  classdiagramsettings draw_all_relations yes hide_attributes no hide_operations no hide_getset_operations no hide_ports no show_members_full_definition yes show_members_visibility yes show_members_stereotype yes show_members_context no show_members_multiplicity yes show_members_initialization no show_attribute_modifiers no member_max_width 127 show_parameter_dir yes show_parameter_name yes package_name_in_tab no class_drawing_mode natural drawing_language uml show_context_mode no auto_label_position yes show_relation_modifiers no show_relation_visibility yes show_infonote no shadow yes gradient none show_stereotype_properties no end
   
   classcompositediagramsettings auto_label_position yes draw_all_relations yes shadow yes gradient none end
   
@@ -37,7 +37,7 @@ format 224
   class_color yellow duration_color transparent continuation_color gray note_color blue fragment_color transparent subject_color transparent usecase_color yellow package_color transparent component_color green artifact_color green deploymentnode_color gray state_color yellow stateaction_color transparent activity_color transparent activityregion_color transparent activitypartition_color transparent activityaction_color transparent parameterpin_color white generalization_color black 
   dpi 96
   font_size 11
-  diagram_format A4
+  diagram_format A0
 
   image_root_dir ""
 
@@ -67,7 +67,7 @@ format 224
      end
     usecasediagram 128130 "cas_utilisation_domotification"
       usecasediagramsettings draw_all_relations no end
-      size A4
+      size A0
     end
 
     class 128130 "Utilisateur"
@@ -236,10 +236,10 @@ format 224
 
     sequencediagram 134786 "diagramme_sequence_domotifications"
       sequencediagramsettings end
-      overlapping_bars size A4
+      overlapping_bars size A0
     end
 
-    class 134658 "Acteur"
+    class 134786 "StationLumineuse"
       visibility package 
       cpp_decl ""
       java_decl ""
@@ -251,19 +251,7 @@ format 224
       
     end
 
-    class 134786 "StationNotifications"
-      visibility package 
-      cpp_decl ""
-      java_decl ""
-      php_decl ""
-      python_2_2 python_decl ""
-      idl_decl ""
-      explicit_switch_type ""
-      mysql_decl ""
-      
-    end
-
-    class 134914 "IHMDomotification"
+    class 134914 "Domotifications"
       visibility package 
       cpp_decl ""
       java_decl ""
@@ -314,8 +302,8 @@ format 224
 	MysqlColumn
       end
 
-      operation 128514 "IHMDomotification"
-	public return_type class_ref 134914 // IHMDomotification
+      operation 128514 "Domotifications"
+	public return_type class_ref 134914 // Domotifications
 	nparams 0
 	
 	
@@ -331,50 +319,44 @@ format 224
     deploymentdiagramsettings
      end
     deploymentdiagram 134658 "diagramme_deployement"
-      deploymentdiagramsettings
+      deploymentdiagramsettings draw_all_relations no
        end
-      size A4
+      size A0
     end
 
     deploymentnode 128002 "Poubelle"
-      simplerelation 135682
-	-_->
-	  stereotype "HTTP Rest"
-	  on deploymentnode_ref 128386 // Station lumineuses
-      end
+      stereotype "esp32"
     end
 
     deploymentnode 128130 "Machine à laver"
-      simplerelation 135810
+      stereotype "esp32"
+    end
+
+    deploymentnode 128258 "Boîte aux lettres"
+      stereotype "esp32"
+    end
+
+    deploymentnode 128386 "Station lumineuse"
+      stereotype "esp32"
+    end
+
+    deploymentnode 128642 "PC"
+      stereotype "cpu"
+    end
+
+    artifact 128002 "domotifications-qt"
+      stereotype "executable"
+      associated_artifacts
+      end
+      simplerelation 142466
 	-_->
-	  stereotype "HTTP Rest"
-	  on deploymentnode_ref 128386 // Station lumineuses
+	  on artifact_ref 128130 // notifications
       end
     end
 
-    deploymentnode 128258 "Boîte au lettres"
-      simplerelation 135938
-	-_->
-	  stereotype "HTTP Rest"
-	  on deploymentnode_ref 128386 // Station lumineuses
-      end
-    end
-
-    deploymentnode 128386 "Station lumineuses"
-      simplerelation 135426
-	-_->
-	  stereotype "HTTP Rest"
-	  on deploymentnode_ref 128642 // Application
-      end
-    end
-
-    deploymentnode 128514 "IHM "
-    end
-
-    deploymentnode 128642 "Application"
-      simplerelation 135554
-	-_->
-	  on deploymentnode_ref 128386 // Station lumineuses
+    artifact 128130 "notifications"
+      stereotype "executable"
+      associated_artifacts
       end
     end
   end
@@ -401,7 +383,7 @@ format 224
      end
     classdiagram 141314 "Diagramme_classe_domotifications"
       classdiagramsettings member_max_width 0 end
-      size A4
+      size A0
     end
 
     class 141570 "Communication"
@@ -414,17 +396,6 @@ format 224
       explicit_switch_type ""
       mysql_decl ""
       
-      operation 128130 "envoieNotification"
-	public explicit_return_type "void"
-	nparams 1
-	  param in name "notification" explicit_type "string"
-	
-	
-	
-	
-	
-      end
-
       attribute 128130 "notification"
 	private explicit_type "string"
 	cpp_decl ""
@@ -438,17 +409,6 @@ format 224
 
       classrelation 128130 // <association>
 	relation_ref 128002 // <association>
-      end
-
-      operation 128386 "RemiseAZero"
-	public explicit_return_type "void"
-	nparams 1
-	  param in name "notification" explicit_type "string"
-	
-	
-	
-	
-	
       end
     end
   end
