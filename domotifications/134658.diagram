@@ -1,0 +1,33 @@
+format 224
+
+deploymentnodecanvas 128130 deploymentnode_ref 128002 // Poubelle
+  xyzwh 167 124 2000 79 32
+end
+deploymentnodecanvas 128514 deploymentnode_ref 128130 // Machine à laver
+  xyzwh 161 212 2000 126 32
+end
+deploymentnodecanvas 128642 deploymentnode_ref 128258 // Boîte au lettres
+  xyzwh 166 308 2000 121 32
+end
+deploymentnodecanvas 128770 deploymentnode_ref 128386 // Station lumineuses
+  xyzwh 396 227 2000 146 32
+end
+deploymentnodecanvas 129026 deploymentnode_ref 128642 // Application
+  xyzwh 711 234 2000 94 32
+end
+simplerelationcanvas 129154 simplerelation_ref 135426
+  from ref 128770 z 2001 stereotype "<<HTTP Rest>>" xyz 571 254 3000 to ref 129026
+end
+simplerelationcanvas 129282 simplerelation_ref 135554
+  from ref 129026 z 2001 to ref 128770
+end
+simplerelationcanvas 129410 simplerelation_ref 135682
+  from ref 128130 z 2001 stereotype "<<HTTP Rest>>" xyz 297 167 3000 to ref 128770
+end
+simplerelationcanvas 129538 simplerelation_ref 135810
+  from ref 128514 z 2001 stereotype "<<HTTP Rest>>" xyz 282 239 3000 to ref 128770
+end
+simplerelationcanvas 129666 simplerelation_ref 135938
+  from ref 128642 z 2001 stereotype "<<HTTP Rest>>" xyz 314 310 3000 to ref 128770
+end
+end

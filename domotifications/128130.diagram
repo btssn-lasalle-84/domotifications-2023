@@ -1,0 +1,43 @@
+format 224
+
+classcanvas 128002 class_ref 128130 // Utilisateur
+  simpleclassdiagramsettings end
+  xyz 70 184 2000
+end
+usecasecanvas 128130 usecase_ref 128130 // Configurer le système
+  xyzwh 286 101 3005 64 32 label_xy 253 85
+end
+usecasecanvas 129026 usecase_ref 128258 // Acquitter une notification
+  xyzwh 286 206 3005 64 32 label_xy 238 238
+end
+usecasecanvas 129154 usecase_ref 128386 // Visualiser une notifications
+  xyzwh 288 328 3005 64 32 label_xy 233 360
+end
+usecasecanvas 129282 usecase_ref 128514 // Dialoguer avec la station de notifications lumineuses
+  xyzwh 678 216 3005 67 33 label_xy 499 250
+end
+usecasecanvas 129410 usecase_ref 128642 // Activer/Desactiver une notification
+  xyzwh 595 33 3005 64 32 label_xy 539 72
+end
+line 130690 ---- decenter_end 468
+  from ref 128002 z 3006 to ref 128130
+line 130818 ----
+  from ref 128002 z 3006 to ref 129026
+line 131458 ---- decenter_end 312
+  from ref 128002 z 3006 to ref 129154
+simplerelationcanvas 131586 simplerelation_ref 128130
+  from ref 129026 z 3006 stereotype "<<include>>" xyz 464 211 3000 to ref 129282
+end
+simplerelationcanvas 132098 simplerelation_ref 128258
+  from ref 129154 z 3006 stereotype "<<include>>" xyz 489 299 3000 to ref 129282
+end
+simplerelationcanvas 132738 simplerelation_ref 128386
+  from ref 128130 z 3006 stereotype "<<include>>" xyz 479 149 3000 to ref 129282
+end
+simplerelationcanvas 132994 simplerelation_ref 128514
+  from ref 129410 z 3006 stereotype "<<include>>" xyz 658 132 3000 to ref 129282
+end
+simplerelationcanvas 133762 simplerelation_ref 128898
+  from ref 129410 z 3006 stereotype "<<extend>>" xyz 426 64 3000 to ref 128130
+end
+end

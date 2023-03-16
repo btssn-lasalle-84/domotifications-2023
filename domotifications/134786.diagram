@@ -1,0 +1,99 @@
+format 224
+
+classinstance 128130 class_ref 134658 // Acteur
+  name ""   xyz 39 11 2005 life_line_z 2000
+classinstance 128258 class_ref 134786 // StationNotifications
+  name ""   xyz 594 4 2005 life_line_z 2000
+classinstance 128386 class_ref 134914 // IHM
+  name ""   xyz 376 6 2005 life_line_z 2000
+durationcanvas 128642 classinstance_ref 128130 // :Acteur
+  xyzwh 62 85 2010 11 40
+end
+durationcanvas 128770 classinstance_ref 128386 // :IHM
+  xyzwh 395 79 2010 11 37
+end
+durationcanvas 129026 classinstance_ref 128386 // :IHM
+  xyzwh 395 136 2010 11 40
+end
+durationcanvas 129154 classinstance_ref 128130 // :Acteur
+  xyzwh 62 136 2010 11 25
+end
+durationcanvas 129410 classinstance_ref 128258 // :StationNotifications
+  xyzwh 659 76 2010 11 31
+end
+durationcanvas 129666 classinstance_ref 128386 // :IHM
+  xyzwh 395 194 2010 11 41
+end
+durationcanvas 129794 classinstance_ref 128258 // :StationNotifications
+  xyzwh 659 194 2010 11 26
+end
+durationcanvas 130050 classinstance_ref 128386 // :IHM
+  xyzwh 395 270 2010 11 50
+end
+durationcanvas 130178 classinstance_ref 128130 // :Acteur
+  xyzwh 62 273 2010 11 50
+end
+durationcanvas 130434 classinstance_ref 128130 // :Acteur
+  xyzwh 62 206 2010 11 40
+end
+durationcanvas 130690 classinstance_ref 128130 // :Acteur
+  xyzwh 62 361 2010 11 40
+end
+durationcanvas 130818 classinstance_ref 128386 // :IHM
+  xyzwh 395 361 2010 11 25
+end
+durationcanvas 131074 classinstance_ref 128258 // :StationNotifications
+  xyzwh 659 421 2010 11 40
+end
+durationcanvas 131202 classinstance_ref 128386 // :IHM
+  xyzwh 395 421 2010 11 25
+end
+msg 128898 return
+  from durationcanvas_ref 128642
+  to durationcanvas_ref 128770
+  yz 94 2015 explicitmsg "acquitter une notification"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 158 80
+msg 129282 return
+  from durationcanvas_ref 129026
+  to durationcanvas_ref 129154
+  yz 136 2015 explicitmsg "Afficher la notifications"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 160 122
+msg 129538 return
+  from durationcanvas_ref 128770
+  to durationcanvas_ref 129410
+  yz 85 2015 explicitmsg "Acquitter une notification"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 459 70
+msg 129922 return
+  from durationcanvas_ref 129666
+  to durationcanvas_ref 129794
+  yz 194 2015 explicitmsg "Activer/Desactiver un module"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 443 179
+msg 130306 return
+  from durationcanvas_ref 130050
+  to durationcanvas_ref 130178
+  yz 284 2015 explicitmsg "Surveillance de la consommation de la machine"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 75 269
+msg 130562 return
+  from durationcanvas_ref 130434
+  to durationcanvas_ref 129666
+  yz 206 2015 explicitmsg "Activer/Désactiver un module"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 134 191
+msg 130946 return
+  from durationcanvas_ref 130690
+  to durationcanvas_ref 130818
+  yz 361 2015 explicitmsg "Visualiser une notification"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 147 346
+msg 131330 return
+  from durationcanvas_ref 131074
+  to durationcanvas_ref 131202
+  yz 421 2015 explicitmsg "Envoyer une notification"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 454 406
+end
