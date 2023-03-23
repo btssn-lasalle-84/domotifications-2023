@@ -1,0 +1,50 @@
+format 224
+
+classinstance 128002 class_ref 134530 // StationLumineuse
+  name ""   xyz 392.8 3.2 2005 life_line_z 2000
+classinstance 135554 class_ref 148098 // Module
+  name "machine"   xyz 824 4.2 2000 life_line_z 2000
+classinstance 135938 class_ref 148098 // Module
+  name "poubelle"   xyz 1083 4.2 2000 life_line_z 2000
+fragment 136066 ""
+  xyzwh 820 214 2000 230 109
+end
+textcanvas 136194 "[consommation nulle]"
+  xyzwh 855 221 2005 140 16
+classinstance 136706 class_ref 147970 // Domotifications
+  name ""   xyz 15 4.2 2000 life_line_z 2000
+durationcanvas 135682 classinstance_ref 135554 // machine:Module
+  xyzwh 874 138 2010 11 38
+end
+durationcanvas 136322 classinstance_ref 135554 // machine:Module
+  xyzwh 874 268 2010 11 41
+end
+durationcanvas 136450 classinstance_ref 128002 // :StationLumineuse
+  xyzwh 453 267 2010 11 40
+end
+durationcanvas 136834 classinstance_ref 136706 // :Domotifications
+  xyzwh 63 362 2010 11 40
+end
+durationcanvas 136962 classinstance_ref 128002 // :StationLumineuse
+  xyzwh 454 362 2010 11 25
+end
+reflexivemsg 135810 synchronous
+  to durationcanvas_ref 135682
+  yz 138 2015 explicitmsg "Mesurer consommation électrique"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 885 124
+msg 136578 asynchronous
+  from durationcanvas_ref 136322
+  to durationcanvas_ref 136450
+  yz 269 2015 explicitmsg "Notifier fin fonctionnement"
+  stereotype "<<requête HTTP>>" xyz 605 284 3000
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 598 252
+msg 137090 asynchronous
+  from durationcanvas_ref 136834
+  to durationcanvas_ref 136962
+  yz 364 2015 explicitmsg "Récupérer les notifications"
+  stereotype "<<requête HTTP>>" xyz 200 379 3000
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 175 347
+end
