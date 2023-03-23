@@ -16,14 +16,20 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    Communication.cpp \
+    Domotification.cpp \
+    IhmDomotifications.cpp \
     main.cpp \
-    ihmdomotifications.cpp
+    module.cpp
 
 HEADERS += \
-    ihmdomotifications.h
+    Communication.h \
+    Domotification.h \
+    IhmDomotifications.h \
+    module.h
 
 FORMS += \
-    ihmdomotifications.ui
+    IhmDomotifications.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

@@ -1,4 +1,4 @@
-#include "ihmdomotifications.h"
+#include "IhmDomotifications.h"
 
 #include <QApplication>
 
