@@ -10,8 +10,8 @@ end
 usecasecanvas 129026 usecase_ref 128258 // Acquitter une notification
   xyzwh 227 174 3005 64 32 label_xy 179 206
 end
-usecasecanvas 129154 usecase_ref 128386 // Visualiser une notifications
-  xyzwh 227 303 3005 64 32 label_xy 172 335
+usecasecanvas 129154 usecase_ref 128386 // Visualiser une notification
+  xyzwh 227 303 3005 64 32 label_xy 177 335
 end
 usecasecanvas 129282 usecase_ref 128514 // Dialoguer avec la station de notifications lumineuses
   xyzwh 617 174 3005 67 33 label_xy 438 208
@@ -26,16 +26,16 @@ line 130818 ----
 line 131458 ---- decenter_end 312
   from ref 128002 z 3006 to ref 129154
 simplerelationcanvas 131586 simplerelation_ref 128130
-  from ref 129026 z 3006 stereotype "<<include>>" xyz 404 174.5 3000 to ref 129282
+  from ref 129026 z 3006 stereotype "<<include>>" xyz 404 174 3000 to ref 129282
 end
 simplerelationcanvas 132098 simplerelation_ref 128258
-  from ref 129154 z 3006 stereotype "<<include>>" xyz 428 265.5 3000 to ref 129282
+  from ref 129154 z 3006 stereotype "<<include>>" xyz 428 265 3000 to ref 129282
 end
 simplerelationcanvas 132738 simplerelation_ref 128386
-  from ref 128130 z 3006 stereotype "<<include>>" xyz 419 116.5 3000 to ref 129282
+  from ref 128130 z 3006 stereotype "<<include>>" xyz 419 116 3000 to ref 129282
 end
 simplerelationcanvas 132994 simplerelation_ref 128514
-  from ref 129410 z 3006 stereotype "<<include>>" xyz 597.5 99 3000 to ref 129282
+  from ref 129410 z 3006 stereotype "<<include>>" xyz 597 99 3000 to ref 129282
 end
 simplerelationcanvas 133762 simplerelation_ref 128898
   from ref 129410 z 3006 stereotype "<<extend>>" xyz 366 40 3000 to ref 128130
