@@ -1,12 +1,12 @@
 #ifndef IHMDOMOTIFICATIONS_H
 #define IHMDOMOTIFICATIONS_H
 
-#include <QMainWindow>
+#include <QtWidgets>
 
 QT_BEGIN_NAMESPACE
 namespace Ui
 {
-class IhmDomotifications;
+class IHMDomotifications;
 }
 QT_END_NAMESPACE
 
