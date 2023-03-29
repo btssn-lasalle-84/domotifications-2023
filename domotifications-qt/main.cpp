@@ -1,0 +1,11 @@
+#include "IhmDomotifications.h"
+
+#include <QApplication>
+
+int main(int argc, char *argv[])
+{
+    QApplication a(argc, argv);
+    IHMDomotifications w;
+    w.show();
+    return a.exec();
+}
