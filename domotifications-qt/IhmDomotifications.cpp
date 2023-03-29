@@ -11,3 +11,27 @@ IHMDomotifications::~IHMDomotifications()
 {
     delete ui;
 }
+
+void IHMDomotifications::afficherModules()
+{
+}
+
+void IHMDomotifications::gererEtatModule()
+{
+}
+
+void IHMDomotifications::gererActivationModule()
+{
+}
+
+void IHMDomotifications::isualiserNotification()
+{
+}
+
+void IHMDomotifications::acquitterNotification()
+{
+}
+
+void IHMDomotifications::parametrer()
+{
+}

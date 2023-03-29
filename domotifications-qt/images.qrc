@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/">
+        <file>../Téléchargements/image-removebg-preview(3).png</file>
+        <file>../Téléchargements/image-removebg-preview(2).png</file>
+        <file>../Téléchargements/image-removebg-preview(1).png</file>
+        <file>../Téléchargements/image-removebg-preview.png</file>
+    </qresource>
+</RCC>
