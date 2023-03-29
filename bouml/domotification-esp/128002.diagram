@@ -1,0 +1,38 @@
+format 224
+
+usecasecanvas 128130 usecase_ref 128002 // Acquitter une notification
+  xyzwh 328 123 3005 64 32 label_xy 280 155
+end
+usecasecanvas 128386 usecase_ref 128258 // Assurer les notifications lumineuses
+  xyzwh 329 307 3005 64 32 label_xy 244 339
+end
+usecasecanvas 128514 usecase_ref 128386 // Dialoguer avec les modules
+  xyzwh 830 307 3005 64 32 label_xy 772 339
+end
+usecasecanvas 128642 usecase_ref 128514 // Sauvegarder état des notifications
+  xyzwh 549 202 3005 64 32 label_xy 470 234
+end
+classcanvas 131458 class_ref 147970 // Domotifications
+  simpleclassdiagramsettings class_drawing_mode class end
+  xyz 15 235 2000
+end
+classcanvas 131586 class_ref 148098 // Module
+  simpleclassdiagramsettings class_drawing_mode class end
+  xyz 1035 353 2000
+end
+line 131714 ----
+  from ref 128514 z 3006 to ref 131586
+line 131842 ----
+  from ref 131458 z 3006 to ref 128130
+line 131970 ----
+  from ref 131458 z 3006 to ref 128386
+simplerelationcanvas 132098 simplerelation_ref 135042
+  from ref 128130 z 3006 stereotype "<<include>>" xyz 429.5 175.5 3000 to ref 128642
+end
+simplerelationcanvas 132226 simplerelation_ref 135170
+  from ref 128386 z 3006 stereotype "<<include>>" xyz 428 267.5 3000 to ref 128642
+end
+simplerelationcanvas 132354 simplerelation_ref 135298
+  from ref 128514 z 3006 stereotype "<<include>>" xyz 570 322 3000 to ref 128386
+end
+end

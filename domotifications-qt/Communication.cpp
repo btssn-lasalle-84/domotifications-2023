@@ -1,6 +1,7 @@
 #include "Communication.h"
 
-Communication::Communication(QWidget* parent)
+Communication::Communication(QObject* parent) :
+    QObject(parent), identifiant(""), motDePasse(""), httpPort(PORT_HTTP)
 {
 }
 

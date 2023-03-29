@@ -1,7 +1,6 @@
 #include "Domotification.h"
 
-
-Domotification::Domotification(QWidget* parent)
+Domotification::Domotification(QObject* parent) : QObject(parent)
 {
 }
 
@@ -9,14 +8,15 @@ Domotification::~Domotification()
 {
 }
 
-void Domotification::activerModule(string module)
+void Domotification::gererActivationModule(QString nomModule,
+                                           bool    etatActivation)
 {
 }
 
-void Domotification::desactiverModule(string module)
+void Domotification::gererNotification(QString nomModule, bool etatActivation)
 {
 }
 
-void Domotification::acquitterNotification(vector<string> notifications)
+void Domotification::ajouterModule(QString nomModule, Module::TypeModule type)
 {
 }
