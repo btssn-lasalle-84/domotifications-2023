@@ -8,8 +8,7 @@ Domotification::~Domotification()
 {
 }
 
-void Domotification::gererActivationModule(QString nomModule,
-                                           bool    etatActivation)
+void Domotification::gererActivationModule(QString nomModule, bool etatActivation)
 {
 }
 

@@ -5,6 +5,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 CONFIG += c++11
 
 DEFINES += QT_DEPRECATED_WARNINGS
+#DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
     Communication.cpp \
@@ -12,6 +13,7 @@ SOURCES += \
     IhmDomotifications.cpp \
     Module.cpp \
     main.cpp
+
 
 HEADERS += \
     Communication.h \
@@ -22,5 +24,7 @@ HEADERS += \
 FORMS += \
     IhmDomotifications.ui
 
-#RESOURCES += \
-#    images.qrc
+RESOURCES += \
+    images.qrc
+
+CONFIG(release, debug|release):DEFINES+=QT_NO_DEBUG_OUTPUT

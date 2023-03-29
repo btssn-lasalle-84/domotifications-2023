@@ -17,9 +17,7 @@ void Communication::recevoirNotification()
 {
 }
 
-void Communication::configurer(QString identifiant,
-                               QString motDePasse,
-                               int     httpPort)
+void Communication::configurer(QString identifiant, QString motDePasse, int httpPort)
 {
 }
 

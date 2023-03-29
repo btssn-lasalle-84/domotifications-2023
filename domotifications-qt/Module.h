@@ -8,6 +8,10 @@ class Module : public QObject
 {
     Q_OBJECT
   public:
+    /**
+     * @enum TypeModule
+     * @brief Les différents types de module
+     */
     enum TypeModule
     {
         Inconnu,
