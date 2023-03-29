@@ -1,8 +1,7 @@
 <RCC>
     <qresource prefix="/">
-        <file>../Téléchargements/image-removebg-preview(3).png</file>
-        <file>../Téléchargements/image-removebg-preview(2).png</file>
-        <file>../Téléchargements/image-removebg-preview(1).png</file>
-        <file>../Téléchargements/image-removebg-preview.png</file>
+        <file>./images-qt/bouton-activation-desactivation.png</file>
+        <file>./images-qt/jauge-consommation-machine.png</file>
+        <file>./images-qt/logo-bts-sn.png</file>
     </qresource>
 </RCC>
