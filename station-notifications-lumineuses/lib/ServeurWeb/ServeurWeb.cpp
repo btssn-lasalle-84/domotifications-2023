@@ -80,9 +80,11 @@ void ServeurWeb::traiterRequeteGETNotifications()
     {
         machines.add(stationLumineuse->getEtatMachine(i));
     }
-    /**
-     * @todo Idem pour les poubelles
-     */
+    JsonArray poubelle    = documentJSON.createNestedArray("poubelle");
+    for(int i = 0; i < NB_LEDS_NOTIFICATION_POUBELLES; ++i)
+    {
+        poubelle.add(stationLumineuse->getEtatPoubelle(i));
+    }
 
 #ifdef DEBUG_SERVEUR_WEB
     Serial.print(F("JSON : "));

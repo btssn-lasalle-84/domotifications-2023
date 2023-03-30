@@ -17,7 +17,7 @@
  * @def NOM_SERVEUR_WEB
  * @brief Le nom du serveur web (cela donnera http://station.local/)
  */
-#define NOM_SERVEUR_WEB "station"
+#define NOM_SERVEUR_WEB "station-lumineuse"
 
 /**
  * @def PORT_SERVEUR_WEB

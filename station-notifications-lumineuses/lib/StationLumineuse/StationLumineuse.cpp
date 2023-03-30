@@ -131,6 +131,44 @@ void StationLumineuse::eteindreNotificationMachines()
 {
 }
 
+bool StationLumineuse::estIdValidePoubelle(int id)
+{
+    return false;
+}
+
+bool StationLumineuse::getEtatPoubelle(int numeroPoubelle)
+{
+    return false;
+}
+
+void StationLumineuse::setEtatPoubelle(int numeroPoubelle, bool etat)
+{
+}
+
+void StationLumineuse::setEtatPoubelle()
+{
+}
+
+void StationLumineuse::resetEtatPoubelle()
+{
+}
+
+void StationLumineuse::allumerNotificationPoubelle(int numeroPoubelle)
+{
+}
+
+void StationLumineuse::eteindreNotificationPoubelle(int numeroPoubelle)
+{
+}
+
+void StationLumineuse::allumerNotificationPoubelle()
+{
+}
+
+void StationLumineuse::eteindreNotificationPoubelle()
+{
+}
+
 #ifdef TEST_BANDEAU
 // Fonctions de test
 void StationLumineuse::testerBoiteAuxLettres()

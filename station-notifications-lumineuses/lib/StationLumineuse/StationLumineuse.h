@@ -67,9 +67,15 @@ class StationLumineuse
     void allumerNotificationMachines();
     void eteindreNotificationMachines();
     bool estIdValidePoubelle(int id);
-/**
- * @todo Idem pour les poubelles
- */
+    bool getEtatPoubelle(int numeroPoubelle);
+    void setEtatPoubelle(int numeroPoubelle, bool etat);
+    void setEtatPoubelle();
+    void resetEtatPoubelle();
+    void allumerNotificationPoubelle(int numeroPoubelle);
+    void eteindreNotificationPoubelle(int numeroPoubelle);
+    void allumerNotificationPoubelle();
+    void eteindreNotificationPoubelle();
+
 #ifdef TEST_BANDEAU
     // Fonctions de test
     void testerBoiteAuxLettres();
