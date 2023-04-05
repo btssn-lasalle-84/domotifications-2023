@@ -59,11 +59,6 @@ IHMDomotifications::IHMDomotifications(QWidget* parent) :
     qDebug() << Q_FUNC_INFO;
     ui->setupUi(this);
 
-    /* setWindowTitle(TITRE_APPLICATION);
-     resize(qApp->desktop()->availableGeometry(this).width(),
-            qApp->desktop()->availableGeometry(this).height());
-     // showMaximized();
- */
     initialiserSysteme();
     initialiserGUI();
 }
@@ -145,7 +140,6 @@ void IHMDomotifications::initialiserGUI()
     listeNiveau->addItem("Information");
     listeNiveau->addItem("Warning");
     listeNiveau->addItem("Critical");
-    listeNiveau->addItem("Other");
 
     QVBoxLayout* mainLayout     = new QVBoxLayout;
     QHBoxLayout* hLayoutBoutons = new QHBoxLayout;
