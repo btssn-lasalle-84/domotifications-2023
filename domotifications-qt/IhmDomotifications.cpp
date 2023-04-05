@@ -8,6 +8,7 @@
 
 #include "IhmDomotifications.h"
 #include "ui_IhmDomotifications.h"
+#include "Domotification.h"
 
 /**
  * @brief Constructeur de la classe IHMDomotifications
@@ -15,7 +16,7 @@
  * @param parent nullptr pour la fenêtre comme fenêtre principale de l'application
  */
 IHMDomotifications::IHMDomotifications(QWidget* parent) :
-    QMainWindow(parent), ui(new Ui::IHMDomotifications)
+    QMainWindow(parent), ui(new Ui::IHMDomotifications), domotification(new Domotification(this))
 {
     qDebug() << Q_FUNC_INFO;
     ui->setupUi(this);
@@ -35,6 +36,7 @@ IHMDomotifications::~IHMDomotifications()
     delete ui;
     qDebug() << Q_FUNC_INFO;
 }
+
 /**
  * @brief Visualisation des notifications
  *
@@ -75,6 +77,7 @@ void IHMDomotifications::visualiserNotification(QString          titre,
     if(type < IHMDomotifications::TypeNotification::NbTypes)
         iconeSysteme->showMessage(titre, message, messageIcon);
 }
+
 /**
  * @brief Methode pour l'acquittement des notifications
  *
@@ -98,6 +101,7 @@ void IHMDomotifications::testerNotification()
                                IHMDomotifications::TypeNotification::Attention*/);
 }
 #endif
+
 /**
  * @brief Initialise la page
  *
@@ -132,6 +136,7 @@ void IHMDomotifications::initialiserGUI()
                                     size(),
                                     qApp->desktop()->availableGeometry()));
 }
+
 /**
  * @brief Initialise la Barre de taches
  *
