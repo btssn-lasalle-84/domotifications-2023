@@ -1,0 +1,5 @@
+class Domotification
+!!!157570.cpp!!!	Domotification(inout parent : QObject = nullptr)
+    qDebug() << Q_FUNC_INFO;
+!!!157698.cpp!!!	~Domotification()
+    qDebug() << Q_FUNC_INFO;

@@ -1,7 +1,8 @@
 format 224
 "domotifications-qt"
-  revision 9
+  revision 13
   modified_by 2 "btssn2"
+  cpp_root_dir "../../"
 
 
   
@@ -381,6 +382,7 @@ format 224
     
     activitydiagramsettings
      end
+    associated_deployment_view deploymentview_ref 128002 // Domotifications_vue_deployement
     classdiagram 141314 "Diagramme_classe_domotifications"
       classdiagramsettings draw_all_relations no member_max_width 0 end
       size A0
@@ -593,10 +595,10 @@ format 224
 	relation_ref 134658 // <association>
       end
 
-      classrelation 141570 // <association>
+      classrelation 141570 // ihmDomotification (<association>)
 	relation 141186 ----
-	  a role_name "" private
-	    classrelation_ref 141570 // <association>
+	  a role_name "ihmDomotification" private
+	    classrelation_ref 141570 // ihmDomotification (<association>)
 	  b role_name "" private
 	    classrelation_ref 141698 // <association>
       end
@@ -828,4 +830,6 @@ ${items}};
       end
     end
   end
+
+  package_ref 128002 // domotifications-qt
 end
