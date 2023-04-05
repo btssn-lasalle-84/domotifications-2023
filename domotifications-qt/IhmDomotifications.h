@@ -17,6 +17,8 @@
  */
 #define TITRE_APPLICATION "Domotifications"
 
+//#define TEST_NOTIFICATIONS
+
 QT_BEGIN_NAMESPACE
 namespace Ui
 {
@@ -32,6 +34,19 @@ class IHMDomotifications : public QMainWindow
 {
     Q_OBJECT
 
+  public:
+    /**
+     * @enum TypeNotification
+     * @brief Une liste de types de notification
+     */
+    enum TypeNotification
+    {
+        Information,
+        Attention,
+        Critique,
+        NbTypes
+    };
+
   private:
     QSystemTrayIcon* iconeSysteme;            //!< L'icône de l'application pour la barre système
     QMenu*           menuIconeSysteme;        //!< Le menu de l'application
@@ -41,30 +56,31 @@ class IHMDomotifications : public QMainWindow
     QAction*         actionQuitter;           //!< L'action quitter l'application
     bool             etatInitialIconeSysteme; //!< Booléen indiquant si c'est la première
                                               //!< demande Quitter
-    QWidget*     centralWidget;               //!< Le widget central
-    QPushButton* btNotifier;                  //!< Le bouton permettant de tester une notification
-    QLineEdit*   message;                     //!< Le message de la notification
-    QComboBox*   listeNiveau;                 //!< Une liste de niveaux et donc d'icônes pour le
-                                              //!< type de notification
+#ifdef TEST_NOTIFICATIONS
+    QWidget*     centralWidget;       //!< Le widget central
+    QPushButton* boutonNotifier;      //!< Le bouton permettant de tester une notification
+    QLineEdit*   messageNotification; //!< Le message de la notification
+#endif
 
   public:
     IHMDomotifications(QWidget* parent = nullptr);
     ~IHMDomotifications();
 
-    void afficherModules();
-    void gererEtatModule();
-    void gererActivationModule();
-    void visualiserNotification(QString titre, QString message, int niveau, int duree = 1000);
-
-    void parametrer();
     void initialiserGUI();
-    void initialiserSysteme();
+    void initialiserBarreDeTaches();
+
+    void visualiserNotification(
+      QString          titre,
+      QString          messageNotification,
+      TypeNotification type = IHMDomotifications::TypeNotification::Information);
 
   private:
     Ui::IHMDomotifications* ui; //!< la GUI
 
   public slots:
+#ifdef TEST_NOTIFICATIONS
     void testerNotification();
+#endif
     void acquitterNotification();
 };
 

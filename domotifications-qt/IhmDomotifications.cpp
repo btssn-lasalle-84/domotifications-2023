@@ -14,7 +14,131 @@
  * @fn IHMDomotifications::IHMDomotifications
  * @param parent nullptr pour la fenêtre comme fenêtre principale de l'application
  */
-void IHMDomotifications::initialiserSysteme()
+IHMDomotifications::IHMDomotifications(QWidget* parent) :
+    QMainWindow(parent), ui(new Ui::IHMDomotifications)
+{
+    qDebug() << Q_FUNC_INFO;
+    ui->setupUi(this);
+
+    initialiserBarreDeTaches();
+    initialiserGUI();
+}
+
+/**
+ * @brief Destructeur de la classe IHMDomotifications
+ *
+ * @fn IHMDomotifications::~IHMDomotifications
+ * @details Libère les ressources de l'application
+ */
+IHMDomotifications::~IHMDomotifications()
+{
+    delete ui;
+    qDebug() << Q_FUNC_INFO;
+}
+/**
+ * @brief Visualisation des notifications
+ *
+ * @fn IHMDomotifications::visualiserNotification
+ * @details Affiche une notification système avec un type de message et un message prédéfinis
+ *
+ * @param titre pour le titre de la notification
+ * @param message de la notification
+ * @param type pour les différents types de notifications en fonction de la gravité
+ */
+void IHMDomotifications::visualiserNotification(QString          titre,
+                                                QString          message,
+                                                TypeNotification type)
+{
+    /**
+     * @todo Décider de conserver les types de notifications ?
+     */
+    QSystemTrayIcon::MessageIcon messageIcon =
+      QSystemTrayIcon::MessageIcon(QSystemTrayIcon::Information);
+
+    /**
+     * @todo Choisir une durée associée ?
+     */
+    switch(type)
+    {
+        case IHMDomotifications::TypeNotification::Information:
+            messageIcon = QSystemTrayIcon::MessageIcon(QSystemTrayIcon::Information);
+            break;
+        case IHMDomotifications::TypeNotification::Attention:
+            messageIcon = QSystemTrayIcon::MessageIcon(QSystemTrayIcon::Warning);
+            break;
+        case IHMDomotifications::TypeNotification::Critique:
+            messageIcon = QSystemTrayIcon::MessageIcon(QSystemTrayIcon::Critical);
+            break;
+        default:
+            break;
+    }
+    if(type < IHMDomotifications::TypeNotification::NbTypes)
+        iconeSysteme->showMessage(titre, message, messageIcon);
+}
+/**
+ * @brief Methode pour l'acquittement des notifications
+ *
+ * @fn IHMDomotifications::acquitterNotification
+ * @details Acquitte les notifications envoyés par le système de notification.
+ */
+void IHMDomotifications::acquitterNotification()
+{
+    /**
+     * @fixme Vérifier le moyen d'acquitter la notification
+     */
+    qDebug() << Q_FUNC_INFO;
+}
+
+#ifdef TEST_NOTIFICATIONS
+void IHMDomotifications::testerNotification()
+{
+    if(!messageNotification->text().isEmpty())
+        visualiserNotification("Domotification",
+                               messageNotification->text()/*,
+                               IHMDomotifications::TypeNotification::Attention*/);
+}
+#endif
+/**
+ * @brief Initialise la page
+ *
+ * @fn IHMDomotifications::initialiserGUI
+ * @details Génère la page graphique d'interface
+ */
+void IHMDomotifications::initialiserGUI()
+{
+#ifdef TEST_NOTIFICATIONS
+    centralWidget = new QWidget;
+
+    boutonNotifier      = new QPushButton("Notifier", this);
+    messageNotification = new QLineEdit(this);
+    messageNotification->setText("La machine est finie !");
+    messageNotification->setFont(QFont("Courier New", 14, QFont::Bold));
+
+    QVBoxLayout* mainLayout     = new QVBoxLayout;
+    QHBoxLayout* hLayoutBoutons = new QHBoxLayout;
+    QHBoxLayout* hLayoutMessage = new QHBoxLayout;
+    hLayoutMessage->addWidget(messageNotification);
+    mainLayout->addLayout(hLayoutMessage);
+    hLayoutBoutons->addWidget(boutonNotifier);
+    mainLayout->addLayout(hLayoutBoutons);
+    mainLayout->addStretch();
+    centralWidget->setLayout(mainLayout);
+    setCentralWidget(centralWidget);
+
+    connect(boutonNotifier, SIGNAL(clicked(bool)), this, SLOT(testerNotification()));
+#endif
+    setGeometry(QStyle::alignedRect(Qt::LeftToRight,
+                                    Qt::AlignCenter,
+                                    size(),
+                                    qApp->desktop()->availableGeometry()));
+}
+/**
+ * @brief Initialise la Barre de taches
+ *
+ * @fn IHMDomotifications::initialiserBarreDeTaches
+ * @details Initialise l'icone et l'application en arrière plan
+ */
+void IHMDomotifications::initialiserBarreDeTaches()
 {
     actionMinimiser = new QAction(QString::fromUtf8("Minimiser"), this);
     actionMaximiser = new QAction(QString::fromUtf8("Maximiser"), this);
@@ -38,124 +162,10 @@ void IHMDomotifications::initialiserSysteme()
     // Crée l'icône pour la barre de tâche
     iconeSysteme = new QSystemTrayIcon(this);
     iconeSysteme->setContextMenu(menuIconeSysteme);
-    iconeSysteme->setToolTip("MainWindow");
-    // QIcon icone(":/icone1.png");
-    // iconeSysteme->setIcon(icone);
-    // setWindowIcon(icone);
+    iconeSysteme->setToolTip("Domotifications");
 
     connect(iconeSysteme, SIGNAL(messageClicked()), this, SLOT(acquitterNotification()));
-    connect(iconeSysteme,
-            SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
-            this,
-            SLOT(aActiveIconeSysteme(QSystemTrayIcon::ActivationReason)));
 
     iconeSysteme->show();
     etatInitialIconeSysteme = true;
-}
-
-IHMDomotifications::IHMDomotifications(QWidget* parent) :
-    QMainWindow(parent), ui(new Ui::IHMDomotifications)
-{
-    qDebug() << Q_FUNC_INFO;
-    ui->setupUi(this);
-
-    initialiserSysteme();
-    initialiserGUI();
-}
-
-/**
- * @brief Destructeur de la classe IHMDomotifications
- *
- * @fn IHMDomotifications::~IHMDomotifications
- * @details Libère les ressources de l'application
- */
-IHMDomotifications::~IHMDomotifications()
-{
-    delete ui;
-    qDebug() << Q_FUNC_INFO;
-}
-
-void IHMDomotifications::afficherModules()
-{
-}
-
-void IHMDomotifications::gererEtatModule()
-{
-}
-
-void IHMDomotifications::gererActivationModule()
-{
-}
-
-void IHMDomotifications::visualiserNotification(QString titre,
-                                                QString message,
-                                                int     niveau,
-                                                int     duree)
-{
-    QSystemTrayIcon::MessageIcon messageIcon;
-    switch(niveau)
-    {
-        case 0:
-            messageIcon = QSystemTrayIcon::MessageIcon(QSystemTrayIcon::NoIcon);
-            break;
-        case 1:
-            messageIcon = QSystemTrayIcon::MessageIcon(QSystemTrayIcon::Information);
-            break;
-        case 2:
-            messageIcon = QSystemTrayIcon::MessageIcon(QSystemTrayIcon::Warning);
-            break;
-        case 3:
-            messageIcon = QSystemTrayIcon::MessageIcon(QSystemTrayIcon::Critical);
-            break;
-    }
-    if(niveau < (listeNiveau->count()) - 1)                            // sauf le dernier
-        iconeSysteme->showMessage(titre, message, messageIcon, duree); // duree en ms
-}
-
-void IHMDomotifications::acquitterNotification()
-{
-    qDebug() << Q_FUNC_INFO;
-}
-
-void IHMDomotifications::parametrer()
-{
-}
-
-void IHMDomotifications::testerNotification()
-{
-    if(!message->text().isEmpty())
-        visualiserNotification("Domotification", message->text(), listeNiveau->currentIndex());
-}
-
-void IHMDomotifications::initialiserGUI()
-{
-    centralWidget = new QWidget;
-
-    btNotifier = new QPushButton("Notifier", this);
-    message    = new QLineEdit(this);
-    message->setText("La machine est finie !");
-    message->setFont(QFont("Courier New", 14, QFont::Bold));
-    listeNiveau = new QComboBox(this);
-    listeNiveau->addItem("NoIcon");
-    listeNiveau->addItem("Information");
-    listeNiveau->addItem("Warning");
-    listeNiveau->addItem("Critical");
-
-    QVBoxLayout* mainLayout     = new QVBoxLayout;
-    QHBoxLayout* hLayoutBoutons = new QHBoxLayout;
-    QHBoxLayout* hLayoutMessage = new QHBoxLayout;
-    hLayoutMessage->addWidget(message);
-    mainLayout->addLayout(hLayoutMessage);
-    hLayoutBoutons->addWidget(listeNiveau);
-    hLayoutBoutons->addWidget(btNotifier);
-    mainLayout->addLayout(hLayoutBoutons);
-    mainLayout->addStretch();
-    centralWidget->setLayout(mainLayout);
-    setCentralWidget(centralWidget);
-    setGeometry(QStyle::alignedRect(Qt::LeftToRight,
-                                    Qt::AlignCenter,
-                                    size(),
-                                    qApp->desktop()->availableGeometry()));
-
-    connect(btNotifier, SIGNAL(clicked(bool)), this, SLOT(testerNotification()));
 }
