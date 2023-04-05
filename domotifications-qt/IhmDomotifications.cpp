@@ -23,6 +23,7 @@ IHMDomotifications::IHMDomotifications(QWidget* parent) :
 
     initialiserBarreDeTaches();
     initialiserGUI();
+    initialiserSignauxSlots();
 }
 
 /**
@@ -43,13 +44,10 @@ IHMDomotifications::~IHMDomotifications()
  * @fn IHMDomotifications::visualiserNotification
  * @details Affiche une notification système avec un type de message et un message prédéfinis
  *
- * @param titre pour le titre de la notification
  * @param message de la notification
  * @param type pour les différents types de notifications en fonction de la gravité
  */
-void IHMDomotifications::visualiserNotification(QString          titre,
-                                                QString          message,
-                                                TypeNotification type)
+void IHMDomotifications::visualiserNotification(QString message, TypeNotification type)
 {
     /**
      * @todo Décider de conserver les types de notifications ?
@@ -75,7 +73,7 @@ void IHMDomotifications::visualiserNotification(QString          titre,
             break;
     }
     if(type < IHMDomotifications::TypeNotification::NbTypes)
-        iconeSysteme->showMessage(titre, message, messageIcon);
+        iconeSysteme->showMessage(TITRE_APPLICATION, message, messageIcon);
 }
 
 /**
@@ -95,10 +93,7 @@ void IHMDomotifications::acquitterNotification()
 #ifdef TEST_NOTIFICATIONS
 void IHMDomotifications::testerNotification()
 {
-    if(!messageNotification->text().isEmpty())
-        visualiserNotification("Domotification",
-                               messageNotification->text()/*,
-                               IHMDomotifications::TypeNotification::Attention*/);
+    domotification->notifier(messageNotification->text());
 }
 #endif
 
@@ -129,7 +124,6 @@ void IHMDomotifications::initialiserGUI()
     centralWidget->setLayout(mainLayout);
     setCentralWidget(centralWidget);
 
-    connect(boutonNotifier, SIGNAL(clicked(bool)), this, SLOT(testerNotification()));
 #endif
     setGeometry(QStyle::alignedRect(Qt::LeftToRight,
                                     Qt::AlignCenter,
@@ -169,8 +163,24 @@ void IHMDomotifications::initialiserBarreDeTaches()
     iconeSysteme->setContextMenu(menuIconeSysteme);
     iconeSysteme->setToolTip("Domotifications");
 
-    connect(iconeSysteme, SIGNAL(messageClicked()), this, SLOT(acquitterNotification()));
-
     iconeSysteme->show();
     etatInitialIconeSysteme = true;
+}
+
+/**
+ * @brief Initialise les signaux et les slots
+ *
+ * @fn IHMDomotifications::initialiserSignauxSlots
+ * @details Initialise les connects des signaux et des slots
+ */
+void IHMDomotifications::initialiserSignauxSlots()
+{
+    connect(iconeSysteme, SIGNAL(messageClicked()), this, SLOT(acquitterNotification()));
+#ifdef TEST_NOTIFICATIONS
+    connect(boutonNotifier, SIGNAL(clicked(bool)), this, SLOT(testerNotification()));
+#endif
+    connect(domotification,
+            SIGNAL(nouvelleNotification(QString)),
+            this,
+            SLOT(visualiserNotification(QString)));
 }

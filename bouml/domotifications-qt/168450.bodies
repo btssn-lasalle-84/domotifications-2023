@@ -5,6 +5,7 @@ class IHMDomotifications
 
     initialiserBarreDeTaches();
     initialiserGUI();
+    initialiserSignauxSlots();
 !!!158594.cpp!!!	~IHMDomotifications()
     delete ui;
     qDebug() << Q_FUNC_INFO;
@@ -28,7 +29,6 @@ class IHMDomotifications
     centralWidget->setLayout(mainLayout);
     setCentralWidget(centralWidget);
 
-    connect(boutonNotifier, SIGNAL(clicked(bool)), this, SLOT(testerNotification()));
 #endif
     setGeometry(QStyle::alignedRect(Qt::LeftToRight,
                                     Qt::AlignCenter,
@@ -59,11 +59,20 @@ class IHMDomotifications
     iconeSysteme->setContextMenu(menuIconeSysteme);
     iconeSysteme->setToolTip("Domotifications");
 
-    connect(iconeSysteme, SIGNAL(messageClicked()), this, SLOT(acquitterNotification()));
-
     iconeSysteme->show();
     etatInitialIconeSysteme = true;
-!!!158978.cpp!!!	visualiserNotification(in titre : QString, in message : QString, in type : IHMDomotifications::TypeNotification = IHMDomotifications::TypeNotification::Information) : void
+!!!159618.cpp!!!	initialiserSignauxSlots() : void
+    connect(iconeSysteme, SIGNAL(messageClicked()), this, SLOT(acquitterNotification()));
+#ifdef TEST_NOTIFICATIONS
+    connect(boutonNotifier, SIGNAL(clicked(bool)), this, SLOT(testerNotification()));
+#endif
+    connect(domotification,
+            SIGNAL(nouvelleNotification(QString)),
+            this,
+            SLOT(visualiserNotification(QString)));
+!!!159106.cpp!!!	testerNotification() : void
+    domotification->notifier(messageNotification->text());
+!!!158978.cpp!!!	visualiserNotification(in message : QString, in type : IHMDomotifications::TypeNotification = IHMDomotifications::TypeNotification::Information) : void
     /**
      * @todo Décider de conserver les types de notifications ?
      */
@@ -88,12 +97,7 @@ class IHMDomotifications
             break;
     }
     if(type < IHMDomotifications::TypeNotification::NbTypes)
-        iconeSysteme->showMessage(titre, message, messageIcon);
-!!!159106.cpp!!!	testerNotification() : void
-    if(!messageNotification->text().isEmpty())
-        visualiserNotification("Domotification",
-                               messageNotification->text()/*,
-                               IHMDomotifications::TypeNotification::Attention*/);
+        iconeSysteme->showMessage(TITRE_APPLICATION, message, messageIcon);
 !!!159234.cpp!!!	acquitterNotification() : void
     /**
      * @fixme Vérifier le moyen d'acquitter la notification

@@ -29,3 +29,8 @@ void Domotification::gererNotification(QString nomModule, bool etatActivation)
 void Domotification::ajouterModule(QString nomModule, Module::TypeModule type)
 {
 }
+
+void Domotification::notifier(QString message)
+{
+    emit nouvelleNotification(message);
+}

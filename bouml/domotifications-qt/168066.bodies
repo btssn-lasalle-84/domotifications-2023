@@ -3,3 +3,5 @@ class Domotification
     qDebug() << Q_FUNC_INFO;
 !!!157698.cpp!!!	~Domotification()
     qDebug() << Q_FUNC_INFO;
+!!!159362.cpp!!!	notifier(in message : QString) : void
+    emit nouvelleNotification(message);

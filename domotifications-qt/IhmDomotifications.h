@@ -17,7 +17,7 @@
  */
 #define TITRE_APPLICATION "Domotifications"
 
-//#define TEST_NOTIFICATIONS
+#define TEST_NOTIFICATIONS
 
 namespace Ui
 {
@@ -70,16 +70,15 @@ class IHMDomotifications : public QMainWindow
 
     void initialiserGUI();
     void initialiserBarreDeTaches();
-
-    void visualiserNotification(
-      QString          titre,
-      QString          messageNotification,
-      TypeNotification type = IHMDomotifications::TypeNotification::Information);
+    void initialiserSignauxSlots();
 
   public slots:
 #ifdef TEST_NOTIFICATIONS
     void testerNotification();
 #endif
+    void visualiserNotification(
+      QString          message,
+      TypeNotification type = IHMDomotifications::TypeNotification::Information);
     void acquitterNotification();
 };
 

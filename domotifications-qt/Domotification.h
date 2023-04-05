@@ -19,6 +19,10 @@ class Domotification : public QObject
     void gererActivationModule(QString nomModule, bool etatActivation);
     void gererNotification(QString nomModule, bool etatActivation);
     void ajouterModule(QString nomModule, Module::TypeModule type);
+    void notifier(QString message);
+
+  signals:
+    void nouvelleNotification(QString message);
 };
 
 #endif // DOMOTIFICATION_H

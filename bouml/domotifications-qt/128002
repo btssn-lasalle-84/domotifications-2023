@@ -344,6 +344,43 @@ ${body}}
 	
       end
 
+      operation 159362 "notifier"
+	preserve_cpp_body_indent public explicit_return_type "void"
+	nparams 1
+	  param in name "message" explicit_type "QString"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	
+      end
+
+      extra_member 128642 "signals"
+	
+	cpp "  signals:" ""
+	java ""
+	php ""
+	python ""
+	idl ""
+	mysql ""
+      end
+
+      operation 159490 "nouvelleNotification"
+	stereotype "signal"
+	public explicit_return_type "void"
+	nparams 1
+	  param in name "message" explicit_type "QString"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
+"
+	
+	
+	
+	
+      end
     end
 
     class 168194 "Module"
@@ -845,27 +882,13 @@ ${body}}
 	
       end
 
-      operation 158978 "visualiserNotification"
+      operation 159618 "initialiserSignauxSlots"
 	preserve_cpp_body_indent public explicit_return_type "void"
-	nparams 3
-	  param in name "titre" explicit_type "QString"
-	  param in name "message" explicit_type "QString"
-	  param in name "type" type class_ref 168706 // TypeNotification
-	    defaultvalue "IHMDomotifications::TypeNotification::Information"
-	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}, ${t1} ${p1}${v1}, ${t2} ${p2}${v2}${)}${const}${volatile}${throw}${abstract};
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
 "
-	cpp_def "//@brief Visualisation des notifications
-//
-//@fn IHMDomotifications::visualiserNotification
-//@details Affiche une notification système avec un type de message et un message prédéfinis
-//
-//@param titre pour le titre de la notification
-//@param message de la notification
-//@param type pour les différents types de notifications en fonction de la gravité
-//
-
-${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}, ${t1} ${p1}, ${t2} ${p2}${)}${const}${throw}${staticnl}{
-${body}}
+	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
 "
 	
 	
@@ -889,6 +912,33 @@ ${body}}
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
 "
 	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 158978 "visualiserNotification"
+	stereotype "slot"
+	preserve_cpp_body_indent public explicit_return_type "void"
+	nparams 2
+	  param in name "message" explicit_type "QString"
+	  param in name "type" type class_ref 168706 // TypeNotification
+	    defaultvalue "IHMDomotifications::TypeNotification::Information"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}, ${t1} ${p1}${v1}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "//@brief Visualisation des notifications
+//
+//@fn IHMDomotifications::visualiserNotification
+//@details Affiche une notification système avec un type de message et un message prédéfinis
+//
+//@param message de la notification
+//@param type pour les différents types de notifications en fonction de la gravité
+//
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}, ${t1} ${p1}${)}${const}${volatile}${throw}${staticnl}{
 ${body}}
 "
 	

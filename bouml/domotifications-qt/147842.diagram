@@ -17,13 +17,13 @@ classcanvas 129282 class_ref 167810 // Communication
   xyz 895 423 2000
 end
 relationcanvas 129154 relation_ref 154754 // <unidirectional association>
-  from ref 128898 z 2007 stereotype "<<QMap>>" xyz 437.5 615.5 2007 to ref 129026
+  from ref 128898 z 2007 stereotype "<<QMap>>" xyz 432.5 632.5 2007 to ref 129026
   role_a_pos 504 682 3000 no_role_b
   no_multiplicity_a no_multiplicity_b
 end
 relationcanvas 129410 relation_ref 155394 // <unidirectional association>
   from ref 128770 z 2001 to ref 128898
-  role_a_pos 621 403 3000 no_role_b
+  role_a_pos 620 403 3000 no_role_b
   no_multiplicity_a no_multiplicity_b
 end
 end
