@@ -1,0 +1,105 @@
+class IHMDomotifications
+!!!158466.cpp!!!	IHMDomotifications(inout parent : QWidget = nullptr)
+    qDebug() << Q_FUNC_INFO;
+    ui->setupUi(this);
+
+    initialiserBarreDeTaches();
+    initialiserGUI();
+    initialiserSignauxSlots();
+!!!158594.cpp!!!	~IHMDomotifications()
+    delete ui;
+    qDebug() << Q_FUNC_INFO;
+!!!158722.cpp!!!	initialiserGUI() : void
+#ifdef TEST_NOTIFICATIONS
+    centralWidget = new QWidget;
+
+    boutonNotifier      = new QPushButton("Notifier", this);
+    messageNotification = new QLineEdit(this);
+    messageNotification->setText("La machine est finie !");
+    messageNotification->setFont(QFont("Courier New", 14, QFont::Bold));
+
+    QVBoxLayout* mainLayout     = new QVBoxLayout;
+    QHBoxLayout* hLayoutBoutons = new QHBoxLayout;
+    QHBoxLayout* hLayoutMessage = new QHBoxLayout;
+    hLayoutMessage->addWidget(messageNotification);
+    mainLayout->addLayout(hLayoutMessage);
+    hLayoutBoutons->addWidget(boutonNotifier);
+    mainLayout->addLayout(hLayoutBoutons);
+    mainLayout->addStretch();
+    centralWidget->setLayout(mainLayout);
+    setCentralWidget(centralWidget);
+
+#endif
+    setGeometry(QStyle::alignedRect(Qt::LeftToRight,
+                                    Qt::AlignCenter,
+                                    size(),
+                                    qApp->desktop()->availableGeometry()));
+!!!158850.cpp!!!	initialiserBarreDeTaches() : void
+    actionMinimiser = new QAction(QString::fromUtf8("Minimiser"), this);
+    actionMaximiser = new QAction(QString::fromUtf8("Maximiser"), this);
+    actionRestaurer = new QAction(QString::fromUtf8("Restaurer"), this);
+    actionQuitter   = new QAction(QString::fromUtf8("&Quitter"), this);
+
+    // Connecte les actions
+    connect(actionMinimiser, SIGNAL(triggered(bool)), this, SLOT(hide()));
+    connect(actionMaximiser, SIGNAL(triggered(bool)), this, SLOT(showMaximized()));
+    connect(actionRestaurer, SIGNAL(triggered(bool)), this, SLOT(showNormal()));
+    connect(actionQuitter, SIGNAL(triggered(bool)), qApp, SLOT(quit()));
+
+    // Crée le menu
+    menuIconeSysteme = new QMenu(this);
+    menuIconeSysteme->addAction(actionMinimiser);
+    menuIconeSysteme->addAction(actionMaximiser);
+    menuIconeSysteme->addAction(actionRestaurer);
+    menuIconeSysteme->addSeparator();
+    menuIconeSysteme->addAction(actionQuitter);
+
+    // Crée l'icône pour la barre de tâche
+    iconeSysteme = new QSystemTrayIcon(this);
+    iconeSysteme->setContextMenu(menuIconeSysteme);
+    iconeSysteme->setToolTip("Domotifications");
+
+    iconeSysteme->show();
+    etatInitialIconeSysteme = true;
+!!!159618.cpp!!!	initialiserSignauxSlots() : void
+    connect(iconeSysteme, SIGNAL(messageClicked()), this, SLOT(acquitterNotification()));
+#ifdef TEST_NOTIFICATIONS
+    connect(boutonNotifier, SIGNAL(clicked(bool)), this, SLOT(testerNotification()));
+#endif
+    connect(domotification,
+            SIGNAL(nouvelleNotification(QString)),
+            this,
+            SLOT(visualiserNotification(QString)));
+!!!159106.cpp!!!	testerNotification() : void
+    domotification->notifier(messageNotification->text());
+!!!158978.cpp!!!	visualiserNotification(in message : QString, in type : IHMDomotifications::TypeNotification = IHMDomotifications::TypeNotification::Information) : void
+    /**
+     * @todo Décider de conserver les types de notifications ?
+     */
+    QSystemTrayIcon::MessageIcon messageIcon =
+      QSystemTrayIcon::MessageIcon(QSystemTrayIcon::Information);
+
+    /**
+     * @todo Choisir une durée associée ?
+     */
+    switch(type)
+    {
+        case IHMDomotifications::TypeNotification::Information:
+            messageIcon = QSystemTrayIcon::MessageIcon(QSystemTrayIcon::Information);
+            break;
+        case IHMDomotifications::TypeNotification::Attention:
+            messageIcon = QSystemTrayIcon::MessageIcon(QSystemTrayIcon::Warning);
+            break;
+        case IHMDomotifications::TypeNotification::Critique:
+            messageIcon = QSystemTrayIcon::MessageIcon(QSystemTrayIcon::Critical);
+            break;
+        default:
+            break;
+    }
+    if(type < IHMDomotifications::TypeNotification::NbTypes)
+        iconeSysteme->showMessage(TITRE_APPLICATION, message, messageIcon);
+!!!159234.cpp!!!	acquitterNotification() : void
+    /**
+     * @fixme Vérifier le moyen d'acquitter la notification
+     */
+    qDebug() << Q_FUNC_INFO;

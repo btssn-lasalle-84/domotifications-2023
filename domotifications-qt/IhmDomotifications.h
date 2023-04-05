@@ -17,12 +17,14 @@
  */
 #define TITRE_APPLICATION "Domotifications"
 
-QT_BEGIN_NAMESPACE
+#define TEST_NOTIFICATIONS
+
 namespace Ui
 {
 class IHMDomotifications;
 }
-QT_END_NAMESPACE
+
+class Domotification;
 
 /**
  * @class IHMDomotifications
@@ -33,18 +35,51 @@ class IHMDomotifications : public QMainWindow
     Q_OBJECT
 
   public:
+    /**
+     * @enum TypeNotification
+     * @brief Une liste de types de notification
+     */
+    enum TypeNotification
+    {
+        Information,
+        Attention,
+        Critique,
+        NbTypes
+    };
+
+  private:
+    Ui::IHMDomotifications* ui;               //!< La GUI
+    Domotification*         domotification;   //!< l'objet contrôleur de l'application
+    QSystemTrayIcon*        iconeSysteme;     //!< L'icône de l'application pour la barre système
+    QMenu*                  menuIconeSysteme; //!< Le menu de l'application
+    QAction*                actionMinimiser;  //!< L'action minimiser l'application
+    QAction*                actionMaximiser;  //!< L'action maximiser l'application
+    QAction*                actionRestaurer;  //!< L'action restaurer l'application
+    QAction*                actionQuitter;    //!< L'action quitter l'application
+    bool                    etatInitialIconeSysteme; //!< Booléen indiquant si c'est la première
+                                                     //!< demande Quitter
+#ifdef TEST_NOTIFICATIONS
+    QWidget*     centralWidget;       //!< Le widget central
+    QPushButton* boutonNotifier;      //!< Le bouton permettant de tester une notification
+    QLineEdit*   messageNotification; //!< Le message de la notification
+#endif
+
+  public:
     IHMDomotifications(QWidget* parent = nullptr);
     ~IHMDomotifications();
 
-    void afficherModules();
-    void gererEtatModule();
-    void gererActivationModule();
-    void visualiserNotification();
-    void acquitterNotification();
-    void parametrer();
+    void initialiserGUI();
+    void initialiserBarreDeTaches();
+    void initialiserSignauxSlots();
 
-  private:
-    Ui::IHMDomotifications* ui; //!< la GUI
+  public slots:
+#ifdef TEST_NOTIFICATIONS
+    void testerNotification();
+#endif
+    void visualiserNotification(
+      QString          message,
+      TypeNotification type = IHMDomotifications::TypeNotification::Information);
+    void acquitterNotification();
 };
 
 #endif // IHMDOMOTIFICATIONS_H

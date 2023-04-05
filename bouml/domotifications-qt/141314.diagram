@@ -1,43 +1,23 @@
 format 224
 
-classcanvas 128770 class_ref 141570 // Communication
-  classdiagramsettings member_max_width 0 end
-  xyzwh 10 9 2000 231 181
-end
-classcanvas 128898 class_ref 148098 // Domotification
-  classdiagramsettings member_max_width 0 end
-  xyzwh 341 19 2000 515 161
-end
 classcanvas 129282 class_ref 154626 // IhmDomotification
   classdiagramsettings member_max_width 0 end
-  xyzwh 170 299 2000 243 163
-end
-classcanvas 129666 class_ref 161154 // Module
-  classdiagramsettings member_max_width 0 end
-  xyz 1019 57 2000
+  xyzwh 30 52 2000 243 163
 end
 classcanvas 129922 class_ref 161282 // TypeModule
   classdiagramsettings member_max_width 0 end
-  xyz 972 233 2000
+  xyz 323 401 2000
 end
-relationcanvas 129410 relation_ref 141186 // <association>
-  from ref 128898 z 2001 to ref 129282
-  no_role_a no_role_b
-  no_multiplicity_a no_multiplicity_b
+classcanvas 130178 class_ref 167810 // Communication
+  classdiagramsettings member_max_width 0 end
+  xyz 596 230 2000
 end
-relationcanvas 129538 relation_ref 141314 // <association>
-  from ref 128770 z 2001 to ref 129282
-  no_role_a no_role_b
-  no_multiplicity_a no_multiplicity_b
+classcanvas 130306 class_ref 168066 // Domotification
+  classdiagramsettings member_max_width 0 end
+  xyz 31 230 2000
 end
-relationcanvas 129794 relation_ref 147842 // <association>
-  from ref 128898 z 2001 stereotype "<<map>>" xyz 905.5 99 3000 to ref 129666
-  role_a_pos 948 79 3000 no_role_b
-  multiplicity_a_pos 987 106 3000 no_multiplicity_b
-end
-relationcanvas 130050 relation_ref 147970 // <association>
-  from ref 129666 z 2001 to ref 129922
-  role_a_pos 1093 212 3000 no_role_b
-  no_multiplicity_a no_multiplicity_b
+classcanvas 130434 class_ref 168194 // Module
+  classdiagramsettings member_max_width 0 end
+  xyz 20 401 2000
 end
 end

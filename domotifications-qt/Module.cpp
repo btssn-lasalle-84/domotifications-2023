@@ -1,3 +1,11 @@
+/**
+ * @file Module.cpp
+ *
+ * @brief Définition de la classe Module
+ * @author Mathieu MOYAERTS
+ * @version 0.1
+ */
+
 #include "Module.h"
 
 Module::Module(QObject* parent) :

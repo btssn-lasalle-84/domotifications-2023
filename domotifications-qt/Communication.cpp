@@ -1,3 +1,11 @@
+/**
+ * @file Communication.cpp
+ *
+ * @brief Définition de la classe Communication
+ * @author Mathieu MOYAERTS
+ * @version 0.1
+ */
+
 #include "Communication.h"
 
 Communication::Communication(QObject* parent) :
