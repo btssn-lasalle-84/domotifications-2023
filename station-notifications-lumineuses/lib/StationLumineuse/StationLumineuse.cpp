@@ -123,28 +123,66 @@ void StationLumineuse::eteindreNotificationBoiteAuxLettres()
 
 bool StationLumineuse::estIdValideMachines(int numeromachines)
 {
+    return (numeromachines >= 0 && numeromachines < NB_LEDS_NOTIFICATION_POUBELLES);
 }
 
 bool StationLumineuse::getEtatMachines(int numeromachines)
 {
-
+  if (estIdValideMachines(numeromachines))
+  {
+    return etatmachines[numeromachines];
+  }
+  else
+  {
+    return false;
+  }
 }
 
 void StationLumineuse::setEtatMachines(int numeromachines, bool etat)
 {
+    etatmachines[numeromachines] = etat;
+    preferences.putBool("machines", etatmachines[numeromachines]);
+    if (etat) {
+        allumerNotificationMachines(numeromachines);
+    } else {
+        eteindreNotificationMachines(numeromachines);
+    }
 }
 
 void StationLumineuse::resetEtatMachines(int numeromachines)
 {
+    etatmachines[numeromachines] = false;
+    preferences.putBool("machines",etatmachines);
+    eteindreNotificationMachines(numeromachines);
 }
 
 
 void StationLumineuse::allumerNotificationMachines(int numeromachines)
 {
+        for(int i = INDEX_LEDS_NOTIFICATION_MACHINES;
+        i < (INDEX_LEDS_NOTIFICATION_MACHINES + NB_LEDS_NOTIFICATION_MACHINES);
+        ++i)
+    {
+        /**
+         * Définir des constantes pour les couleurs
+         */
+        leds.setPixelColor(i, leds.Color(0, 255, 0));
+        leds.show();
+    }
 }
 
 void StationLumineuse::eteindreNotificationMachines(int numeromachines)
 {
+        for(int i = INDEX_LEDS_NOTIFICATION_MACHINES;
+        i < (INDEX_LEDS_NOTIFICATION_MACHINES + NB_LEDS_NOTIFICATION_MACHINES);
+        ++i)
+    {
+        /**
+         * @todo Définir des constantes pour les couleurs
+         */
+        leds.setPixelColor(i, leds.Color(0, 0, 0));
+        leds.show();
+    }
 }
 
 bool StationLumineuse::estIdValidePoubelle(int id)
