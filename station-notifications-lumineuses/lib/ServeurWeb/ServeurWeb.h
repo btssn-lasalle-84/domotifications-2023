@@ -45,6 +45,7 @@ class ServeurWeb : public WebServer
     void traiterRequeteGETBoite();
     void traiterRequetePOSTBoite();
     void traiterRequeteNonTrouvee();
+    void traiterRequetePOSTMachine();
 
   public:
     ServeurWeb(StationLumineuse* stationLumineuse);

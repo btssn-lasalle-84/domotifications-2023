@@ -32,6 +32,9 @@ void ServeurWeb::demarrer()
     on("/boite",
        HTTP_POST,
        std::bind(&ServeurWeb::traiterRequetePOSTBoite, this));
+    on("/machine",
+       HTTP_POST,
+       std::bind(&ServeurWeb::traiterRequetePOSTMachine, this)); // Ajout de la route /machine en POST
     onNotFound(std::bind(&ServeurWeb::traiterRequeteNonTrouvee, this));
 
     // Démarre le serveur
@@ -44,6 +47,7 @@ void ServeurWeb::demarrer()
     Serial.println(WiFi.localIP());
 #endif
 }
+
 
 void ServeurWeb::traiterRequetes()
 {
@@ -170,6 +174,87 @@ void ServeurWeb::traiterRequetePOSTBoite()
         {
 #ifdef DEBUG_SERVEUR_WEB
             Serial.print(F("Erreur : champ etat manquant"));
+#endif
+            send(400,
+                 "application/json",
+                 "{\"error\": { \"code\": \"invalidRequest\", \"message\": "
+                 "\"La demande est incomplète.\"}}");
+            return;
+        }
+    }
+}
+void ServeurWeb::traiterRequetePOSTMachine()
+{
+#ifdef DEBUG_SERVEUR_WEB
+    Serial.print("ServeurWeb::traiterRequetePOSTMachine() : requête = ");
+    Serial.println((method() == HTTP_GET) ? "GET" : "POST");
+    Serial.print("URI : ");
+    Serial.println(uri());
+#endif
+
+    if(hasArg("plain") == false)
+    {
+#ifdef DEBUG_SERVEUR_WEB
+        Serial.println(F("Erreur !"));
+#endif
+        send(400,
+             "application/json",
+             "{\"error\": { \"code\": \"invalidRequest\", \"message\": "
+             "\"La demande est vide ou incorrecte.\"}}");
+        return;
+    }
+
+    String body = arg("plain");
+#ifdef DEBUG_SERVEUR_WEB
+    Serial.println(body);
+#endif
+    DeserializationError erreur = deserializeJson(documentJSON, body);
+    if(erreur)
+    {
+#ifdef DEBUG_SERVEUR_WEB
+        Serial.print(F("Erreur deserializeJson() : "));
+        Serial.println(erreur.f_str());
+#endif
+        send(400,
+             "application/json",
+             "{\"error\": { \"code\": \"invalidRequest\", \"message\": "
+             "\"La demande est mal exprimée ou incorrecte.\"}}");
+        return;
+    }
+    else
+    {
+        JsonObject objetJSON = documentJSON.as<JsonObject>();
+        if(objetJSON.containsKey("etat") && objetJSON.containsKey("numeroMachine"))
+        {
+#ifdef DEBUG_SERVEUR_WEB
+            Serial.print("numeroMachine : ");
+            Serial.println(documentJSON["numeroMachine"].as<int>());
+            Serial.print("etat : ");
+            Serial.println(documentJSON["etat"].as<bool>());
+#endif
+
+            // Modifier l'état de la machine ici
+            int numeroMachine = documentJSON["numeroMachine"].as<int>();
+            bool etatMachine = documentJSON["etat"].as<bool>();
+
+            if (stationLumineuse->estIdValideMachines(numeroMachine)) {
+                stationLumineuse->setEtatMachines(numeroMachine, etatMachine);
+
+                send(200,
+                     "application/json",
+                     "{\"message\": "
+                     "\"ok\"}");
+            } else {
+                send(404,
+                     "application/json",
+                     "{\"error\": { \"code\": \"notFound\", \"message\": "
+                     "\"La machine demandée n'existe pas.\"}}");
+            }
+        }
+        else
+        {
+#ifdef DEBUG_SERVEUR_WEB
+            Serial.print(F("Erreur : champ etat ou numeroMachine manquant"));
 #endif
             send(400,
                  "application/json",
