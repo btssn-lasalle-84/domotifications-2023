@@ -9,15 +9,8 @@
  * @version 0.1
  */
 
+#include "Constantes.h"
 #include <QtWidgets>
-
-/**
- * @def TITRE_APPLICATION
- * @brief Le nom de l'appilcation dans la barre de titre
- */
-#define TITRE_APPLICATION "Domotifications"
-
-#define TEST_NOTIFICATIONS
 
 namespace Ui
 {
@@ -48,6 +41,8 @@ class IHMDomotifications : public QMainWindow
     };
 
   private:
+    QWidget*                widgetPrincipal; //!< Le widget central
+    QVBoxLayout*            layoutPrincipal;
     Ui::IHMDomotifications* ui;               //!< La GUI
     Domotification*         domotification;   //!< l'objet contrôleur de l'application
     QSystemTrayIcon*        iconeSysteme;     //!< L'icône de l'application pour la barre système
@@ -58,8 +53,23 @@ class IHMDomotifications : public QMainWindow
     QAction*                actionQuitter;    //!< L'action quitter l'application
     bool                    etatInitialIconeSysteme; //!< Booléen indiquant si c'est la première
                                                      //!< demande Quitter
+    QPushButton* boutonActivationDesactivation;
+    QPushButton* boutonAcquittement;
+
+    QPixmap* imageBoutonActivation;
+    QPixmap* imageBoutonAcquittement;
+
+    QLabel* logoBTS;
+    QLabel* logoParametre;
+    QLabel* logoMachine;
+    QLabel* logoBoiteAuxLettres;
+    QLabel* logoPoubelle;
+
+    QIcon* iconeActivation;
+    QIcon* iconeAcquittement;
+
 #ifdef TEST_NOTIFICATIONS
-    QWidget*     centralWidget;       //!< Le widget central
+
     QPushButton* boutonNotifier;      //!< Le bouton permettant de tester une notification
     QLineEdit*   messageNotification; //!< Le message de la notification
 #endif
@@ -71,6 +81,18 @@ class IHMDomotifications : public QMainWindow
     void initialiserGUI();
     void initialiserBarreDeTaches();
     void initialiserSignauxSlots();
+
+    void initialiserWidget();
+
+    void afficherWidget();
+
+    void creerActionsMenu();
+
+    void connecterActions();
+
+    void creerMenu();
+
+    void creerIconeBarreDesTache();
 
   public slots:
 #ifdef TEST_NOTIFICATIONS

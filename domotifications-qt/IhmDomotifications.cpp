@@ -8,7 +8,9 @@
 
 #include "IhmDomotifications.h"
 #include "ui_IhmDomotifications.h"
+
 #include "Domotification.h"
+#include "Constantes.h"
 
 /**
  * @brief Constructeur de la classe IHMDomotifications
@@ -35,6 +37,8 @@ IHMDomotifications::IHMDomotifications(QWidget* parent) :
 IHMDomotifications::~IHMDomotifications()
 {
     delete ui;
+    delete imageBoutonActivation;
+    delete imageBoutonAcquittement;
     qDebug() << Q_FUNC_INFO;
 }
 
@@ -49,15 +53,14 @@ IHMDomotifications::~IHMDomotifications()
  */
 void IHMDomotifications::visualiserNotification(QString message, TypeNotification type)
 {
-    /**
-     * @todo Décider de conserver les types de notifications ?
-     */
     QSystemTrayIcon::MessageIcon messageIcon =
-      QSystemTrayIcon::MessageIcon(QSystemTrayIcon::Information);
+      QSystemTrayIcon::MessageIcon(QSystemTrayIcon::Critical);
 
     /**
      * @todo Choisir une durée associée ?
      */
+
+    /*
     switch(type)
     {
         case IHMDomotifications::TypeNotification::Information:
@@ -72,8 +75,8 @@ void IHMDomotifications::visualiserNotification(QString message, TypeNotificatio
         default:
             break;
     }
-    if(type < IHMDomotifications::TypeNotification::NbTypes)
-        iconeSysteme->showMessage(TITRE_APPLICATION, message, messageIcon);
+    */
+    iconeSysteme->showMessage(TITRE_APPLICATION, message, messageIcon);
 }
 
 /**
@@ -98,6 +101,61 @@ void IHMDomotifications::testerNotification()
 #endif
 
 /**
+ * @brief Initialise les widgets
+ *
+ * @fn IHMDomotifications::initialiserWidget
+ * @details Initialise les widgets de l'IHM.
+ */
+void IHMDomotifications::initialiserWidget()
+{
+    widgetPrincipal = new QWidget(this);
+    layoutPrincipal = new QVBoxLayout(this);
+
+    boutonActivationDesactivation = new QPushButton(this);
+    boutonAcquittement            = new QPushButton(this);
+
+    imageBoutonActivation   = new QPixmap(CHEMIN_BOUTON_ACTIVATION_DESACTIVATION);
+    imageBoutonAcquittement = new QPixmap(CHEMIN_BOUTON_ACQUITTEMENT);
+
+    logoBTS             = new QLabel(this);
+    logoParametre       = new QLabel(this);
+    logoBoiteAuxLettres = new QLabel(this);
+    logoMachine         = new QLabel(this);
+    logoPoubelle        = new QLabel(this);
+
+    iconeAcquittement = new QIcon(*imageBoutonAcquittement);
+    iconeActivation   = new QIcon(*imageBoutonActivation);
+}
+
+/**
+ * @brief Affiche les Widgets
+ * @fn IHMDomotifications::afficherWidget
+ * @details Affiche les widget de l'IHM
+ */
+void IHMDomotifications::afficherWidget()
+{
+    logoBTS->setPixmap(QPixmap(CHEMIN_LOGO_BTS_SN));
+    /**
+     * @todo Affichage des Widgets
+     * logoParametre->setPixmap(QPixmap(CHEMIN_LOGO_PARAMETRE));
+     * logoPoubelle->setPixmap(QPixmap(CHEMIN_LOGO_POUBELLE));
+     * logoBoiteAuxLettres->setPixmap(QPixmap(CHEMIN_LOGO_BOITE_AUX_LETTRES));
+     * logoMachine->setPixmap(QPixmap(CHEMIN_LOGO_MACHINE));
+     */
+    boutonActivationDesactivation->setIcon(*iconeActivation);
+    boutonActivationDesactivation->setIconSize(
+      imageBoutonActivation->scaled(HAUTEUR_IMAGE, LARGEUR_IMAGE).size());
+    boutonActivationDesactivation->setFixedSize(
+      imageBoutonActivation->scaled(HAUTEUR_IMAGE, LARGEUR_IMAGE).size());
+
+    boutonAcquittement->setIcon(*iconeAcquittement);
+    boutonAcquittement->setIconSize(
+      imageBoutonAcquittement->scaled(HAUTEUR_IMAGE, LARGEUR_IMAGE).size());
+    boutonAcquittement->setFixedSize(
+      imageBoutonAcquittement->scaled(HAUTEUR_IMAGE, LARGEUR_IMAGE).size());
+}
+
+/**
  * @brief Initialise la page
  *
  * @fn IHMDomotifications::initialiserGUI
@@ -105,30 +163,95 @@ void IHMDomotifications::testerNotification()
  */
 void IHMDomotifications::initialiserGUI()
 {
+    initialiserWidget();
+    afficherWidget();
+
+    layoutPrincipal->addWidget(logoBTS, 0, Qt::AlignTop | Qt::AlignLeft);
+    layoutPrincipal->addWidget(logoParametre, 0, Qt::AlignTop | Qt::AlignRight);
+
+    layoutPrincipal->addWidget(boutonAcquittement);
+    layoutPrincipal->addWidget(boutonActivationDesactivation);
+
+    widgetPrincipal->setLayout(layoutPrincipal);
+    setCentralWidget(widgetPrincipal);
+
+    setGeometry(QStyle::alignedRect(Qt::LeftToRight,
+                                    Qt::AlignCenter,
+                                    size(),
+                                    qApp->desktop()->availableGeometry()));
 #ifdef TEST_NOTIFICATIONS
-    centralWidget = new QWidget;
 
     boutonNotifier      = new QPushButton("Notifier", this);
     messageNotification = new QLineEdit(this);
     messageNotification->setText("La machine est finie !");
     messageNotification->setFont(QFont("Courier New", 14, QFont::Bold));
 
-    QVBoxLayout* mainLayout     = new QVBoxLayout;
-    QHBoxLayout* hLayoutBoutons = new QHBoxLayout;
     QHBoxLayout* hLayoutMessage = new QHBoxLayout;
     hLayoutMessage->addWidget(messageNotification);
     mainLayout->addLayout(hLayoutMessage);
-    hLayoutBoutons->addWidget(boutonNotifier);
-    mainLayout->addLayout(hLayoutBoutons);
     mainLayout->addStretch();
-    centralWidget->setLayout(mainLayout);
+
     setCentralWidget(centralWidget);
 
 #endif
-    setGeometry(QStyle::alignedRect(Qt::LeftToRight,
-                                    Qt::AlignCenter,
-                                    size(),
-                                    qApp->desktop()->availableGeometry()));
+}
+
+/**
+ * @brief Créer les actions du menu
+ *
+ * @fn IHMDomotifications::creerActionsMenu
+ * @details Créer les actions du menu de l'application en fond de tâche.
+ */
+void IHMDomotifications::creerActionsMenu()
+{
+    actionMinimiser = new QAction(QString::fromUtf8("Minimiser"), this);
+    actionMaximiser = new QAction(QString::fromUtf8("Maximiser"), this);
+    actionRestaurer = new QAction(QString::fromUtf8("Restaurer"), this);
+    actionQuitter   = new QAction(QString::fromUtf8("&Quitter"), this);
+}
+
+/**
+ * @brief Connection des actions
+ *
+ * @fn IHMDomotifications::connecterActions
+ * @details Fait la connection à l'aide de connect pour relier les signaux du menu aux slots
+ * associés.
+ */
+void IHMDomotifications::connecterActions()
+{
+    connect(actionMinimiser, SIGNAL(triggered(bool)), this, SLOT(hide()));
+    connect(actionMaximiser, SIGNAL(triggered(bool)), this, SLOT(showMaximized()));
+    connect(actionRestaurer, SIGNAL(triggered(bool)), this, SLOT(showNormal()));
+    connect(actionQuitter, SIGNAL(triggered(bool)), qApp, SLOT(quit()));
+}
+
+/**
+ * @brief Creation du menu
+ *
+ * @fn IHMDomotifications::creerMenu
+ * @details Crée le menu pour la barre des tâches
+ */
+void IHMDomotifications::creerMenu()
+{
+    menuIconeSysteme = new QMenu(this);
+    menuIconeSysteme->addAction(actionMinimiser);
+    menuIconeSysteme->addAction(actionMaximiser);
+    menuIconeSysteme->addAction(actionRestaurer);
+    menuIconeSysteme->addSeparator();
+    menuIconeSysteme->addAction(actionQuitter);
+}
+
+/**
+ * @brief Creation des icones de la barre des tâches
+ *
+ * @fn IHMDomotifications::creerIconeBarreDesTache
+ * @details Crée l'icone de l'application en fond sur la barre des tâches
+ */
+void IHMDomotifications::creerIconeBarreDesTache()
+{
+    iconeSysteme = new QSystemTrayIcon(this);
+    iconeSysteme->setContextMenu(menuIconeSysteme);
+    iconeSysteme->setToolTip(TITRE_APPLICATION);
 }
 
 /**
@@ -139,29 +262,13 @@ void IHMDomotifications::initialiserGUI()
  */
 void IHMDomotifications::initialiserBarreDeTaches()
 {
-    actionMinimiser = new QAction(QString::fromUtf8("Minimiser"), this);
-    actionMaximiser = new QAction(QString::fromUtf8("Maximiser"), this);
-    actionRestaurer = new QAction(QString::fromUtf8("Restaurer"), this);
-    actionQuitter   = new QAction(QString::fromUtf8("&Quitter"), this);
+    creerActionsMenu();
 
-    // Connecte les actions
-    connect(actionMinimiser, SIGNAL(triggered(bool)), this, SLOT(hide()));
-    connect(actionMaximiser, SIGNAL(triggered(bool)), this, SLOT(showMaximized()));
-    connect(actionRestaurer, SIGNAL(triggered(bool)), this, SLOT(showNormal()));
-    connect(actionQuitter, SIGNAL(triggered(bool)), qApp, SLOT(quit()));
+    connecterActions();
 
-    // Crée le menu
-    menuIconeSysteme = new QMenu(this);
-    menuIconeSysteme->addAction(actionMinimiser);
-    menuIconeSysteme->addAction(actionMaximiser);
-    menuIconeSysteme->addAction(actionRestaurer);
-    menuIconeSysteme->addSeparator();
-    menuIconeSysteme->addAction(actionQuitter);
+    creerMenu();
 
-    // Crée l'icône pour la barre de tâche
-    iconeSysteme = new QSystemTrayIcon(this);
-    iconeSysteme->setContextMenu(menuIconeSysteme);
-    iconeSysteme->setToolTip("Domotifications");
+    creerIconeBarreDesTache();
 
     iconeSysteme->show();
     etatInitialIconeSysteme = true;
@@ -176,6 +283,7 @@ void IHMDomotifications::initialiserBarreDeTaches()
 void IHMDomotifications::initialiserSignauxSlots()
 {
     connect(iconeSysteme, SIGNAL(messageClicked()), this, SLOT(acquitterNotification()));
+
 #ifdef TEST_NOTIFICATIONS
     connect(boutonNotifier, SIGNAL(clicked(bool)), this, SLOT(testerNotification()));
 #endif

@@ -17,6 +17,7 @@ SOURCES += \
 
 HEADERS += \
     Communication.h \
+    Constantes.h \
     Domotification.h \
     IhmDomotifications.h \
     Module.h
