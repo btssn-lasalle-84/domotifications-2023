@@ -24,7 +24,7 @@
 #define NB_LEDS_NOTIFICATION_BOITE       5
 #define INDEX_LEDS_NOTIFICATION_MACHINES 0
 #define INDEX_LEDS_NOTIFICATION_POUBELLES                                      \
-    (INDEX_LEDS_NOTIFICATION_MACHINES + NB_LEDS_NOTIFICATION_MACHINES)
+    (INDEX_LEDS_NOTIFICATION_MACHINES+ NB_LEDS_NOTIFICATION_MACHINES)
 #define INDEX_LEDS_NOTIFICATION_BOITE                                          \
     (INDEX_LEDS_NOTIFICATION_POUBELLES + NB_LEDS_NOTIFICATION_POUBELLES)
 
@@ -38,7 +38,7 @@ class StationLumineuse
     Adafruit_NeoPixel leds;           //!< le bandeau à leds multi-couleurs
     Preferences       preferences;    //!< pour le stockage interne
     bool etatBoiteAuxLettres = false; //!< l'état de la boîte aux lettres
-    bool etatMachines[NB_LEDS_NOTIFICATION_MACHINES]   = { false, false, false,
+    bool etatmachines[NB_LEDS_NOTIFICATION_MACHINES]   = { false, false, false,
                                                            false, false, false };
     bool etatPoubelles[NB_LEDS_NOTIFICATION_POUBELLES] = { false,
                                                            false,
@@ -57,29 +57,24 @@ class StationLumineuse
     void resetEtatBoiteAuxLettres();
     void allumerNotificationBoiteAuxLettres();
     void eteindreNotificationBoiteAuxLettres();
-    bool estIdValideMachine(int id);
-    bool getEtatMachine(int numeroMachine);
-    void setEtatMachine(int numeroMachine, bool etat);
-    void setEtatMachines();
-    void resetEtatMachines();
-    void allumerNotificationMachine(int numeroMachine);
-    void eteindreNotificationMachine(int numeroMachine);
-    void allumerNotificationMachines();
-    void eteindreNotificationMachines();
+    bool estIdValideMachines(int id);
+    bool getEtatMachines(int numeromachines);
+    void setEtatMachines(int numeromachines, bool etat);
+    void resetEtatMachines(int numeromachines);
+    void allumerNotificationMachines(int numeromachines);
+    void eteindreNotificationMachines(int numeromachines);
     bool estIdValidePoubelle(int id);
     bool getEtatPoubelle(int numeroPoubelle);
     void setEtatPoubelle(int numeroPoubelle, bool etat);
     void setEtatPoubelle();
     void resetEtatPoubelle();
-    void allumerNotificationPoubelle(int numeroPoubelle);
-    void eteindreNotificationPoubelle(int numeroPoubelle);
-    void allumerNotificationPoubelle();
-    void eteindreNotificationPoubelle();
+    void allumerNotificationPoubelles(int numeroPoubelles);
+    void eteindreNotificationPoubelles(int numeroPoubelles);
 
 #ifdef TEST_BANDEAU
     // Fonctions de test
     void testerBoiteAuxLettres();
-    void testerMachines();
+    void testermachines();
     void testerPoubelles();
 #endif
 };

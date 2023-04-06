@@ -78,7 +78,7 @@ void ServeurWeb::traiterRequeteGETNotifications()
     JsonArray machines    = documentJSON.createNestedArray("machines");
     for(int i = 0; i < NB_LEDS_NOTIFICATION_MACHINES; ++i)
     {
-        machines.add(stationLumineuse->getEtatMachine(i));
+        machines.add(stationLumineuse->getEtatMachines(i));
     }
     JsonArray poubelle    = documentJSON.createNestedArray("poubelle");
     for(int i = 0; i < NB_LEDS_NOTIFICATION_POUBELLES; ++i)
