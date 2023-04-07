@@ -53,11 +53,18 @@ class IHMDomotifications : public QMainWindow
     QAction*                actionQuitter;    //!< L'action quitter l'application
     bool                    etatInitialIconeSysteme; //!< Booléen indiquant si c'est la première
                                                      //!< demande Quitter
-    QPushButton* boutonActivationDesactivation;
-    QPushButton* boutonAcquittement;
+    QPushButton* boutonActivationDesactivationMachine;
+    QPushButton* boutonActivationDesactivationBoiteAuxLettres;
+    QPushButton* boutonActivationDesactivationPoubelle;
+    QPushButton* boutonAcquittementMachine;
+    QPushButton* boutonAcquittementPoubelle;
+    QPushButton* boutonAcquittementBoiteAuxLettres;
 
     QPixmap* imageBoutonActivation;
     QPixmap* imageBoutonAcquittement;
+    QPixmap* imageLogoBTS;
+    QPixmap* imageLogoParametre;
+    QPixmap* imageLogoPoubelle;
 
     QLabel* logoBTS;
     QLabel* logoParametre;
@@ -67,6 +74,8 @@ class IHMDomotifications : public QMainWindow
 
     QIcon* iconeActivation;
     QIcon* iconeAcquittement;
+
+    QRect* rect;
 
 #ifdef TEST_NOTIFICATIONS
 
@@ -93,6 +102,10 @@ class IHMDomotifications : public QMainWindow
     void creerMenu();
 
     void creerIconeBarreDesTache();
+
+    void afficherBoutonActivationDesactivation();
+
+    void afficherBoutonAcquittement();
 
   public slots:
 #ifdef TEST_NOTIFICATIONS

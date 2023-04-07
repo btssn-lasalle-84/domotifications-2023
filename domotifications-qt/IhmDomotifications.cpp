@@ -111,11 +111,18 @@ void IHMDomotifications::initialiserWidget()
     widgetPrincipal = new QWidget(this);
     layoutPrincipal = new QVBoxLayout(this);
 
-    boutonActivationDesactivation = new QPushButton(this);
-    boutonAcquittement            = new QPushButton(this);
+    boutonActivationDesactivationMachine         = new QPushButton(this);
+    boutonActivationDesactivationBoiteAuxLettres = new QPushButton(this);
+    boutonActivationDesactivationPoubelle        = new QPushButton(this);
+    boutonAcquittementPoubelle                   = new QPushButton(this);
+    boutonAcquittementBoiteAuxLettres            = new QPushButton(this);
+    boutonAcquittementMachine                    = new QPushButton(this);
 
     imageBoutonActivation   = new QPixmap(CHEMIN_BOUTON_ACTIVATION_DESACTIVATION);
     imageBoutonAcquittement = new QPixmap(CHEMIN_BOUTON_ACQUITTEMENT);
+    imageLogoBTS            = new QPixmap(CHEMIN_LOGO_BTS_SN);
+    imageLogoParametre      = new QPixmap(CHEMIN_LOGO_PARAMETRE);
+    imageLogoPoubelle       = new QPixmap(CHEMIN_LOGO_POUBELLE);
 
     logoBTS             = new QLabel(this);
     logoParametre       = new QLabel(this);
@@ -123,8 +130,62 @@ void IHMDomotifications::initialiserWidget()
     logoMachine         = new QLabel(this);
     logoPoubelle        = new QLabel(this);
 
+    rect = new QRect(10, 10, 121, 121);
+
     iconeAcquittement = new QIcon(*imageBoutonAcquittement);
     iconeActivation   = new QIcon(*imageBoutonActivation);
+}
+
+/**
+ * @brief Affichage des boutons d'activation/desactivation
+ * @fn IHMDomotifications::afficherBoutonActivationDesactivation
+ * @details Affichage des boutons d'activation et de desactivation des différents modules
+ */
+void IHMDomotifications::afficherBoutonActivationDesactivation()
+{
+    boutonActivationDesactivationMachine->setIcon(*iconeActivation);
+    boutonActivationDesactivationMachine->setIconSize(
+      imageBoutonActivation->scaled(HAUTEUR_IMAGE, LARGEUR_IMAGE).size());
+    boutonActivationDesactivationMachine->setFixedSize(
+      imageBoutonActivation->scaled(HAUTEUR_IMAGE, LARGEUR_IMAGE).size());
+
+    boutonActivationDesactivationPoubelle->setIcon(*iconeActivation);
+    boutonActivationDesactivationPoubelle->setIconSize(
+      imageBoutonActivation->scaled(HAUTEUR_IMAGE, LARGEUR_IMAGE).size());
+    boutonActivationDesactivationPoubelle->setFixedSize(
+      imageBoutonActivation->scaled(HAUTEUR_IMAGE, LARGEUR_IMAGE).size());
+
+    boutonActivationDesactivationBoiteAuxLettres->setIcon(*iconeActivation);
+    boutonActivationDesactivationBoiteAuxLettres->setIconSize(
+      imageBoutonActivation->scaled(HAUTEUR_IMAGE, LARGEUR_IMAGE).size());
+    boutonActivationDesactivationBoiteAuxLettres->setFixedSize(
+      imageBoutonActivation->scaled(HAUTEUR_IMAGE, LARGEUR_IMAGE).size());
+}
+
+/**
+ * @brief Affichage des boutons d'acquittement
+ * @fn IHMDomotifications::afficherBoutonAcquittement
+ * @details Affichage des boutons d'acquittement des différents modules
+ */
+void IHMDomotifications::afficherBoutonAcquittement()
+{
+    boutonAcquittementMachine->setIcon(*iconeAcquittement);
+    boutonAcquittementMachine->setIconSize(
+      imageBoutonAcquittement->scaled(HAUTEUR_IMAGE, LARGEUR_IMAGE).size());
+    boutonAcquittementMachine->setFixedSize(
+      imageBoutonAcquittement->scaled(HAUTEUR_IMAGE, LARGEUR_IMAGE).size());
+
+    boutonAcquittementPoubelle->setIcon(*iconeAcquittement);
+    boutonAcquittementPoubelle->setIconSize(
+      imageBoutonAcquittement->scaled(HAUTEUR_IMAGE, LARGEUR_IMAGE).size());
+    boutonAcquittementPoubelle->setFixedSize(
+      imageBoutonAcquittement->scaled(HAUTEUR_IMAGE, LARGEUR_IMAGE).size());
+
+    boutonAcquittementBoiteAuxLettres->setIcon(*iconeAcquittement);
+    boutonAcquittementBoiteAuxLettres->setIconSize(
+      imageBoutonAcquittement->scaled(HAUTEUR_IMAGE, LARGEUR_IMAGE).size());
+    boutonAcquittementBoiteAuxLettres->setFixedSize(
+      imageBoutonAcquittement->scaled(HAUTEUR_IMAGE, LARGEUR_IMAGE).size());
 }
 
 /**
@@ -134,25 +195,32 @@ void IHMDomotifications::initialiserWidget()
  */
 void IHMDomotifications::afficherWidget()
 {
-    logoBTS->setPixmap(QPixmap(CHEMIN_LOGO_BTS_SN));
+    logoBTS->setGeometry(0, 0, 210, 210);
+    logoPoubelle->setPixmap(imageLogoPoubelle->scaled(150, 150));
+    boutonAcquittementBoiteAuxLettres->setGeometry(210, 210, 51, 51);
+    boutonAcquittementMachine->setGeometry(210, 210, 51, 51);
+    boutonAcquittementPoubelle->setGeometry(210, 210, 51, 51);
+
     /**
-     * @todo Affichage des Widgets
-     * logoParametre->setPixmap(QPixmap(CHEMIN_LOGO_PARAMETRE));
-     * logoPoubelle->setPixmap(QPixmap(CHEMIN_LOGO_POUBELLE));
+     * @todo Affichage des logos
+     * logoParametre->setFixedSize(100, 140);
+
      * logoBoiteAuxLettres->setPixmap(QPixmap(CHEMIN_LOGO_BOITE_AUX_LETTRES));
      * logoMachine->setPixmap(QPixmap(CHEMIN_LOGO_MACHINE));
      */
-    boutonActivationDesactivation->setIcon(*iconeActivation);
-    boutonActivationDesactivation->setIconSize(
-      imageBoutonActivation->scaled(HAUTEUR_IMAGE, LARGEUR_IMAGE).size());
-    boutonActivationDesactivation->setFixedSize(
-      imageBoutonActivation->scaled(HAUTEUR_IMAGE, LARGEUR_IMAGE).size());
 
-    boutonAcquittement->setIcon(*iconeAcquittement);
-    boutonAcquittement->setIconSize(
-      imageBoutonAcquittement->scaled(HAUTEUR_IMAGE, LARGEUR_IMAGE).size());
-    boutonAcquittement->setFixedSize(
-      imageBoutonAcquittement->scaled(HAUTEUR_IMAGE, LARGEUR_IMAGE).size());
+    afficherBoutonActivationDesactivation();
+    afficherBoutonAcquittement();
+
+    layoutPrincipal->addWidget(logoBTS);
+    layoutPrincipal->addWidget(logoPoubelle);
+
+    layoutPrincipal->addWidget(boutonAcquittementMachine);
+    layoutPrincipal->addWidget(boutonAcquittementPoubelle);
+    layoutPrincipal->addWidget(boutonAcquittementBoiteAuxLettres);
+    layoutPrincipal->addWidget(boutonActivationDesactivationMachine);
+    layoutPrincipal->addWidget(boutonActivationDesactivationPoubelle);
+    layoutPrincipal->addWidget(boutonActivationDesactivationBoiteAuxLettres);
 }
 
 /**
@@ -165,12 +233,6 @@ void IHMDomotifications::initialiserGUI()
 {
     initialiserWidget();
     afficherWidget();
-
-    layoutPrincipal->addWidget(logoBTS, 0, Qt::AlignTop | Qt::AlignLeft);
-    layoutPrincipal->addWidget(logoParametre, 0, Qt::AlignTop | Qt::AlignRight);
-
-    layoutPrincipal->addWidget(boutonAcquittement);
-    layoutPrincipal->addWidget(boutonActivationDesactivation);
 
     widgetPrincipal->setLayout(layoutPrincipal);
     setCentralWidget(widgetPrincipal);
@@ -194,6 +256,26 @@ void IHMDomotifications::initialiserGUI()
     setCentralWidget(centralWidget);
 
 #endif
+}
+
+/**
+ * @brief Initialise la Barre de taches
+ *
+ * @fn IHMDomotifications::initialiserBarreDeTaches
+ * @details Initialise l'icone et l'application en arrière plan
+ */
+void IHMDomotifications::initialiserBarreDeTaches()
+{
+    creerActionsMenu();
+
+    connecterActions();
+
+    creerMenu();
+
+    creerIconeBarreDesTache();
+
+    iconeSysteme->show();
+    etatInitialIconeSysteme = true;
 }
 
 /**
@@ -252,26 +334,6 @@ void IHMDomotifications::creerIconeBarreDesTache()
     iconeSysteme = new QSystemTrayIcon(this);
     iconeSysteme->setContextMenu(menuIconeSysteme);
     iconeSysteme->setToolTip(TITRE_APPLICATION);
-}
-
-/**
- * @brief Initialise la Barre de taches
- *
- * @fn IHMDomotifications::initialiserBarreDeTaches
- * @details Initialise l'icone et l'application en arrière plan
- */
-void IHMDomotifications::initialiserBarreDeTaches()
-{
-    creerActionsMenu();
-
-    connecterActions();
-
-    creerMenu();
-
-    creerIconeBarreDesTache();
-
-    iconeSysteme->show();
-    etatInitialIconeSysteme = true;
 }
 
 /**
