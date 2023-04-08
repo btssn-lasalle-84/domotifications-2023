@@ -11,6 +11,7 @@
 
 #include "Constantes.h"
 #include <QtWidgets>
+#include <QObject>
 
 namespace Ui
 {
@@ -43,6 +44,7 @@ class IHMDomotifications : public QMainWindow
   private:
     QWidget*                widgetPrincipal; //!< Le widget central
     QVBoxLayout*            layoutPrincipal;
+    QVBoxLayout* layoutBoutonsPoubelle;
     Ui::IHMDomotifications* ui;               //!< La GUI
     Domotification*         domotification;   //!< l'objet contrôleur de l'application
     QSystemTrayIcon*        iconeSysteme;     //!< L'icône de l'application pour la barre système

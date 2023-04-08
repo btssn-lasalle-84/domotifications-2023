@@ -110,6 +110,7 @@ void IHMDomotifications::initialiserWidget()
 {
     widgetPrincipal = new QWidget(this);
     layoutPrincipal = new QVBoxLayout(this);
+    layoutBoutonsPoubelle = new QVBoxLayout(this);
 
     boutonActivationDesactivationMachine         = new QPushButton(this);
     boutonActivationDesactivationBoiteAuxLettres = new QPushButton(this);
@@ -130,7 +131,6 @@ void IHMDomotifications::initialiserWidget()
     logoMachine         = new QLabel(this);
     logoPoubelle        = new QLabel(this);
 
-    rect = new QRect(10, 10, 121, 121);
 
     iconeAcquittement = new QIcon(*imageBoutonAcquittement);
     iconeActivation   = new QIcon(*imageBoutonActivation);
@@ -195,11 +195,7 @@ void IHMDomotifications::afficherBoutonAcquittement()
  */
 void IHMDomotifications::afficherWidget()
 {
-    logoBTS->setGeometry(0, 0, 210, 210);
-    logoPoubelle->setPixmap(imageLogoPoubelle->scaled(150, 150));
-    boutonAcquittementBoiteAuxLettres->setGeometry(210, 210, 51, 51);
-    boutonAcquittementMachine->setGeometry(210, 210, 51, 51);
-    boutonAcquittementPoubelle->setGeometry(210, 210, 51, 51);
+
 
     /**
      * @todo Affichage des logos
@@ -209,6 +205,9 @@ void IHMDomotifications::afficherWidget()
      * logoMachine->setPixmap(QPixmap(CHEMIN_LOGO_MACHINE));
      */
 
+    layoutBoutonsPoubelle->addWidget(boutonAcquittementPoubelle);
+    layoutBoutonsPoubelle->addWidget(boutonActivationDesactivationPoubelle);
+
     afficherBoutonActivationDesactivation();
     afficherBoutonAcquittement();
 
@@ -216,10 +215,8 @@ void IHMDomotifications::afficherWidget()
     layoutPrincipal->addWidget(logoPoubelle);
 
     layoutPrincipal->addWidget(boutonAcquittementMachine);
-    layoutPrincipal->addWidget(boutonAcquittementPoubelle);
     layoutPrincipal->addWidget(boutonAcquittementBoiteAuxLettres);
     layoutPrincipal->addWidget(boutonActivationDesactivationMachine);
-    layoutPrincipal->addWidget(boutonActivationDesactivationPoubelle);
     layoutPrincipal->addWidget(boutonActivationDesactivationBoiteAuxLettres);
 }
 
