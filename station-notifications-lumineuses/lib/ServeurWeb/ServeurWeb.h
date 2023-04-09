@@ -1,12 +1,12 @@
-#ifndef SERVEURWEB_H
-#define SERVEURWEB_H
-
 /**
  * @file ServeurWeb.h
  * @brief Déclaration de la classe ServeurWeb
  * @author Alexis Vaillen
  * @version 0.1
  */
+
+#ifndef SERVEURWEB_H
+#define SERVEURWEB_H
 
 #include <WebServer.h>
 #include <ArduinoJson.h>
@@ -33,6 +33,10 @@
 
 class StationLumineuse;
 
+/**
+ * @class ServeurWeb
+ * @brief Déclaration de la classe ServeurWeb
+ */
 class ServeurWeb : public WebServer
 {
   private:

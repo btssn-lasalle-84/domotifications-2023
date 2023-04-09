@@ -1,7 +1,13 @@
+/**
+ * @file StationLumineuse.cpp
+ * @brief Définition de la classe StationLumineuse
+ * @author Alexis Vaillen
+ * @version 0.1
+ */
+
 #include "StationLumineuse.h"
 
-StationLumineuse::StationLumineuse() :
-    leds(NB_LEDS, PIN_BANDEAU, NEO_GRB + NEO_KHZ800)
+StationLumineuse::StationLumineuse() : leds(NB_LEDS, PIN_BANDEAU, NEO_GRB + NEO_KHZ800)
 {
 }
 
@@ -12,11 +18,13 @@ void StationLumineuse::initialiserPreferences()
     char cle[64]        = "";
     for(int i = 0; i < NB_LEDS_NOTIFICATION_MACHINES; ++i)
     {
-        sprintf((char*)cle, "%s%d", "machines", i);
-        etatmachines[i] = preferences.getBool(cle, false);
+        // machine0, machine1, etc..
+        sprintf((char*)cle, "%s%d", "machine", i);
+        etatMachines[i] = preferences.getBool(cle, false);
     }
     for(int i = 0; i < NB_LEDS_NOTIFICATION_POUBELLES; ++i)
     {
+        // poubelle0, poubelle1, etc..
         sprintf((char*)cle, "%s%d", "poubelle", i);
         etatPoubelles[i] = preferences.getBool(cle, false);
     }
@@ -29,7 +37,7 @@ void StationLumineuse::initialiserNotifications()
 
 #ifdef TEST_BANDEAU
     testerBoiteAuxLettres();
-    testermachines();
+    testerMachines();
     testerPoubelles();
 #endif
 
@@ -37,32 +45,36 @@ void StationLumineuse::initialiserNotifications()
      * Allumer/Eteindre les leds de notifications à partir des états
      * sauvegardés
      */
-    if(etatBoiteAuxLettres){
+    if(etatBoiteAuxLettres)
+    {
         allumerNotificationBoiteAuxLettres();
     }
-    else {
+    else
+    {
         eteindreNotificationBoiteAuxLettres();
     }
 
-    for(int i = 0 ;i < NB_LEDS_NOTIFICATION_MACHINES; i++ )
+    for(int i = 0; i < NB_LEDS_NOTIFICATION_MACHINES; i++)
     {
-        if(etatmachines[i])
+        if(etatMachines[i])
         {
-            allumerNotificationMachines(i);
+            allumerNotificationMachine(i);
         }
-        else {
-            eteindreNotificationMachines(i);
+        else
+        {
+            eteindreNotificationMachine(i);
         }
     }
 
-    for(int i = 0; i< NB_LEDS_NOTIFICATION_POUBELLES; i++)
+    for(int i = 0; i < NB_LEDS_NOTIFICATION_POUBELLES; i++)
     {
         if(etatPoubelles[i])
         {
-            allumerNotificationPoubelles(i);
+            allumerNotificationPoubelle(i);
         }
-        else{
-            eteindreNotificationPoubelles(i);
+        else
+        {
+            eteindreNotificationPoubelle(i);
         }
     }
 }
@@ -121,45 +133,52 @@ void StationLumineuse::eteindreNotificationBoiteAuxLettres()
     }
 }
 
-bool StationLumineuse::estIdValideMachines(int numeromachines)
+bool StationLumineuse::estIdValideMachine(int numeroMachine)
 {
-    return (numeromachines >= 0 && numeromachines < NB_LEDS_NOTIFICATION_POUBELLES);
+    return (numeroMachine >= 0 && numeroMachine < NB_LEDS_NOTIFICATION_MACHINES);
 }
 
-bool StationLumineuse::getEtatMachines(int numeromachines)
+bool StationLumineuse::getEtatMachine(int numeroMachine)
 {
-  if (estIdValideMachines(numeromachines))
-  {
-    return etatmachines[numeromachines];
-  }
-  else
-  {
-    return false;
-  }
-}
-
-void StationLumineuse::setEtatMachines(int numeromachines, bool etat)
-{
-    etatmachines[numeromachines] = etat;
-    preferences.putBool("machines", etatmachines[numeromachines]);
-    if (etat) {
-        allumerNotificationMachines(numeromachines);
-    } else {
-        eteindreNotificationMachines(numeromachines);
+    if(estIdValideMachine(numeroMachine))
+    {
+        return etatMachines[numeroMachine];
+    }
+    else
+    {
+        return false;
     }
 }
 
-void StationLumineuse::resetEtatMachines(int numeromachines)
+void StationLumineuse::setEtatMachine(int numeroMachine, bool etat)
 {
-    etatmachines[numeromachines] = false;
-    preferences.putBool("machines",etatmachines);
-    eteindreNotificationMachines(numeromachines);
+    if(!estIdValideMachine(numeroMachine))
+        return;
+    etatMachines[numeroMachine] = etat;
+    char cle[64]                = "";
+    sprintf((char*)cle, "%s%d", "machine", numeroMachine);
+    preferences.putBool(cle, etatMachines[numeroMachine]);
+    if(etat)
+    {
+        allumerNotificationMachine(numeroMachine);
+    }
+    else
+    {
+        eteindreNotificationMachine(numeroMachine);
+    }
 }
 
-
-void StationLumineuse::allumerNotificationMachines(int numeromachines)
+void StationLumineuse::resetEtatMachines()
 {
-        for(int i = INDEX_LEDS_NOTIFICATION_MACHINES;
+}
+
+void StationLumineuse::allumerNotificationMachine(int numeroMachine)
+{
+}
+
+void StationLumineuse::allumerNotificationMachines()
+{
+    for(int i = INDEX_LEDS_NOTIFICATION_MACHINES;
         i < (INDEX_LEDS_NOTIFICATION_MACHINES + NB_LEDS_NOTIFICATION_MACHINES);
         ++i)
     {
@@ -171,9 +190,13 @@ void StationLumineuse::allumerNotificationMachines(int numeromachines)
     }
 }
 
-void StationLumineuse::eteindreNotificationMachines(int numeromachines)
+void StationLumineuse::eteindreNotificationMachine(int numeroMachine)
 {
-        for(int i = INDEX_LEDS_NOTIFICATION_MACHINES;
+}
+
+void StationLumineuse::eteindreNotificationMachines()
+{
+    for(int i = INDEX_LEDS_NOTIFICATION_MACHINES;
         i < (INDEX_LEDS_NOTIFICATION_MACHINES + NB_LEDS_NOTIFICATION_MACHINES);
         ++i)
     {
@@ -199,24 +222,25 @@ void StationLumineuse::setEtatPoubelle(int numeroPoubelles, bool etat)
 {
 }
 
-void StationLumineuse::setEtatPoubelle()
+void StationLumineuse::resetEtatPoubelles()
 {
 }
 
-void StationLumineuse::resetEtatPoubelle()
+void StationLumineuse::allumerNotificationPoubelle(int numeroPoubelle)
 {
 }
 
-
-
-void StationLumineuse::allumerNotificationPoubelles(int numeroPoubelles)
+void StationLumineuse::allumerNotificationPoubelles()
 {
 }
 
-void StationLumineuse::eteindreNotificationPoubelles(int numeroPoubelles)
+void StationLumineuse::eteindreNotificationPoubelle(int numeroPoubelle)
 {
 }
 
+void StationLumineuse::eteindreNotificationPoubelles()
+{
+}
 
 #ifdef TEST_BANDEAU
 // Fonctions de test
@@ -232,7 +256,7 @@ void StationLumineuse::testerBoiteAuxLettres()
     delay(1000);
 }
 
-void StationLumineuse::testermachines()
+void StationLumineuse::testerMachines()
 {
     for(int i = INDEX_LEDS_NOTIFICATION_machines;
         i < (INDEX_LEDS_NOTIFICATION_machines + NB_LEDS_NOTIFICATION_machines);
@@ -253,10 +277,10 @@ void StationLumineuse::testerPoubelles()
         leds.setPixelColor(i, leds.Color(0, 255, 0)); // RGB vert
         leds.show();
         delay(1000);
-        leds.setPixelcolor (in leds.Color(255,0,0)); //rouge
+        leds.setPixelcolor(in leds.Color(255, 0, 0)); // rouge
         leds.show();
         delay(1000);
-          leds.setPixelcolor (in leds.Color(0,0,255)); //bleu
+        leds.setPixelcolor(in leds.Color(0, 0, 255)); // bleu
         leds.show();
         delay(1000);
         leds.setPixelColor(i, leds.Color(128, 128, 128)); // gris
@@ -265,7 +289,6 @@ void StationLumineuse::testerPoubelles()
         leds.setPixelColor(i, leds.Color(255, 255, 0)); // jaune
         leds.show();
         delay(1000);
-
     }
 }
 #endif

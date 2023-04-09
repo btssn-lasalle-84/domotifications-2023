@@ -1,5 +1,4 @@
 /**
- *
  * @file src/main.cpp
  * @brief Programme principal de la station de notifications lumineuses
  * @author Alexis Vaillen

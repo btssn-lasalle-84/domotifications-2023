@@ -1,3 +1,10 @@
+/**
+ * @file ServeurWeb.cpp
+ * @brief Définition de la classe ServeurWeb
+ * @author Alexis Vaillen
+ * @version 0.1
+ */
+
 #include "ServeurWeb.h"
 #include "StationLumineuse.h"
 #include <ESPmDNS.h>
@@ -24,17 +31,13 @@ void ServeurWeb::demarrer()
 
     // Installe les gestionnaires de requêtes
     on("/", HTTP_GET, std::bind(&ServeurWeb::afficherAccueil, this));
-    on("/notifications",
-       std::bind(&ServeurWeb::traiterRequeteGETNotifications, this));
-    on("/boite",
-       HTTP_GET,
-       std::bind(&ServeurWeb::traiterRequeteGETBoite, this));
-    on("/boite",
-       HTTP_POST,
-       std::bind(&ServeurWeb::traiterRequetePOSTBoite, this));
+    on("/notifications", std::bind(&ServeurWeb::traiterRequeteGETNotifications, this));
+    on("/boite", HTTP_GET, std::bind(&ServeurWeb::traiterRequeteGETBoite, this));
+    on("/boite", HTTP_POST, std::bind(&ServeurWeb::traiterRequetePOSTBoite, this));
     on("/machine",
        HTTP_POST,
-       std::bind(&ServeurWeb::traiterRequetePOSTMachine, this)); // Ajout de la route /machine en POST
+       std::bind(&ServeurWeb::traiterRequetePOSTMachine,
+                 this)); // Ajout de la route /machine en POST
     onNotFound(std::bind(&ServeurWeb::traiterRequeteNonTrouvee, this));
 
     // Démarre le serveur
@@ -47,7 +50,6 @@ void ServeurWeb::demarrer()
     Serial.println(WiFi.localIP());
 #endif
 }
-
 
 void ServeurWeb::traiterRequetes()
 {
@@ -62,8 +64,7 @@ void ServeurWeb::afficherAccueil()
     Serial.print("URI : ");
     Serial.println(uri());
 #endif
-    String message =
-      "<h1>Bienvenue sur la station de notifications lumineuses</h1>\n";
+    String message = "<h1>Bienvenue sur la station de notifications lumineuses</h1>\n";
     message += "<p>LaSalle Avignon v0.1</p>\n";
     send(200, F("text/html"), message);
 }
@@ -82,9 +83,9 @@ void ServeurWeb::traiterRequeteGETNotifications()
     JsonArray machines    = documentJSON.createNestedArray("machines");
     for(int i = 0; i < NB_LEDS_NOTIFICATION_MACHINES; ++i)
     {
-        machines.add(stationLumineuse->getEtatMachines(i));
+        machines.add(stationLumineuse->getEtatMachine(i));
     }
-    JsonArray poubelle    = documentJSON.createNestedArray("poubelle");
+    JsonArray poubelle = documentJSON.createNestedArray("poubelle");
     for(int i = 0; i < NB_LEDS_NOTIFICATION_POUBELLES; ++i)
     {
         poubelle.add(stationLumineuse->getEtatPoubelle(i));
@@ -162,8 +163,7 @@ void ServeurWeb::traiterRequetePOSTBoite()
             Serial.println(documentJSON["etat"].as<bool>());
 #endif
 
-            stationLumineuse->setEtatBoiteAuxLettres(
-              documentJSON["etat"].as<bool>());
+            stationLumineuse->setEtatBoiteAuxLettres(documentJSON["etat"].as<bool>());
 
             send(200,
                  "application/json",
@@ -183,6 +183,7 @@ void ServeurWeb::traiterRequetePOSTBoite()
         }
     }
 }
+
 void ServeurWeb::traiterRequetePOSTMachine()
 {
 #ifdef DEBUG_SERVEUR_WEB
@@ -234,17 +235,20 @@ void ServeurWeb::traiterRequetePOSTMachine()
 #endif
 
             // Modifier l'état de la machine ici
-            int numeroMachine = documentJSON["numeroMachine"].as<int>();
-            bool etatMachine = documentJSON["etat"].as<bool>();
+            int  numeroMachine = documentJSON["numeroMachine"].as<int>();
+            bool etatMachine   = documentJSON["etat"].as<bool>();
 
-            if (stationLumineuse->estIdValideMachines(numeroMachine)) {
-                stationLumineuse->setEtatMachines(numeroMachine, etatMachine);
+            if(stationLumineuse->estIdValideMachine(numeroMachine))
+            {
+                stationLumineuse->setEtatMachine(numeroMachine, etatMachine);
 
                 send(200,
                      "application/json",
                      "{\"message\": "
                      "\"ok\"}");
-            } else {
+            }
+            else
+            {
                 send(404,
                      "application/json",
                      "{\"error\": { \"code\": \"notFound\", \"message\": "
