@@ -1,0 +1,29 @@
+format 224
+
+classcanvas 128770 class_ref 168450 // IHMDomotifications
+  classdiagramsettings member_max_width 0 end
+  xyz 233 23 2000
+end
+classcanvas 128898 class_ref 168066 // Domotification
+  classdiagramsettings member_max_width 0 end
+  xyz 320 424 2000
+end
+classcanvas 129026 class_ref 168194 // Module
+  classdiagramsettings member_max_width 0 end
+  xyz 326 703 2006
+end
+classcanvas 129282 class_ref 167810 // Communication
+  classdiagramsettings member_max_width 0 end
+  xyz 895 423 2000
+end
+relationcanvas 129154 relation_ref 154754 // <unidirectional association>
+  from ref 128898 z 2007 stereotype "<<QMap>>" xyz 432.5 632.5 2007 to ref 129026
+  role_a_pos 504 682 3000 no_role_b
+  no_multiplicity_a no_multiplicity_b
+end
+relationcanvas 129410 relation_ref 155394 // <unidirectional association>
+  from ref 128770 z 2001 to ref 128898
+  role_a_pos 620 403 3000 no_role_b
+  no_multiplicity_a no_multiplicity_b
+end
+end

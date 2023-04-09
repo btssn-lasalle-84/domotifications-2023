@@ -1,0 +1,23 @@
+format 224
+
+classcanvas 129282 class_ref 154626 // IhmDomotification
+  classdiagramsettings member_max_width 0 end
+  xyzwh 30 52 2000 243 163
+end
+classcanvas 129922 class_ref 161282 // TypeModule
+  classdiagramsettings member_max_width 0 end
+  xyz 323 401 2000
+end
+classcanvas 130178 class_ref 167810 // Communication
+  classdiagramsettings member_max_width 0 end
+  xyz 596 230 2000
+end
+classcanvas 130306 class_ref 168066 // Domotification
+  classdiagramsettings member_max_width 0 end
+  xyz 31 230 2000
+end
+classcanvas 130434 class_ref 168194 // Module
+  classdiagramsettings member_max_width 0 end
+  xyz 20 401 2000
+end
+end

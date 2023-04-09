@@ -1,0 +1,193 @@
+class StationLumineuse
+!!!135978.cpp!!!	initialiserPreferences() : void
+    preferences.begin("eeprom", false); // false pour r/w
+    etatBoiteAuxLettres = preferences.getBool("boite", false);
+    char cle[64]        = "";
+    for(int i = 0; i < NB_LEDS_NOTIFICATION_MACHINES; ++i)
+    {
+        // machine0, machine1, etc..
+        sprintf((char*)cle, "%s%d", "machine", i);
+        etatMachines[i] = preferences.getBool(cle, false);
+    }
+    for(int i = 0; i < NB_LEDS_NOTIFICATION_POUBELLES; ++i)
+    {
+        // poubelle0, poubelle1, etc..
+        sprintf((char*)cle, "%s%d", "poubelle", i);
+        etatPoubelles[i] = preferences.getBool(cle, false);
+    }
+!!!136106.cpp!!!	initialiserNotifications() : void
+    leds.begin();
+    leds.clear();
+
+#ifdef TEST_BANDEAU
+    testerBoiteAuxLettres();
+    testerMachines();
+    testerPoubelles();
+#endif
+
+    /**
+     * Allumer/Eteindre les leds de notifications à partir des états
+     * sauvegardés
+     */
+    if(etatBoiteAuxLettres)
+    {
+        allumerNotificationBoiteAuxLettres();
+    }
+    else
+    {
+        eteindreNotificationBoiteAuxLettres();
+    }
+
+    for(int i = 0; i < NB_LEDS_NOTIFICATION_MACHINES; i++)
+    {
+        if(etatMachines[i])
+        {
+            allumerNotificationMachine(i);
+        }
+        else
+        {
+            eteindreNotificationMachine(i);
+        }
+    }
+
+    for(int i = 0; i < NB_LEDS_NOTIFICATION_POUBELLES; i++)
+    {
+        if(etatPoubelles[i])
+        {
+            allumerNotificationPoubelle(i);
+        }
+        else
+        {
+            eteindreNotificationPoubelle(i);
+        }
+    }
+!!!136234.cpp!!!	getEtatBoiteAuxLettres() : bool
+    return etatBoiteAuxLettres;
+!!!136362.cpp!!!	setEtatBoiteAuxLettres(in etat : bool) : void
+    etatBoiteAuxLettres = etat;
+    preferences.putBool("boite", etatBoiteAuxLettres);
+    if(etat)
+    {
+        allumerNotificationBoiteAuxLettres();
+    }
+    else
+    {
+        eteindreNotificationBoiteAuxLettres();
+    }
+!!!136490.cpp!!!	resetEtatBoiteAuxLettres() : void
+    etatBoiteAuxLettres = false;
+    preferences.putBool("boite", etatBoiteAuxLettres);
+    eteindreNotificationBoiteAuxLettres();
+!!!136618.cpp!!!	allumerNotificationBoiteAuxLettres() : void
+    for(int i = INDEX_LEDS_NOTIFICATION_BOITE;
+        i < (INDEX_LEDS_NOTIFICATION_BOITE + NB_LEDS_NOTIFICATION_BOITE);
+        ++i)
+    {
+        /**
+         *  Définir des constantes pour les couleurs
+         */
+        leds.setPixelColor(i, leds.Color(255, 0, 0));
+        leds.show();
+    }
+!!!136746.cpp!!!	eteindreNotificationBoiteAuxLettres() : void
+    for(int i = INDEX_LEDS_NOTIFICATION_BOITE;
+        i < (INDEX_LEDS_NOTIFICATION_BOITE + NB_LEDS_NOTIFICATION_BOITE);
+        ++i)
+    {
+        /**
+         * @todo Définir des constantes pour les couleurs
+         */
+        leds.setPixelColor(i, leds.Color(0, 0, 0));
+        leds.show();
+    }
+!!!136874.cpp!!!	estIdValideMachine(in numeroMachine : int) : bool
+    return (numeroMachine >= 0 && numeroMachine < NB_LEDS_NOTIFICATION_MACHINES);
+!!!137002.cpp!!!	getEtatMachine(in numeroMachine : int) : bool
+    if(estIdValideMachine(numeroMachine))
+    {
+        return etatMachines[numeroMachine];
+    }
+    else
+    {
+        return false;
+    }
+!!!137130.cpp!!!	setEtatMachine(in numeroMachine : int, in etat : bool) : void
+    if(!estIdValideMachine(numeroMachine))
+        return;
+    etatMachines[numeroMachine] = etat;
+    char cle[64]                = "";
+    sprintf((char*)cle, "%s%d", "machine", numeroMachine);
+    preferences.putBool(cle, etatMachines[numeroMachine]);
+    if(etat)
+    {
+        allumerNotificationMachine(numeroMachine);
+    }
+    else
+    {
+        eteindreNotificationMachine(numeroMachine);
+    }
+!!!137514.cpp!!!	allumerNotificationMachines() : void
+    for(int i = INDEX_LEDS_NOTIFICATION_MACHINES;
+        i < (INDEX_LEDS_NOTIFICATION_MACHINES + NB_LEDS_NOTIFICATION_MACHINES);
+        ++i)
+    {
+        /**
+         * Définir des constantes pour les couleurs
+         */
+        leds.setPixelColor(i, leds.Color(0, 255, 0));
+        leds.show();
+    }
+!!!137770.cpp!!!	eteindreNotificationMachines() : void
+    for(int i = INDEX_LEDS_NOTIFICATION_MACHINES;
+        i < (INDEX_LEDS_NOTIFICATION_MACHINES + NB_LEDS_NOTIFICATION_MACHINES);
+        ++i)
+    {
+        /**
+         * @todo Définir des constantes pour les couleurs
+         */
+        leds.setPixelColor(i, leds.Color(0, 0, 0));
+        leds.show();
+    }
+!!!137898.cpp!!!	estIdValidePoubelle(in id : int) : bool
+    return false;
+!!!138026.cpp!!!	getEtatPoubelle(in numeroPoubelle : int) : bool
+    return false;
+!!!139050.cpp!!!	testerBoiteAuxLettres() : void
+    for(int i = INDEX_LEDS_NOTIFICATION_BOITE;
+        i < (INDEX_LEDS_NOTIFICATION_BOITE + NB_LEDS_NOTIFICATION_BOITE);
+        ++i)
+    {
+        leds.setPixelColor(i, leds.Color(255, 0, 0));
+        leds.show();
+    }
+    delay(1000);
+!!!139178.cpp!!!	testerMachines() : void
+    for(int i = INDEX_LEDS_NOTIFICATION_machines;
+        i < (INDEX_LEDS_NOTIFICATION_machines + NB_LEDS_NOTIFICATION_machines);
+        ++i)
+    {
+        leds.setPixelColor(i, leds.Color(0, 255, 0)); // RGB
+        leds.show();
+        delay(1000);
+    }
+!!!139306.cpp!!!	testerPoubelles() : void
+    for(int i = INDEX_LEDS_NOTIFICATION_POUBELLES;
+        i < (INDEX_LEDS_NOTIFICATION_POUBELLES + NB_LEDS_NOTIFICATION_POUBELLES);
+        ++i)
+    {
+        leds.setPixelColor(i, leds.Color(0, 255, 0)); // RGB vert
+        leds.show();
+        delay(1000);
+        leds.setPixelcolor(in leds.Color(255, 0, 0)); // rouge
+        leds.show();
+        delay(1000);
+        leds.setPixelcolor(in leds.Color(0, 0, 255)); // bleu
+        leds.show();
+        delay(1000);
+        leds.setPixelColor(i, leds.Color(128, 128, 128)); // gris
+        leds.show();
+        delay(1000);
+        leds.setPixelColor(i, leds.Color(255, 255, 0)); // jaune
+        leds.show();
+        delay(1000);
+    }

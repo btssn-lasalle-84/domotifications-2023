@@ -1,0 +1,26 @@
+format 224
+
+deploymentnodecanvas 128258 deploymentnode_ref 128130 // Module Poubelle
+  xyzwh 146 79 2000 131 32
+end
+deploymentnodecanvas 128514 deploymentnode_ref 128258 // Module Boite au lettre
+  xyzwh 71 209 2000 165 32
+end
+deploymentnodecanvas 128642 deploymentnode_ref 128386 // Module Machine a laver
+  xyzwh 97 338 2000 178 32
+end
+deploymentnodecanvas 128770 deploymentnode_ref 128514 // Serveur
+  xyzwh 436 209 2000 73 32
+end
+deploymentnodecanvas 128898 deploymentnode_ref 128642 // IHM
+  xyzwh 674 209 2000 49 32
+end
+line 129026 ----
+  from ref 128258 z 2001 label "Http Rest" max_width 255 xyz 337 132 3000 to ref 128770
+line 129154 ----
+  from ref 128514 z 2001 label "Http Rest" max_width 255 xyz 305 209 3000 to ref 128770
+line 129282 ----
+  from ref 128642 z 2001 label "Http rest" max_width 255 xyz 259 276 3000 to ref 128770
+line 129410 ----
+  from ref 128770 z 2001 label "Http Rest" max_width 255 xyz 560 209 3000 to ref 128898
+end
