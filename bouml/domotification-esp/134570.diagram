@@ -1,0 +1,25 @@
+format 224
+
+classcanvas 128042 class_ref 134570 // ServeurWeb
+  classdiagramsettings member_max_width 0 end
+  xyz 654 244 2000
+end
+classcanvas 128426 class_ref 134826 // StationLumineuse
+  classdiagramsettings member_max_width 0 end
+  xyz 630 778 3005
+end
+classcanvas 128810 class_ref 134698 // WebServer
+  classdiagramsettings member_max_width 0 end
+  xyz 965 64 2006
+end
+relationcanvas 128554 relation_ref 134698 // <unidirectional association>
+  from ref 128042 z 3006 to ref 128426
+  role_a_pos 1057 737 3000 no_role_b
+  no_multiplicity_a no_multiplicity_b
+end
+relationcanvas 128938 relation_ref 134570 // <generalisation>
+  from ref 128042 z 2007 to ref 128810
+  no_role_a no_role_b
+  no_multiplicity_a no_multiplicity_b
+end
+end

@@ -1,0 +1,38 @@
+format 224
+"lib" // station-notifications-lumineuses::lib
+  revision 1
+  modified_by 42 "tv"
+  // class settings
+  
+  classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
+  
+  usecasediagramsettings end
+  
+  sequencediagramsettings end
+  
+  collaborationdiagramsettings end
+  
+  objectdiagramsettings end
+  
+  objectcompositediagramsettings end
+  
+  componentdiagramsettings
+   end
+  
+  deploymentdiagramsettings
+   end
+  
+  statediagramsettings
+   end
+  
+  activitydiagramsettings
+   end
+  
+  cpp_h_dir "/mnt/tv/Documents/git/projets-2023/domotifications-2023/station-notifications-lumineuses/lib/"
+  cpp_src_dir "/mnt/tv/Documents/git/projets-2023/domotifications-2023/station-notifications-lumineuses/lib/"
+  package_ref 134826 // ServeurWeb
+
+  package_ref 134954 // StationLumineuse
+end
