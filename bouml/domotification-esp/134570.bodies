@@ -1,21 +1,5 @@
-/**
- * @file ServeurWeb.cpp
- * @brief Définition de la classe ServeurWeb
- * @author Alexis Vaillen
- * @version 0.1
- */
-
-#include "ServeurWeb.h"
-#include "StationLumineuse.h"
-#include <ESPmDNS.h>
-
-ServeurWeb::ServeurWeb(StationLumineuse* stationLumineuse) :
-    WebServer(PORT_SERVEUR_WEB), stationLumineuse(stationLumineuse)
-{
-}
-
-void ServeurWeb::setNom()
-{
+class ServeurWeb
+!!!134570.cpp!!!	setNom() : void
     // Pour un accès : http://NOM_SERVEUR_WEB.local/
     if(!MDNS.begin(NOM_SERVEUR_WEB))
     {
@@ -23,41 +7,7 @@ void ServeurWeb::setNom()
         Serial.println("ServeurWeb() : Erreur mDNS !");
 #endif
     }
-}
-
-void ServeurWeb::demarrer()
-{
-    setNom();
-
-    // Installe les gestionnaires de requêtes
-    on("/", HTTP_GET, std::bind(&ServeurWeb::afficherAccueil, this));
-    on("/notifications", std::bind(&ServeurWeb::traiterRequeteGETNotifications, this));
-    on("/boite", HTTP_GET, std::bind(&ServeurWeb::traiterRequeteGETBoite, this));
-    on("/boite", HTTP_POST, std::bind(&ServeurWeb::traiterRequetePOSTBoite, this));
-    on("/machine",
-       HTTP_POST,
-       std::bind(&ServeurWeb::traiterRequetePOSTMachine,
-                 this)); // Ajout de la route /machine en POST
-    onNotFound(std::bind(&ServeurWeb::traiterRequeteNonTrouvee, this));
-
-    // Démarre le serveur
-    begin();
-
-#ifdef DEBUG_SERVEUR_WEB
-    Serial.print("ServeurWeb::demarrer() : nom = ");
-    Serial.println(NOM_SERVEUR_WEB);
-    Serial.print("ServeurWeb::demarrer() : adresse IP = ");
-    Serial.println(WiFi.localIP());
-#endif
-}
-
-void ServeurWeb::traiterRequetes()
-{
-    handleClient();
-}
-
-void ServeurWeb::afficherAccueil()
-{
+!!!134698.cpp!!!	afficherAccueil() : void
 #ifdef DEBUG_SERVEUR_WEB
     Serial.print("ServeurWeb::afficherAccueil() : requête = ");
     Serial.println((method() == HTTP_GET) ? "GET" : "POST");
@@ -67,10 +17,7 @@ void ServeurWeb::afficherAccueil()
     String message = "<h1>Bienvenue sur la station de notifications lumineuses</h1>\n";
     message += "<p>LaSalle Avignon v0.1</p>\n";
     send(200, F("text/html"), message);
-}
-
-void ServeurWeb::traiterRequeteGETNotifications()
-{
+!!!134826.cpp!!!	traiterRequeteGETNotifications() : void
 #ifdef DEBUG_SERVEUR_WEB
     Serial.print("ServeurWeb::traiterRequeteGETNotifications() : requête = ");
     Serial.println((method() == HTTP_GET) ? "GET" : "POST");
@@ -99,10 +46,7 @@ void ServeurWeb::traiterRequeteGETNotifications()
     char buffer[TAILLE_JSON];
     serializeJson(documentJSON, buffer);
     send(200, "application/json", buffer);
-}
-
-void ServeurWeb::traiterRequeteGETBoite()
-{
+!!!134954.cpp!!!	traiterRequeteGETBoite() : void
 #ifdef DEBUG_SERVEUR_WEB
     Serial.print("ServeurWeb::traiterRequeteGETBoite() : requête = ");
     Serial.println((method() == HTTP_GET) ? "GET" : "POST");
@@ -113,10 +57,7 @@ void ServeurWeb::traiterRequeteGETBoite()
     /**
      * @todo Répondre à la requête
      */
-}
-
-void ServeurWeb::traiterRequetePOSTBoite()
-{
+!!!135082.cpp!!!	traiterRequetePOSTBoite() : void
 #ifdef DEBUG_SERVEUR_WEB
     Serial.print("ServeurWeb::traiterRequetePOSTBoite() : requête = ");
     Serial.println((method() == HTTP_GET) ? "GET" : "POST");
@@ -182,10 +123,28 @@ void ServeurWeb::traiterRequetePOSTBoite()
             return;
         }
     }
-}
+!!!135210.cpp!!!	traiterRequeteNonTrouvee() : void
+#ifdef DEBUG_SERVEUR_WEB
+    Serial.print("ServeurWeb::traiterRequeteNonTrouvee() : requête = ");
+    Serial.println((method() == HTTP_GET) ? "GET" : "POST");
+    Serial.print("URI : ");
+    Serial.println(uri());
+#endif
 
-void ServeurWeb::traiterRequetePOSTMachine()
-{
+    String message = "404 File Not Found\n\n";
+    message += "URI: ";
+    message += uri();
+    message += "\nMethod: ";
+    message += (method() == HTTP_GET) ? "GET" : "POST";
+    message += "\nArguments: ";
+    message += args();
+    message += "\n";
+    for(uint8_t i = 0; i < args(); i++)
+    {
+        message += " " + argName(i) + ": " + arg(i) + "\n";
+    }
+    send(404, "text/plain", message);
+!!!135338.cpp!!!	traiterRequetePOSTMachine() : void
 #ifdef DEBUG_SERVEUR_WEB
     Serial.print("ServeurWeb::traiterRequetePOSTMachine() : requête = ");
     Serial.println((method() == HTTP_GET) ? "GET" : "POST");
@@ -267,28 +226,28 @@ void ServeurWeb::traiterRequetePOSTMachine()
             return;
         }
     }
-}
+!!!135594.cpp!!!	demarrer() : void
+    setNom();
 
-void ServeurWeb::traiterRequeteNonTrouvee()
-{
+    // Installe les gestionnaires de requêtes
+    on("/", HTTP_GET, std::bind(&ServeurWeb::afficherAccueil, this));
+    on("/notifications", std::bind(&ServeurWeb::traiterRequeteGETNotifications, this));
+    on("/boite", HTTP_GET, std::bind(&ServeurWeb::traiterRequeteGETBoite, this));
+    on("/boite", HTTP_POST, std::bind(&ServeurWeb::traiterRequetePOSTBoite, this));
+    on("/machine",
+       HTTP_POST,
+       std::bind(&ServeurWeb::traiterRequetePOSTMachine,
+                 this)); // Ajout de la route /machine en POST
+    onNotFound(std::bind(&ServeurWeb::traiterRequeteNonTrouvee, this));
+
+    // Démarre le serveur
+    begin();
+
 #ifdef DEBUG_SERVEUR_WEB
-    Serial.print("ServeurWeb::traiterRequeteNonTrouvee() : requête = ");
-    Serial.println((method() == HTTP_GET) ? "GET" : "POST");
-    Serial.print("URI : ");
-    Serial.println(uri());
+    Serial.print("ServeurWeb::demarrer() : nom = ");
+    Serial.println(NOM_SERVEUR_WEB);
+    Serial.print("ServeurWeb::demarrer() : adresse IP = ");
+    Serial.println(WiFi.localIP());
 #endif
-
-    String message = "404 File Not Found\n\n";
-    message += "URI: ";
-    message += uri();
-    message += "\nMethod: ";
-    message += (method() == HTTP_GET) ? "GET" : "POST";
-    message += "\nArguments: ";
-    message += args();
-    message += "\n";
-    for(uint8_t i = 0; i < args(); i++)
-    {
-        message += " " + argName(i) + ": " + arg(i) + "\n";
-    }
-    send(404, "text/plain", message);
-}
+!!!135722.cpp!!!	traiterRequetes() : void
+    handleClient();

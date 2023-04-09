@@ -1,18 +1,5 @@
-/**
- * @file StationLumineuse.cpp
- * @brief Définition de la classe StationLumineuse
- * @author Alexis Vaillen
- * @version 0.1
- */
-
-#include "StationLumineuse.h"
-
-StationLumineuse::StationLumineuse() : leds(NB_LEDS, PIN_BANDEAU, NEO_GRB + NEO_KHZ800)
-{
-}
-
-void StationLumineuse::initialiserPreferences()
-{
+class StationLumineuse
+!!!135978.cpp!!!	initialiserPreferences() : void
     preferences.begin("eeprom", false); // false pour r/w
     etatBoiteAuxLettres = preferences.getBool("boite", false);
     char cle[64]        = "";
@@ -28,10 +15,7 @@ void StationLumineuse::initialiserPreferences()
         sprintf((char*)cle, "%s%d", "poubelle", i);
         etatPoubelles[i] = preferences.getBool(cle, false);
     }
-}
-
-void StationLumineuse::initialiserNotifications()
-{
+!!!136106.cpp!!!	initialiserNotifications() : void
     leds.begin();
     leds.clear();
 
@@ -77,15 +61,9 @@ void StationLumineuse::initialiserNotifications()
             eteindreNotificationPoubelle(i);
         }
     }
-}
-
-bool StationLumineuse::getEtatBoiteAuxLettres()
-{
+!!!136234.cpp!!!	getEtatBoiteAuxLettres() : bool
     return etatBoiteAuxLettres;
-}
-
-void StationLumineuse::setEtatBoiteAuxLettres(bool etat)
-{
+!!!136362.cpp!!!	setEtatBoiteAuxLettres(in etat : bool) : void
     etatBoiteAuxLettres = etat;
     preferences.putBool("boite", etatBoiteAuxLettres);
     if(etat)
@@ -96,17 +74,11 @@ void StationLumineuse::setEtatBoiteAuxLettres(bool etat)
     {
         eteindreNotificationBoiteAuxLettres();
     }
-}
-
-void StationLumineuse::resetEtatBoiteAuxLettres()
-{
+!!!136490.cpp!!!	resetEtatBoiteAuxLettres() : void
     etatBoiteAuxLettres = false;
     preferences.putBool("boite", etatBoiteAuxLettres);
     eteindreNotificationBoiteAuxLettres();
-}
-
-void StationLumineuse::allumerNotificationBoiteAuxLettres()
-{
+!!!136618.cpp!!!	allumerNotificationBoiteAuxLettres() : void
     for(int i = INDEX_LEDS_NOTIFICATION_BOITE;
         i < (INDEX_LEDS_NOTIFICATION_BOITE + NB_LEDS_NOTIFICATION_BOITE);
         ++i)
@@ -117,10 +89,7 @@ void StationLumineuse::allumerNotificationBoiteAuxLettres()
         leds.setPixelColor(i, leds.Color(255, 0, 0));
         leds.show();
     }
-}
-
-void StationLumineuse::eteindreNotificationBoiteAuxLettres()
-{
+!!!136746.cpp!!!	eteindreNotificationBoiteAuxLettres() : void
     for(int i = INDEX_LEDS_NOTIFICATION_BOITE;
         i < (INDEX_LEDS_NOTIFICATION_BOITE + NB_LEDS_NOTIFICATION_BOITE);
         ++i)
@@ -131,15 +100,9 @@ void StationLumineuse::eteindreNotificationBoiteAuxLettres()
         leds.setPixelColor(i, leds.Color(0, 0, 0));
         leds.show();
     }
-}
-
-bool StationLumineuse::estIdValideMachine(int numeroMachine)
-{
+!!!136874.cpp!!!	estIdValideMachine(in numeroMachine : int) : bool
     return (numeroMachine >= 0 && numeroMachine < NB_LEDS_NOTIFICATION_MACHINES);
-}
-
-bool StationLumineuse::getEtatMachine(int numeroMachine)
-{
+!!!137002.cpp!!!	getEtatMachine(in numeroMachine : int) : bool
     if(estIdValideMachine(numeroMachine))
     {
         return etatMachines[numeroMachine];
@@ -148,10 +111,7 @@ bool StationLumineuse::getEtatMachine(int numeroMachine)
     {
         return false;
     }
-}
-
-void StationLumineuse::setEtatMachine(int numeroMachine, bool etat)
-{
+!!!137130.cpp!!!	setEtatMachine(in numeroMachine : int, in etat : bool) : void
     if(!estIdValideMachine(numeroMachine))
         return;
     etatMachines[numeroMachine] = etat;
@@ -166,18 +126,7 @@ void StationLumineuse::setEtatMachine(int numeroMachine, bool etat)
     {
         eteindreNotificationMachine(numeroMachine);
     }
-}
-
-void StationLumineuse::resetEtatMachines()
-{
-}
-
-void StationLumineuse::allumerNotificationMachine(int numeroMachine)
-{
-}
-
-void StationLumineuse::allumerNotificationMachines()
-{
+!!!137514.cpp!!!	allumerNotificationMachines() : void
     for(int i = INDEX_LEDS_NOTIFICATION_MACHINES;
         i < (INDEX_LEDS_NOTIFICATION_MACHINES + NB_LEDS_NOTIFICATION_MACHINES);
         ++i)
@@ -188,14 +137,7 @@ void StationLumineuse::allumerNotificationMachines()
         leds.setPixelColor(i, leds.Color(0, 255, 0));
         leds.show();
     }
-}
-
-void StationLumineuse::eteindreNotificationMachine(int numeroMachine)
-{
-}
-
-void StationLumineuse::eteindreNotificationMachines()
-{
+!!!137770.cpp!!!	eteindreNotificationMachines() : void
     for(int i = INDEX_LEDS_NOTIFICATION_MACHINES;
         i < (INDEX_LEDS_NOTIFICATION_MACHINES + NB_LEDS_NOTIFICATION_MACHINES);
         ++i)
@@ -206,46 +148,11 @@ void StationLumineuse::eteindreNotificationMachines()
         leds.setPixelColor(i, leds.Color(0, 0, 0));
         leds.show();
     }
-}
-
-bool StationLumineuse::estIdValidePoubelle(int id)
-{
+!!!137898.cpp!!!	estIdValidePoubelle(in id : int) : bool
     return false;
-}
-
-bool StationLumineuse::getEtatPoubelle(int numeroPoubelle)
-{
+!!!138026.cpp!!!	getEtatPoubelle(in numeroPoubelle : int) : bool
     return false;
-}
-
-void StationLumineuse::setEtatPoubelle(int numeroPoubelles, bool etat)
-{
-}
-
-void StationLumineuse::resetEtatPoubelles()
-{
-}
-
-void StationLumineuse::allumerNotificationPoubelle(int numeroPoubelle)
-{
-}
-
-void StationLumineuse::allumerNotificationPoubelles()
-{
-}
-
-void StationLumineuse::eteindreNotificationPoubelle(int numeroPoubelle)
-{
-}
-
-void StationLumineuse::eteindreNotificationPoubelles()
-{
-}
-
-#ifdef TEST_BANDEAU
-// Fonctions de test
-void StationLumineuse::testerBoiteAuxLettres()
-{
+!!!139050.cpp!!!	testerBoiteAuxLettres() : void
     for(int i = INDEX_LEDS_NOTIFICATION_BOITE;
         i < (INDEX_LEDS_NOTIFICATION_BOITE + NB_LEDS_NOTIFICATION_BOITE);
         ++i)
@@ -254,10 +161,7 @@ void StationLumineuse::testerBoiteAuxLettres()
         leds.show();
     }
     delay(1000);
-}
-
-void StationLumineuse::testerMachines()
-{
+!!!139178.cpp!!!	testerMachines() : void
     for(int i = INDEX_LEDS_NOTIFICATION_machines;
         i < (INDEX_LEDS_NOTIFICATION_machines + NB_LEDS_NOTIFICATION_machines);
         ++i)
@@ -266,10 +170,7 @@ void StationLumineuse::testerMachines()
         leds.show();
         delay(1000);
     }
-}
-
-void StationLumineuse::testerPoubelles()
-{
+!!!139306.cpp!!!	testerPoubelles() : void
     for(int i = INDEX_LEDS_NOTIFICATION_POUBELLES;
         i < (INDEX_LEDS_NOTIFICATION_POUBELLES + NB_LEDS_NOTIFICATION_POUBELLES);
         ++i)
@@ -290,5 +191,3 @@ void StationLumineuse::testerPoubelles()
         leds.show();
         delay(1000);
     }
-}
-#endif

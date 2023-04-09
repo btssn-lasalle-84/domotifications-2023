@@ -1,0 +1,62 @@
+format 224
+"station-notifications-lumineuses" // station-notifications-lumineuses
+  revision 1
+  modified_by 42 "tv"
+  // class settings
+  
+  classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
+  
+  usecasediagramsettings end
+  
+  sequencediagramsettings end
+  
+  collaborationdiagramsettings end
+  
+  objectdiagramsettings end
+  
+  objectcompositediagramsettings end
+  
+  componentdiagramsettings
+   end
+  
+  deploymentdiagramsettings
+   end
+  
+  statediagramsettings
+   end
+  
+  activitydiagramsettings
+   end
+  
+  cpp_h_dir "station-notifications-lumineuses/"
+  cpp_src_dir "station-notifications-lumineuses/"
+  package_ref 134698 // lib
+
+  classview 134826 "classes"
+    
+    classdiagramsettings member_max_width 0 end
+    
+    classcompositediagramsettings end
+    
+    collaborationdiagramsettings end
+    
+    objectdiagramsettings end
+    
+    objectcompositediagramsettings end
+    
+    sequencediagramsettings end
+    
+    statediagramsettings
+     end
+    
+    
+    activitydiagramsettings
+     end
+    classdiagram 134570 "diagramme de classes 0.1"
+      classdiagramsettings show_members_full_definition yes show_members_visibility yes member_max_width 0 show_relation_visibility yes end
+      size A0
+    end
+  end
+end
