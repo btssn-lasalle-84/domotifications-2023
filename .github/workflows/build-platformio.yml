@@ -1,0 +1,22 @@
+name: Build PlatformIO
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup PlatformIO
+        uses: n-vr/setup-platformio-action@v1
+
+      - name: Build PlatformIO project
+        run: |
+          cd station-notifications-lumineuses && pio run

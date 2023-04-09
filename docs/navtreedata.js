@@ -26,13 +26,39 @@ var NAVTREE =
 [
   [ "Projet domotifications", "index.html", [
     [ "A propos", "index.html", null ],
-    [ "README", "md__mnt_sda_home_tv__documents_git_projets_2023_domotifications_2023__r_e_a_d_m_e.html", null ]
+    [ "README", "md__mnt_sda_home_tv__documents_git_projets_2023_domotifications_2023__r_e_a_d_m_e.html", null ],
+    [ "Station de notifications lumineuses", "md__mnt_sda_home_tv__documents_git_projets_2023_domotifications_2023_station_notifications_lumineuses__r_e_a_d_m_e.html", null ],
+    [ "Liste des choses à faire", "todo.html", null ],
+    [ "Paquetages", "namespaces.html", [
+      [ "Paquetages", "namespaces.html", "namespaces_dup" ]
+    ] ],
+    [ "Structures de données", "annotated.html", [
+      [ "Structures de données", "annotated.html", "annotated_dup" ],
+      [ "Index des structures de données", "classes.html", null ],
+      [ "Hiérarchie des classes", "hierarchy.html", "hierarchy" ],
+      [ "Champs de donnée", "functions.html", [
+        [ "Tout", "functions.html", null ],
+        [ "Fonctions", "functions_func.html", null ],
+        [ "Variables", "functions_vars.html", null ],
+        [ "Énumérations", "functions_enum.html", null ],
+        [ "Valeurs énumérées", "functions_eval.html", null ]
+      ] ]
+    ] ],
+    [ "Fichiers", "files.html", [
+      [ "Liste des fichiers", "files.html", "files_dup" ],
+      [ "Variables globale", "globals.html", [
+        [ "Tout", "globals.html", null ],
+        [ "Fonctions", "globals_func.html", null ],
+        [ "Variables", "globals_vars.html", null ],
+        [ "Macros", "globals_defs.html", null ]
+      ] ]
+    ] ]
   ] ]
 ];
 
 var NAVTREEINDEX =
 [
-"index.html"
+"_communication_8cpp.html"
 ];
 
 var SYNCONMSG = 'cliquez pour désactiver la synchronisation du panel';
