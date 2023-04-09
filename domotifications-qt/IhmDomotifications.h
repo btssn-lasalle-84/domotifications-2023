@@ -13,6 +13,8 @@
 #include <QtWidgets>
 #include <QObject>
 
+#define TEST_NOTIFICATIONS
+
 namespace Ui
 {
 class IHMDomotifications;
@@ -42,9 +44,6 @@ class IHMDomotifications : public QMainWindow
     };
 
   private:
-    QWidget*                widgetPrincipal; //!< Le widget central
-    QVBoxLayout*            layoutPrincipal;
-    QVBoxLayout* layoutBoutonsPoubelle;
     Ui::IHMDomotifications* ui;               //!< La GUI
     Domotification*         domotification;   //!< l'objet contrôleur de l'application
     QSystemTrayIcon*        iconeSysteme;     //!< L'icône de l'application pour la barre système
@@ -55,35 +54,33 @@ class IHMDomotifications : public QMainWindow
     QAction*                actionQuitter;    //!< L'action quitter l'application
     bool                    etatInitialIconeSysteme; //!< Booléen indiquant si c'est la première
                                                      //!< demande Quitter
+    QWidget*     widgetPrincipal;                    //!< Le widget central
+    QVBoxLayout* layoutPrincipal;
+    QHBoxLayout* layoutLogos;
+    QHBoxLayout* layoutPoubelle;
+    QHBoxLayout* layoutMachine;
+    QHBoxLayout* layoutBoiteAuxLettres;
+    QVBoxLayout* layoutBoutonsPoubelle;
+    QVBoxLayout* layoutBoutonsMachine;
+    QVBoxLayout* layoutBoutonsBoiteAuxLettres;
+    QPushButton* boutonParametres;
     QPushButton* boutonActivationDesactivationMachine;
     QPushButton* boutonActivationDesactivationBoiteAuxLettres;
     QPushButton* boutonActivationDesactivationPoubelle;
     QPushButton* boutonAcquittementMachine;
     QPushButton* boutonAcquittementPoubelle;
     QPushButton* boutonAcquittementBoiteAuxLettres;
-
-    QPixmap* imageBoutonActivation;
-    QPixmap* imageBoutonAcquittement;
-    QPixmap* imageLogoBTS;
-    QPixmap* imageLogoParametre;
-    QPixmap* imageLogoPoubelle;
-
-    QLabel* logoBTS;
-    QLabel* logoParametre;
-    QLabel* logoMachine;
-    QLabel* logoBoiteAuxLettres;
-    QLabel* logoPoubelle;
-
-    QIcon* iconeActivation;
-    QIcon* iconeAcquittement;
-
-    QRect* rect;
-
-#ifdef TEST_NOTIFICATIONS
-
-    QPushButton* boutonNotifier;      //!< Le bouton permettant de tester une notification
-    QLineEdit*   messageNotification; //!< Le message de la notification
-#endif
+    QPixmap*     imageBoutonActivation;
+    QPixmap*     imageBoutonAcquittement;
+    QPixmap*     imageLogoBTS;
+    QPixmap*     imageLogoParametre;
+    QPixmap*     imageLogoPoubelle;
+    QLabel*      logoBTS;
+    QLabel*      logoMachine;
+    QLabel*      logoBoiteAuxLettres;
+    QLabel*      logoPoubelle;
+    QIcon*       iconeActivation;
+    QIcon*       iconeAcquittement;
 
   public:
     IHMDomotifications(QWidget* parent = nullptr);
@@ -92,21 +89,13 @@ class IHMDomotifications : public QMainWindow
     void initialiserGUI();
     void initialiserBarreDeTaches();
     void initialiserSignauxSlots();
-
-    void initialiserWidget();
-
-    void afficherWidget();
-
+    void initialiserWidgets();
+    void afficherWidgets();
     void creerActionsMenu();
-
     void connecterActions();
-
     void creerMenu();
-
     void creerIconeBarreDesTache();
-
     void afficherBoutonActivationDesactivation();
-
     void afficherBoutonAcquittement();
 
   public slots:

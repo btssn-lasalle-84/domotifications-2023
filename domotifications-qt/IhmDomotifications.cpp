@@ -96,22 +96,29 @@ void IHMDomotifications::acquitterNotification()
 #ifdef TEST_NOTIFICATIONS
 void IHMDomotifications::testerNotification()
 {
-    domotification->notifier(messageNotification->text());
+    domotification->notifier("La machine est finie !");
 }
 #endif
 
 /**
  * @brief Initialise les widgets
  *
- * @fn IHMDomotifications::initialiserWidget
+ * @fn IHMDomotifications::initialiserWidgets
  * @details Initialise les widgets de l'IHM.
  */
-void IHMDomotifications::initialiserWidget()
+void IHMDomotifications::initialiserWidgets()
 {
-    widgetPrincipal = new QWidget(this);
-    layoutPrincipal = new QVBoxLayout(this);
-    layoutBoutonsPoubelle = new QVBoxLayout(this);
+    widgetPrincipal              = new QWidget(this);
+    layoutPrincipal              = new QVBoxLayout;
+    layoutLogos                  = new QHBoxLayout;
+    layoutMachine                = new QHBoxLayout;
+    layoutBoiteAuxLettres        = new QHBoxLayout;
+    layoutPoubelle               = new QHBoxLayout;
+    layoutBoutonsMachine         = new QVBoxLayout;
+    layoutBoutonsBoiteAuxLettres = new QVBoxLayout;
+    layoutBoutonsPoubelle        = new QVBoxLayout;
 
+    boutonParametres                             = new QPushButton(this);
     boutonActivationDesactivationMachine         = new QPushButton(this);
     boutonActivationDesactivationBoiteAuxLettres = new QPushButton(this);
     boutonActivationDesactivationPoubelle        = new QPushButton(this);
@@ -126,11 +133,9 @@ void IHMDomotifications::initialiserWidget()
     imageLogoPoubelle       = new QPixmap(CHEMIN_LOGO_POUBELLE);
 
     logoBTS             = new QLabel(this);
-    logoParametre       = new QLabel(this);
     logoBoiteAuxLettres = new QLabel(this);
     logoMachine         = new QLabel(this);
     logoPoubelle        = new QLabel(this);
-
 
     iconeAcquittement = new QIcon(*imageBoutonAcquittement);
     iconeActivation   = new QIcon(*imageBoutonActivation);
@@ -190,34 +195,47 @@ void IHMDomotifications::afficherBoutonAcquittement()
 
 /**
  * @brief Affiche les Widgets
- * @fn IHMDomotifications::afficherWidget
+ * @fn IHMDomotifications::afficherWidgets
  * @details Affiche les widget de l'IHM
  */
-void IHMDomotifications::afficherWidget()
+void IHMDomotifications::afficherWidgets()
 {
+    boutonParametres->setIcon(QIcon(*imageLogoParametre));
 
-
-    /**
-     * @todo Affichage des logos
-     * logoParametre->setFixedSize(100, 140);
-
-     * logoBoiteAuxLettres->setPixmap(QPixmap(CHEMIN_LOGO_BOITE_AUX_LETTRES));
-     * logoMachine->setPixmap(QPixmap(CHEMIN_LOGO_MACHINE));
-     */
-
-    layoutBoutonsPoubelle->addWidget(boutonAcquittementPoubelle);
-    layoutBoutonsPoubelle->addWidget(boutonActivationDesactivationPoubelle);
+    logoBTS->setPixmap(QPixmap(CHEMIN_LOGO_BTS_SN));
+    logoPoubelle->setPixmap(QPixmap(CHEMIN_LOGO_POUBELLE));
+    logoBoiteAuxLettres->setPixmap(QPixmap(CHEMIN_LOGO_BOITE_AUX_LETTRES));
+    logoMachine->setPixmap(QPixmap(CHEMIN_LOGO_MACHINE));
 
     afficherBoutonActivationDesactivation();
     afficherBoutonAcquittement();
 
-    layoutPrincipal->addWidget(logoBTS);
-    layoutPrincipal->addWidget(logoPoubelle);
+    layoutLogos->addWidget(boutonParametres);
+    layoutLogos->addStretch();
+    layoutLogos->addWidget(logoBTS);
 
-    layoutPrincipal->addWidget(boutonAcquittementMachine);
-    layoutPrincipal->addWidget(boutonAcquittementBoiteAuxLettres);
-    layoutPrincipal->addWidget(boutonActivationDesactivationMachine);
-    layoutPrincipal->addWidget(boutonActivationDesactivationBoiteAuxLettres);
+    layoutBoutonsPoubelle->addWidget(boutonAcquittementPoubelle);
+    layoutBoutonsPoubelle->addWidget(boutonActivationDesactivationPoubelle);
+    layoutPoubelle->addWidget(logoPoubelle);
+    layoutPoubelle->addLayout(layoutBoutonsPoubelle);
+    layoutPoubelle->addStretch();
+
+    layoutBoutonsMachine->addWidget(boutonAcquittementMachine);
+    layoutBoutonsMachine->addWidget(boutonActivationDesactivationMachine);
+    layoutMachine->addWidget(logoMachine);
+    layoutMachine->addLayout(layoutBoutonsMachine);
+    layoutMachine->addStretch();
+
+    layoutBoutonsBoiteAuxLettres->addWidget(boutonAcquittementBoiteAuxLettres);
+    layoutBoutonsBoiteAuxLettres->addWidget(boutonActivationDesactivationBoiteAuxLettres);
+    layoutBoiteAuxLettres->addWidget(logoBoiteAuxLettres);
+    layoutBoiteAuxLettres->addLayout(layoutBoutonsBoiteAuxLettres);
+    layoutBoiteAuxLettres->addStretch();
+
+    layoutPrincipal->addLayout(layoutLogos);
+    layoutPrincipal->addLayout(layoutPoubelle);
+    layoutPrincipal->addLayout(layoutMachine);
+    layoutPrincipal->addLayout(layoutBoiteAuxLettres);
 }
 
 /**
@@ -228,31 +246,13 @@ void IHMDomotifications::afficherWidget()
  */
 void IHMDomotifications::initialiserGUI()
 {
-    initialiserWidget();
-    afficherWidget();
+    initialiserWidgets();
+    afficherWidgets();
 
     widgetPrincipal->setLayout(layoutPrincipal);
     setCentralWidget(widgetPrincipal);
-
-    setGeometry(QStyle::alignedRect(Qt::LeftToRight,
-                                    Qt::AlignCenter,
-                                    size(),
-                                    qApp->desktop()->availableGeometry()));
-#ifdef TEST_NOTIFICATIONS
-
-    boutonNotifier      = new QPushButton("Notifier", this);
-    messageNotification = new QLineEdit(this);
-    messageNotification->setText("La machine est finie !");
-    messageNotification->setFont(QFont("Courier New", 14, QFont::Bold));
-
-    QHBoxLayout* hLayoutMessage = new QHBoxLayout;
-    hLayoutMessage->addWidget(messageNotification);
-    mainLayout->addLayout(hLayoutMessage);
-    mainLayout->addStretch();
-
-    setCentralWidget(centralWidget);
-
-#endif
+    QRect screenGeometry = QGuiApplication::primaryScreen()->availableGeometry();
+    resize(screenGeometry.width(), screenGeometry.height());
 }
 
 /**
@@ -344,7 +344,7 @@ void IHMDomotifications::initialiserSignauxSlots()
     connect(iconeSysteme, SIGNAL(messageClicked()), this, SLOT(acquitterNotification()));
 
 #ifdef TEST_NOTIFICATIONS
-    connect(boutonNotifier, SIGNAL(clicked(bool)), this, SLOT(testerNotification()));
+    connect(boutonParametres, SIGNAL(clicked(bool)), this, SLOT(testerNotification()));
 #endif
     connect(domotification,
             SIGNAL(nouvelleNotification(QString)),
