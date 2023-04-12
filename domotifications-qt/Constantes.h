@@ -16,7 +16,13 @@
 
 #define TITRE_APPLICATION "Domotifications"
 
+#define PORT_HTTP 80
+
 //#define TEST_NOTIFICATIONS
+
+#define URL "http://station.local/notifications"
+
+#define NOM_STATION "station.local"
 
 #define CHEMIN_LOGO_PARAMETRE                  ":/images-qt/logo-parametre.png"
 #define CHEMIN_LOGO_POUBELLE                   ":/images-qt/logo-poubelle.png"

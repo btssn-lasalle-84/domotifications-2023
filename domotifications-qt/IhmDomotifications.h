@@ -13,8 +13,6 @@
 #include <QtWidgets>
 #include <QObject>
 
-#define TEST_NOTIFICATIONS
-
 namespace Ui
 {
 class IHMDomotifications;
@@ -82,6 +80,17 @@ class IHMDomotifications : public QMainWindow
     QIcon*       iconeActivation;
     QIcon*       iconeAcquittement;
 
+#ifdef TEST_REQUETE
+    // Widgets
+    QLabel*      labelURLStation;
+    QLineEdit*   editionURLStation;
+    QLabel*      labelJSON;
+    QLineEdit*   editionJSON;
+    QPushButton* boutonGet;
+    QPushButton* boutonPost;
+    QTextEdit*   journal;
+#endif
+
   public:
     IHMDomotifications(QWidget* parent = nullptr);
     ~IHMDomotifications();
@@ -102,6 +111,7 @@ class IHMDomotifications : public QMainWindow
 #ifdef TEST_NOTIFICATIONS
     void testerNotification();
 #endif
+
     void visualiserNotification(
       QString          message,
       TypeNotification type = IHMDomotifications::TypeNotification::Information);

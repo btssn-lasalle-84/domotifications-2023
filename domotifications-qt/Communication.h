@@ -3,27 +3,28 @@
 
 #include <QObject>
 #include <QString>
+#include <QtNetwork/QNetworkAccessManager>
 
-/**
- * @def PORT_HTTP
- * @brief Définit le port par défaut pour HTTP
- */
-#define PORT_HTTP 80
+#include "Constantes.h"
 
 class Communication : public QObject
 {
     Q_OBJECT
 
   private:
-    QString identifiant;
-    QString motDePasse;
-    int     httpPort;
+    QString                identifiant;
+    QString                motDePasse;
+    int                    httpPort;
+    QNetworkAccessManager* accesReseau;
+    QNetworkReply*         reponseReseau;
+    QString                urlStation;
+    QString                requeteJSON;
 
   public:
     Communication(QObject* parent = nullptr);
     ~Communication();
     void connecter();
-    void envoyerNotification();
+    void envoyerRequetePostBoiteAuxLettres();
     void recevoirNotification();
     void configurer(QString identifiant, QString motDePasse, int httpPort);
 };

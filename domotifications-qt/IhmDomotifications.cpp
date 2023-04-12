@@ -350,4 +350,8 @@ void IHMDomotifications::initialiserSignauxSlots()
             SIGNAL(nouvelleNotification(QString)),
             this,
             SLOT(visualiserNotification(QString)));
+    connect(boutonActivationDesactivationPoubelle,
+            SIGNAL(clicked(bool)),
+            domotification,
+            SLOT(gererActivationModule()));
 }
