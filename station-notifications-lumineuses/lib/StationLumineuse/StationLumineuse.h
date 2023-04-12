@@ -61,12 +61,12 @@ class StationLumineuse
     void eteindreNotificationMachine(int numeroMachine);
     void eteindreNotificationMachines();
     bool estIdValidePoubelle(int id);
-    bool getEtatPoubelle(int numeroPoubelle);
-    void setEtatPoubelle(int numeroPoubelle, bool etat);
+    bool getEtatPoubelle(int numeroPoubelles);
+    void setEtatPoubelle(int numeroPoubelles, bool etat);
     void resetEtatPoubelles();
-    void allumerNotificationPoubelle(int numeroPoubelle);
+    void allumerNotificationPoubelle(int numeroPoubelles);
     void allumerNotificationPoubelles();
-    void eteindreNotificationPoubelle(int numeroPoubelle);
+    void eteindreNotificationPoubelle(int numeroPoubelles);
     void eteindreNotificationPoubelles();
 
 #ifdef TEST_BANDEAU

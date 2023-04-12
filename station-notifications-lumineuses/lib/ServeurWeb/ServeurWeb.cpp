@@ -9,10 +9,27 @@
 #include "StationLumineuse.h"
 #include <ESPmDNS.h>
 
+/**
+ * @brief Constructeur de la classe ServeurWeb
+ * @fn ServeurWeb::ServeurWeb
+ * @param stationLumineuse
+ * @details Initialise un serveur web à l'aide du constructeur de la classe WebServer
+ *  avec le port PORT_SERVEUR_WEB et stocke un pointeur vers l'objet de la classe StationLumineuse dans la variable stationLumineuse
+ */
+
 ServeurWeb::ServeurWeb(StationLumineuse* stationLumineuse) :
     WebServer(PORT_SERVEUR_WEB), stationLumineuse(stationLumineuse)
 {
 }
+
+/**
+ * @brief Définit le nom du serveur web
+ * @fn ServeurWeb::setNom
+ * @param stationLumineuse
+ * @details Utilise le protocole mDNS pour définir le nom du serveur web.
+    Le nom sera utilisé pour accéder au serveur via l'adresse http://NOM_SERVEUR_WEB.local/.
+    Si la configuration du protocole mDNS échoue, un message d'erreur sera affiché en mode debug.
+ */
 
 void ServeurWeb::setNom()
 {
@@ -24,6 +41,15 @@ void ServeurWeb::setNom()
 #endif
     }
 }
+
+/**
+ * @brief Démarre le serveur web et installe les gestionnaires de requêtes
+ * @fn ServeurWeb::demarrer
+ * @details Configure les routes pour les différentes requêtes HTTP
+    et démarre le serveur web. Elle utilise des fonctions de liaison std::bind pour attacher les méthodes
+    membres à chaque route. Elle affiche également le nom du serveur et l'adresse IP sur la console série
+    si la macro DEBUG_SERVEUR_WEB est définie.
+ */
 
 void ServeurWeb::demarrer()
 {
@@ -38,7 +64,12 @@ void ServeurWeb::demarrer()
        HTTP_POST,
        std::bind(&ServeurWeb::traiterRequetePOSTMachine,
                  this)); // Ajout de la route /machine en POST
+    on("/poubelle",
+       HTTP_POST,
+       std::bind(&ServeurWeb::traiterRequetePOSTPoubelle,
+                 this)); // Ajout de la route /poubelle en POST
     onNotFound(std::bind(&ServeurWeb::traiterRequeteNonTrouvee, this));
+
 
     // Démarre le serveur
     begin();
@@ -51,10 +82,26 @@ void ServeurWeb::demarrer()
 #endif
 }
 
+/**
+ * @brief traite les requêtes reçues par le serveur web
+ * @fn ServeurWeb::traiterRequetes
+ * @details Appelle la méthode handleClient() du serveur web pour traiter les requêtes reçues par le serveur.
+ */
+
+
 void ServeurWeb::traiterRequetes()
 {
     handleClient();
 }
+
+/**
+ * @brief Affiche la page d'accueil du serveur web
+ * @fn ServeurWeb::afficherAccueil
+ * @details Affiche la page d'accueil du serveur web contenant un titre
+   "Bienvenue sur la station de notifications lumineuses" ainsi qu'un message indiquant
+   la version de la station ("LaSalle Avignon v0.1"). La méthode utilise la fonction send()
+   pour envoyer la réponse au client HTTP avec un code de statut 200 et un type de contenu "text/html"
+ */
 
 void ServeurWeb::afficherAccueil()
 {
@@ -68,6 +115,14 @@ void ServeurWeb::afficherAccueil()
     message += "<p>LaSalle Avignon v0.1</p>\n";
     send(200, F("text/html"), message);
 }
+
+/**
+ * @brief Traite la requête GET pour obtenir l'état des notifications
+ * @fn ServeurWeb::traiterRequeteGETNotifications
+ * @details Crée un objet JSON contenant l'état de la boîte aux lettres, des machines et des poubelles.
+   Elle utilise les méthodes getEtatBoiteAuxLettres(), getEtatMachines() et getEtatPoubelle() de l'objet stationLumineuse pour remplir l'objet JSON.
+   Ensuite, elle sérialise cet objet JSON et le renvoie en tant que réponse à la requête GET sous forme d'un document JSON.
+ */
 
 void ServeurWeb::traiterRequeteGETNotifications()
 {
@@ -101,6 +156,13 @@ void ServeurWeb::traiterRequeteGETNotifications()
     send(200, "application/json", buffer);
 }
 
+/**
+ * @brief Traite une requête HTTP GET relative à l'état de la boîte aux lettres
+ * @fn ServeurWeb::traiterRequeteGETBoite
+ * @details Cette méthode est appelée lorsqu'une requête HTTP GET relative à l'état de la boîte aux lettres est reçue par le serveur web.
+   Pour le moment, la méthode ne fait rien et retourne une réponse vide. Il s'agit d'une fonctionnalité à implémenter dans le futur.
+ */
+
 void ServeurWeb::traiterRequeteGETBoite()
 {
 #ifdef DEBUG_SERVEUR_WEB
@@ -114,6 +176,15 @@ void ServeurWeb::traiterRequeteGETBoite()
      * @todo Répondre à la requête
      */
 }
+
+/**
+ * @brief Traite la requête POST de la boîte aux lettres
+ * @fn ServeurWeb::traiterRequetePOSTBoite
+ * @details Récupère la demande POST de la boîte aux lettres envoyée par le client et vérifie si elle est correcte.
+    Ensuite, détermine l'état de la boîte aux lettres et l'enregistre dans l'objet StationLumineuse.
+    Si la demande est correcte, envoie une réponse JSON de confirmation au client.
+    Si la demande est incorrecte, envoie une réponse JSON d'erreur correspondante au client.
+ */
 
 void ServeurWeb::traiterRequetePOSTBoite()
 {
@@ -183,6 +254,15 @@ void ServeurWeb::traiterRequetePOSTBoite()
         }
     }
 }
+
+/**
+ * @brief Traite la requête POST pour modifier l'état d'une machine
+ * @fn ServeurWeb::traiterRequetePOSTMachine
+ * @details Récupère la demande POST de la machine envoyée par le client et vérifie si elle est correcte.
+    Ensuite, détermine l'état de la machine et l'enregistre dans l'objet StationLumineuse.
+    Si la demande est correcte, envoie une réponse JSON de confirmation au client.
+    Si la demande est incorrecte, envoie une réponse JSON d'erreur correspondante au client.
+ */
 
 void ServeurWeb::traiterRequetePOSTMachine()
 {
@@ -268,6 +348,107 @@ void ServeurWeb::traiterRequetePOSTMachine()
         }
     }
 }
+
+/**
+ * @brief Traite la requête POST pour modifier l'état d'une poubelle
+ * @fn ServeurWeb::traiterRequetePOSTPoubelle
+ * @details Récupère la demande POST de la poubelle envoyée par le client et vérifie si elle est correcte.
+    Ensuite, détermine l'état de la poubelle et l'enregistre dans l'objet StationLumineuse.
+    Si la demande est correcte, envoie une réponse JSON de confirmation au client.
+    Si la demande est incorrecte, envoie une réponse JSON d'erreur correspondante au client.
+ */
+
+void ServeurWeb::traiterRequetePOSTPoubelle()
+{
+#ifdef DEBUG_SERVEUR_WEB
+    Serial.print("ServeurWeb::traiterRequetePOSTPoubelle() : requête = ");
+    Serial.println((method() == HTTP_GET) ? "GET" : "POST");
+    Serial.print("URI : ");
+    Serial.println(uri());
+#endif
+
+    if(hasArg("plain") == false)
+    {
+#ifdef DEBUG_SERVEUR_WEB
+        Serial.println(F("Erreur !"));
+#endif
+        send(400,
+             "application/json",
+             "{\"error\": { \"code\": \"invalidRequest\", \"message\": "
+             "\"La demande est vide ou incorrecte.\"}}");
+        return;
+    }
+
+    String body = arg("plain");
+#ifdef DEBUG_SERVEUR_WEB
+    Serial.println(body);
+#endif
+    DeserializationError erreur = deserializeJson(documentJSON, body);
+    if(erreur)
+    {
+#ifdef DEBUG_SERVEUR_WEB
+        Serial.print(F("Erreur deserializeJson() : "));
+        Serial.println(erreur.f_str());
+#endif
+        send(400,
+             "application/json",
+             "{\"error\": { \"code\": \"invalidRequest\", \"message\": "
+             "\"La demande est mal exprimée ou incorrecte.\"}}");
+        return;
+    }
+    else
+    {
+        JsonObject objetJSON = documentJSON.as<JsonObject>();
+        if(objetJSON.containsKey("etat") && objetJSON.containsKey("numeroPoubelles"))
+        {
+#ifdef DEBUG_SERVEUR_WEB
+            Serial.print("numeroPoubelles : ");
+            Serial.println(documentJSON["numeroPoubelles"].as<int>());
+            Serial.print("etat : ");
+            Serial.println(documentJSON["etat"].as<bool>());
+#endif
+
+            // Modifier l'état de la Poubelle ici
+            int  numeroPoubelles = documentJSON["numeroPoubelles"].as<int>();
+            bool etatPoubelles   = documentJSON["etat"].as<bool>();
+
+            if(stationLumineuse->estIdValidePoubelle(numeroPoubelles))
+            {
+                stationLumineuse->setEtatPoubelle(numeroPoubelles, etatPoubelles);
+
+                send(200,
+                     "application/json",
+                     "{\"message\": "
+                     "\"ok\"}");
+            }
+            else
+            {
+                send(404,
+                     "application/json",
+                     "{\"error\": { \"code\": \"notFound\", \"message\": "
+                     "\"La machine demandée n'existe pas.\"}}");
+            }
+        }
+        else
+        {
+#ifdef DEBUG_SERVEUR_WEB
+            Serial.print(F("Erreur : champ etat ou numeroPoubelles manquant"));
+#endif
+            send(400,
+                 "application/json",
+                 "{\"error\": { \"code\": \"invalidRequest\", \"message\": "
+                 "\"La demande est incomplète.\"}}");
+            return;
+        }
+    }
+}
+
+/**
+ * @brief Traite une requête qui n'a pas été trouvée
+ * @fn ServeurWeb::traiterRequeteNonTrouvee
+ * @details Récupère les informations de la requête (URI, méthode, arguments) et les concatène dans un message d'erreur de type 404.
+   Envoie ensuite ce message au client qui a effectué la requête.
+ */
 
 void ServeurWeb::traiterRequeteNonTrouvee()
 {

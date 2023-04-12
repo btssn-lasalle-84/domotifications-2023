@@ -50,6 +50,7 @@ class ServeurWeb : public WebServer
     void traiterRequetePOSTBoite();
     void traiterRequeteNonTrouvee();
     void traiterRequetePOSTMachine();
+    void traiterRequetePOSTPoubelle();
 
   public:
     ServeurWeb(StationLumineuse* stationLumineuse);
