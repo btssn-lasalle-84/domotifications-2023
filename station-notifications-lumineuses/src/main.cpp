@@ -35,7 +35,7 @@ void setup()
     resultat      = wm.autoConnect(); // auto generated AP name from chipid
     if(!resultat)
     {
-        Serial.println("Erreur de connexion !");
+        Serial.println(F("Erreur de connexion !"));
         // ESP.restart();
     }
     // fin de la configuration du WiFi avec WiFiManager

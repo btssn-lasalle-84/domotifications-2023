@@ -12,11 +12,9 @@
 #include <Preferences.h>
 #include <Adafruit_NeoPixel.h>
 
-#define DEBUG_STATION_LUMINEUSE
+// #define DEBUG_STATION_LUMINEUSE
 
 // Bandeau à Leds
-// #define TEST_BANDEAU
-
 #define PIN_BANDEAU                      16
 #define NB_LEDS                          16
 #define NB_LEDS_NOTIFICATION_MACHINES    6
@@ -61,20 +59,13 @@ class StationLumineuse
     void eteindreNotificationMachine(int numeroMachine);
     void eteindreNotificationMachines();
     bool estIdValidePoubelle(int id);
-    bool getEtatPoubelle(int numeroPoubelles);
-    void setEtatPoubelle(int numeroPoubelles, bool etat);
+    bool getEtatPoubelle(int numeroPoubelle);
+    void setEtatPoubelle(int numeroPoubelle, bool etat);
     void resetEtatPoubelles();
-    void allumerNotificationPoubelle(int numeroPoubelles);
+    void allumerNotificationPoubelle(int numeroPoubelle);
     void allumerNotificationPoubelles();
-    void eteindreNotificationPoubelle(int numeroPoubelles);
+    void eteindreNotificationPoubelle(int numeroPoubelle);
     void eteindreNotificationPoubelles();
-
-#ifdef TEST_BANDEAU
-    // Fonctions de test
-    void testerBoiteAuxLettres();
-    void testerMachines();
-    void testerPoubelles();
-#endif
 };
 
 #endif // STATIONLUMINEUSE_H

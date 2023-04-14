@@ -10,9 +10,8 @@
 /**
  * @brief Constructeur par défaut de la classe StationLumineuse
  * @fn StationLumineuse::StationLumineuse
- * @details Initialise les attributs de la classe avec des valeurs par défaut.
+ * @details Initialise les attributs de la classe avec des valeurs par défaut et le bandeau de leds.
  */
-
 StationLumineuse::StationLumineuse() : leds(NB_LEDS, PIN_BANDEAU, NEO_GRB + NEO_KHZ800)
 {
 }
@@ -20,9 +19,9 @@ StationLumineuse::StationLumineuse() : leds(NB_LEDS, PIN_BANDEAU, NEO_GRB + NEO_
 /**
  * @brief Initialise les préférences de la station lumineuse
  * @fn StationLumineuse::initialiserPreferences
- * @details Charge les préférences depuis la mémoire EEPROM ou les valeurs par défaut si les préférences n'ont pas été définies
+ * @details Charge les préférences depuis la mémoire EEPROM ou les valeurs par défaut si les
+ * préférences n'ont pas été définies
  */
-
 void StationLumineuse::initialiserPreferences()
 {
     preferences.begin("eeprom", false); // false pour r/w
@@ -47,17 +46,10 @@ void StationLumineuse::initialiserPreferences()
  * @fn  StationLumineuse::initialiserNotifications
  * @details Allumer/Eteindre les leds de notifications à partir des états sauvegardés
  */
-
 void StationLumineuse::initialiserNotifications()
 {
     leds.begin();
     leds.clear();
-
-#ifdef TEST_BANDEAU
-    testerBoiteAuxLettres();
-    testerMachines();
-    testerPoubelles();
-#endif
 
     /**
      * Allumer/Eteindre les leds de notifications à partir des états
@@ -112,8 +104,9 @@ bool StationLumineuse::getEtatBoiteAuxLettres()
 /**
  * @brief Modifie l'état de la boîte aux lettres
  * @fn StationLumineuse::setEtatBoiteAuxLettres
- * @details Modifie l'état actuel de la boîte aux lettres et allume ou éteint les leds en fonction de celui-ci
- * @param etat 
+ * @details Modifie l'état actuel de la boîte aux lettres et allume ou éteint les leds en fonction
+ * de celui-ci
+ * @param etat
  */
 
 void StationLumineuse::setEtatBoiteAuxLettres(bool etat)
@@ -146,9 +139,8 @@ void StationLumineuse::resetEtatBoiteAuxLettres()
 /**
  * @brief Allume la notification lumineuse de la boîte aux lettres
  * @fn void StationLumineuse::allumerNotificationBoiteAuxLettres
- * @details Allume les LEDS de couleur rouge pour indiquer que la boîte aux lettres et pleine
+ * @details Allume les LEDS de couleur rouge pour indiquer que la boîte aux lettres est pleine
  */
-
 
 void StationLumineuse::allumerNotificationBoiteAuxLettres()
 {
@@ -164,9 +156,8 @@ void StationLumineuse::allumerNotificationBoiteAuxLettres()
 /**
  * @brief Eteint la notification lumineuse de la boîte aux lettres
  * @fn void StationLumineuse::eteindreNotificationBoiteAuxLettre
- * @details Allume les LEDS de couleur rouge pour indiquer que la boîte aux lettres et pleine
+ * @details Eteint les LEDS de couleur rouge pour indiquer que la boîte aux lettres est vide
  */
-
 void StationLumineuse::eteindreNotificationBoiteAuxLettres()
 {
     for(int i = INDEX_LEDS_NOTIFICATION_BOITE;
@@ -185,7 +176,6 @@ void StationLumineuse::eteindreNotificationBoiteAuxLettres()
  * @return bool true si l'ID est valide sinon false
  * @details renvoie Vrai si l'ID de la machine est compris entre 1 et NB_MACHINES, faux sinon
  */
-
 bool StationLumineuse::estIdValideMachine(int numeroMachine)
 {
     return (numeroMachine >= 0 && numeroMachine < NB_LEDS_NOTIFICATION_MACHINES);
@@ -194,11 +184,10 @@ bool StationLumineuse::estIdValideMachine(int numeroMachine)
 /**
  * @brief Récupère l'état de la machine donnée
  * @fn  StationLumineuse::getEtatMachines
- * @param numeromachines Numéro de la machine
- * @return etatmachines[numeromachines];
- * @details renvoie l'etat de la machine si l'id et valide , faux sinon
+ * @param numeromachine Numéro de la machine
+ * @return l'état true ou false de la machine
+ * @details renvoie l'etat de la machine si l'id et valide, faux sinon
  */
-
 bool StationLumineuse::getEtatMachine(int numeroMachine)
 {
     if(estIdValideMachine(numeroMachine))
@@ -213,13 +202,12 @@ bool StationLumineuse::getEtatMachine(int numeroMachine)
 
 /**
  * @brief Modifie l'état de la machine donnée
- * @fn StationLumineuse::setEtatMachines
- * @param numeromachines
+ * @fn StationLumineuse::setEtatMachine
+ * @param numeromachine
  * @param etat
- * @details Modifie l'état de la machine spécifiée par le numéro donné. Enregistre l'état dans les préférences,
-   et allume ou éteint la notification de la machine en fonction de son nouvel état.
+ * @details Modifie l'état de la machine spécifiée par le numéro donné. Enregistre l'état dans les
+ préférences, et allume ou éteint la notification de la machine en fonction de son nouvel état.
  */
-
 void StationLumineuse::setEtatMachine(int numeroMachine, bool etat)
 {
     if(!estIdValideMachine(numeroMachine))
@@ -239,28 +227,23 @@ void StationLumineuse::setEtatMachine(int numeroMachine, bool etat)
 }
 
 /**
- * @brief Réinitialise l'état de la machine donnée
+ * @brief Réinitialise l'état de toutes les machines
  * @fn StationLumineuse::resetEtatMachines
- * @param numeromachines
- * @details Change l'état de la machine donnée en false et éteint la notification associée
+ * @details Change l'état de toutes les machines en false et éteint les notifications associées
  */
-
 void StationLumineuse::resetEtatMachines()
-{
-}
-
-
-
-void StationLumineuse::allumerNotificationMachine(int numeroMachine)
 {
 }
 
 /**
  * @brief Allume la notification de la machine donnée
- * @fn StationLumineuse::allumerNotificationMachines
- * @param numeromachines
- * @details Allume les LEDs de couleur verte pour indiquer que la machine spécifiée est finit
+ * @fn StationLumineuse::allumerNotificationMachine
+ * @param numeromachine
+ * @details Allume les LEDs de couleur verte pour indiquer que la machine spécifiée est finie
  */
+void StationLumineuse::allumerNotificationMachine(int numeroMachine)
+{
+}
 
 void StationLumineuse::allumerNotificationMachines()
 {
@@ -273,17 +256,21 @@ void StationLumineuse::allumerNotificationMachines()
     }
 }
 
+/**
+ * @brief Éteint la notification de la machine donnée
+ * @fn StationLumineuse::eteindreNotificationMachine
+ * @param numeromachine
+ * @details Éteint les LEDS associées à la notification de la machine donnée
+ */
 void StationLumineuse::eteindreNotificationMachine(int numeroMachine)
 {
 }
 
 /**
- * @brief Éteint la notification de la machine donnée
+ * @brief Éteint la notification de toutes les machines
  * @fn StationLumineuse::eteindreNotificationMachines
- * @param numeromachines
- * @details Éteint les LEDS associées à la notification de la machine donnée en les mettant à la couleur noire (0,0,0)
+ * @details Éteint les LEDS associées à la notification de toutes les machines
  */
-
 void StationLumineuse::eteindreNotificationMachines()
 {
     for(int i = INDEX_LEDS_NOTIFICATION_MACHINES;
@@ -298,29 +285,29 @@ void StationLumineuse::eteindreNotificationMachines()
 /**
  * @brief Vérifie si le numero de la poubelle est valide
  * @fn StationLumineuse::estIdValidePoubelle
- * @param numeroPoubelles
+ * @param numeroPoubelle
  * @return bool true si le numeroPoubelle est valide sinon false
- * @details renvoie Vrai si l'numeroPoubelle de la poubelle est compris entre 1 et NB_POUBELLES, faux sinon
+ * @details renvoie Vrai si l'numeroPoubelle de la poubelle est compris entre 1 et NB_POUBELLES,
+ * faux sinon
  */
-
-bool StationLumineuse::estIdValidePoubelle(int numeroPoubelles)
+bool StationLumineuse::estIdValidePoubelle(int numeroPoubelle)
 {
-    return (numeroPoubelles >= 0 && numeroPoubelles< NB_LEDS_NOTIFICATION_POUBELLES);
+    return (numeroPoubelle >= 0 && numeroPoubelle < NB_LEDS_NOTIFICATION_POUBELLES);
 }
 
 /**
  * @brief Récupère l'état de la poubelle donnée
- * @fn  StationLumineuse::getEtatMachines
- * @param numeroPoubelles Numéro de la poubelle
- * @return etatPoubelles[numeroPoubelles];
- * @details renvoie l'etat de la machine si l'id et valide , faux sinon
+ * @fn  StationLumineuse::getEtatPoubelle
+ * @param numeroPoubelle Numéro de la poubelle
+ * @return etatPoubelle[numeroPoubelle]
+ * @details renvoie l'etat de la poubelle si l'id et valide, faux sinon
  */
 
-bool StationLumineuse::getEtatPoubelle(int numeroPoubelles)
+bool StationLumineuse::getEtatPoubelle(int numeroPoubelle)
 {
-        if(estIdValidePoubelle(numeroPoubelles))
+    if(estIdValidePoubelle(numeroPoubelle))
     {
-        return etatPoubelles[numeroPoubelles];
+        return etatPoubelles[numeroPoubelle];
     }
     else
     {
@@ -331,36 +318,35 @@ bool StationLumineuse::getEtatPoubelle(int numeroPoubelles)
 /**
  * @brief Modifie l'état de la poubelle donnée
  * @fn StationLumineuse::setEtatPoubelle
- * @param numeroPoubelles
+ * @param numeroPoubelle
  * @param etat
- * @details Modifie l'état de la poubelle spécifiée par le numéro donné. Enregistre l'état dans les préférences,
-   et allume ou éteint la notification de la poubelle en fonction de son nouvel état.
+ * @details Modifie l'état de la poubelle spécifiée par le numéro donné. Enregistre l'état dans les
+ préférences, et allume ou éteint la notification de la poubelle en fonction de son nouvel état.
  */
 
-void StationLumineuse::setEtatPoubelle(int numeroPoubelles, bool etat)
+void StationLumineuse::setEtatPoubelle(int numeroPoubelle, bool etat)
 {
-        if(!estIdValidePoubelle(numeroPoubelles))
+    if(!estIdValidePoubelle(numeroPoubelle))
         return;
-    etatPoubelles[numeroPoubelles] = etat;
-    char cle[64]                = "";
-    sprintf((char*)cle, "%s%d", "poubelle", numeroPoubelles);
-    preferences.putBool(cle, etatPoubelles[numeroPoubelles]);
+    etatPoubelles[numeroPoubelle] = etat;
+    char cle[64]                  = "";
+    sprintf((char*)cle, "%s%d", "poubelle", numeroPoubelle);
+    preferences.putBool(cle, etatPoubelles[numeroPoubelle]);
     if(etat)
     {
-        allumerNotificationMachine(numeroPoubelles);
+        allumerNotificationPoubelle(numeroPoubelle);
     }
     else
     {
-        eteindreNotificationMachine(numeroPoubelles);
+        eteindreNotificationPoubelle(numeroPoubelle);
     }
 }
 
 /**
- * @brief Réinitialise l'état de la poubelle donnée
+ * @brief Réinitialise l'état de toutes les poubelles
  * @fn StationLumineuse::resetEtatPoubelles
- * @details Change l'état de la poubelle donnée en false et éteint la notification associée
+ * @details Change l'état de toutes les poubelles et éteint les notifications associées
  */
-
 void StationLumineuse::resetEtatPoubelles()
 {
 }
@@ -368,32 +354,36 @@ void StationLumineuse::resetEtatPoubelles()
 /**
  * @brief Allume la notification de la poubelle donnée
  * @fn StationLumineuse::allumerNotificationPoubelle
- * @param numeroPoubelles
- * @details Allume les LEDS en fonction de la couleur correspond aux Poublles 0 ROUGE 1 VERT 2 BLEU 3 GRIS 4 JAUNE
-   pour indiquer quelles poubelles sortir
+ * @param numeroPoubelle
+ * @details Allume les LEDS en fonction de la couleur correspond aux poublles 0 ROUGE 1 VERT 2 BLEU
+ 3 GRIS 4 JAUNE pour indiquer quelle poubelle sortir
  */
 
-void StationLumineuse::allumerNotificationPoubelle(int numeroPoubelles)
+void StationLumineuse::allumerNotificationPoubelle(int numeroPoubelle)
 {
-    if (estIdValidePoubelle(numeroPoubelles))
+    if(estIdValidePoubelle(numeroPoubelle))
     {
-        etatPoubelles[numeroPoubelles] = true;
-        switch (numeroPoubelles)
+        switch(numeroPoubelle)
         {
             case 0:
-                leds.setPixelColor(INDEX_LEDS_NOTIFICATION_POUBELLES, leds.Color(255, 0, 0)); // LED de la poubelle verte en rouge
+                leds.setPixelColor(INDEX_LEDS_NOTIFICATION_POUBELLES,
+                                   leds.Color(0, 255, 0)); // LED de la poubelle verte
                 break;
             case 1:
-                leds.setPixelColor(INDEX_LEDS_NOTIFICATION_POUBELLES + 1, leds.Color(0, 255, 0)); // LED de la poubelle bleue en vert
+                leds.setPixelColor(INDEX_LEDS_NOTIFICATION_POUBELLES + 1,
+                                   leds.Color(0, 0, 255)); // LED de la poubelle bleue
                 break;
             case 2:
-                leds.setPixelColor(INDEX_LEDS_NOTIFICATION_POUBELLES + 2, leds.Color(0, 0, 255)); // LED de la poubelle verte en bleu
+                leds.setPixelColor(INDEX_LEDS_NOTIFICATION_POUBELLES + 2,
+                                   leds.Color(0, 255, 0)); // LED de la poubelle verte
                 break;
             case 3:
-                leds.setPixelColor(INDEX_LEDS_NOTIFICATION_POUBELLES + 3, leds.Color(128, 128, 128)); // LED de la poubelle grise en gris
+                leds.setPixelColor(INDEX_LEDS_NOTIFICATION_POUBELLES + 3,
+                                   leds.Color(128, 128, 128)); // LED de la poubelle grise
                 break;
             case 4:
-                leds.setPixelColor(INDEX_LEDS_NOTIFICATION_POUBELLES + 4, leds.Color(255, 255, 0)); // LED de la poubelle jaune en jaune
+                leds.setPixelColor(INDEX_LEDS_NOTIFICATION_POUBELLES + 4,
+                                   leds.Color(255, 255, 0)); // LED de la poubelle jaune
                 break;
             default:
                 break;
@@ -409,72 +399,20 @@ void StationLumineuse::allumerNotificationPoubelles()
 /**
  * @brief Éteint la notification de la poubelle donnée
  * @fn StationLumineuse::eteindreNotificationPoubelle
- * @param numeroPoubelles
- * @details Éteint les LEDS associées à la notification de la poubelle donnée en les mettant à la couleur noire (0,0,0)
+ * @param numeroPoubelle
+ * @details Éteint les LEDS associées à la notification de la poubelle donnée
  */
-
-void StationLumineuse::eteindreNotificationPoubelle(int numeroPoubelles)
+void StationLumineuse::eteindreNotificationPoubelle(int numeroPoubelle)
 {
-     if (estIdValidePoubelle(numeroPoubelles))
+    if(estIdValidePoubelle(numeroPoubelle))
     {
-        int indexLed = INDEX_LEDS_NOTIFICATION_POUBELLES + numeroPoubelles - 1;
+        int indexLed = INDEX_LEDS_NOTIFICATION_POUBELLES + numeroPoubelle;
         leds.setPixelColor(indexLed, leds.Color(0, 0, 0));
         leds.show();
-        setEtatPoubelle(numeroPoubelles, false);
+        setEtatPoubelle(numeroPoubelle, false);
     }
 }
 
 void StationLumineuse::eteindreNotificationPoubelles()
 {
 }
-
-#ifdef TEST_BANDEAU
-// Fonctions de test
-void StationLumineuse::testerBoiteAuxLettres()
-{
-    for(int i = INDEX_LEDS_NOTIFICATION_BOITE;
-        i < (INDEX_LEDS_NOTIFICATION_BOITE + NB_LEDS_NOTIFICATION_BOITE);
-        ++i)
-    {
-        leds.setPixelColor(i, leds.Color(255, 0, 0));
-        leds.show();
-    }
-    delay(1000);
-}
-
-void StationLumineuse::testerMachines()
-{
-    for(int i = INDEX_LEDS_NOTIFICATION_machines;
-        i < (INDEX_LEDS_NOTIFICATION_machines + NB_LEDS_NOTIFICATION_machines);
-        ++i)
-    {
-        leds.setPixelColor(i, leds.Color(0, 255, 0)); // RGB
-        leds.show();
-        delay(1000);
-    }
-}
-
-void StationLumineuse::testerPoubelles()
-{
-    for(int i = INDEX_LEDS_NOTIFICATION_POUBELLES;
-        i < (INDEX_LEDS_NOTIFICATION_POUBELLES + NB_LEDS_NOTIFICATION_POUBELLES);
-        ++i)
-    {
-        leds.setPixelColor(i, leds.Color(0, 255, 0)); // RGB vert
-        leds.show();
-        delay(1000);
-        leds.setPixelcolor(in leds.Color(255, 0, 0)); // rouge
-        leds.show();
-        delay(1000);
-        leds.setPixelcolor(in leds.Color(0, 0, 255)); // bleu
-        leds.show();
-        delay(1000);
-        leds.setPixelColor(i, leds.Color(128, 128, 128)); // gris
-        leds.show();
-        delay(1000);
-        leds.setPixelColor(i, leds.Color(255, 255, 0)); // jaune
-        leds.show();
-        delay(1000);
-    }
-}
-#endif
