@@ -303,11 +303,11 @@ void envoyerRequetePOSTBoite(bool etat)
     String payload = "{}";
     if(etat)
     {
-        payload = "{\"etat\":\"true\"}";
+        payload = "{\"etat\":true}";
     }
     else
     {
-        payload = "{\"etat\":\"false\"}";
+        payload = "{\"etat\":false}";
     }
     Serial.println("envoyerRequetePOSTBoite()");
     Serial.print("   etat = ");
@@ -332,11 +332,11 @@ void envoyerRequetePOSTPoubelle(int id, bool etat)
     String payload = "{}";
     if(etat)
     {
-        payload = "{\"etat\":\"true\"}";
+        payload = "{\"etat\":true}";
     }
     else
     {
-        payload = "{\"etat\":\"false\"}";
+        payload = "{\"etat\":false}";
     }
     Serial.println("envoyerRequetePOSTPoubelle()");
     Serial.print("   id   = ");
@@ -363,11 +363,11 @@ void envoyerRequetePOSTMachine(int id, bool etat)
     String payload = "{}";
     if(etat)
     {
-        payload = "{\"etat\":\"true\"}";
+        payload = "{\"etat\":true}";
     }
     else
     {
-        payload = "{\"etat\":\"false\"}";
+        payload = "{\"etat\":false}";
     }
     Serial.println("envoyerRequetePOSTMachine()");
     Serial.print("   id   = ");
