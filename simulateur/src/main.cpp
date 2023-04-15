@@ -437,8 +437,7 @@ int envoyerRequeteGETPoubelle(int id, bool etat)
 
 int envoyerRequeteGETMachine(int id, bool etat)
 {
-    String urlMachine =
-      url + String("/maachine?id=") + String(id) + String("&etat=") + String(etat);
+    String urlMachine = url + String("/machine?id=") + String(id) + String("&etat=") + String(etat);
     httpClient.begin(urlMachine.c_str());
 
     Serial.println("envoyerRequeteGETMachine()");
