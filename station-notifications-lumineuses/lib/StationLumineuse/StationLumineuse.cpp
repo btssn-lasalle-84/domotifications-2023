@@ -247,13 +247,13 @@ void StationLumineuse::allumerNotificationMachine(int numeroMachine)
 
 void StationLumineuse::allumerNotificationMachines()
 {
-    for(int i = INDEX_LEDS_NOTIFICATION_MACHINES;
+    /*for(int i = INDEX_LEDS_NOTIFICATION_MACHINES;
         i < (INDEX_LEDS_NOTIFICATION_MACHINES + NB_LEDS_NOTIFICATION_MACHINES);
         ++i)
     {
         leds.setPixelColor(i, leds.Color(0, 255, 0));
         leds.show();
-    }
+    }*/
 }
 
 /**
@@ -273,13 +273,13 @@ void StationLumineuse::eteindreNotificationMachine(int numeroMachine)
  */
 void StationLumineuse::eteindreNotificationMachines()
 {
-    for(int i = INDEX_LEDS_NOTIFICATION_MACHINES;
+    /*for(int i = INDEX_LEDS_NOTIFICATION_MACHINES;
         i < (INDEX_LEDS_NOTIFICATION_MACHINES + NB_LEDS_NOTIFICATION_MACHINES);
         ++i)
     {
         leds.setPixelColor(i, leds.Color(0, 0, 0));
         leds.show();
-    }
+    }*/
 }
 
 /**
@@ -363,6 +363,10 @@ void StationLumineuse::allumerNotificationPoubelle(int numeroPoubelle)
 {
     if(estIdValidePoubelle(numeroPoubelle))
     {
+        /**
+         * @todo pour simplifier ce code, il suffit de placer les couleurs des différentes poubelles
+         * dans un tableau et utiliser numeroPoubelle comme index
+         */
         switch(numeroPoubelle)
         {
             case 0:
@@ -409,7 +413,6 @@ void StationLumineuse::eteindreNotificationPoubelle(int numeroPoubelle)
         int indexLed = INDEX_LEDS_NOTIFICATION_POUBELLES + numeroPoubelle;
         leds.setPixelColor(indexLed, leds.Color(0, 0, 0));
         leds.show();
-        setEtatPoubelle(numeroPoubelle, false);
     }
 }
 

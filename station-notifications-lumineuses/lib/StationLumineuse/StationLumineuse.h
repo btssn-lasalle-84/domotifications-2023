@@ -16,10 +16,10 @@
 
 // Bandeau à Leds
 #define PIN_BANDEAU                      16
-#define NB_LEDS                          16
+#define NB_LEDS                          15
 #define NB_LEDS_NOTIFICATION_MACHINES    6
 #define NB_LEDS_NOTIFICATION_POUBELLES   5
-#define NB_LEDS_NOTIFICATION_BOITE       5
+#define NB_LEDS_NOTIFICATION_BOITE       4
 #define INDEX_LEDS_NOTIFICATION_MACHINES 0
 #define INDEX_LEDS_NOTIFICATION_POUBELLES                                                          \
     (INDEX_LEDS_NOTIFICATION_MACHINES + NB_LEDS_NOTIFICATION_MACHINES)

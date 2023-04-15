@@ -164,6 +164,7 @@ void ServeurWeb::traiterRequeteGETBoite()
     Serial.println(uri());
     Serial.print(F("Nb arguments : "));
     Serial.println(args());
+    // les arguments du type : /boite?etat=true
     for(int i = 0; i < args(); ++i)
     {
         Serial.print("argument : ");
@@ -238,7 +239,7 @@ void ServeurWeb::traiterRequetePOSTBoite()
 
             send(200,
                  "application/json",
-                 "{\"message\": "
+                 "{\"boite\": "
                  "\"ok\"}");
         }
         else
@@ -304,17 +305,17 @@ void ServeurWeb::traiterRequetePOSTMachine()
     else
     {
         JsonObject objetJSON = documentJSON.as<JsonObject>();
-        if(objetJSON.containsKey("etat") && objetJSON.containsKey("numeroMachine"))
+        if(objetJSON.containsKey("etat") && objetJSON.containsKey("id"))
         {
 #ifdef DEBUG_SERVEUR_WEB
-            Serial.print(F("numeroMachine : "));
-            Serial.println(documentJSON["numeroMachine"].as<int>());
+            Serial.print(F("id : "));
+            Serial.println(documentJSON["id"].as<int>());
             Serial.print(F("etat : "));
             Serial.println(documentJSON["etat"].as<bool>());
 #endif
 
             // Modifier l'état de la machine ici
-            int  numeroMachine = documentJSON["numeroMachine"].as<int>();
+            int  numeroMachine = documentJSON["id"].as<int>();
             bool etatMachine   = documentJSON["etat"].as<bool>();
 
             if(stationLumineuse->estIdValideMachine(numeroMachine))
@@ -323,7 +324,7 @@ void ServeurWeb::traiterRequetePOSTMachine()
 
                 send(200,
                      "application/json",
-                     "{\"message\": "
+                     "{\"machine\": "
                      "\"ok\"}");
             }
             else
@@ -397,17 +398,17 @@ void ServeurWeb::traiterRequetePOSTPoubelle()
     else
     {
         JsonObject objetJSON = documentJSON.as<JsonObject>();
-        if(objetJSON.containsKey("etat") && objetJSON.containsKey("numeroPoubelle"))
+        if(objetJSON.containsKey("etat") && objetJSON.containsKey("id"))
         {
 #ifdef DEBUG_SERVEUR_WEB
-            Serial.print(F("numeroPoubelle : "));
-            Serial.println(documentJSON["numeroPoubelle"].as<int>());
+            Serial.print(F("id : "));
+            Serial.println(documentJSON["id"].as<int>());
             Serial.print(F("etat : "));
             Serial.println(documentJSON["etat"].as<bool>());
 #endif
 
             // Modifier l'état de la Poubelle ici
-            int  numeroPoubelle = documentJSON["numeroPoubelle"].as<int>();
+            int  numeroPoubelle = documentJSON["id"].as<int>();
             bool etatPoubelle   = documentJSON["etat"].as<bool>();
 
             if(stationLumineuse->estIdValidePoubelle(numeroPoubelle))
@@ -416,7 +417,7 @@ void ServeurWeb::traiterRequetePOSTPoubelle()
 
                 send(200,
                      "application/json",
-                     "{\"message\": "
+                     "{\"poubelle\": "
                      "\"ok\"}");
             }
             else
