@@ -31,6 +31,11 @@
 #define NOM_SERVEUR_WEB  "station-lumineuse"
 #define PORT_SERVEUR_WEB 80
 
+#define REPONSE_OK          200
+#define REPONSE_INVALIDE    400
+#define REPONSE_NON_TROUVEE 404
+#define REPONSE_ERREUR      -1
+
 #define NB_NOTIFICATION_MACHINES  6
 #define NB_NOTIFICATION_POUBELLES 5
 #define NB_NOTIFICATION_BOITE     1
@@ -90,34 +95,36 @@ void reinitialiserAffichage()
 }
 
 void initialiser();
-void envoyerRequeteGETBoite(); // @todo
-void envoyerRequetePOSTBoite(bool etat);
-void envoyerRequetePOSTPoubelle(int id, bool etat);
-void envoyerRequetePOSTMachine(int id, bool etat);
+int  envoyerRequetePOSTBoite(bool etat);
+int  envoyerRequetePOSTPoubelle(int id, bool etat);
+int  envoyerRequetePOSTMachine(int id, bool etat);
+int  envoyerRequeteGETBoite(bool etat);
+int  envoyerRequeteGETPoubelle(int id, bool etat);
+int  envoyerRequeteGETMachine(int id, bool etat);
 
 bool estIdValide(int id, String type);
 bool getEtatMachine(int numeroMachine);
 void setEtatMachine(int numeroMachine, bool etat);
 void setEtatMachines();
 void resetEtatMachines();
-void allumerNotificationMachine(int numeroMachine);
-void eteindreNotificationMachine(int numeroMachine);
+int  allumerNotificationMachine(int numeroMachine);
+int  eteindreNotificationMachine(int numeroMachine);
 void allumerNotificationMachines();
 void eteindreNotificationMachines();
 
 bool getEtatPoubelle(int numeroPoubelle);
 void setEtatPoubelle(int numeroPoubelle, bool etat);
 void resetEtatPoubelles();
-void allumerNotificationPoubelle(int numeroPoubelle);
-void eteindreNotificationPoubelle(int numeroPoubelle);
+int  allumerNotificationPoubelle(int numeroPoubelle);
+int  eteindreNotificationPoubelle(int numeroPoubelle);
 void allumerNotificationPoubelles();
 void eteindreNotificationPoubelles();
 
 bool getEtatBoiteAuxLettres();
 void setEtatBoiteAuxLettres(bool etat);
-void resetEtatBoiteAuxLettres();
-void allumerNotificationBoiteAuxLettres();
-void eteindreNotificationBoiteAuxLettres();
+int  resetEtatBoiteAuxLettres();
+int  allumerNotificationBoiteAuxLettres();
+int  eteindreNotificationBoiteAuxLettres();
 
 // Fonctions utilitaires
 int    compterDelimiteurs(const String& chaine, char delimiteur);
@@ -174,7 +181,7 @@ void setup()
         // ESP.restart();
     }
 
-    String titre  = "  Domotifications";
+    String titre  = " Domotifications 2023";
     String stitre = "=====================";
     afficheur.setTitre(titre);
     afficheur.setSTitre(stitre);
@@ -208,6 +215,7 @@ void loop()
         char strMessageDisplay[24];
         sprintf(strMessageDisplay, "boite : %d", getEtatBoiteAuxLettres());
         afficheur.setMessageLigne(Afficheur::Ligne1, String(strMessageDisplay));
+        afficheur.setMessageLigne(Afficheur::Ligne4, String("method : POST"));
         refresh         = true;
         simulationBoite = false;
     }
@@ -223,6 +231,7 @@ void loop()
             setEtatMachine(id, getEtatMachine(id) ? false : true);
             sprintf(strMessageDisplay, "machine %d : %d", id, getEtatMachine(id));
             afficheur.setMessageLigne(Afficheur::Ligne2, String(strMessageDisplay));
+            afficheur.setMessageLigne(Afficheur::Ligne4, String("method : GET"));
         }
         else
         {
@@ -230,6 +239,7 @@ void loop()
             setEtatPoubelle(id, getEtatPoubelle(id) ? false : true);
             sprintf(strMessageDisplay, "poubelle %d : %d", id, getEtatPoubelle(id));
             afficheur.setMessageLigne(Afficheur::Ligne3, String(strMessageDisplay));
+            afficheur.setMessageLigne(Afficheur::Ligne4, String("method : POST"));
         }
         refresh    = true;
         simulation = false;
@@ -270,31 +280,8 @@ void initialiser()
     }
 }
 
-void envoyerRequeteGETBoite()
-{
-    String urlBoite = url + String("/boite");
-    httpClient.begin(urlBoite.c_str());
-
-    int codeReponse = httpClient.GET();
-
-    if(codeReponse > 0)
-    {
-        Serial.print("HTTP code reponse : ");
-        Serial.println(codeReponse);
-        String payload = httpClient.getString();
-        Serial.println(payload);
-    }
-    else
-    {
-        Serial.print("Erreur HTTP : ");
-        Serial.println(codeReponse);
-    }
-
-    httpClient.end();
-}
-
 // POST	/boite	{"etat": true|false}
-void envoyerRequetePOSTBoite(bool etat)
+int envoyerRequetePOSTBoite(bool etat)
 {
     String urlBoite = url + String("/boite");
     httpClient.begin(client, urlBoite);
@@ -320,23 +307,24 @@ void envoyerRequetePOSTBoite(bool etat)
     httpClient.end();
     Serial.print("   code reponse : ");
     Serial.println(codeReponse);
+    return codeReponse;
 }
 
-// POST	/poubelle/id	{"etat": true|false}
-void envoyerRequetePOSTPoubelle(int id, bool etat)
+// POST	/poubelle	{"etat": true|false, "id": 0|1|2|3|4}
+int envoyerRequetePOSTPoubelle(int id, bool etat)
 {
-    String urlPoubelle = url + String("/poubelle/") + String(id);
+    String urlPoubelle = url + String("/poubelle");
     httpClient.begin(client, urlPoubelle);
     httpClient.addHeader("Content-Type", "application/x-www-form-urlencoded");
     httpClient.addHeader("Content-Type", "application/json");
     String payload = "{}";
     if(etat)
     {
-        payload = "{\"etat\":true}";
+        payload = String("{\"etat\":true,") + String("\"id\":") + String(id) + String("}");
     }
     else
     {
-        payload = "{\"etat\":false}";
+        payload = String("{\"etat\":false,") + String("\"id\":") + String(id) + String("}");
     }
     Serial.println("envoyerRequetePOSTPoubelle()");
     Serial.print("   id   = ");
@@ -351,23 +339,24 @@ void envoyerRequetePOSTPoubelle(int id, bool etat)
     httpClient.end();
     Serial.print("   code reponse : ");
     Serial.println(codeReponse);
+    return codeReponse;
 }
 
-// POST	/machine/id	{"etat": true|false}
-void envoyerRequetePOSTMachine(int id, bool etat)
+// POST	/machine	{"etat": true|false, "id": 0|1|2|3|4|5}
+int envoyerRequetePOSTMachine(int id, bool etat)
 {
-    String urlMachine = url + String("/machine/") + String(id);
+    String urlMachine = url + String("/machine");
     httpClient.begin(client, urlMachine);
     httpClient.addHeader("Content-Type", "application/x-www-form-urlencoded");
     httpClient.addHeader("Content-Type", "application/json");
     String payload = "{}";
     if(etat)
     {
-        payload = "{\"etat\":true}";
+        payload = String("{\"etat\":true,") + String("\"id\":") + String(id) + String("}");
     }
     else
     {
-        payload = "{\"etat\":false}";
+        payload = String("{\"etat\":false,") + String("\"id\":") + String(id) + String("}");
     }
     Serial.println("envoyerRequetePOSTMachine()");
     Serial.print("   id   = ");
@@ -382,6 +371,99 @@ void envoyerRequetePOSTMachine(int id, bool etat)
     httpClient.end();
     Serial.print("   code reponse : ");
     Serial.println(codeReponse);
+    return codeReponse;
+}
+
+int envoyerRequeteGETBoite(bool etat)
+{
+    String urlBoite = url + String("/boite?etat=") + String(etat);
+    httpClient.begin(urlBoite.c_str());
+
+    Serial.println("envoyerRequeteGETBoite()");
+    Serial.print("   etat = ");
+    Serial.println(etat);
+    Serial.print("   url  = ");
+    Serial.println(urlBoite);
+    int codeReponse = httpClient.GET();
+
+    if(codeReponse > 0)
+    {
+        Serial.print("   code reponse : ");
+        Serial.println(codeReponse);
+        String payload = httpClient.getString();
+        Serial.println(payload);
+    }
+    else
+    {
+        Serial.print("   erreur : ");
+        Serial.println(codeReponse);
+    }
+
+    httpClient.end();
+
+    return codeReponse;
+}
+
+int envoyerRequeteGETPoubelle(int id, bool etat)
+{
+    String urlPoubelle =
+      url + String("/poubelle?id=") + String(id) + String("&etat=") + String(etat);
+    httpClient.begin(urlPoubelle.c_str());
+
+    Serial.println("envoyerRequeteGETPoubelle()");
+    Serial.print("   etat = ");
+    Serial.println(etat);
+    Serial.print("   url  = ");
+    Serial.println(urlPoubelle);
+    int codeReponse = httpClient.GET();
+
+    if(codeReponse > 0)
+    {
+        Serial.print("   code reponse : ");
+        Serial.println(codeReponse);
+        String payload = httpClient.getString();
+        Serial.println(payload);
+    }
+    else
+    {
+        Serial.print("   erreur : ");
+        Serial.println(codeReponse);
+    }
+
+    httpClient.end();
+
+    return codeReponse;
+}
+
+int envoyerRequeteGETMachine(int id, bool etat)
+{
+    String urlMachine =
+      url + String("/maachine?id=") + String(id) + String("&etat=") + String(etat);
+    httpClient.begin(urlMachine.c_str());
+
+    Serial.println("envoyerRequeteGETMachine()");
+    Serial.print("   etat = ");
+    Serial.println(etat);
+    Serial.print("   url  = ");
+    Serial.println(urlMachine);
+    int codeReponse = httpClient.GET();
+
+    if(codeReponse > 0)
+    {
+        Serial.print("   code reponse : ");
+        Serial.println(codeReponse);
+        String payload = httpClient.getString();
+        Serial.println(payload);
+    }
+    else
+    {
+        Serial.print("   erreur : ");
+        Serial.println(codeReponse);
+    }
+
+    httpClient.end();
+
+    return codeReponse;
 }
 
 bool estIdValide(int id, String type)
@@ -405,17 +487,25 @@ void setEtatMachine(int numeroMachine, bool etat)
 {
     if(numeroMachine >= 0 && numeroMachine < NB_NOTIFICATION_MACHINES)
     {
-        etatMachines[numeroMachine] = etat;
-        char cle[64]                = "";
-        sprintf((char*)cle, "%s%d", "machine", numeroMachine);
-        preferences.putBool(cle, etatMachines[numeroMachine]);
+        char cle[64] = "";
+
         if(etat)
         {
-            allumerNotificationMachine(numeroMachine);
+            if(allumerNotificationMachine(numeroMachine) == REPONSE_OK)
+            {
+                etatMachines[numeroMachine] = etat;
+                sprintf((char*)cle, "%s%d", "machine", numeroMachine);
+                preferences.putBool(cle, etatMachines[numeroMachine]);
+            }
         }
         else
         {
-            eteindreNotificationMachine(numeroMachine);
+            if(eteindreNotificationMachine(numeroMachine) == REPONSE_OK)
+            {
+                etatMachines[numeroMachine] = etat;
+                sprintf((char*)cle, "%s%d", "machine", numeroMachine);
+                preferences.putBool(cle, etatMachines[numeroMachine]);
+            }
         }
     }
 }
@@ -450,14 +540,16 @@ void resetEtatMachines()
     eteindreNotificationMachines();
 }
 
-void allumerNotificationMachine(int numeroMachine)
+int allumerNotificationMachine(int numeroMachine)
 {
-    envoyerRequetePOSTMachine(numeroMachine, true);
+    return envoyerRequeteGETMachine(numeroMachine, true);
+    // return envoyerRequetePOSTMachine(numeroMachine, true);
 }
 
-void eteindreNotificationMachine(int numeroMachine)
+int eteindreNotificationMachine(int numeroMachine)
 {
-    envoyerRequetePOSTMachine(numeroMachine, false);
+    return envoyerRequeteGETMachine(numeroMachine, false);
+    // return envoyerRequetePOSTMachine(numeroMachine, false);
 }
 
 void allumerNotificationMachines()
@@ -487,17 +579,25 @@ void setEtatPoubelle(int numeroPoubelle, bool etat)
 {
     if(numeroPoubelle >= 0 && numeroPoubelle < NB_NOTIFICATION_POUBELLES)
     {
-        etatPoubelles[numeroPoubelle] = etat;
-        char cle[64]                  = "";
-        sprintf((char*)cle, "%s%d", "poubelle", numeroPoubelle);
-        preferences.putBool(cle, etatPoubelles[numeroPoubelle]);
+        char cle[64] = "";
+
         if(etat)
         {
-            allumerNotificationPoubelle(numeroPoubelle);
+            if(allumerNotificationPoubelle(numeroPoubelle) == REPONSE_OK)
+            {
+                etatPoubelles[numeroPoubelle] = etat;
+                sprintf((char*)cle, "%s%d", "poubelle", numeroPoubelle);
+                preferences.putBool(cle, etatPoubelles[numeroPoubelle]);
+            }
         }
         else
         {
-            eteindreNotificationPoubelle(numeroPoubelle);
+            if(eteindreNotificationPoubelle(numeroPoubelle) == REPONSE_OK)
+            {
+                etatPoubelles[numeroPoubelle] = etat;
+                sprintf((char*)cle, "%s%d", "poubelle", numeroPoubelle);
+                preferences.putBool(cle, etatPoubelles[numeroPoubelle]);
+            }
         }
     }
 }
@@ -517,14 +617,14 @@ void resetEtatPoubelles()
     eteindreNotificationPoubelles();
 }
 
-void allumerNotificationPoubelle(int numeroPoubelle)
+int allumerNotificationPoubelle(int numeroPoubelle)
 {
-    envoyerRequetePOSTPoubelle(numeroPoubelle, true);
+    return envoyerRequetePOSTPoubelle(numeroPoubelle, true);
 }
 
-void eteindreNotificationPoubelle(int numeroPoubelle)
+int eteindreNotificationPoubelle(int numeroPoubelle)
 {
-    envoyerRequetePOSTPoubelle(numeroPoubelle, false);
+    return envoyerRequetePOSTPoubelle(numeroPoubelle, false);
 }
 
 void allumerNotificationPoubelles()
@@ -550,33 +650,39 @@ bool getEtatBoiteAuxLettres()
 
 void setEtatBoiteAuxLettres(bool etat)
 {
-    etatBoiteAuxLettres = etat;
-    preferences.putBool("boite", etatBoiteAuxLettres);
     if(etat)
     {
-        allumerNotificationBoiteAuxLettres();
+        if(allumerNotificationBoiteAuxLettres() == REPONSE_OK)
+        {
+            etatBoiteAuxLettres = etat;
+            preferences.putBool("boite", etatBoiteAuxLettres);
+        }
     }
     else
     {
-        eteindreNotificationBoiteAuxLettres();
+        if(eteindreNotificationBoiteAuxLettres() == REPONSE_OK)
+        {
+            etatBoiteAuxLettres = etat;
+            preferences.putBool("boite", etatBoiteAuxLettres);
+        }
     }
 }
 
-void resetEtatBoiteAuxLettres()
+int resetEtatBoiteAuxLettres()
 {
     etatBoiteAuxLettres = false;
     preferences.putBool("boite", etatBoiteAuxLettres);
-    eteindreNotificationBoiteAuxLettres();
+    return eteindreNotificationBoiteAuxLettres();
 }
 
-void allumerNotificationBoiteAuxLettres()
+int allumerNotificationBoiteAuxLettres()
 {
-    envoyerRequetePOSTBoite(true);
+    return envoyerRequetePOSTBoite(true);
 }
 
-void eteindreNotificationBoiteAuxLettres()
+int eteindreNotificationBoiteAuxLettres()
 {
-    envoyerRequetePOSTBoite(false);
+    return envoyerRequetePOSTBoite(false);
 }
 
 // Fonctions utilitaires
