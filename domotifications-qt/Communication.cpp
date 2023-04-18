@@ -9,18 +9,18 @@
 #include "Communication.h"
 
 Communication::Communication(QObject* parent) :
-    QObject(parent), identifiant(""), motDePasse(""), httpPort(PORT_HTTP)
+    QObject(parent), identifiant(""), motDePasse(""), httpPort(PORT_HTTP), accesReseau(new QNetworkAccessManager(this))
 {
-    accesReseau = new QNetworkAccessManager(this);
 }
 
 Communication::~Communication()
 {
+
 }
 
 void Communication::envoyerRequetePostBoiteAuxLettres()
 {
-    qDebug() << Q_FUNC_INFO;
+  /*  qDebug() << Q_FUNC_INFO;
     QUrl            url(URL);
     QNetworkRequest requetePostBoiteAuxLettres;
     requetePostBoiteAuxLettres.setUrl(url);
@@ -31,6 +31,7 @@ void Communication::envoyerRequetePostBoiteAuxLettres()
     requetePostBoiteAuxLettres.setRawHeader("Content-Length", QByteArray::number(json.size()));
 
     accesReseau->post(requetePostBoiteAuxLettres, json);
+*/
 }
 
 void Communication::recevoirNotification()

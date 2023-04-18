@@ -355,3 +355,9 @@ void IHMDomotifications::initialiserSignauxSlots()
             domotification,
             SLOT(gererActivationModule()));
 }
+
+QPushButton* IHMDomotifications::getBoutonGererActivationPoubelle()
+{
+    return boutonActivationDesactivationPoubelle;
+}
+

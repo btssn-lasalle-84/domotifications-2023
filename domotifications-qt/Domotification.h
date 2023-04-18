@@ -8,8 +8,11 @@
 #include "Constantes.h"
 #include "Module.h"
 #include "Communication.h"
+#include "IhmDomotifications.h"
 
+class Module;
 class Communication;
+class IHMDomotifications;
 
 class Domotification : public QObject
 {
@@ -17,8 +20,8 @@ class Domotification : public QObject
   private:
     QMap<QString, Module*> modules;
     Communication*         reseau;
-
-  public:
+    IHMDomotifications* ihm;
+public:
     Domotification(QObject* parent = nullptr);
     ~Domotification();
 
