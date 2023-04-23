@@ -8,7 +8,7 @@
 #include "Domotification.h"
 #include <QDebug>
 
-Domotification::Domotification(QObject* parent) : QObject(parent), reseau(new Communication), ihm(new IHMDomotifications)
+Domotification::Domotification(IHMDomotifications* ihm) : QObject(ihm), reseau(new Communication), ihm(ihm)
 {
     qDebug() << Q_FUNC_INFO;
 }
@@ -16,19 +16,11 @@ Domotification::Domotification(QObject* parent) : QObject(parent), reseau(new Co
 Domotification::~Domotification()
 {
     delete reseau;
-    delete ihm;
     qDebug() << Q_FUNC_INFO;
 }
 
 void Domotification::gererActivationModule()
 {
-    qDebug() << Q_FUNC_INFO;
-    QObject *adresseObjetSignal = sender();
-    if(adresseObjetSignal == ihm->getBoutonGererActivationPoubelle())
-    {
-        reseau->envoyerRequetePostBoiteAuxLettres();
-    }
-
 }
 void Domotification::gererNotification(QString nomModule, bool etatActivation)
 {

@@ -20,9 +20,9 @@ class Domotification : public QObject
   private:
     QMap<QString, Module*> modules;
     Communication*         reseau;
-    IHMDomotifications* ihm;
+    IHMDomotifications*     ihm;
 public:
-    Domotification(QObject* parent = nullptr);
+    Domotification(IHMDomotifications* ihm = nullptr);
     ~Domotification();
 
     void gererNotification(QString nomModule, bool etatActivation);

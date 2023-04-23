@@ -106,7 +106,6 @@ class IHMDomotifications : public QMainWindow
     void creerIconeBarreDesTache();
     void afficherBoutonActivationDesactivation();
     void afficherBoutonAcquittement();
-    QPushButton* getBoutonGererActivationPoubelle();
 
   public slots:
 #ifdef TEST_NOTIFICATIONS

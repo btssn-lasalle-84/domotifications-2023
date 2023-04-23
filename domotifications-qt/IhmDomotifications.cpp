@@ -356,8 +356,16 @@ void IHMDomotifications::initialiserSignauxSlots()
             SLOT(gererActivationModule()));
 }
 
-QPushButton* IHMDomotifications::getBoutonGererActivationPoubelle()
+/**
+ * @brief Gère les boutons d'activation et de desactivation
+ * @fn IHMDomotifications::gererBoutonActivationDesactivation
+ * @details Renvoie les signaux de chaque bouton d'activation/désactivation vers leur slots respectifs
+ */
+void IHMDomotifications::gererBoutonActivationDesactivation()
 {
-    return boutonActivationDesactivationPoubelle;
+    /**
+     * @todo Gérer les signaux des boutons pour les rediriger vers leurs slots respectifs
+    */
+
 }
 

@@ -17,10 +17,14 @@ Communication::~Communication()
 {
 
 }
-
+/**
+ * @brief Envoie une requete http en Post à la boite aux lettres
+ * @fn Communication::envoyerRequetePostBoiteAuxLettres
+ * @details Slots qui va envoyer une requête HTTP en Post à l'émission du signal d'activation ou de desactivation du module
+ */
 void Communication::envoyerRequetePostBoiteAuxLettres()
 {
-  /*  qDebug() << Q_FUNC_INFO;
+    qDebug() << Q_FUNC_INFO;
     QUrl            url(URL);
     QNetworkRequest requetePostBoiteAuxLettres;
     requetePostBoiteAuxLettres.setUrl(url);
@@ -31,7 +35,7 @@ void Communication::envoyerRequetePostBoiteAuxLettres()
     requetePostBoiteAuxLettres.setRawHeader("Content-Length", QByteArray::number(json.size()));
 
     accesReseau->post(requetePostBoiteAuxLettres, json);
-*/
+
 }
 
 void Communication::recevoirNotification()
