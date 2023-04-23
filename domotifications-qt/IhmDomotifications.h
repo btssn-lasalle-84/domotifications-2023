@@ -111,6 +111,7 @@ class IHMDomotifications : public QMainWindow
 #ifdef TEST_NOTIFICATIONS
     void testerNotification();
 #endif
+    void gererBoutonActivationDesactivation();
 
     void visualiserNotification(
       QString          message,
