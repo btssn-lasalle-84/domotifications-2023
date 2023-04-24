@@ -24,7 +24,7 @@ class Communication : public QObject
     Communication(QObject* parent = nullptr);
     ~Communication();
     void connecter();
-    void envoyerRequetePostBoiteAuxLettres();
+    void envoyerRequetePost(QString api, const QByteArray& json);
     void recevoirNotification();
     void configurer(QString identifiant, QString motDePasse, int httpPort);
 };

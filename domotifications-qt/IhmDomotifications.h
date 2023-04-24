@@ -62,13 +62,20 @@ class IHMDomotifications : public QMainWindow
     QVBoxLayout* layoutBoutonsMachine;
     QVBoxLayout* layoutBoutonsBoiteAuxLettres;
     QPushButton* boutonParametres;
+    /**
+     * @todo Gérer un conteneur pour les machines et poubelles
+     */
     QPushButton* boutonActivationDesactivationMachine;
     QPushButton* boutonActivationDesactivationBoiteAuxLettres;
     QPushButton* boutonActivationDesactivationPoubelle;
+    /**
+     * @todo Gérer un conteneur pour les machines et poubelles
+     */
     QPushButton* boutonAcquittementMachine;
     QPushButton* boutonAcquittementPoubelle;
     QPushButton* boutonAcquittementBoiteAuxLettres;
     QPixmap*     imageBoutonActivation;
+    QPixmap*     imageBoutonDesactivation;
     QPixmap*     imageBoutonAcquittement;
     QPixmap*     imageLogoBTS;
     QPixmap*     imageLogoParametre;
@@ -78,6 +85,7 @@ class IHMDomotifications : public QMainWindow
     QLabel*      logoBoiteAuxLettres;
     QLabel*      logoPoubelle;
     QIcon*       iconeActivation;
+    QIcon*       iconeDesactivation;
     QIcon*       iconeAcquittement;
 
 #ifdef TEST_REQUETE
@@ -103,9 +111,15 @@ class IHMDomotifications : public QMainWindow
     void creerActionsMenu();
     void connecterActions();
     void creerMenu();
-    void creerIconeBarreDesTache();
-    void afficherBoutonActivationDesactivation();
+    void creerIconeBarreDesTaches();
+    void afficherIconeBarreDesTaches();
+    void afficherBoutonsActivationDesactivation();
+    void afficherBoutonActivation(QPushButton* boutonModule);
+    void afficherBoutonDesactivation(QPushButton* boutonModule);
     void afficherBoutonAcquittement();
+
+  signals:
+    void activationDesactivationModule(QString nomModule);
 
   public slots:
 #ifdef TEST_NOTIFICATIONS

@@ -21,14 +21,24 @@ class Module : public QObject
     };
 
   private:
+    int        id;
     QString    nomModule;
     TypeModule typeModule;
-    bool       estActive;
-    bool       estNotifie;
+    bool       actif;
+    bool       notifie;
 
   public:
-    Module(QObject* parent = nullptr);
+    Module(QString nomModule, Module::TypeModule type, QObject* parent = nullptr);
     ~Module();
+    /**
+     * @todo Ajouter accesseurs/mutateurs
+     */
+    int                getId() const;
+    Module::TypeModule getType() const;
+    bool               estActif() const;
+    bool               estNotifie() const;
+    void               setActif(bool actif);
+    static QString     getType(Module::TypeModule type);
 };
 
 #endif // MODULE_H

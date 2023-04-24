@@ -7,10 +7,7 @@
 
 #include "Constantes.h"
 #include "Module.h"
-#include "Communication.h"
-#include "IhmDomotifications.h"
 
-class Module;
 class Communication;
 class IHMDomotifications;
 
@@ -19,13 +16,15 @@ class Domotification : public QObject
     Q_OBJECT
   private:
     QMap<QString, Module*> modules;
-    Communication*         reseau;
-    IHMDomotifications*     ihm;
-public:
+    Communication*         communication;
+    IHMDomotifications*    ihm;
+
+  public:
     Domotification(IHMDomotifications* ihm = nullptr);
     ~Domotification();
 
-    void gererNotification(QString nomModule, bool etatActivation);
+    bool getActivationModule(QString nomModule);
+    void gererNotification(QString nomModule);
     void ajouterModule(QString nomModule, Module::TypeModule type);
     void notifier(QString message);
 
@@ -33,7 +32,7 @@ public:
     void nouvelleNotification(QString message);
 
   public slots:
-    void gererActivationModule();
+    void gererActivationModule(QString nomModule);
 };
 
 #endif // DOMOTIFICATION_H
