@@ -6,7 +6,7 @@
  *
  * @brief Déclaration de la classe IhmDomotifications
  * @author Mathieu MOYAERTS
- * @version 0.1
+ * @version 0.2
  */
 
 #include "Constantes.h"
@@ -44,6 +44,8 @@ class IHMDomotifications : public QMainWindow
   private:
     Ui::IHMDomotifications* ui;               //!< La GUI
     Domotification*         domotification;   //!< l'objet contrôleur de l'application
+    QVector<QObject*> poubelles ;
+    QVector<QObject*>  machines ;
     QSystemTrayIcon*        iconeSysteme;     //!< L'icône de l'application pour la barre système
     QMenu*                  menuIconeSysteme; //!< Le menu de l'application
     QAction*                actionMinimiser;  //!< L'action minimiser l'application
@@ -52,6 +54,7 @@ class IHMDomotifications : public QMainWindow
     QAction*                actionQuitter;    //!< L'action quitter l'application
     bool                    etatInitialIconeSysteme; //!< Booléen indiquant si c'est la première
                                                      //!< demande Quitter
+
     QWidget*     widgetPrincipal;                    //!< Le widget central
     QVBoxLayout* layoutPrincipal;
     QHBoxLayout* layoutLogos;

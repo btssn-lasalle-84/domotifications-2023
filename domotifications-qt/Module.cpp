@@ -3,7 +3,7 @@
  *
  * @brief Définition de la classe Module
  * @author Mathieu MOYAERTS
- * @version 0.1
+ * @version 0.2
  */
 
 #include "Module.h"
@@ -52,14 +52,17 @@ void Module::setActif(bool actif)
  */
 QString Module::getType(Module::TypeModule type)
 {
-    /**
-     * @todo Compléter pour tous les types de module
-     */
+
     switch(type)
     {
         case Module::TypeModule::Machine:
             return QString("machine");
             break;
+        case Module::TypeModule::Poubelle:
+            return QString("Poubelle");
+        break;
+    case Module::TypeModule::BoiteAuxLettres:
+        return QString("Boite Aux Lettres");
         default:
             return QString();
             break;

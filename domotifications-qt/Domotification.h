@@ -1,6 +1,14 @@
 #ifndef DOMOTIFICATION_H
 #define DOMOTIFICATION_H
 
+/**
+ * @file Domotification.h
+ *
+ * @brief Déclaration de la classe Domotification
+ * @author Mathieu MOYAERTS
+ * @version 0.2
+ */
+
 #include <QObject>
 #include <QString>
 #include <QMap>

@@ -6,7 +6,7 @@
  *
  * @brief Contient les constantes du projet
  * @author Mathieu MOYAERTS
- * @version 0.1
+ * @version 0.2
  */
 
 #include <QString>
@@ -40,9 +40,9 @@
 #define CHEMIN_LOGO_POUBELLE          ":/images-qt/logo-poubelle.png"
 #define CHEMIN_LOGO_BOITE_AUX_LETTRES ":/images-qt/logo-boite-aux-lettres.png"
 #define CHEMIN_LOGO_MACHINE           ":/images-qt/logo-machine.png"
-#define CHEMIN_BOUTON_ACTIVATION      ":/images-qt/bouton-activation"
-#define CHEMIN_BOUTON_DESACTIVATION   ":/images-qt/bouton-desactivation"
-#define CHEMIN_BOUTON_ACQUITTEMENT    ":/images-qt/logo-acquittement"
+#define CHEMIN_BOUTON_ACTIVATION      ":/images-qt/bouton-activation.png"
+#define CHEMIN_BOUTON_DESACTIVATION   ":/images-qt/bouton-desactivation.png"
+#define CHEMIN_BOUTON_ACQUITTEMENT    ":/images-qt/logo-acquittement.png"
 #define CHEMIN_LOGO_BTS_SN            ":/images-qt/logo-bts-sn.png"
 
 #define HAUTEUR_IMAGE 50
@@ -50,6 +50,7 @@
 
 // Pour les tests
 #define SANS_STATION
-//#define TEST_NOTIFICATIONS
+#define TEST_NOTIFICATIONS
 
 #endif // CONSTANTES_H
+

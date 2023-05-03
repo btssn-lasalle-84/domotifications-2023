@@ -1,6 +1,14 @@
 #ifndef MODULE_H
 #define MODULE_H
 
+/**
+ * @file Module.h
+ *
+ * @brief Déclaration de la classe Module
+ * @author Mathieu MOYAERTS
+ * @version 0.2
+ */
+
 #include <QObject>
 #include <QString>
 

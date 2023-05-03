@@ -3,7 +3,7 @@
  *
  * @brief Définition de la classe Domotification
  * @author Mathieu MOYAERTS
- * @version 0.1
+ * @version 0.2
  */
 #include "Domotification.h"
 #include "Communication.h"

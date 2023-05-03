@@ -1,6 +1,15 @@
 #ifndef COMMUNICATION_H
 #define COMMUNICATION_H
 
+/**
+ * @file Communication.h
+ *
+ * @brief Déclaration de la classe Communication
+ * @author Mathieu MOYAERTS
+ * @version 0.2
+ */
+
+
 #include <QObject>
 #include <QString>
 #include <QtNetwork/QNetworkAccessManager>
