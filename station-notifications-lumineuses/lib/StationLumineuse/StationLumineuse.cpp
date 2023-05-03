@@ -8,15 +8,21 @@
 #include "StationLumineuse.h"
 
 /**
- * @brief Constructeur par défaut de la classe StationLumineuse
- * @fn StationLumineuse::StationLumineuse
- * @details Initialise les attributs de la classe avec des valeurs par défaut et le bandeau de leds.
+ * @brief Constructeur de la classe StationLumineuse.
+ * @fn StationLumineuse::StationLumineuse()
+ * @details Ce constructeur initialise les attributs de la classe et appelle la fonction
+ * setCouleursPoubelles() pour définir les couleurs des notifications de poubelles.
  */
 StationLumineuse::StationLumineuse() : leds(NB_LEDS, PIN_BANDEAU, NEO_GRB + NEO_KHZ800)
 {
     setCouleursPoubelles();
 }
-
+/**
+ * @brief Constructeur de la classe StationLumineuse.
+ * @fn StationLumineuse::StationLumineuse()
+ * @details Ce constructeur initialise les attributs de la classe et appelle la fonction
+ * setCouleursPoubelles() pour définir les couleurs des notifications de poubelles.
+ */
 StationLumineuse::~StationLumineuse()
 {
 }
