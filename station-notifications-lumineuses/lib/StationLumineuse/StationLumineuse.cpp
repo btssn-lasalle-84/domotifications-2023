@@ -2,7 +2,7 @@
  * @file StationLumineuse.cpp
  * @brief Définition de la classe StationLumineuse
  * @author Alexis Vaillen
- * @version 0.1
+ * @version 0.2
  */
 
 #include "StationLumineuse.h"
@@ -13,6 +13,11 @@
  * @details Initialise les attributs de la classe avec des valeurs par défaut et le bandeau de leds.
  */
 StationLumineuse::StationLumineuse() : leds(NB_LEDS, PIN_BANDEAU, NEO_GRB + NEO_KHZ800)
+{
+    setCouleursPoubelles();
+}
+
+StationLumineuse::~StationLumineuse()
 {
 }
 
@@ -51,10 +56,6 @@ void StationLumineuse::initialiserNotifications()
     leds.begin();
     leds.clear();
 
-    /**
-     * Allumer/Eteindre les leds de notifications à partir des états
-     * sauvegardés
-     */
     if(etatBoiteAuxLettres)
     {
         allumerNotificationBoiteAuxLettres();
@@ -95,7 +96,6 @@ void StationLumineuse::initialiserNotifications()
  * @details Obtient l'état actuel de la boîte aux lettres, vrai si elle est pleine, faux sinon
  * @return etatBoiteAuxLettres
  */
-
 bool StationLumineuse::getEtatBoiteAuxLettres()
 {
     return etatBoiteAuxLettres;
@@ -108,7 +108,6 @@ bool StationLumineuse::getEtatBoiteAuxLettres()
  * de celui-ci
  * @param etat
  */
-
 void StationLumineuse::setEtatBoiteAuxLettres(bool etat)
 {
     etatBoiteAuxLettres = etat;
@@ -128,7 +127,6 @@ void StationLumineuse::setEtatBoiteAuxLettres(bool etat)
  * @fn StationLumineuse::resetEtatBoiteAuxLettres
  * @details Change l'état de boite aux lettres en false et eteint les leds attribuer a celle-ci
  */
-
 void StationLumineuse::resetEtatBoiteAuxLettres()
 {
     etatBoiteAuxLettres = false;
@@ -141,7 +139,6 @@ void StationLumineuse::resetEtatBoiteAuxLettres()
  * @fn void StationLumineuse::allumerNotificationBoiteAuxLettres
  * @details Allume les LEDS de couleur rouge pour indiquer que la boîte aux lettres est pleine
  */
-
 void StationLumineuse::allumerNotificationBoiteAuxLettres()
 {
     for(int i = INDEX_LEDS_NOTIFICATION_BOITE;
@@ -233,6 +230,14 @@ void StationLumineuse::setEtatMachine(int numeroMachine, bool etat)
  */
 void StationLumineuse::resetEtatMachines()
 {
+    for(int i = 0; i < NB_LEDS_NOTIFICATION_MACHINES; i++)
+    {
+        etatMachines[i] = false;
+        char cle[64]    = "";
+        sprintf((char*)cle, "%s%d", "machine", i);
+        preferences.putBool(cle, etatMachines[i]);
+        eteindreNotificationPoubelle(i);
+    }
 }
 
 /**
@@ -243,17 +248,12 @@ void StationLumineuse::resetEtatMachines()
  */
 void StationLumineuse::allumerNotificationMachine(int numeroMachine)
 {
-}
-
-void StationLumineuse::allumerNotificationMachines()
-{
-    /*for(int i = INDEX_LEDS_NOTIFICATION_MACHINES;
-        i < (INDEX_LEDS_NOTIFICATION_MACHINES + NB_LEDS_NOTIFICATION_MACHINES);
-        ++i)
+    if(estIdValideMachine(numeroMachine))
     {
-        leds.setPixelColor(i, leds.Color(0, 255, 0));
-        leds.show();
-    }*/
+        leds.setPixelColor(INDEX_LEDS_NOTIFICATION_MACHINES + numeroMachine,
+                           leds.Color(0, 255, 0)); // Appliquer la couleur correspondante
+        leds.show();                               // Allume le bandeau
+    }
 }
 
 /**
@@ -264,22 +264,12 @@ void StationLumineuse::allumerNotificationMachines()
  */
 void StationLumineuse::eteindreNotificationMachine(int numeroMachine)
 {
-}
-
-/**
- * @brief Éteint la notification de toutes les machines
- * @fn StationLumineuse::eteindreNotificationMachines
- * @details Éteint les LEDS associées à la notification de toutes les machines
- */
-void StationLumineuse::eteindreNotificationMachines()
-{
-    /*for(int i = INDEX_LEDS_NOTIFICATION_MACHINES;
-        i < (INDEX_LEDS_NOTIFICATION_MACHINES + NB_LEDS_NOTIFICATION_MACHINES);
-        ++i)
+    if(estIdValideMachine(numeroMachine))
     {
-        leds.setPixelColor(i, leds.Color(0, 0, 0));
+        int indexLed = INDEX_LEDS_NOTIFICATION_MACHINES + numeroMachine;
+        leds.setPixelColor(indexLed, leds.Color(0, 0, 0));
         leds.show();
-    }*/
+    }
 }
 
 /**
@@ -302,7 +292,6 @@ bool StationLumineuse::estIdValidePoubelle(int numeroPoubelle)
  * @return etatPoubelle[numeroPoubelle]
  * @details renvoie l'etat de la poubelle si l'id et valide, faux sinon
  */
-
 bool StationLumineuse::getEtatPoubelle(int numeroPoubelle)
 {
     if(estIdValidePoubelle(numeroPoubelle))
@@ -323,7 +312,6 @@ bool StationLumineuse::getEtatPoubelle(int numeroPoubelle)
  * @details Modifie l'état de la poubelle spécifiée par le numéro donné. Enregistre l'état dans les
  préférences, et allume ou éteint la notification de la poubelle en fonction de son nouvel état.
  */
-
 void StationLumineuse::setEtatPoubelle(int numeroPoubelle, bool etat)
 {
     if(!estIdValidePoubelle(numeroPoubelle))
@@ -349,6 +337,37 @@ void StationLumineuse::setEtatPoubelle(int numeroPoubelle, bool etat)
  */
 void StationLumineuse::resetEtatPoubelles()
 {
+    for(int i = 0; i < NB_LEDS_NOTIFICATION_POUBELLES; i++)
+    {
+        etatPoubelles[i] = false;
+        char cle[64]     = "";
+        sprintf((char*)cle, "%s%d", "poubelle", i);
+        preferences.putBool(cle, etatPoubelles[i]);
+        eteindreNotificationPoubelle(i);
+    }
+}
+
+/**
+ * @brief Définit les couleurs pour les notifications de poubelles.
+ * @fn void StationLumineuse::setCouleursPoubelles()
+ * @details Cette fonction initialise le tableau des couleurs pour les notifications de poubelles
+ * avec les valeurs RGB correspondantes. Le tableau de couleurs peut ensuite être utilisé pour
+ * contrôler les couleurs des LED.
+ */
+void StationLumineuse::setCouleursPoubelles()
+{
+    const uint8_t couleursRGB[NB_LEDS_NOTIFICATION_POUBELLES][3] = {
+        { 0, 0, 255 },     // Couleur poubelle 0 (bleue)
+        { 0, 255, 0 },     // Couleur poubelle 1 (verte)
+        { 255, 255, 0 },   // Couleur poubelle 2 (jaune)
+        { 128, 128, 128 }, // Couleur poubelle 3 (grise)
+        { 255, 0, 0 }      // Couleur poubelle 4 (rouge)
+    };
+
+    for(uint8_t i = 0; i < numCouleurs; i++)
+    {
+        couleursPoubelles[i] = leds.Color(couleursRGB[i][0], couleursRGB[i][1], couleursRGB[i][2]);
+    }
 }
 
 /**
@@ -358,46 +377,15 @@ void StationLumineuse::resetEtatPoubelles()
  * @details Allume les LEDS en fonction de la couleur correspond aux poublles 0 ROUGE 1 VERT 2 BLEU
  3 GRIS 4 JAUNE pour indiquer quelle poubelle sortir
  */
-
 void StationLumineuse::allumerNotificationPoubelle(int numeroPoubelle)
 {
     if(estIdValidePoubelle(numeroPoubelle))
     {
-        /**
-         * @todo pour simplifier ce code, il suffit de placer les couleurs des différentes poubelles
-         * dans un tableau et utiliser numeroPoubelle comme index
-         */
-        switch(numeroPoubelle)
-        {
-            case 0:
-                leds.setPixelColor(INDEX_LEDS_NOTIFICATION_POUBELLES,
-                                   leds.Color(0, 255, 0)); // LED de la poubelle verte
-                break;
-            case 1:
-                leds.setPixelColor(INDEX_LEDS_NOTIFICATION_POUBELLES + 1,
-                                   leds.Color(0, 0, 255)); // LED de la poubelle bleue
-                break;
-            case 2:
-                leds.setPixelColor(INDEX_LEDS_NOTIFICATION_POUBELLES + 2,
-                                   leds.Color(0, 255, 0)); // LED de la poubelle verte
-                break;
-            case 3:
-                leds.setPixelColor(INDEX_LEDS_NOTIFICATION_POUBELLES + 3,
-                                   leds.Color(128, 128, 128)); // LED de la poubelle grise
-                break;
-            case 4:
-                leds.setPixelColor(INDEX_LEDS_NOTIFICATION_POUBELLES + 4,
-                                   leds.Color(255, 255, 0)); // LED de la poubelle jaune
-                break;
-            default:
-                break;
-        }
-        leds.show(); // Allume le bandeau
+        leds.setPixelColor(
+          INDEX_LEDS_NOTIFICATION_POUBELLES + numeroPoubelle,
+          couleursPoubelles[numeroPoubelle]); // Appliquer la couleur correspondante
+        leds.show();                          // Allume le bandeau
     }
-}
-
-void StationLumineuse::allumerNotificationPoubelles()
-{
 }
 
 /**
@@ -414,8 +402,4 @@ void StationLumineuse::eteindreNotificationPoubelle(int numeroPoubelle)
         leds.setPixelColor(indexLed, leds.Color(0, 0, 0));
         leds.show();
     }
-}
-
-void StationLumineuse::eteindreNotificationPoubelles()
-{
 }
