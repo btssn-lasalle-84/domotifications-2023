@@ -9,15 +9,15 @@
 #include "Module.h"
 #include <QDebug>
 
-Module::Module(QString nomModule, Module::TypeModule type,  int id, QObject* parent) :
-    QObject(parent), id(0), nomModule(nomModule), typeModule(type), actif(true), notifie(false)
+Module::Module(QString nomModule, Module::TypeModule type, int id, QObject* parent) :
+    QObject(parent), id(id), nom(nomModule), type(type), actif(true), notifie(false)
 {
-    qDebug() << Q_FUNC_INFO << "id" << id << "nomModule" << nomModule << "TypeModule" << typeModule;
+    qDebug() << Q_FUNC_INFO << "id" << id << "nomModule" << nomModule << "TypeModule" << type;
 }
 
 Module::~Module()
 {
-    qDebug() << Q_FUNC_INFO << "id" << id << "nomModule" << nomModule << "TypeModule" << typeModule;
+    qDebug() << Q_FUNC_INFO << "id" << id << "nomModule" << nom << "TypeModule" << type;
 }
 
 int Module::getId() const
@@ -25,9 +25,14 @@ int Module::getId() const
     return id;
 }
 
+QString Module::getNom() const
+{
+    return nom;
+}
+
 Module::TypeModule Module::getType() const
 {
-    return typeModule;
+    return type;
 }
 
 bool Module::estActif() const
@@ -52,7 +57,6 @@ void Module::setActif(bool actif)
  */
 QString Module::getType(Module::TypeModule type)
 {
-
     switch(type)
     {
         case Module::TypeModule::Machine:
