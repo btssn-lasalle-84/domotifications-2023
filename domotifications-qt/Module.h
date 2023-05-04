@@ -36,7 +36,7 @@ class Module : public QObject
     bool       notifie;
 
   public:
-    Module(QString nomModule, Module::TypeModule type, QObject* parent = nullptr);
+    Module(QString nomModule, Module::TypeModule type, int id, QObject* parent = nullptr);
     ~Module();
     /**
      * @todo Ajouter accesseurs/mutateurs

@@ -9,7 +9,7 @@
 #include "Module.h"
 #include <QDebug>
 
-Module::Module(QString nomModule, Module::TypeModule type, QObject* parent) :
+Module::Module(QString nomModule, Module::TypeModule type,  int id, QObject* parent) :
     QObject(parent), id(0), nomModule(nomModule), typeModule(type), actif(true), notifie(false)
 {
     qDebug() << Q_FUNC_INFO << "id" << id << "nomModule" << nomModule << "TypeModule" << typeModule;
@@ -59,10 +59,11 @@ QString Module::getType(Module::TypeModule type)
             return QString("machine");
             break;
         case Module::TypeModule::Poubelle:
-            return QString("Poubelle");
-        break;
-    case Module::TypeModule::BoiteAuxLettres:
-        return QString("Boite Aux Lettres");
+            return QString("poubelle");
+            break;
+        case Module::TypeModule::BoiteAuxLettres:
+            return QString("boite");
+            break;
         default:
             return QString();
             break;

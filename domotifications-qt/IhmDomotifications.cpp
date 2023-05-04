@@ -114,14 +114,10 @@ void IHMDomotifications::initialiserWidgets()
     boutonAcquittementBoiteAuxLettres = new QPushButton(this);
     boutonAcquittementMachine         = new QPushButton(this);
 
-    for(int i = 0 ; i < machines.size() ; i++)
-    {
-        machines.append(boutonAcquittementMachine);
-        machines.append(boutonActivationDesactivationMachine);
-        machines.append(logoMachine);
+    machines.append(boutonAcquittementMachine);
+    machines.append(boutonActivationDesactivationMachine);
+    machines.append(logoMachine);
 
-
-    }
 
     imageBoutonActivation    = new QPixmap(CHEMIN_BOUTON_ACTIVATION);
     imageBoutonDesactivation = new QPixmap(CHEMIN_BOUTON_DESACTIVATION);

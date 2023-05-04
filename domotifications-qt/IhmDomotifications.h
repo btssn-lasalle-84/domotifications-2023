@@ -10,6 +10,7 @@
  */
 
 #include "Constantes.h"
+#include "Module.h"
 #include <QtWidgets>
 #include <QObject>
 
@@ -44,8 +45,8 @@ class IHMDomotifications : public QMainWindow
   private:
     Ui::IHMDomotifications* ui;               //!< La GUI
     Domotification*         domotification;   //!< l'objet contrôleur de l'application
-    QVector<QObject*> poubelles ;
-    QVector<QObject*>  machines ;
+    QVector<QObject*>       poubelles; //!< Vecteur de poubelles
+    QVector<QObject*>        machines; //!< Vecteur de machines
     QSystemTrayIcon*        iconeSysteme;     //!< L'icône de l'application pour la barre système
     QMenu*                  menuIconeSysteme; //!< Le menu de l'application
     QAction*                actionMinimiser;  //!< L'action minimiser l'application
