@@ -30,8 +30,8 @@ class Module : public QObject
 
   private:
     int        id;
-    QString    nomModule;
-    TypeModule typeModule;
+    QString    nom;
+    TypeModule type;
     bool       actif;
     bool       notifie;
 
@@ -42,6 +42,7 @@ class Module : public QObject
      * @todo Ajouter accesseurs/mutateurs
      */
     int                getId() const;
+    QString            getNom() const;
     Module::TypeModule getType() const;
     bool               estActif() const;
     bool               estNotifie() const;

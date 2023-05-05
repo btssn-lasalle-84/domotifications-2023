@@ -9,8 +9,9 @@
 #include "IhmDomotifications.h"
 #include "ui_IhmDomotifications.h"
 
-#include "Domotification.h"
 #include "Constantes.h"
+#include "Domotification.h"
+#include "Module.h"
 
 /**
  * @brief Constructeur de la classe IHMDomotifications
@@ -38,7 +39,11 @@ IHMDomotifications::~IHMDomotifications()
 {
     delete ui;
     delete imageBoutonActivation;
+    delete imageBoutonDesactivation;
     delete imageBoutonAcquittement;
+    delete imageLogoBTS;
+    delete imageLogoParametre;
+    delete imageLogoPoubelle;
     qDebug() << Q_FUNC_INFO;
 }
 
@@ -57,7 +62,6 @@ void IHMDomotifications::visualiserNotification(QString message, TypeNotificatio
       QSystemTrayIcon::MessageIcon(QSystemTrayIcon::Critical);
 
     iconeSysteme->showMessage(TITRE_APPLICATION, message, messageIcon);
-
 }
 
 /**
@@ -101,23 +105,26 @@ void IHMDomotifications::initialiserWidgets()
 
     boutonParametres = new QPushButton(this);
 
+    /**
+     * @todo Gérer un conteneur pour les machines et poubelles
+     */
+    machines = domotification->getMachines();
+    for(auto i = 0; i < machines.size(); i++)
+    {
+        qDebug() << Q_FUNC_INFO << "module" << machines[i]->getNom() << "id" << machines[i]->getId()
+                 << "type" << machines[i]->getType();
+    }
+
     boutonActivationDesactivationMachine = new QPushButton(this);
     boutonActivationDesactivationMachine->setObjectName("Machine");
     boutonActivationDesactivationBoiteAuxLettres = new QPushButton(this);
     boutonActivationDesactivationBoiteAuxLettres->setObjectName("BoiteAuxLettres");
     boutonActivationDesactivationPoubelle = new QPushButton(this);
     boutonActivationDesactivationPoubelle->setObjectName("Poubelle");
-    /**
-     * @todo Gérer un conteneur pour les machines et poubelles
-     */
+
     boutonAcquittementPoubelle        = new QPushButton(this);
     boutonAcquittementBoiteAuxLettres = new QPushButton(this);
     boutonAcquittementMachine         = new QPushButton(this);
-
-    machines.append(boutonAcquittementMachine);
-    machines.append(boutonActivationDesactivationMachine);
-    machines.append(logoMachine);
-
 
     imageBoutonActivation    = new QPixmap(CHEMIN_BOUTON_ACTIVATION);
     imageBoutonDesactivation = new QPixmap(CHEMIN_BOUTON_DESACTIVATION);
@@ -256,7 +263,19 @@ void IHMDomotifications::afficherWidgets()
 }
 
 /**
- * @brief Initialise la page
+ * @brief Initialise le widget central
+ * @fn IHMDomotifications::initialiserFenetrePrincipale
+ */
+void IHMDomotifications::initialiserFenetrePrincipale()
+{
+    widgetPrincipal->setLayout(layoutPrincipal);
+    setCentralWidget(widgetPrincipal);
+    QRect screenGeometry = QGuiApplication::primaryScreen()->availableGeometry();
+    resize(screenGeometry.width(), screenGeometry.height());
+}
+
+/**
+ * @brief Initialise l'interface graphique
  *
  * @fn IHMDomotifications::initialiserGUI
  * @details Génère la page graphique d'interface
@@ -265,11 +284,7 @@ void IHMDomotifications::initialiserGUI()
 {
     initialiserWidgets();
     afficherWidgets();
-
-    widgetPrincipal->setLayout(layoutPrincipal);
-    setCentralWidget(widgetPrincipal);
-    QRect screenGeometry = QGuiApplication::primaryScreen()->availableGeometry();
-    resize(screenGeometry.width(), screenGeometry.height());
+    initialiserFenetrePrincipale();
 }
 
 /**
@@ -391,9 +406,9 @@ void IHMDomotifications::initialiserSignauxSlots()
             this,
             SLOT(gererBoutonActivationDesactivation()));
     connect(this,
-            SIGNAL(activationDesactivationModule(QString)),
+            SIGNAL(activationDesactivationModule(QString, int)),
             domotification,
-            SLOT(gererActivationModule(QString)));
+            SLOT(gererActivationModule(QString, int)));
 }
 
 /**
@@ -408,7 +423,10 @@ void IHMDomotifications::gererBoutonActivationDesactivation()
     qDebug() << Q_FUNC_INFO << "bouton" << boutonModule->objectName();
     if(boutonModule == boutonActivationDesactivationMachine)
     {
-        emit activationDesactivationModule(boutonModule->objectName());
+        /**
+         * @todo Gérer l'id du module
+         */
+        emit activationDesactivationModule(boutonModule->objectName(), 0);
         if(domotification->getActivationModule(boutonModule->objectName()))
             afficherBoutonActivation(boutonModule);
         else
@@ -416,7 +434,7 @@ void IHMDomotifications::gererBoutonActivationDesactivation()
     }
     else if(boutonModule == boutonActivationDesactivationBoiteAuxLettres)
     {
-        emit activationDesactivationModule(boutonModule->objectName());
+        emit activationDesactivationModule(boutonModule->objectName(), 0);
         if(domotification->getActivationModule(boutonModule->objectName()))
         {
             afficherBoutonActivation(boutonModule);
@@ -425,11 +443,13 @@ void IHMDomotifications::gererBoutonActivationDesactivation()
         {
             afficherBoutonDesactivation(boutonModule);
         }
-
     }
     else if(boutonModule == boutonActivationDesactivationPoubelle)
     {
-        emit activationDesactivationModule(boutonModule->objectName());
+        /**
+         * @todo Gérer l'id du module
+         */
+        emit activationDesactivationModule(boutonModule->objectName(), 0);
         if(domotification->getActivationModule(boutonModule->objectName()))
         {
             afficherBoutonActivation(boutonModule);
@@ -438,7 +458,6 @@ void IHMDomotifications::gererBoutonActivationDesactivation()
         {
             afficherBoutonDesactivation(boutonModule);
         }
-
     }
     else
     {

@@ -23,13 +23,14 @@ Domotification::Domotification(IHMDomotifications* ihm) :
      */
     // Pour les tests : 5 modules
     // 2 machines (0..6)
-    modules.push_back(new Module("Machine à laver", Module::TypeModule::Machine, 0, this));
-    modules.push_back(new Module("Lave-vaisselle", Module::TypeModule::Machine, 1, this));
+    modules.push_back(new Module("Machine", Module::TypeModule::Machine, 0, this));
+    modules.push_back(new Module("Machine", Module::TypeModule::Machine, 1, this));
     // 2 poubelles (0..5)
     modules.push_back(new Module("Poubelle", Module::TypeModule::Poubelle, 0, this));
     modules.push_back(new Module("Poubelle", Module::TypeModule::Poubelle, 1, this));
     // 1 boite (0..1)
     modules.push_back(new Module("BoiteAuxLettres", Module::TypeModule::BoiteAuxLettres, 0, this));
+    qDebug() << Q_FUNC_INFO << "modules" << modules;
 }
 
 /**
@@ -41,41 +42,45 @@ Domotification::~Domotification()
 }
 
 // Slots
-
 /**
  * @brief Domotification::gererActivationModule
  * @param nomModule
+ * @param id
  */
-void Domotification::gererActivationModule(QString nomModule)
+void Domotification::gererActivationModule(QString nomModule, int id)
 {
-    qDebug() << Q_FUNC_INFO << "nomModule" << nomModule;
-    for(auto i = 0 ; i < modules.size() ; ++i)
+    qDebug() << Q_FUNC_INFO << "nomModule" << nomModule << "id" << id;
+    for(auto i = 0; i < modules.size(); ++i)
     {
-        modules[i]->setActif(!modules[i]->estActif());
-        // Exemple
-        QByteArray json = "{";
-        json += "\"id\":" + QString::number(modules[i]->getId()) + QString(",");
-        if(modules[i]->estActif())
-            json += "\"etat\":true";
-        else
-            json += "\"etat\":false";
-        json += "}";
-        communication->envoyerRequetePost(Module::getType(modules[i]->getType()), json);
+        if(modules[i]->getNom() == nomModule && modules[i]->getId() == id)
+        {
+            modules[i]->setActif(!modules[i]->estActif());
+            // Exemple
+            QByteArray json = "{";
+            json += "\"id\":" + QString::number(modules[i]->getId()) + QString(",");
+            if(modules[i]->estActif())
+                json += "\"etat\":true";
+            else
+                json += "\"etat\":false";
+            json += "}";
+            communication->envoyerRequetePost(Module::getType(modules[i]->getType()), json);
+        }
     }
 }
 
 // Méthodes
-
 /**
  * @brief Domotification::getActivationModule
  * @param nomModule
  * @return
  */
-bool Domotification::getActivationModule(QString nomModule)
+bool Domotification::getActivationModule(QString nomModule, int id)
 {
-    for(int i = 0 ; i < modules.size() ; ++i)
+    qDebug() << Q_FUNC_INFO << "nomModule" << nomModule << "id" << id;
+    for(int i = 0; i < modules.size(); ++i)
     {
-        return modules[i]->estActif();
+        if(modules[i]->getNom() == nomModule && modules[i]->getId() == id)
+            return modules[i]->estActif();
     }
     return false;
 }
@@ -115,13 +120,14 @@ void Domotification::notifier(QString message)
  */
 QVector<Module*> Domotification::getMachines() const
 {
-    Module::TypeModule typeModule;
     QVector<Module*> machines;
-    for(auto i = 0 ; i < modules.size() ; i++)
+    for(auto i = 0; i < modules.size(); i++)
     {
-        if(typeModule == Module::Machine)
+        if(modules[i]->getType() == Module::Machine)
         {
-            machines.append(modules);
+            qDebug() << Q_FUNC_INFO << "module" << modules[i]->getNom() << "id"
+                     << modules[i]->getId();
+            machines.push_back(modules[i]);
         }
     }
     return machines;
@@ -133,16 +139,17 @@ QVector<Module*> Domotification::getMachines() const
  */
 QVector<Module*> Domotification::getPoubelles() const
 {
-    Module::TypeModule typeModule;
-     QVector<Module*> poubelles;
-     for(auto i = 0 ; i < modules.size() ; i++)
-     {
-         if(typeModule == Module::Poubelle)
-         {
-             poubelles.append(modules);
-         }
-     }
-     return poubelles;
+    QVector<Module*> poubelles;
+    for(auto i = 0; i < modules.size(); i++)
+    {
+        if(modules[i]->getType() == Module::Poubelle)
+        {
+            qDebug() << Q_FUNC_INFO << "module" << modules[i]->getNom() << "id"
+                     << modules[i]->getId();
+            poubelles.push_back(modules[i]);
+        }
+    }
+    return poubelles;
 }
 
 /**
@@ -151,14 +158,12 @@ QVector<Module*> Domotification::getPoubelles() const
  */
 Module* Domotification::getBoite() const
 {
-    Module* boite;
-    Module::TypeModule typeModule;
-    for(auto i = 0 ; i < modules.size() ; i++)
+    for(auto i = 0; i < modules.size(); i++)
     {
-        if(typeModule == Module::BoiteAuxLettres)
+        if(modules[i]->getType() == Module::BoiteAuxLettres)
         {
-            return boite;
+            return modules[i];
         }
     }
+    return nullptr;
 }
-

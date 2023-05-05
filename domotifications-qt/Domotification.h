@@ -24,27 +24,27 @@ class Domotification : public QObject
 {
     Q_OBJECT
   private:
-    QVector<Module*>       modules;
-    Communication*         communication;
-    IHMDomotifications*    ihm;
+    QVector<Module*>    modules;
+    Communication*      communication;
+    IHMDomotifications* ihm;
 
   public:
     Domotification(IHMDomotifications* ihm = nullptr);
     ~Domotification();
 
-    bool getActivationModule(QString nomModule);
-    void gererNotification(QString nomModule);
-    void ajouterModule(QString nomModule, Module::TypeModule type);
-    void notifier(QString message);
-    QVector<Module*> getMachines() const ;
+    bool             getActivationModule(QString nomModule, int id = 0);
+    void             gererNotification(QString nomModule);
+    void             ajouterModule(QString nomModule, Module::TypeModule type);
+    void             notifier(QString message);
+    QVector<Module*> getMachines() const;
     QVector<Module*> getPoubelles() const;
-    Module* getBoite() const;
+    Module*          getBoite() const;
 
   signals:
     void nouvelleNotification(QString message);
 
   public slots:
-    void gererActivationModule(QString nomModule);
+    void gererActivationModule(QString nomModule, int id);
 };
 
 #endif // DOMOTIFICATION_H

@@ -9,6 +9,7 @@
 #include "Module.h"
 #include <QDebug>
 
+<<<<<<< HEAD
 /**
  * @brief Constructeur de la classe Module
  * @fn    Module::Module
@@ -17,10 +18,10 @@
  * @param id
  * @param parent
  */
-Module::Module(QString nomModule, Module::TypeModule type,  int id, QObject* parent) :
-    QObject(parent), id(0), nomModule(nomModule), typeModule(type), actif(true), notifie(false)
+Module::Module(QString nomModule, Module::TypeModule type, int id, QObject* parent) :
+    QObject(parent), id(id), nom(nomModule), type(type), actif(true), notifie(false)
 {
-    qDebug() << Q_FUNC_INFO << "id" << id << "nomModule" << nomModule << "TypeModule" << typeModule;
+    qDebug() << Q_FUNC_INFO << "id" << id << "nomModule" << nomModule << "TypeModule" << type;
 }
 
 /**
@@ -30,7 +31,7 @@ Module::Module(QString nomModule, Module::TypeModule type,  int id, QObject* par
  */
 Module::~Module()
 {
-    qDebug() << Q_FUNC_INFO << "id" << id << "nomModule" << nomModule << "TypeModule" << typeModule;
+    qDebug() << Q_FUNC_INFO << "id" << id << "nomModule" << nom << "TypeModule" << type;
 }
 
 /**
@@ -44,13 +45,23 @@ int Module::getId() const
 }
 
 /**
+ * @brief Module::getNom
+ * @return
+ */
+QString Module::getNom() const
+{
+    return nom;
+}
+
+/**
  * @brief Retourne le type du module
  * @fn Module::getType
  * @return un Type module d'un module
  */
+
 Module::TypeModule Module::getType() const
 {
-    return typeModule;
+    return type;
 }
 
 /**
@@ -88,7 +99,6 @@ void Module::setActif(bool actif)
  */
 QString Module::getType(Module::TypeModule type)
 {
-
     switch(type)
     {
         case Module::TypeModule::Machine:

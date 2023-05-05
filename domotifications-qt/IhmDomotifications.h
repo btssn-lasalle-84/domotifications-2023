@@ -13,6 +13,7 @@
 #include "Module.h"
 #include <QtWidgets>
 #include <QObject>
+#include <QVector>
 
 namespace Ui
 {
@@ -20,6 +21,7 @@ class IHMDomotifications;
 }
 
 class Domotification;
+class Module;
 
 /**
  * @class IHMDomotifications
@@ -43,10 +45,11 @@ class IHMDomotifications : public QMainWindow
     };
 
   private:
-    Ui::IHMDomotifications* ui;               //!< La GUI
-    Domotification*         domotification;   //!< l'objet contrôleur de l'application
-    QVector<QObject*>       poubelles; //!< Vecteur de poubelles
-    QVector<QObject*>        machines; //!< Vecteur de machines
+    Ui::IHMDomotifications* ui;             //!< La GUI
+    Domotification*         domotification; //!< l'objet contrôleur de l'application
+    QVector<Module*>        machines;
+    QVector<Module*>        poubelles;
+    Module*                 boite;
     QSystemTrayIcon*        iconeSysteme;     //!< L'icône de l'application pour la barre système
     QMenu*                  menuIconeSysteme; //!< Le menu de l'application
     QAction*                actionMinimiser;  //!< L'action minimiser l'application
@@ -56,7 +59,7 @@ class IHMDomotifications : public QMainWindow
     bool                    etatInitialIconeSysteme; //!< Booléen indiquant si c'est la première
                                                      //!< demande Quitter
 
-    QWidget*     widgetPrincipal;                    //!< Le widget central
+    QWidget*     widgetPrincipal; //!< Le widget central
     QVBoxLayout* layoutPrincipal;
     QHBoxLayout* layoutLogos;
     QHBoxLayout* layoutPoubelle;
@@ -112,6 +115,7 @@ class IHMDomotifications : public QMainWindow
     void initialiserSignauxSlots();
     void initialiserWidgets();
     void afficherWidgets();
+    void initialiserFenetrePrincipale();
     void creerActionsMenu();
     void connecterActions();
     void creerMenu();
@@ -123,7 +127,7 @@ class IHMDomotifications : public QMainWindow
     void afficherBoutonAcquittement();
 
   signals:
-    void activationDesactivationModule(QString nomModule);
+    void activationDesactivationModule(QString nomModule, int id);
 
   public slots:
 #ifdef TEST_NOTIFICATIONS
