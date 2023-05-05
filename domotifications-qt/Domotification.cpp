@@ -10,6 +10,10 @@
 #include "IhmDomotifications.h"
 #include <QDebug>
 
+/**
+ * @brief Domotification::Domotification
+ * @param ihm
+ */
 Domotification::Domotification(IHMDomotifications* ihm) :
     QObject(ihm), communication(new Communication(this)), ihm(ihm)
 {
@@ -28,6 +32,9 @@ Domotification::Domotification(IHMDomotifications* ihm) :
     modules.push_back(new Module("BoiteAuxLettres", Module::TypeModule::BoiteAuxLettres, 0, this));
 }
 
+/**
+ * @brief Domotification::~Domotification
+ */
 Domotification::~Domotification()
 {
     qDebug() << Q_FUNC_INFO;
@@ -35,6 +42,10 @@ Domotification::~Domotification()
 
 // Slots
 
+/**
+ * @brief Domotification::gererActivationModule
+ * @param nomModule
+ */
 void Domotification::gererActivationModule(QString nomModule)
 {
     qDebug() << Q_FUNC_INFO << "nomModule" << nomModule;
@@ -55,6 +66,11 @@ void Domotification::gererActivationModule(QString nomModule)
 
 // Méthodes
 
+/**
+ * @brief Domotification::getActivationModule
+ * @param nomModule
+ * @return
+ */
 bool Domotification::getActivationModule(QString nomModule)
 {
     for(int i = 0 ; i < modules.size() ; ++i)
@@ -63,22 +79,40 @@ bool Domotification::getActivationModule(QString nomModule)
     }
     return false;
 }
+
+/**
+ * @brief Domotification::gererNotification
+ * @param nomModule
+ */
 void Domotification::gererNotification(QString nomModule)
 {
     qDebug() << Q_FUNC_INFO << "nomModule" << nomModule;
 }
 
+/**
+ * @brief Domotification::ajouterModule
+ * @param nomModule
+ * @param type
+ */
 void Domotification::ajouterModule(QString nomModule, Module::TypeModule type)
 {
     qDebug() << Q_FUNC_INFO << "nomModule" << nomModule << "TypeModule" << type;
 }
 
+/**
+ * @brief Domotification::notifier
+ * @param message
+ */
 void Domotification::notifier(QString message)
 {
     qDebug() << Q_FUNC_INFO << "message" << message;
     emit nouvelleNotification(message);
 }
 
+/**
+ * @brief Domotification::getMachines
+ * @return
+ */
 QVector<Module*> Domotification::getMachines() const
 {
     Module::TypeModule typeModule;
@@ -93,6 +127,10 @@ QVector<Module*> Domotification::getMachines() const
     return machines;
 }
 
+/**
+ * @brief Domotification::getPoubelles
+ * @return
+ */
 QVector<Module*> Domotification::getPoubelles() const
 {
     Module::TypeModule typeModule;
@@ -107,6 +145,10 @@ QVector<Module*> Domotification::getPoubelles() const
      return poubelles;
 }
 
+/**
+ * @brief Domotification::getBoite
+ * @return
+ */
 Module* Domotification::getBoite() const
 {
     Module* boite;
