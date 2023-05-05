@@ -1,7 +1,7 @@
 format 224
 "domotifications-qt"
-  revision 13
-  modified_by 2 "btssn2"
+  revision 14
+  modified_by 42 "tv"
   cpp_root_dir "../../"
 
 
@@ -384,7 +384,7 @@ format 224
      end
     associated_deployment_view deploymentview_ref 128002 // Domotifications_vue_deployement
     classdiagram 141314 "Diagramme_classe_domotifications"
-      classdiagramsettings draw_all_relations no member_max_width 0 end
+      classdiagramsettings member_max_width 0 end
       size A0
     end
 

@@ -1,0 +1,31 @@
+class Module
+!!!158210.cpp!!!	Module(in nomModule : QString, in type : Module::TypeModule, in id : int, inout parent : QObject = nullptr)
+    qDebug() << Q_FUNC_INFO << "id" << id << "nomModule" << nomModule << "TypeModule" << type;
+!!!158338.cpp!!!	~Module()
+    qDebug() << Q_FUNC_INFO << "id" << id << "nomModule" << nom << "TypeModule" << type;
+!!!136874.cpp!!!	getId() : int
+    return id;
+!!!137002.cpp!!!	getNom() : QString
+    return nom;
+!!!137130.cpp!!!	getType() : Module::TypeModule
+    return type;
+!!!137258.cpp!!!	estActif() : bool
+    return actif;
+!!!137514.cpp!!!	setActif(in actif : bool) : void
+    this->actif = actif;
+!!!137642.cpp!!!	getType(in type : Module::TypeModule) : QString
+    switch(type)
+    {
+        case Module::TypeModule::Machine:
+            return QString("machine");
+            break;
+        case Module::TypeModule::Poubelle:
+            return QString("poubelle");
+            break;
+        case Module::TypeModule::BoiteAuxLettres:
+            return QString("boite");
+            break;
+        default:
+            return QString();
+            break;
+    }

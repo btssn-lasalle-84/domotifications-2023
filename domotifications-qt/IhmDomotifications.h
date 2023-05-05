@@ -6,14 +6,14 @@
  *
  * @brief Déclaration de la classe IhmDomotifications
  * @author Mathieu MOYAERTS
- * @version 0.1
+ * @version 0.2
  */
 
 #include "Constantes.h"
+#include "Module.h"
 #include <QtWidgets>
 #include <QObject>
-
-#define TEST_NOTIFICATIONS
+#include <QVector>
 
 namespace Ui
 {
@@ -21,6 +21,7 @@ class IHMDomotifications;
 }
 
 class Domotification;
+class Module;
 
 /**
  * @class IHMDomotifications
@@ -44,8 +45,11 @@ class IHMDomotifications : public QMainWindow
     };
 
   private:
-    Ui::IHMDomotifications* ui;               //!< La GUI
-    Domotification*         domotification;   //!< l'objet contrôleur de l'application
+    Ui::IHMDomotifications* ui;             //!< La GUI
+    Domotification*         domotification; //!< l'objet contrôleur de l'application
+    QVector<Module*>        machines;
+    QVector<Module*>        poubelles;
+    Module*                 boite;
     QSystemTrayIcon*        iconeSysteme;     //!< L'icône de l'application pour la barre système
     QMenu*                  menuIconeSysteme; //!< Le menu de l'application
     QAction*                actionMinimiser;  //!< L'action minimiser l'application
@@ -54,7 +58,8 @@ class IHMDomotifications : public QMainWindow
     QAction*                actionQuitter;    //!< L'action quitter l'application
     bool                    etatInitialIconeSysteme; //!< Booléen indiquant si c'est la première
                                                      //!< demande Quitter
-    QWidget*     widgetPrincipal;                    //!< Le widget central
+
+    QWidget*     widgetPrincipal; //!< Le widget central
     QVBoxLayout* layoutPrincipal;
     QHBoxLayout* layoutLogos;
     QHBoxLayout* layoutPoubelle;
@@ -64,13 +69,20 @@ class IHMDomotifications : public QMainWindow
     QVBoxLayout* layoutBoutonsMachine;
     QVBoxLayout* layoutBoutonsBoiteAuxLettres;
     QPushButton* boutonParametres;
+    /**
+     * @todo Gérer un conteneur pour les machines et poubelles
+     */
     QPushButton* boutonActivationDesactivationMachine;
     QPushButton* boutonActivationDesactivationBoiteAuxLettres;
     QPushButton* boutonActivationDesactivationPoubelle;
+    /**
+     * @todo Gérer un conteneur pour les machines et poubelles
+     */
     QPushButton* boutonAcquittementMachine;
     QPushButton* boutonAcquittementPoubelle;
     QPushButton* boutonAcquittementBoiteAuxLettres;
     QPixmap*     imageBoutonActivation;
+    QPixmap*     imageBoutonDesactivation;
     QPixmap*     imageBoutonAcquittement;
     QPixmap*     imageLogoBTS;
     QPixmap*     imageLogoParametre;
@@ -80,7 +92,19 @@ class IHMDomotifications : public QMainWindow
     QLabel*      logoBoiteAuxLettres;
     QLabel*      logoPoubelle;
     QIcon*       iconeActivation;
+    QIcon*       iconeDesactivation;
     QIcon*       iconeAcquittement;
+
+#ifdef TEST_REQUETE
+    // Widgets
+    QLabel*      labelURLStation;
+    QLineEdit*   editionURLStation;
+    QLabel*      labelJSON;
+    QLineEdit*   editionJSON;
+    QPushButton* boutonGet;
+    QPushButton* boutonPost;
+    QTextEdit*   journal;
+#endif
 
   public:
     IHMDomotifications(QWidget* parent = nullptr);
@@ -91,17 +115,26 @@ class IHMDomotifications : public QMainWindow
     void initialiserSignauxSlots();
     void initialiserWidgets();
     void afficherWidgets();
+    void initialiserFenetrePrincipale();
     void creerActionsMenu();
     void connecterActions();
     void creerMenu();
-    void creerIconeBarreDesTache();
-    void afficherBoutonActivationDesactivation();
+    void creerIconeBarreDesTaches();
+    void afficherIconeBarreDesTaches();
+    void afficherBoutonsActivationDesactivation();
+    void afficherBoutonActivation(QPushButton* boutonModule);
+    void afficherBoutonDesactivation(QPushButton* boutonModule);
     void afficherBoutonAcquittement();
+
+  signals:
+    void activationDesactivationModule(QString nomModule, int id);
 
   public slots:
 #ifdef TEST_NOTIFICATIONS
     void testerNotification();
 #endif
+    void gererBoutonActivationDesactivation();
+
     void visualiserNotification(
       QString          message,
       TypeNotification type = IHMDomotifications::TypeNotification::Information);

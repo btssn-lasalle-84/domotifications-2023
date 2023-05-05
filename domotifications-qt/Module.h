@@ -1,6 +1,14 @@
 #ifndef MODULE_H
 #define MODULE_H
 
+/**
+ * @file Module.h
+ *
+ * @brief Déclaration de la classe Module
+ * @author Mathieu MOYAERTS
+ * @version 0.2
+ */
+
 #include <QObject>
 #include <QString>
 
@@ -21,14 +29,25 @@ class Module : public QObject
     };
 
   private:
-    QString    nomModule;
-    TypeModule typeModule;
-    bool       estActive;
-    bool       estNotifie;
+    int        id;
+    QString    nom;
+    TypeModule type;
+    bool       actif;
+    bool       notifie;
 
   public:
-    Module(QObject* parent = nullptr);
+    Module(QString nomModule, Module::TypeModule type, int id, QObject* parent = nullptr);
     ~Module();
+    /**
+     * @todo Ajouter accesseurs/mutateurs
+     */
+    int                getId() const;
+    QString            getNom() const;
+    Module::TypeModule getType() const;
+    bool               estActif() const;
+    bool               estNotifie() const;
+    void               setActif(bool actif);
+    static QString     getType(Module::TypeModule type);
 };
 
 #endif // MODULE_H
