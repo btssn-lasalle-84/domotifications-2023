@@ -9,8 +9,9 @@
 #include "IhmDomotifications.h"
 #include "ui_IhmDomotifications.h"
 
-#include "Domotification.h"
 #include "Constantes.h"
+#include "Domotification.h"
+#include "Module.h"
 
 /**
  * @brief Constructeur de la classe IHMDomotifications
@@ -104,15 +105,23 @@ void IHMDomotifications::initialiserWidgets()
 
     boutonParametres = new QPushButton(this);
 
+    /**
+     * @todo Gérer un conteneur pour les machines et poubelles
+     */
+    machines = domotification->getMachines();
+    for(auto i = 0; i < machines.size(); i++)
+    {
+        qDebug() << Q_FUNC_INFO << "module" << machines[i]->getNom() << "id" << machines[i]->getId()
+                 << "type" << machines[i]->getType();
+    }
+
     boutonActivationDesactivationMachine = new QPushButton(this);
     boutonActivationDesactivationMachine->setObjectName("Machine");
     boutonActivationDesactivationBoiteAuxLettres = new QPushButton(this);
     boutonActivationDesactivationBoiteAuxLettres->setObjectName("BoiteAuxLettres");
     boutonActivationDesactivationPoubelle = new QPushButton(this);
     boutonActivationDesactivationPoubelle->setObjectName("Poubelle");
-    /**
-     * @todo Gérer un conteneur pour les machines et poubelles
-     */
+
     boutonAcquittementPoubelle        = new QPushButton(this);
     boutonAcquittementBoiteAuxLettres = new QPushButton(this);
     boutonAcquittementMachine         = new QPushButton(this);
@@ -254,7 +263,19 @@ void IHMDomotifications::afficherWidgets()
 }
 
 /**
- * @brief Initialise la page
+ * @brief Initialise le widget central
+ * @fn IHMDomotifications::initialiserFenetrePrincipale
+ */
+void IHMDomotifications::initialiserFenetrePrincipale()
+{
+    widgetPrincipal->setLayout(layoutPrincipal);
+    setCentralWidget(widgetPrincipal);
+    QRect screenGeometry = QGuiApplication::primaryScreen()->availableGeometry();
+    resize(screenGeometry.width(), screenGeometry.height());
+}
+
+/**
+ * @brief Initialise l'interface graphique
  *
  * @fn IHMDomotifications::initialiserGUI
  * @details Génère la page graphique d'interface
@@ -263,11 +284,7 @@ void IHMDomotifications::initialiserGUI()
 {
     initialiserWidgets();
     afficherWidgets();
-
-    widgetPrincipal->setLayout(layoutPrincipal);
-    setCentralWidget(widgetPrincipal);
-    QRect screenGeometry = QGuiApplication::primaryScreen()->availableGeometry();
-    resize(screenGeometry.width(), screenGeometry.height());
+    initialiserFenetrePrincipale();
 }
 
 /**
