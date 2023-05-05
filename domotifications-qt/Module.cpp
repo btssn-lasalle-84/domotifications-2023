@@ -9,7 +9,6 @@
 #include "Module.h"
 #include <QDebug>
 
-<<<<<<< HEAD
 /**
  * @brief Constructeur de la classe Module
  * @fn    Module::Module
