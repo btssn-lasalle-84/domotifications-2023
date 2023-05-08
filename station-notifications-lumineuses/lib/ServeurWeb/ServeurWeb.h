@@ -2,7 +2,7 @@
  * @file ServeurWeb.h
  * @brief Déclaration de la classe ServeurWeb
  * @author Alexis Vaillen
- * @version 0.1
+ * @version 0.2
  */
 
 #ifndef SERVEURWEB_H
@@ -15,7 +15,7 @@
 
 /**
  * @def NOM_SERVEUR_WEB
- * @brief Le nom du serveur web (cela donnera http://station.local/)
+ * @brief Le nom du serveur web (http://station-lumineuse.local/)
  */
 #define NOM_SERVEUR_WEB "station-lumineuse"
 
@@ -43,13 +43,16 @@ class ServeurWeb : public WebServer
     StationLumineuse*               stationLumineuse;
     StaticJsonDocument<TAILLE_JSON> documentJSON;
 
-    void setNom();
+    void setNom(String nomStationLumineuse = NOM_SERVEUR_WEB);
     void afficherAccueil();
     void traiterRequeteGETNotifications();
     void traiterRequeteGETBoite();
     void traiterRequetePOSTBoite();
-    void traiterRequeteNonTrouvee();
+    void traiterRequeteGETMachine();
     void traiterRequetePOSTMachine();
+    void traiterRequeteGETPoubelle();
+    void traiterRequetePOSTPoubelle();
+    void traiterRequeteNonTrouvee();
 
   public:
     ServeurWeb(StationLumineuse* stationLumineuse);

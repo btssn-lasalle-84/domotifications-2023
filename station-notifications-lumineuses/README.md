@@ -63,16 +63,28 @@ Adresse IP : 192.168.52.34
 
 ## HTTP API Rest
 
-Accès : http://station.local/
+Accès : http://station-lumineuse.local/ ou http://X.Y.W..Z/
 
 Avec `curl` :
 
 ```sh
-$ curl http://station.local/notifications
-{"boite":false,"machines":[false,false,false,false,false,false],"poubelles":[false,false,false,false,false]}
+$ curl http://station-lumineuse.local/notifications
+{"boite":true,"machines":[false,false,false,false,false,false],"poubelles":[false,false,false,false,false]}
 
-$ curl -X POST http://station.local/boite -H 'Content-Type: application/json' -d '{"etat":true}'
-{"message": "ok"}
+$ curl -X POST http://station-lumineuse.local/boite -H 'Content-Type: application/json' -d '{"etat":true}'
+{"boite": "ok"}
+
+$ curl -X POST http://station-lumineuse.local/machine -H 'Content-Type: application/json' -d '{"etat": true,"id":0}'
+{"machine": "ok"}
+// Vérification
+$ curl http://station-lumineuse.local/notifications
+{"boite":true,"machines":[true,false,false,false,false,false],"poubelle":[false,false,false,false,false]}
+
+$ curl -X POST http://192.168.1.40/poubelle -H 'Content-Type: application/json' -d '{"etat": true,"id":1}'
+{"poubelle": "ok"}
+// Vérification
+$ curl http://192.168.1.40/notifications
+{"boite":true,"machines":[true,false,false,false,false,false],"poubelle":[false,true,false,false,false]}
 
 ....
 ```
@@ -80,18 +92,39 @@ $ curl -X POST http://station.local/boite -H 'Content-Type: application/json' -d
 Les erreurs :
 
 ```sh
-$ curl http://station.local/poubelle
+$ curl "http://station-lumineuse.local/boites"
 404 File Not Found
-
-$ curl -X POST http://station.local/poubelle/6 -H 'Content-Type: application/json' -d '{"etat":true}'
-404 File Not Found
-
-$ curl -X POST http://station.local/poubelle/2
-{"error": { "code": "invalidRequest", "message": " La demande est vide ou incorrecte."}}
-
-$ curl -X POST http://station.local/poubelle/1 -H 'Content-Type: application/json' -d '{"state":true}'
-{"error": { "code": "invalidRequest", "message": "La demande est incomplète."}}
-
-$ curl -X POST http://station.local/poubelle/1 -H 'Content-Type: application/json' -d '{"etat" true}'
-{"error": { "code": "invalidRequest", "message": "La demande est mal exprimée ou incorrecte."}}
 ```
+
+A faire :
+
+```sh
+$ curl "http://station-lumineuse.local/boite?etat=true"
+501 Not Implemented
+
+URI: /boite
+Method: GET
+Arguments: 1
+ etat: true
+
+$ curl "http://station-lumineuse.local/machine?id=0&etat=false"
+501 Not Implemented
+
+URI: /machine
+Method: GET
+Arguments: 2
+ id: 0
+ etat: false
+
+$ curl "http://station-lumineuse.local/poubelle?id=1&etat=true"
+501 Not Implemented
+
+URI: /poubelle
+Method: GET
+Arguments: 2
+ id: 1
+ etat: true
+```
+
+---
+Auteur : Alexis Vaillen

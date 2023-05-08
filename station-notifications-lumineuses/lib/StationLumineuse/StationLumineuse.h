@@ -2,7 +2,7 @@
  * @file StationLumineuse.h
  * @brief Déclaration de la classe StationLumineuse
  * @author Alexis Vaillen
- * @version 0.1
+ * @version 0.2
  */
 
 #ifndef STATIONLUMINEUSE_H
@@ -11,22 +11,28 @@
 #include <Arduino.h>
 #include <Preferences.h>
 #include <Adafruit_NeoPixel.h>
+#include <vector>
 
-#define DEBUG_STATION_LUMINEUSE
+// #define DEBUG_STATION_LUMINEUSE
 
 // Bandeau à Leds
-// #define TEST_BANDEAU
-
-#define PIN_BANDEAU                      16
-#define NB_LEDS                          16
-#define NB_LEDS_NOTIFICATION_MACHINES    6
-#define NB_LEDS_NOTIFICATION_POUBELLES   5
-#define NB_LEDS_NOTIFICATION_BOITE       5
+#define PIN_BANDEAU                    16
+#define NB_LEDS                        15
+#define NB_LEDS_NOTIFICATION_MACHINES  6
+#define NB_LEDS_NOTIFICATION_POUBELLES 5
+#define NB_LEDS_NOTIFICATION_BOITE                                                                 \
+    (NB_LEDS - NB_LEDS_NOTIFICATION_MACHINES - NB_LEDS_NOTIFICATION_POUBELLES)
 #define INDEX_LEDS_NOTIFICATION_MACHINES 0
 #define INDEX_LEDS_NOTIFICATION_POUBELLES                                                          \
     (INDEX_LEDS_NOTIFICATION_MACHINES + NB_LEDS_NOTIFICATION_MACHINES)
 #define INDEX_LEDS_NOTIFICATION_BOITE                                                              \
     (INDEX_LEDS_NOTIFICATION_POUBELLES + NB_LEDS_NOTIFICATION_POUBELLES)
+
+// RGB
+#define ROUGE       0
+#define VERT        1
+#define BLEU        2
+#define NB_COULEURS 3
 
 /**
  * @class StationLumineuse
@@ -35,17 +41,25 @@
 class StationLumineuse
 {
   private:
-    Adafruit_NeoPixel leds;                                   //!< le bandeau à leds multi-couleurs
-    Preferences       preferences;                            //!< pour le stockage interne
-    bool              etatBoiteAuxLettres            = false; //!< l'état de la boîte aux lettres
-    bool etatMachines[NB_LEDS_NOTIFICATION_MACHINES] = { false, false, false, false, false, false };
-    bool etatPoubelles[NB_LEDS_NOTIFICATION_POUBELLES] = { false, false, false, false, false };
+    Adafruit_NeoPixel leds;                        //!< le bandeau à leds multi-couleurs
+    Preferences       preferences;                 //!< pour le stockage interne
+    bool              etatBoiteAuxLettres = false; //!< l'état de la boîte aux lettres
+    bool              etatMachines[NB_LEDS_NOTIFICATION_MACHINES] = {
+        false, false, false, false, false, false
+    }; //!< l'état des machines
+    bool     etatPoubelles[NB_LEDS_NOTIFICATION_POUBELLES] = { false,
+                                                               false,
+                                                               false,
+                                                               false,
+                                                               false }; //!< l'état des poubelles
+    uint32_t couleursPoubelles[NB_LEDS_NOTIFICATION_POUBELLES]; //!< les couleurs des poubelles
 
   public:
     StationLumineuse();
-
+    ~StationLumineuse();
     void initialiserPreferences();
     void initialiserNotifications();
+    void initialiserCouleursPoubelles();
 
     bool getEtatBoiteAuxLettres();
     void setEtatBoiteAuxLettres(bool etat);
@@ -65,16 +79,7 @@ class StationLumineuse
     void setEtatPoubelle(int numeroPoubelle, bool etat);
     void resetEtatPoubelles();
     void allumerNotificationPoubelle(int numeroPoubelle);
-    void allumerNotificationPoubelles();
     void eteindreNotificationPoubelle(int numeroPoubelle);
-    void eteindreNotificationPoubelles();
-
-#ifdef TEST_BANDEAU
-    // Fonctions de test
-    void testerBoiteAuxLettres();
-    void testerMachines();
-    void testerPoubelles();
-#endif
 };
 
 #endif // STATIONLUMINEUSE_H

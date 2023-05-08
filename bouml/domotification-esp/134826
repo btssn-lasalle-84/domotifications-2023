@@ -1,6 +1,6 @@
 format 224
 "ServeurWeb" // station-notifications-lumineuses::lib::ServeurWeb
-  revision 1
+  revision 2
   modified_by 42 "tv"
   // class settings
   
@@ -100,10 +100,19 @@ ${inlines}
 
       operation 134570 "setNom"
 	preserve_cpp_body_indent private explicit_return_type "void"
-	nparams 0
-	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+	nparams 1
+	  param in name "nomStationLumineuse" explicit_type "String"
+	    defaultvalue "NOM_SERVEUR_WEB"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
 "
-	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+	cpp_def "//@brief Définit le nom du serveur web
+//@fn ServeurWeb::setNom
+//@param stationLumineuse
+//@details Utilise le protocole mDNS pour définir le nom du serveur web.
+//Le nom sera utilisé pour accéder au serveur via l'adresse http://nomStationLumineuse.local/.
+//
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}${)}${const}${volatile}${throw}${staticnl}{
 ${body}}
 "
 	
@@ -117,7 +126,16 @@ ${body}}
 	nparams 0
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
 "
-	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+	cpp_def "//@brief Affiche la page d'accueil du serveur web
+//@fn ServeurWeb::afficherAccueil
+//@details Affiche la page d'accueil du serveur web contenant un titre
+//\"Bienvenue sur la station de notifications lumineuses\" ainsi qu'un message indiquant
+//la version de la station (\"LaSalle Avignon v0.1\"). La méthode utilise la fonction send()
+//pour envoyer la réponse au client HTTP avec un code de statut 200 et un type de contenu
+//\"text/html\"
+//
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
 ${body}}
 "
 	
@@ -131,7 +149,15 @@ ${body}}
 	nparams 0
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
 "
-	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+	cpp_def "//@brief Traite la requête GET pour obtenir l'état des notifications
+//@fn ServeurWeb::traiterRequeteGETNotifications
+//@details Crée un objet JSON contenant l'état de la boîte aux lettres, des machines et des
+//poubelles. Elle utilise les méthodes getEtatBoiteAuxLettres(), getEtatMachines() et
+//getEtatPoubelle() de l'objet stationLumineuse pour remplir l'objet JSON. Ensuite, elle sérialise
+//cet objet JSON et le renvoie en tant que réponse à la requête GET sous forme d'un document JSON.
+//
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
 ${body}}
 "
 	
@@ -145,7 +171,13 @@ ${body}}
 	nparams 0
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
 "
-	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+	cpp_def "//@brief Traite une requête HTTP GET relative à la boîte aux lettres
+//@fn ServeurWeb::traiterRequeteGETBoite
+//@details Cette méthode est appelée lorsqu'une requête HTTP GET relative à la boîte aux
+//lettres est reçue par le serveur web.
+//
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
 ${body}}
 "
 	
@@ -159,7 +191,15 @@ ${body}}
 	nparams 0
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
 "
-	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+	cpp_def "//@brief Traite la requête POST de la boîte aux lettres
+//@fn ServeurWeb::traiterRequetePOSTBoite
+//@details Récupère la demande POST de la boîte aux lettres envoyée par le client et vérifie si
+//elle est correcte. Ensuite, détermine l'état de la boîte aux lettres et l'enregistre dans l'objet
+//StationLumineuse. Si la demande est correcte, envoie une réponse JSON de confirmation au client. Si
+//la demande est incorrecte, envoie une réponse JSON d'erreur correspondante au client.
+//
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
 ${body}}
 "
 	
@@ -168,12 +208,18 @@ ${body}}
 	
       end
 
-      operation 135210 "traiterRequeteNonTrouvee"
+      operation 146090 "traiterRequeteGETMachine"
 	preserve_cpp_body_indent private explicit_return_type "void"
 	nparams 0
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
 "
-	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+	cpp_def "//@brief Traite une requête HTTP GET relative à une machine
+//@fn ServeurWeb::traiterRequeteGETMachine
+//@details Cette méthode est appelée lorsqu'une requête HTTP GET relative à une machine est reçue
+//par le serveur web.
+//
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
 ${body}}
 "
 	
@@ -187,7 +233,77 @@ ${body}}
 	nparams 0
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
 "
-	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+	cpp_def "//@brief Traite la requête POST pour modifier l'état d'une machine
+//@fn ServeurWeb::traiterRequetePOSTMachine
+//@details Récupère la demande POST de la machine envoyée par le client et vérifie si elle est
+//correcte. Ensuite, détermine l'état de la machine et l'enregistre dans l'objet StationLumineuse. Si
+//la demande est correcte, envoie une réponse JSON de confirmation au client. Si la demande est
+//incorrecte, envoie une réponse JSON d'erreur correspondante au client.
+//
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 146218 "traiterRequeteGETPoubelle"
+	preserve_cpp_body_indent private explicit_return_type "void"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "//@brief Traite une requête HTTP GET relative à une poubelle
+//@fn ServeurWeb::traiterRequeteGETPoubelle
+//@details Cette méthode est appelée lorsqu'une requête HTTP GET relative à une poubelle est reçue
+//par le serveur web.
+//
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 146346 "traiterRequetePOSTPoubelle"
+	preserve_cpp_body_indent private explicit_return_type "void"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "//@brief Traite la requête POST pour modifier l'état d'une poubelle
+//@fn ServeurWeb::traiterRequetePOSTPoubelle
+//@details Récupère la demande POST de la poubelle envoyée par le client et vérifie si elle est
+//correcte. Ensuite, détermine l'état de la poubelle et l'enregistre dans l'objet StationLumineuse.
+//Si la demande est correcte, envoie une réponse JSON de confirmation au client.
+//Si la demande est incorrecte, envoie une réponse JSON d'erreur correspondante au client.
+//
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 135210 "traiterRequeteNonTrouvee"
+	preserve_cpp_body_indent private explicit_return_type "void"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "//@brief Traite une requête qui n'a pas été trouvée
+//@fn ServeurWeb::traiterRequeteNonTrouvee
+//@details Récupère les informations de la requête (URI, méthode, arguments) et les concatène dans
+//un message d'erreur de type 404. Envoie ensuite ce message au client qui a effectué la requête.
+//
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
 ${body}}
 "
 	
@@ -202,7 +318,14 @@ ${body}}
 	  param inout name "stationLumineuse" type class_ref 134826 // StationLumineuse
 	cpp_decl "    ${comment}${inline}${name}${(}${t0} * ${p0}${v0}${)}${volatile}${throw}${abstract};
 "
-	cpp_def "${comment}${inline}${typeprefix}${class}::${name}${(}${t0} * ${p0}${)} :
+	cpp_def "//@brief Constructeur de la classe ServeurWeb
+//@fn ServeurWeb::ServeurWeb
+//@param stationLumineuse
+//@details Initialise un serveur web sur le port PORT_SERVEUR_WEB et l'association avec la classe
+//StationLumineuse
+//
+
+${inline}${typeprefix}${class}::${name}${(}${t0} * ${p0}${)} :
     WebServer(PORT_SERVEUR_WEB), stationLumineuse(stationLumineuse)
 ${throw}{
 ${body}}
@@ -218,7 +341,14 @@ ${body}}
 	nparams 0
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
 "
-	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+	cpp_def "//@brief Démarre le serveur web et installe les gestionnaires de requêtes
+//@fn ServeurWeb::demarrer
+//@details Configure les routes pour les différentes requêtes HTTP
+//et démarre le serveur web. Elle utilise des fonctions de liaison std::bind pour attacher les
+//méthodes membres à chaque route.
+//
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
 ${body}}
 "
 	
@@ -232,7 +362,13 @@ ${body}}
 	nparams 0
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
 "
-	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+	cpp_def "//@brief traite les requêtes reçues par le serveur web
+//@fn ServeurWeb::traiterRequetes
+//@details Appelle la méthode handleClient() du serveur web pour traiter les requêtes reçues par le
+//serveur.
+//
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
 ${body}}
 "
 	
@@ -264,7 +400,6 @@ ${members}};
       mysql_decl ""
       
     end
-
   end
 
   deploymentview 134570 "ServeurWeb"

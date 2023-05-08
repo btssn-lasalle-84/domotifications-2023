@@ -1,6 +1,6 @@
 format 224
 "station-notifications-lumineuses" // station-notifications-lumineuses
-  revision 1
+  revision 2
   modified_by 42 "tv"
   // class settings
   
@@ -54,7 +54,7 @@ format 224
     
     activitydiagramsettings
      end
-    classdiagram 134570 "diagramme de classes 0.1"
+    classdiagram 134570 "diagramme de classes 0.2"
       classdiagramsettings show_members_full_definition yes show_members_visibility yes member_max_width 0 show_relation_visibility yes end
       size A0
     end
