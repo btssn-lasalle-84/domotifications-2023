@@ -2,7 +2,7 @@
  * @file src/main.cpp
  * @brief Programme principal de la station de notifications lumineuses
  * @author Alexis Vaillen
- * @version 0.1
+ * @version 0.2
  */
 
 #define ERREUR_BROWNOUT

@@ -8,20 +8,26 @@
 #include "StationLumineuse.h"
 
 /**
- * @brief Constructeur de la classe StationLumineuse.
- * @fn StationLumineuse::StationLumineuse()
- * @details Ce constructeur initialise les attributs de la classe et appelle la fonction
- * setCouleursPoubelles() pour définir les couleurs des notifications de poubelles.
+ * @brief Constructeur par défaut de la classe StationLumineuse.
+ * @fn StationLumineuse::StationLumineuse
+ * @details Ce constructeur initialise les attributs de la classe
  */
-StationLumineuse::StationLumineuse() : leds(NB_LEDS, PIN_BANDEAU, NEO_GRB + NEO_KHZ800)
+StationLumineuse::StationLumineuse() :
+    leds(NB_LEDS, PIN_BANDEAU, NEO_GRB + NEO_KHZ800), couleursPoubelles{
+        leds.Color(0, 0, 255),     // Couleur poubelle 0 (bleue)
+        leds.Color(0, 255, 0),     // Couleur poubelle 1 (verte)
+        leds.Color(255, 255, 0),   // Couleur poubelle 2 (jaune)
+        leds.Color(128, 128, 128), // Couleur poubelle 3 (grise)
+        leds.Color(255, 0, 0)      // Couleur poubelle 4 (rouge)
+    }
 {
-    setCouleursPoubelles();
+    // initialiserCouleursPoubelles();
 }
+
 /**
- * @brief Constructeur de la classe StationLumineuse.
- * @fn StationLumineuse::StationLumineuse()
- * @details Ce constructeur initialise les attributs de la classe et appelle la fonction
- * setCouleursPoubelles() pour définir les couleurs des notifications de poubelles.
+ * @brief Destructeur de la classe StationLumineuse.
+ * @fn StationLumineuse::~StationLumineuse
+ * @details Libère les ressources de la classe
  */
 StationLumineuse::~StationLumineuse()
 {
@@ -93,6 +99,30 @@ void StationLumineuse::initialiserNotifications()
         {
             eteindreNotificationPoubelle(i);
         }
+    }
+}
+
+/**
+ * @brief Définit les couleurs pour les notifications de poubelles.
+ * @fn void StationLumineuse::initialiserCouleursPoubelles
+ * @details Cette fonction initialise le tableau des couleurs pour les notifications de poubelles
+ * avec les valeurs RGB correspondantes. Le tableau de couleurs peut ensuite être utilisé pour
+ * contrôler les couleurs des LEDs.
+ */
+void StationLumineuse::initialiserCouleursPoubelles()
+{
+    const uint8_t couleursRGB[NB_LEDS_NOTIFICATION_POUBELLES][NB_COULEURS] = {
+        { 0, 0, 255 },     // Couleur poubelle 0 (bleue)
+        { 0, 255, 0 },     // Couleur poubelle 1 (verte)
+        { 255, 255, 0 },   // Couleur poubelle 2 (jaune)
+        { 128, 128, 128 }, // Couleur poubelle 3 (grise)
+        { 255, 0, 0 }      // Couleur poubelle 4 (rouge)
+    };
+
+    for(uint8_t i = 0; i < NB_LEDS_NOTIFICATION_POUBELLES; i++)
+    {
+        couleursPoubelles[i] =
+          leds.Color(couleursRGB[i][ROUGE], couleursRGB[i][VERT], couleursRGB[i][BLEU]);
     }
 }
 
@@ -187,7 +217,7 @@ bool StationLumineuse::estIdValideMachine(int numeroMachine)
 /**
  * @brief Récupère l'état de la machine donnée
  * @fn  StationLumineuse::getEtatMachines
- * @param numeromachine Numéro de la machine
+ * @param numeroMachine Numéro de la machine
  * @return l'état true ou false de la machine
  * @details renvoie l'etat de la machine si l'id et valide, faux sinon
  */
@@ -206,7 +236,7 @@ bool StationLumineuse::getEtatMachine(int numeroMachine)
 /**
  * @brief Modifie l'état de la machine donnée
  * @fn StationLumineuse::setEtatMachine
- * @param numeromachine
+ * @param numeroMachine
  * @param etat
  * @details Modifie l'état de la machine spécifiée par le numéro donné. Enregistre l'état dans les
  préférences, et allume ou éteint la notification de la machine en fonction de son nouvel état.
@@ -249,7 +279,7 @@ void StationLumineuse::resetEtatMachines()
 /**
  * @brief Allume la notification de la machine donnée
  * @fn StationLumineuse::allumerNotificationMachine
- * @param numeromachine
+ * @param numeroMachine
  * @details Allume les LEDs de couleur verte pour indiquer que la machine spécifiée est finie
  */
 void StationLumineuse::allumerNotificationMachine(int numeroMachine)
@@ -265,7 +295,7 @@ void StationLumineuse::allumerNotificationMachine(int numeroMachine)
 /**
  * @brief Éteint la notification de la machine donnée
  * @fn StationLumineuse::eteindreNotificationMachine
- * @param numeromachine
+ * @param numeroMachine
  * @details Éteint les LEDS associées à la notification de la machine donnée
  */
 void StationLumineuse::eteindreNotificationMachine(int numeroMachine)
@@ -350,29 +380,6 @@ void StationLumineuse::resetEtatPoubelles()
         sprintf((char*)cle, "%s%d", "poubelle", i);
         preferences.putBool(cle, etatPoubelles[i]);
         eteindreNotificationPoubelle(i);
-    }
-}
-
-/**
- * @brief Définit les couleurs pour les notifications de poubelles.
- * @fn void StationLumineuse::setCouleursPoubelles()
- * @details Cette fonction initialise le tableau des couleurs pour les notifications de poubelles
- * avec les valeurs RGB correspondantes. Le tableau de couleurs peut ensuite être utilisé pour
- * contrôler les couleurs des LED.
- */
-void StationLumineuse::setCouleursPoubelles()
-{
-    const uint8_t couleursRGB[NB_LEDS_NOTIFICATION_POUBELLES][3] = {
-        { 0, 0, 255 },     // Couleur poubelle 0 (bleue)
-        { 0, 255, 0 },     // Couleur poubelle 1 (verte)
-        { 255, 255, 0 },   // Couleur poubelle 2 (jaune)
-        { 128, 128, 128 }, // Couleur poubelle 3 (grise)
-        { 255, 0, 0 }      // Couleur poubelle 4 (rouge)
-    };
-
-    for(uint8_t i = 0; i < numCouleurs; i++)
-    {
-        couleursPoubelles[i] = leds.Color(couleursRGB[i][0], couleursRGB[i][1], couleursRGB[i][2]);
     }
 }
 

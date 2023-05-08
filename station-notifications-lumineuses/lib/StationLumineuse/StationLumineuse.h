@@ -2,7 +2,7 @@
  * @file StationLumineuse.h
  * @brief Déclaration de la classe StationLumineuse
  * @author Alexis Vaillen
- * @version 0.1
+ * @version 0.2
  */
 
 #ifndef STATIONLUMINEUSE_H
@@ -28,6 +28,12 @@
 #define INDEX_LEDS_NOTIFICATION_BOITE                                                              \
     (INDEX_LEDS_NOTIFICATION_POUBELLES + NB_LEDS_NOTIFICATION_POUBELLES)
 
+// RGB
+#define ROUGE       0
+#define VERT        1
+#define BLEU        2
+#define NB_COULEURS 3
+
 /**
  * @class StationLumineuse
  * @brief Déclaration de la classe StationLumineuse
@@ -41,19 +47,19 @@ class StationLumineuse
     bool              etatMachines[NB_LEDS_NOTIFICATION_MACHINES] = {
         false, false, false, false, false, false
     }; //!< l'état des machines
-    bool              etatPoubelles[NB_LEDS_NOTIFICATION_POUBELLES] = { false,
-                                                           false,
-                                                           false,
-                                                           false,
-                                                           false }; //!< l'état des poubelles
-    const uint8_t     numCouleurs = NB_LEDS_NOTIFICATION_POUBELLES;
-    uint32_t          couleursPoubelles[NB_LEDS_NOTIFICATION_POUBELLES];
+    bool     etatPoubelles[NB_LEDS_NOTIFICATION_POUBELLES] = { false,
+                                                               false,
+                                                               false,
+                                                               false,
+                                                               false }; //!< l'état des poubelles
+    uint32_t couleursPoubelles[NB_LEDS_NOTIFICATION_POUBELLES]; //!< les couleurs des poubelles
 
   public:
     StationLumineuse();
     ~StationLumineuse();
     void initialiserPreferences();
     void initialiserNotifications();
+    void initialiserCouleursPoubelles();
 
     bool getEtatBoiteAuxLettres();
     void setEtatBoiteAuxLettres(bool etat);
@@ -72,7 +78,6 @@ class StationLumineuse
     bool getEtatPoubelle(int numeroPoubelle);
     void setEtatPoubelle(int numeroPoubelle, bool etat);
     void resetEtatPoubelles();
-    void setCouleursPoubelles();
     void allumerNotificationPoubelle(int numeroPoubelle);
     void eteindreNotificationPoubelle(int numeroPoubelle);
 };

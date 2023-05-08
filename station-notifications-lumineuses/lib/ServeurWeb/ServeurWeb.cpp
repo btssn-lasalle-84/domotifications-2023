@@ -2,7 +2,7 @@
  * @file ServeurWeb.cpp
  * @brief Définition de la classe ServeurWeb
  * @author Alexis Vaillen
- * @version 0.1
+ * @version 0.2
  */
 
 #include "ServeurWeb.h"
@@ -22,24 +22,6 @@ ServeurWeb::ServeurWeb(StationLumineuse* stationLumineuse) :
 }
 
 /**
- * @brief Définit le nom du serveur web
- * @fn ServeurWeb::setNom
- * @param stationLumineuse
- * @details Utilise le protocole mDNS pour définir le nom du serveur web.
-    Le nom sera utilisé pour accéder au serveur via l'adresse http://NOM_SERVEUR_WEB.local/.
- */
-void ServeurWeb::setNom()
-{
-    // Pour un accès : http://NOM_SERVEUR_WEB.local/
-    if(!MDNS.begin(NOM_SERVEUR_WEB))
-    {
-#ifdef DEBUG_SERVEUR_WEB
-        Serial.println(F("ServeurWeb() : Erreur mDNS !"));
-#endif
-    }
-}
-
-/**
  * @brief Démarre le serveur web et installe les gestionnaires de requêtes
  * @fn ServeurWeb::demarrer
  * @details Configure les routes pour les différentes requêtes HTTP
@@ -49,16 +31,22 @@ void ServeurWeb::setNom()
 void ServeurWeb::demarrer()
 {
     setNom();
+#ifdef DEBUG_SERVEUR_WEB
+    Serial.print(F("ServeurWeb::demarrer() : adresse IP = "));
+    Serial.println(WiFi.localIP());
+#endif
 
     // Installe les gestionnaires de requêtes
     on("/", HTTP_GET, std::bind(&ServeurWeb::afficherAccueil, this));
     on("/notifications", std::bind(&ServeurWeb::traiterRequeteGETNotifications, this));
     on("/boite", HTTP_GET, std::bind(&ServeurWeb::traiterRequeteGETBoite, this));
     on("/boite", HTTP_POST, std::bind(&ServeurWeb::traiterRequetePOSTBoite, this));
+    on("/machine", HTTP_GET, std::bind(&ServeurWeb::traiterRequeteGETMachine, this));
     on("/machine",
        HTTP_POST,
        std::bind(&ServeurWeb::traiterRequetePOSTMachine,
                  this)); // Ajout de la route /machine en POST
+    on("/poubelle", HTTP_GET, std::bind(&ServeurWeb::traiterRequeteGETPoubelle, this));
     on("/poubelle",
        HTTP_POST,
        std::bind(&ServeurWeb::traiterRequetePOSTPoubelle,
@@ -69,10 +57,7 @@ void ServeurWeb::demarrer()
     begin();
 
 #ifdef DEBUG_SERVEUR_WEB
-    Serial.print(F("ServeurWeb::demarrer() : nom = "));
-    Serial.println(NOM_SERVEUR_WEB);
-    Serial.print(F("ServeurWeb::demarrer() : adresse IP = "));
-    Serial.println(WiFi.localIP());
+    Serial.println(F("ServeurWeb::demarrer() ok"));
 #endif
 }
 
@@ -85,6 +70,32 @@ void ServeurWeb::demarrer()
 void ServeurWeb::traiterRequetes()
 {
     handleClient();
+}
+
+/**
+ * @brief Définit le nom du serveur web
+ * @fn ServeurWeb::setNom
+ * @param stationLumineuse
+ * @details Utilise le protocole mDNS pour définir le nom du serveur web.
+    Le nom sera utilisé pour accéder au serveur via l'adresse http://nomStationLumineuse.local/.
+ */
+void ServeurWeb::setNom(String nomStationLumineuse)
+{
+    if(nomStationLumineuse.isEmpty())
+        nomStationLumineuse = NOM_SERVEUR_WEB;
+    // Pour un accès : http://nomStationLumineuse.local/
+    if(!MDNS.begin(nomStationLumineuse.c_str()))
+    {
+#ifdef DEBUG_SERVEUR_WEB
+        Serial.println(F("setNom() Erreur mDNS !"));
+#endif
+    }
+    else
+    {
+#ifdef DEBUG_SERVEUR_WEB
+        Serial.println("setNom() http://" + nomStationLumineuse + ".local/");
+#endif
+    }
 }
 
 /**
@@ -105,7 +116,7 @@ void ServeurWeb::afficherAccueil()
     Serial.println(uri());
 #endif
     String message = "<h1>Bienvenue sur la station de notifications lumineuses</h1>\n";
-    message += "<p>LaSalle Avignon v0.1</p>\n";
+    message += "<p>LaSalle Avignon v1.0</p>\n";
     send(200, F("text/html"), message);
 }
 
@@ -150,9 +161,9 @@ void ServeurWeb::traiterRequeteGETNotifications()
 }
 
 /**
- * @brief Traite une requête HTTP GET relative à l'état de la boîte aux lettres
+ * @brief Traite une requête HTTP GET relative à la boîte aux lettres
  * @fn ServeurWeb::traiterRequeteGETBoite
- * @details Cette méthode est appelée lorsqu'une requête HTTP GET relative à l'état de la boîte aux
+ * @details Cette méthode est appelée lorsqu'une requête HTTP GET relative à la boîte aux
  lettres est reçue par le serveur web.
  */
 void ServeurWeb::traiterRequeteGETBoite()
@@ -177,6 +188,20 @@ void ServeurWeb::traiterRequeteGETBoite()
     /**
      * @todo Répondre à la requête
      */
+    // En attendant
+    String message = "501 Not Implemented\n\n";
+    message += "URI: ";
+    message += uri();
+    message += "\nMethod: ";
+    message += (method() == HTTP_GET) ? "GET" : "POST";
+    message += "\nArguments: ";
+    message += args();
+    message += "\n";
+    for(uint8_t i = 0; i < args(); i++)
+    {
+        message += " " + argName(i) + ": " + arg(i) + "\n";
+    }
+    send(501, "text/plain", message);
 }
 
 /**
@@ -254,6 +279,50 @@ void ServeurWeb::traiterRequetePOSTBoite()
             return;
         }
     }
+}
+
+/**
+ * @brief Traite une requête HTTP GET relative à une machine
+ * @fn ServeurWeb::traiterRequeteGETMachine
+ * @details Cette méthode est appelée lorsqu'une requête HTTP GET relative à une machine est reçue
+ * par le serveur web.
+ */
+void ServeurWeb::traiterRequeteGETMachine()
+{
+#ifdef DEBUG_SERVEUR_WEB
+    Serial.print(F("ServeurWeb::traiterRequeteGETMachine() : requête = "));
+    Serial.println((method() == HTTP_GET) ? "GET" : "POST");
+    Serial.print(F("URI : "));
+    Serial.println(uri());
+    Serial.print(F("Nb arguments : "));
+    Serial.println(args());
+    // les arguments du type : /machine?id=x&etat=true
+    for(int i = 0; i < args(); ++i)
+    {
+        Serial.print("argument : ");
+        Serial.print(argName(i));
+        Serial.print(" -> ");
+        Serial.println(arg(i));
+    }
+#endif
+
+    /**
+     * @todo Répondre à la requête
+     */
+    // En attendant
+    String message = "501 Not Implemented\n\n";
+    message += "URI: ";
+    message += uri();
+    message += "\nMethod: ";
+    message += (method() == HTTP_GET) ? "GET" : "POST";
+    message += "\nArguments: ";
+    message += args();
+    message += "\n";
+    for(uint8_t i = 0; i < args(); i++)
+    {
+        message += " " + argName(i) + ": " + arg(i) + "\n";
+    }
+    send(501, "text/plain", message);
 }
 
 /**
@@ -347,6 +416,50 @@ void ServeurWeb::traiterRequetePOSTMachine()
             return;
         }
     }
+}
+
+/**
+ * @brief Traite une requête HTTP GET relative à une poubelle
+ * @fn ServeurWeb::traiterRequeteGETPoubelle
+ * @details Cette méthode est appelée lorsqu'une requête HTTP GET relative à une poubelle est reçue
+ * par le serveur web.
+ */
+void ServeurWeb::traiterRequeteGETPoubelle()
+{
+#ifdef DEBUG_SERVEUR_WEB
+    Serial.print(F("ServeurWeb::traiterRequeteGETPoubelle() : requête = "));
+    Serial.println((method() == HTTP_GET) ? "GET" : "POST");
+    Serial.print(F("URI : "));
+    Serial.println(uri());
+    Serial.print(F("Nb arguments : "));
+    Serial.println(args());
+    // les arguments du type : /poubelle?id=x&etat=true
+    for(int i = 0; i < args(); ++i)
+    {
+        Serial.print("argument : ");
+        Serial.print(argName(i));
+        Serial.print(" -> ");
+        Serial.println(arg(i));
+    }
+#endif
+
+    /**
+     * @todo Répondre à la requête
+     */
+    // En attendant
+    String message = "501 Not Implemented\n\n";
+    message += "URI: ";
+    message += uri();
+    message += "\nMethod: ";
+    message += (method() == HTTP_GET) ? "GET" : "POST";
+    message += "\nArguments: ";
+    message += args();
+    message += "\n";
+    for(uint8_t i = 0; i < args(); i++)
+    {
+        message += " " + argName(i) + ": " + arg(i) + "\n";
+    }
+    send(501, "text/plain", message);
 }
 
 /**
