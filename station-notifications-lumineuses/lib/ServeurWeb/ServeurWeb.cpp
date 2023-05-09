@@ -216,6 +216,7 @@ void ServeurWeb::traiterRequeteGETBoite()
     }
 }
 
+
 /**
  * @brief Traite la requête POST de la boîte aux lettres
  * @fn ServeurWeb::traiterRequetePOSTBoite
