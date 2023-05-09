@@ -212,7 +212,7 @@ void ServeurWeb::traiterRequeteGETBoite()
         jsonResponse += etat ? "true" : "false";
         jsonResponse += "}";
 
-        send(200, "application/json", jsonResponse);
+        send(200, "application/json", jsonResponse); 
     }
 }
 
