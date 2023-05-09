@@ -115,6 +115,13 @@ void IHMDomotifications::initialiserWidgets()
                  << "type" << machines[i]->getType();
     }
 
+    poubelles = domotification->getPoubelles();
+    for(auto i = 0; i < poubelles.size(); i++)
+    {
+        qDebug() << Q_FUNC_INFO << "module" << poubelles[i]->getNom() << "id"
+                 << poubelles[i]->getId() << "type" << poubelles[i]->getType();
+    }
+
     boutonActivationDesactivationMachine = new QPushButton(this);
     boutonActivationDesactivationMachine->setObjectName("Machine");
     boutonActivationDesactivationBoiteAuxLettres = new QPushButton(this);
@@ -237,22 +244,24 @@ void IHMDomotifications::afficherWidgets()
     layoutLogos->addWidget(boutonParametres);
     layoutLogos->addStretch();
     layoutLogos->addWidget(logoBTS);
-
-    layoutBoutonsPoubelle->addWidget(boutonAcquittementPoubelle);
-    layoutBoutonsPoubelle->addWidget(boutonActivationDesactivationPoubelle);
-    layoutPoubelle->addWidget(logoPoubelle);
+    for(auto i = 0; i < poubelles.size(); i++)
+    {
+        layoutBoutonsPoubelle->addWidget(boutonAcquittementPoubelle);
+        layoutBoutonsPoubelle->addWidget(boutonActivationDesactivationPoubelle);
+        // layoutPoubelle->addWidget(logoPoubelle);
+    }
     layoutPoubelle->addLayout(layoutBoutonsPoubelle);
     layoutPoubelle->addStretch();
 
     layoutBoutonsMachine->addWidget(boutonAcquittementMachine);
     layoutBoutonsMachine->addWidget(boutonActivationDesactivationMachine);
-    layoutMachine->addWidget(logoMachine);
+    // layoutMachine->addWidget(logoMachine);
     layoutMachine->addLayout(layoutBoutonsMachine);
     layoutMachine->addStretch();
 
     layoutBoutonsBoiteAuxLettres->addWidget(boutonAcquittementBoiteAuxLettres);
     layoutBoutonsBoiteAuxLettres->addWidget(boutonActivationDesactivationBoiteAuxLettres);
-    layoutBoiteAuxLettres->addWidget(logoBoiteAuxLettres);
+    // layoutBoiteAuxLettres->addWidget(logoBoiteAuxLettres);
     layoutBoiteAuxLettres->addLayout(layoutBoutonsBoiteAuxLettres);
     layoutBoiteAuxLettres->addStretch();
 
@@ -419,6 +428,7 @@ void IHMDomotifications::initialiserSignauxSlots()
  */
 void IHMDomotifications::gererBoutonActivationDesactivation()
 {
+    int          i            = 0;
     QPushButton* boutonModule = qobject_cast<QPushButton*>(sender());
     qDebug() << Q_FUNC_INFO << "bouton" << boutonModule->objectName();
     if(boutonModule == boutonActivationDesactivationMachine)
@@ -426,7 +436,7 @@ void IHMDomotifications::gererBoutonActivationDesactivation()
         /**
          * @todo Gérer l'id du module
          */
-        emit activationDesactivationModule(boutonModule->objectName(), 0);
+        emit activationDesactivationModule(boutonModule->objectName(), machines[i]->getId());
         if(domotification->getActivationModule(boutonModule->objectName()))
             afficherBoutonActivation(boutonModule);
         else
@@ -449,7 +459,7 @@ void IHMDomotifications::gererBoutonActivationDesactivation()
         /**
          * @todo Gérer l'id du module
          */
-        emit activationDesactivationModule(boutonModule->objectName(), 0);
+        emit activationDesactivationModule(boutonModule->objectName(), poubelles[i]->getId());
         if(domotification->getActivationModule(boutonModule->objectName()))
         {
             afficherBoutonActivation(boutonModule);
