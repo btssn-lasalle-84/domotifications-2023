@@ -248,20 +248,20 @@ void IHMDomotifications::afficherWidgets()
     {
         layoutBoutonsPoubelle->addWidget(boutonAcquittementPoubelle);
         layoutBoutonsPoubelle->addWidget(boutonActivationDesactivationPoubelle);
-        // layoutPoubelle->addWidget(logoPoubelle);
+        layoutPoubelle->addWidget(logoPoubelle);
     }
     layoutPoubelle->addLayout(layoutBoutonsPoubelle);
     layoutPoubelle->addStretch();
 
     layoutBoutonsMachine->addWidget(boutonAcquittementMachine);
     layoutBoutonsMachine->addWidget(boutonActivationDesactivationMachine);
-    // layoutMachine->addWidget(logoMachine);
+    layoutMachine->addWidget(logoMachine);
     layoutMachine->addLayout(layoutBoutonsMachine);
     layoutMachine->addStretch();
 
     layoutBoutonsBoiteAuxLettres->addWidget(boutonAcquittementBoiteAuxLettres);
     layoutBoutonsBoiteAuxLettres->addWidget(boutonActivationDesactivationBoiteAuxLettres);
-    // layoutBoiteAuxLettres->addWidget(logoBoiteAuxLettres);
+    layoutBoiteAuxLettres->addWidget(logoBoiteAuxLettres);
     layoutBoiteAuxLettres->addLayout(layoutBoutonsBoiteAuxLettres);
     layoutBoiteAuxLettres->addStretch();
 
