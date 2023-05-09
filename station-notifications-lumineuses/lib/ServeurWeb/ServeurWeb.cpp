@@ -204,18 +204,16 @@ void ServeurWeb::traiterRequeteGETBoite()
     }
     else
     {
-    // Récupérer l'état actuel de la boîte aux lettres
+        // Récupérer l'état actuel de la boîte aux lettres
         bool etat = stationLumineuse->getEtatBoiteAuxLettres();
 
         // Répondre à la requête en donnant l'état de la boîte aux lettres
         String jsonResponse = "{\"etat\": ";
         jsonResponse += etat ? "true" : "false";
         jsonResponse += "}";
-        send(200, "application/json", jsonResponse);   
-
+        send(200, "application/json", jsonResponse);
     }
 }
-
 
 /**
  * @brief Traite la requête POST de la boîte aux lettres
