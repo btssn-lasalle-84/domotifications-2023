@@ -244,12 +244,10 @@ void IHMDomotifications::afficherWidgets()
     layoutLogos->addWidget(boutonParametres);
     layoutLogos->addStretch();
     layoutLogos->addWidget(logoBTS);
-    for(auto i = 0; i < poubelles.size(); i++)
-    {
-        layoutBoutonsPoubelle->addWidget(boutonAcquittementPoubelle);
-        layoutBoutonsPoubelle->addWidget(boutonActivationDesactivationPoubelle);
-        layoutPoubelle->addWidget(logoPoubelle);
-    }
+
+    layoutBoutonsPoubelle->addWidget(boutonAcquittementPoubelle);
+    layoutBoutonsPoubelle->addWidget(boutonActivationDesactivationPoubelle);
+    layoutPoubelle->addWidget(logoPoubelle);
     layoutPoubelle->addLayout(layoutBoutonsPoubelle);
     layoutPoubelle->addStretch();
 
@@ -428,15 +426,16 @@ void IHMDomotifications::initialiserSignauxSlots()
  */
 void IHMDomotifications::gererBoutonActivationDesactivation()
 {
-    int          i            = 0;
-    QPushButton* boutonModule = qobject_cast<QPushButton*>(sender());
+    int          indexVecteurModule = 0;
+    QPushButton* boutonModule       = qobject_cast<QPushButton*>(sender());
     qDebug() << Q_FUNC_INFO << "bouton" << boutonModule->objectName();
     if(boutonModule == boutonActivationDesactivationMachine)
     {
         /**
          * @todo Gérer l'id du module
          */
-        emit activationDesactivationModule(boutonModule->objectName(), machines[i]->getId());
+        emit activationDesactivationModule(boutonModule->objectName(),
+                                           machines[indexVecteurModule]->getId());
         if(domotification->getActivationModule(boutonModule->objectName()))
             afficherBoutonActivation(boutonModule);
         else
@@ -459,7 +458,8 @@ void IHMDomotifications::gererBoutonActivationDesactivation()
         /**
          * @todo Gérer l'id du module
          */
-        emit activationDesactivationModule(boutonModule->objectName(), poubelles[i]->getId());
+        emit activationDesactivationModule(boutonModule->objectName(),
+                                           poubelles[indexVecteurModule]->getId());
         if(domotification->getActivationModule(boutonModule->objectName()))
         {
             afficherBoutonActivation(boutonModule);
