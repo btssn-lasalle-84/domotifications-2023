@@ -204,23 +204,15 @@ void ServeurWeb::traiterRequeteGETBoite()
     }
     else
     {
-        /**
-         * @todo Répondre à la requête en donnant l'état de la boîte aux lettres
-         */
-        // En attendant
-        String message = "501 Not Implemented\n\n";
-        message += "URI: ";
-        message += uri();
-        message += "\nMethod: ";
-        message += (method() == HTTP_GET) ? "GET" : "POST";
-        message += "\nArguments: ";
-        message += args();
-        message += "\n";
-        for(uint8_t i = 0; i < args(); i++)
-        {
-            message += " " + argName(i) + ": " + arg(i) + "\n";
-        }
-        send(501, "text/plain", message);
+        // Récupérer l'état actuel de la boîte aux lettres
+        bool etat = stationLumineuse->getEtatBoiteAuxLettres();
+
+        // Répondre à la requête en donnant l'état de la boîte aux lettres
+        String jsonResponse = "{\"etatBoite\": ";
+        jsonResponse += etat ? "true" : "false";
+        jsonResponse += "}";
+
+        send(200, "application/json", jsonResponse);
     }
 }
 
