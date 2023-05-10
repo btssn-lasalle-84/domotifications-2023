@@ -329,28 +329,45 @@ void ServeurWeb::traiterRequeteGETMachine()
         Serial.println(etat);
 #endif
 
-        // Modifie l'état de la machine
-        stationLumineuse->setEtatMachine(id, etat);
+        if (stationLumineuse->estIdValideMachine(id))
+        {
+            // Modifie l'état de la machine
+            stationLumineuse->setEtatMachine(id, etat);
 
-        send(200,
-             "application/json",
-             "{\"machine\": "
-             "\"ok\"}");
+            send(200,
+                "application/json",
+                "{\"machine\": "
+                "\"ok\"}");
+        }
+        else
+        {
+            send(404,
+                 "application/json",
+                 "{\"error\": { \"code\": \"notFound\", \"message\": "
+                 "\"La machine demandée n'existe pas.\"}}");
+        }
     }
     else if(hasArg("id"))
     {
         int id = arg("id").toInt();
+        if(stationLumineuse->estIdValideMachine(id)){
+            // Récupérer l'état actuel de la machine
+            bool etat = stationLumineuse->getEtatMachine(id);
 
-        // Récupérer l'état actuel de la machine
-        bool etat = stationLumineuse->getEtatMachine(id);
-
-        // Répondre à la requête en donnant l'état de la machine
-        String jsonResponse = "{\"id\": ";
-        jsonResponse += id;
-        jsonResponse += ", \"etat\": ";
-        jsonResponse += etat ? "true" : "false";
-        jsonResponse += "}";
-        send(200, "application/json", jsonResponse);
+            // Répondre à la requête en donnant l'état de la machine
+            String jsonResponse = "{\"id\": ";
+            jsonResponse += id;
+            jsonResponse += ", \"etat\": ";
+            jsonResponse += etat ? "true" : "false";
+            jsonResponse += "}";
+            send(200, "application/json", jsonResponse);
+        }
+        else {
+            send(404,
+                 "application/json",
+                 "{\"error\": { \"code\": \"notFound\", \"message\": "
+                 "\"La machine demandée n'existe pas.\"}}");
+        }
     }
     else
     {
@@ -369,6 +386,7 @@ void ServeurWeb::traiterRequeteGETMachine()
         send(400, "text/plain", message);
     }
 }
+
 
 /**
  * @brief Traite la requête POST pour modifier l'état d'une machine
