@@ -11,7 +11,8 @@
 #include <QDebug>
 
 /**
- * @brief Domotification::Domotification
+ * @brief Constructeur de la classe Domotification
+ * @fn Domotification::Domotification
  * @param ihm
  */
 Domotification::Domotification(IHMDomotifications* ihm) :
@@ -34,7 +35,8 @@ Domotification::Domotification(IHMDomotifications* ihm) :
 }
 
 /**
- * @brief Domotification::~Domotification
+ * @brief Destructeur de la classe Domotification
+ * @fn Domotification::~Domotification
  */
 Domotification::~Domotification()
 {
@@ -43,7 +45,8 @@ Domotification::~Domotification()
 
 // Slots
 /**
- * @brief Domotification::gererActivationModule
+ * @brief Gère l'activation d'un module
+ * @fn Domotification::gererActivationModule
  * @param nomModule
  * @param id
  */
@@ -94,7 +97,8 @@ bool Domotification::getActivationModule(QString nomModule, int id)
 }
 
 /**
- * @brief Domotification::gererNotification
+ * @fn Domotification::gererNotification
+ * @brief Gère une notification
  * @param nomModule
  */
 void Domotification::gererNotification(QString nomModule)
@@ -103,7 +107,8 @@ void Domotification::gererNotification(QString nomModule)
 }
 
 /**
- * @brief Domotification::ajouterModule
+ * @brief Ajoute un module
+ * @fn Domotification::ajouterModule
  * @param nomModule
  * @param type
  */
@@ -113,7 +118,8 @@ void Domotification::ajouterModule(QString nomModule, Module::TypeModule type)
 }
 
 /**
- * @brief Domotification::notifier
+ * @brief envoyer une notification
+ * @fn Domotification::notifier
  * @param message
  */
 void Domotification::notifier(QString message)
@@ -123,7 +129,8 @@ void Domotification::notifier(QString message)
 }
 
 /**
- * @brief Domotification::getMachines
+ * @brief Retourne le vecteur des modules machines
+ * @fn Domotification::getMachines
  * @return
  */
 QVector<Module*> Domotification::getMachines() const
@@ -142,7 +149,8 @@ QVector<Module*> Domotification::getMachines() const
 }
 
 /**
- * @brief Domotification::getPoubelles
+ * @brief Retourne le vecteur des modules poubelles
+ * @fn Domotification::getPoubelles
  * @return
  */
 QVector<Module*> Domotification::getPoubelles() const
@@ -161,7 +169,8 @@ QVector<Module*> Domotification::getPoubelles() const
 }
 
 /**
- * @brief Domotification::getBoite
+ * @brief Retourne le module boite
+ * @fn Domotification::getBoite
  * @return
  */
 Module* Domotification::getBoite() const

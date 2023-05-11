@@ -217,6 +217,8 @@ void IHMDomotifications::afficherBoutonsActivationDesactivation()
 
 /**
  * @brief Affichage d'un bouton d'activation
+ * @fn IHMDomotifications::afficherBoutonActivation
+ * @param QPushButton* boutonModule
  */
 void IHMDomotifications::afficherBoutonActivation(QPushButton* boutonModule)
 {
@@ -227,6 +229,8 @@ void IHMDomotifications::afficherBoutonActivation(QPushButton* boutonModule)
 
 /**
  * @brief Affichage d'un bouton de désactivation
+ * @fn IHMDomotifications::afficherBoutonDesactivation
+ * @param QPushButton* boutonModule
  */
 void IHMDomotifications::afficherBoutonDesactivation(QPushButton* boutonModule)
 {
@@ -276,7 +280,6 @@ void IHMDomotifications::afficherBoutonAcquittement()
  */
 int IHMDomotifications::recupererIdModule(QPushButton* boutonModule)
 {
-    // déterminer dans quel conteneur de bouton on doit chercher
     if(boutonModule->objectName() == Module::getType(Module::TypeModule::Poubelle))
     {
         for(int i = 0; i < boutonsActivationDesactivationPoubelle.size(); i++)

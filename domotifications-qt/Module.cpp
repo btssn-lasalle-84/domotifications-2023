@@ -44,7 +44,8 @@ int Module::getId() const
 }
 
 /**
- * @brief Module::getNom
+ * @brief Retourne le nom du module
+ * @fn Module::getNom
  * @return
  */
 QString Module::getNom() const
@@ -64,7 +65,8 @@ Module::TypeModule Module::getType() const
 }
 
 /**
- * @brief Module::estActif
+ * @brief retourne l'état du module
+ * @fn Module::estActif
  * @return l'état du module
  */
 
@@ -74,7 +76,8 @@ bool Module::estActif() const
 }
 
 /**
- * @brief Module::estNotifie
+ * @brief Retourne l'état de notification
+ * @fn Module::estNotifie
  * @return si le module est notifié
  */
 bool Module::estNotifie() const
@@ -83,7 +86,8 @@ bool Module::estNotifie() const
 }
 
 /**
- * @brief Module::setActif
+ * @brief Change l'attribut actif d'un module
+ * @fn Module::setActif
  * @param actif
  */
 void Module::setActif(bool actif)
@@ -93,6 +97,7 @@ void Module::setActif(bool actif)
 
 /**
  * @brief Retourne le type de module sous forme de QString
+ * @fn Module::recupererType
  * @param actif
  */
 QString Module::recupererType()
@@ -102,6 +107,7 @@ QString Module::recupererType()
 
 /**
  * @brief Récupère le nom du type de module à utiliser dans une requête HTTP
+ * @fn Module::getType
  * @param type le type de module
  * @return QString le nom du type à utiliser dans une requête HTTP
  */
