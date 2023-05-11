@@ -20,6 +20,10 @@ Communication::~Communication()
     qDebug() << Q_FUNC_INFO;
 }
 
+void Communication::connecter()
+{
+}
+
 /**
  * @brief Envoie une requete http avec la méthode Post
  * @fn Communication::envoyerRequetePost
@@ -47,9 +51,5 @@ void Communication::recevoirNotification()
 }
 
 void Communication::configurer(QString identifiant, QString motDePasse, int httpPort)
-{
-}
-
-void Communication::connecter()
 {
 }

@@ -1,0 +1,827 @@
+format 224
+"StationLumineuse" // station-notifications-lumineuses::lib::StationLumineuse
+  revision 1
+  modified_by 2 "btssn2"
+  // class settings
+  
+  classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
+  
+  usecasediagramsettings end
+  
+  sequencediagramsettings end
+  
+  collaborationdiagramsettings end
+  
+  objectdiagramsettings end
+  
+  objectcompositediagramsettings end
+  
+  componentdiagramsettings
+   end
+  
+  deploymentdiagramsettings
+   end
+  
+  statediagramsettings
+   end
+  
+  activitydiagramsettings
+   end
+  
+  cpp_h_dir "station-notifications-lumineuses/lib/StationLumineuse/"
+  cpp_src_dir "station-notifications-lumineuses/lib/StationLumineuse/"
+  classview 141314 "StationLumineuse"
+    
+    classdiagramsettings member_max_width 0 end
+    
+    classcompositediagramsettings end
+    
+    collaborationdiagramsettings end
+    
+    objectdiagramsettings end
+    
+    objectcompositediagramsettings end
+    
+    sequencediagramsettings end
+    
+    statediagramsettings
+     end
+    
+    
+    activitydiagramsettings
+     end
+    class 175490 "StationLumineuse"
+      visibility package 
+      cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "@class StationLumineuse
+@brief Déclaration de la classe StationLumineuse
+"
+      attribute 168066 "leds"
+	private explicit_type "Adafruit_NeoPixel"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "!< le bandeau à leds multi-couleurs"
+      end
+
+      attribute 168194 "preferences"
+	private explicit_type "Preferences"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "!< pour le stockage interne"
+      end
+
+      attribute 168322 "etatBoiteAuxLettres"
+	private explicit_type "bool"
+	init_value "=  false"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${h_value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "!< l'état de la boîte aux lettres"
+      end
+
+      attribute 168450 "etatMachines"
+	private explicit_type "bool"
+	multiplicity "[NB_LEDS_NOTIFICATION_MACHINES]"
+	init_value "=  {
+        false, false, false, false, false, false
+    }"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${multiplicity}${h_value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "!< l'état des machines"
+      end
+
+      attribute 168578 "etatPoubelles"
+	private explicit_type "bool"
+	multiplicity "[NB_LEDS_NOTIFICATION_POUBELLES]"
+	init_value "=  { false,
+                                                               false,
+                                                               false,
+                                                               false,
+                                                               false }"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${multiplicity}${h_value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "!< l'état des poubelles"
+      end
+
+      attribute 168706 "couleursPoubelles"
+	private explicit_type "uint32_t"
+	multiplicity "[NB_LEDS_NOTIFICATION_POUBELLES]"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${multiplicity}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "!< les couleurs des poubelles"
+      end
+
+      operation 169474 "StationLumineuse"
+	preserve_cpp_body_indent public explicit_return_type ""
+	nparams 0
+	cpp_decl "    ${comment}${inline}${name}${(}${)}${volatile}${throw}${abstract};
+"
+	cpp_def "//@brief Constructeur par défaut de la classe StationLumineuse.
+//@fn StationLumineuse::StationLumineuse
+//@details Ce constructeur initialise les attributs de la classe
+//
+
+//@brief Constructeur par défaut de la classe StationLumineuse.
+//@fn StationLumineuse::StationLumineuse
+//@details Ce constructeur initialise les attributs de la classe
+//
+
+${inline}${typeprefix}${class}::${name}${(}${)} :
+    leds(NB_LEDS, PIN_BANDEAU, NEO_GRB + NEO_KHZ800), couleursPoubelles{
+        leds.Color(0, 0, 255),     // Couleur poubelle 0 (bleue)
+        leds.Color(0, 255, 0),     // Couleur poubelle 1 (verte)
+        leds.Color(255, 255, 0),   // Couleur poubelle 2 (jaune)
+        leds.Color(128, 128, 128), // Couleur poubelle 3 (grise)
+        leds.Color(255, 0, 0)      // Couleur poubelle 4 (rouge)
+    }
+ :
+    leds(NB_LEDS, PIN_BANDEAU, NEO_GRB + NEO_KHZ800), couleursPoubelles{
+        leds.Color(0, 0, 255),     // Couleur poubelle 0 (bleue)
+        leds.Color(0, 255, 0),     // Couleur poubelle 1 (verte)
+        leds.Color(255, 255, 0),   // Couleur poubelle 2 (jaune)
+        leds.Color(128, 128, 128), // Couleur poubelle 3 (grise)
+        leds.Color(255, 0, 0)      // Couleur poubelle 4 (rouge)
+    }
+${throw}{
+${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 169602 "~StationLumineuse"
+	preserve_cpp_body_indent public explicit_return_type ""
+	nparams 0
+	cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw}${abstract};
+"
+	cpp_def "//@brief Destructeur de la classe StationLumineuse.
+//@fn StationLumineuse::~StationLumineuse
+//@details Libère les ressources de la classe
+//
+
+//@brief Destructeur de la classe StationLumineuse.
+//@fn StationLumineuse::~StationLumineuse
+//@details Libère les ressources de la classe
+//
+
+${inline}${typeprefix}${class}::${name}${(}${)}${throw}{
+${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 169730 "initialiserPreferences"
+	preserve_cpp_body_indent public explicit_return_type "void"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "//@brief Initialise les préférences de la station lumineuse
+//@fn StationLumineuse::initialiserPreferences
+//@details Charge les préférences depuis la mémoire EEPROM ou les valeurs par défaut si les
+//préférences n'ont pas été définies
+//
+
+//@brief Initialise les préférences de la station lumineuse
+//@fn StationLumineuse::initialiserPreferences
+//@details Charge les préférences depuis la mémoire EEPROM ou les valeurs par défaut si les
+//préférences n'ont pas été définies
+//
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 169858 "initialiserNotifications"
+	preserve_cpp_body_indent public explicit_return_type "void"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "//@brief Initialisation de l'état des notifications
+//@fn  StationLumineuse::initialiserNotifications
+//@details Allumer/Eteindre les leds de notifications à partir des états sauvegardés
+//
+
+//@brief Initialisation de l'état des notifications
+//@fn  StationLumineuse::initialiserNotifications
+//@details Allumer/Eteindre les leds de notifications à partir des états sauvegardés
+//
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 169986 "initialiserCouleursPoubelles"
+	preserve_cpp_body_indent public explicit_return_type "void"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "//@brief Définit les couleurs pour les notifications de poubelles.
+//@fn void StationLumineuse::initialiserCouleursPoubelles
+//@details Cette fonction initialise le tableau des couleurs pour les notifications de poubelles
+//avec les valeurs RGB correspondantes. Le tableau de couleurs peut ensuite être utilisé pour
+//contrôler les couleurs des LEDs.
+//
+
+//@brief Définit les couleurs pour les notifications de poubelles.
+//@fn void StationLumineuse::initialiserCouleursPoubelles
+//@details Cette fonction initialise le tableau des couleurs pour les notifications de poubelles
+//avec les valeurs RGB correspondantes. Le tableau de couleurs peut ensuite être utilisé pour
+//contrôler les couleurs des LEDs.
+//
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 170114 "getEtatBoiteAuxLettres"
+	preserve_cpp_body_indent public explicit_return_type "bool"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "//@brief Obtient l'état de la boîte aux lettres
+//@fn StationLumineuse::getEtatBoiteAuxLettres
+//@details Obtient l'état actuel de la boîte aux lettres, vrai si elle est pleine, faux sinon
+//@return etatBoiteAuxLettres
+//
+
+//@brief Obtient l'état de la boîte aux lettres
+//@fn StationLumineuse::getEtatBoiteAuxLettres
+//@details Obtient l'état actuel de la boîte aux lettres, vrai si elle est pleine, faux sinon
+//@return etatBoiteAuxLettres
+//
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 170242 "setEtatBoiteAuxLettres"
+	preserve_cpp_body_indent public explicit_return_type "void"
+	nparams 1
+	  param in name "etat" explicit_type "bool"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "//@brief Modifie l'état de la boîte aux lettres
+//@fn StationLumineuse::setEtatBoiteAuxLettres
+//@details Modifie l'état actuel de la boîte aux lettres et allume ou éteint les leds en fonction
+//de celui-ci
+//@param etat
+//
+
+//@brief Modifie l'état de la boîte aux lettres
+//@fn StationLumineuse::setEtatBoiteAuxLettres
+//@details Modifie l'état actuel de la boîte aux lettres et allume ou éteint les leds en fonction
+//de celui-ci
+//@param etat
+//
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 170370 "resetEtatBoiteAuxLettres"
+	preserve_cpp_body_indent public explicit_return_type "void"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "//@brief Réinitialise l'état de la boîte aux lettres
+//@fn StationLumineuse::resetEtatBoiteAuxLettres
+//@details Change l'état de boite aux lettres en false et eteint les leds attribuer a celle-ci
+//
+
+//@brief Réinitialise l'état de la boîte aux lettres
+//@fn StationLumineuse::resetEtatBoiteAuxLettres
+//@details Change l'état de boite aux lettres en false et eteint les leds attribuer a celle-ci
+//
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 170498 "allumerNotificationBoiteAuxLettres"
+	preserve_cpp_body_indent public explicit_return_type "void"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "//@brief Allume la notification lumineuse de la boîte aux lettres
+//@fn void StationLumineuse::allumerNotificationBoiteAuxLettres
+//@details Allume les LEDS de couleur rouge pour indiquer que la boîte aux lettres est pleine
+//
+
+//@brief Allume la notification lumineuse de la boîte aux lettres
+//@fn void StationLumineuse::allumerNotificationBoiteAuxLettres
+//@details Allume les LEDS de couleur rouge pour indiquer que la boîte aux lettres est pleine
+//
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 170626 "eteindreNotificationBoiteAuxLettres"
+	preserve_cpp_body_indent public explicit_return_type "void"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "//@brief Eteint la notification lumineuse de la boîte aux lettres
+//@fn void StationLumineuse::eteindreNotificationBoiteAuxLettre
+//@details Eteint les LEDS de couleur rouge pour indiquer que la boîte aux lettres est vide
+//
+
+//@brief Eteint la notification lumineuse de la boîte aux lettres
+//@fn void StationLumineuse::eteindreNotificationBoiteAuxLettre
+//@details Eteint les LEDS de couleur rouge pour indiquer que la boîte aux lettres est vide
+//
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 170754 "estIdValideMachine"
+	preserve_cpp_body_indent public explicit_return_type "bool"
+	nparams 1
+	  param in name "numeroMachine" explicit_type "int"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "//@brief Vérifie si l'ID de la machine est valide
+//@fn StationLumineuse::estIdValideMachines
+//@param numeroMachine
+//@return bool true si l'ID est valide sinon false
+//@details renvoie Vrai si l'ID de la machine est compris entre 1 et NB_MACHINES, faux sinon
+//
+
+//@brief Vérifie si l'ID de la machine est valide
+//@fn StationLumineuse::estIdValideMachines
+//@param numeroMachine
+//@return bool true si l'ID est valide sinon false
+//@details renvoie Vrai si l'ID de la machine est compris entre 1 et NB_MACHINES, faux sinon
+//
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 170882 "getEtatMachine"
+	preserve_cpp_body_indent public explicit_return_type "bool"
+	nparams 1
+	  param in name "numeroMachine" explicit_type "int"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "//@brief Récupère l'état de la machine donnée
+//@fn  StationLumineuse::getEtatMachines
+//@param numeroMachine Numéro de la machine
+//@return l'état true ou false de la machine
+//@details renvoie l'etat de la machine si l'id et valide, faux sinon
+//
+
+//@brief Récupère l'état de la machine donnée
+//@fn  StationLumineuse::getEtatMachines
+//@param numeroMachine Numéro de la machine
+//@return l'état true ou false de la machine
+//@details renvoie l'etat de la machine si l'id et valide, faux sinon
+//
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 171010 "setEtatMachine"
+	preserve_cpp_body_indent public explicit_return_type "void"
+	nparams 2
+	  param in name "numeroMachine" explicit_type "int"
+	  param in name "etat" explicit_type "bool"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}, ${t1} ${p1}${v1}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "//@brief Modifie l'état de la machine donnée
+//@fn StationLumineuse::setEtatMachine
+//@param numeroMachine
+//@param etat
+//@details Modifie l'état de la machine spécifiée par le numéro donné. Enregistre l'état dans les
+//préférences, et allume ou éteint la notification de la machine en fonction de son nouvel état.
+//
+
+//@brief Modifie l'état de la machine donnée
+//@fn StationLumineuse::setEtatMachine
+//@param numeroMachine
+//@param etat
+//@details Modifie l'état de la machine spécifiée par le numéro donné. Enregistre l'état dans les
+//préférences, et allume ou éteint la notification de la machine en fonction de son nouvel état.
+//
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}, ${t1} ${p1}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 171138 "resetEtatMachines"
+	preserve_cpp_body_indent public explicit_return_type "void"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "//@brief Réinitialise l'état de toutes les machines
+//@fn StationLumineuse::resetEtatMachines
+//@details Change l'état de toutes les machines en false et éteint les notifications associées
+//
+
+//@brief Réinitialise l'état de toutes les machines
+//@fn StationLumineuse::resetEtatMachines
+//@details Change l'état de toutes les machines en false et éteint les notifications associées
+//
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 171266 "allumerNotificationMachine"
+	preserve_cpp_body_indent public explicit_return_type "void"
+	nparams 1
+	  param in name "numeroMachine" explicit_type "int"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "//@brief Allume la notification de la machine donnée
+//@fn StationLumineuse::allumerNotificationMachine
+//@param numeroMachine
+//@details Allume les LEDs de couleur verte pour indiquer que la machine spécifiée est finie
+//
+
+//@brief Allume la notification de la machine donnée
+//@fn StationLumineuse::allumerNotificationMachine
+//@param numeroMachine
+//@details Allume les LEDs de couleur verte pour indiquer que la machine spécifiée est finie
+//
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 171394 "allumerNotificationMachines"
+	public explicit_return_type "void"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 171522 "eteindreNotificationMachine"
+	preserve_cpp_body_indent public explicit_return_type "void"
+	nparams 1
+	  param in name "numeroMachine" explicit_type "int"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "//@brief Éteint la notification de la machine donnée
+//@fn StationLumineuse::eteindreNotificationMachine
+//@param numeroMachine
+//@details Éteint les LEDS associées à la notification de la machine donnée
+//
+
+//@brief Éteint la notification de la machine donnée
+//@fn StationLumineuse::eteindreNotificationMachine
+//@param numeroMachine
+//@details Éteint les LEDS associées à la notification de la machine donnée
+//
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 171650 "eteindreNotificationMachines"
+	public explicit_return_type "void"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 171778 "estIdValidePoubelle"
+	preserve_cpp_body_indent public explicit_return_type "bool"
+	nparams 1
+	  param in name "numeroPoubelle" explicit_type "int"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "//@brief Vérifie si le numero de la poubelle est valide
+//@fn StationLumineuse::estIdValidePoubelle
+//@param numeroPoubelle
+//@return bool true si le numeroPoubelle est valide sinon false
+//@details renvoie Vrai si l'numeroPoubelle de la poubelle est compris entre 1 et NB_POUBELLES,
+//faux sinon
+//
+
+//@brief Vérifie si le numero de la poubelle est valide
+//@fn StationLumineuse::estIdValidePoubelle
+//@param numeroPoubelle
+//@return bool true si le numeroPoubelle est valide sinon false
+//@details renvoie Vrai si l'numeroPoubelle de la poubelle est compris entre 1 et NB_POUBELLES,
+//faux sinon
+//
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 171906 "getEtatPoubelle"
+	preserve_cpp_body_indent public explicit_return_type "bool"
+	nparams 1
+	  param in name "numeroPoubelle" explicit_type "int"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "//@brief Récupère l'état de la poubelle donnée
+//@fn  StationLumineuse::getEtatPoubelle
+//@param numeroPoubelle Numéro de la poubelle
+//@return etatPoubelle[numeroPoubelle]
+//@details renvoie l'etat de la poubelle si l'id et valide, faux sinon
+//
+
+//@brief Récupère l'état de la poubelle donnée
+//@fn  StationLumineuse::getEtatPoubelle
+//@param numeroPoubelle Numéro de la poubelle
+//@return etatPoubelle[numeroPoubelle]
+//@details renvoie l'etat de la poubelle si l'id et valide, faux sinon
+//
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 172034 "setEtatPoubelle"
+	preserve_cpp_body_indent public explicit_return_type "void"
+	nparams 2
+	  param in name "numeroPoubelle" explicit_type "int"
+	  param in name "etat" explicit_type "bool"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}, ${t1} ${p1}${v1}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "//@brief Modifie l'état de la poubelle donnée
+//@fn StationLumineuse::setEtatPoubelle
+//@param numeroPoubelle
+//@param etat
+//@details Modifie l'état de la poubelle spécifiée par le numéro donné. Enregistre l'état dans les
+//préférences, et allume ou éteint la notification de la poubelle en fonction de son nouvel état.
+//
+
+//@brief Modifie l'état de la poubelle donnée
+//@fn StationLumineuse::setEtatPoubelle
+//@param numeroPoubelle
+//@param etat
+//@details Modifie l'état de la poubelle spécifiée par le numéro donné. Enregistre l'état dans les
+//préférences, et allume ou éteint la notification de la poubelle en fonction de son nouvel état.
+//
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}, ${t1} ${p1}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 172162 "resetEtatPoubelles"
+	preserve_cpp_body_indent public explicit_return_type "void"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "//@brief Réinitialise l'état de toutes les poubelles
+//@fn StationLumineuse::resetEtatPoubelles
+//@details Change l'état de toutes les poubelles et éteint les notifications associées
+//
+
+//@brief Réinitialise l'état de toutes les poubelles
+//@fn StationLumineuse::resetEtatPoubelles
+//@details Change l'état de toutes les poubelles et éteint les notifications associées
+//
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 172290 "allumerNotificationPoubelle"
+	preserve_cpp_body_indent public explicit_return_type "void"
+	nparams 1
+	  param in name "numeroPoubelle" explicit_type "int"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "//@brief Allume la notification de la poubelle donnée
+//@fn StationLumineuse::allumerNotificationPoubelle
+//@param numeroPoubelle
+//@details Allume les LEDS en fonction de la couleur correspond aux poublles 0 ROUGE 1 VERT 2 BLEU
+//3 GRIS 4 JAUNE pour indiquer quelle poubelle sortir
+//
+
+//@brief Allume la notification de la poubelle donnée
+//@fn StationLumineuse::allumerNotificationPoubelle
+//@param numeroPoubelle
+//@details Allume les LEDS en fonction de la couleur correspond aux poublles 0 ROUGE 1 VERT 2 BLEU
+//3 GRIS 4 JAUNE pour indiquer quelle poubelle sortir
+//
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 172418 "eteindreNotificationPoubelle"
+	preserve_cpp_body_indent public explicit_return_type "void"
+	nparams 1
+	  param in name "numeroPoubelle" explicit_type "int"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "//@brief Éteint la notification de la poubelle donnée
+//@fn StationLumineuse::eteindreNotificationPoubelle
+//@param numeroPoubelle
+//@details Éteint les LEDS associées à la notification de la poubelle donnée
+//
+
+//@brief Éteint la notification de la poubelle donnée
+//@fn StationLumineuse::eteindreNotificationPoubelle
+//@param numeroPoubelle
+//@details Éteint les LEDS associées à la notification de la poubelle donnée
+//
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+      end
+    end
+  end
+
+  deploymentview 141314 "StationLumineuse"
+    //deployment diagram settings
+    deploymentdiagramsettings
+     end
+    artifact 141954 "StationLumineuse"
+      stereotype "source"
+      cpp_h "#ifndef ${NAMESPACE}_${NAME}_H
+#define ${NAMESPACE}_${NAME}_H
+
+${comment}
+${includes}
+${declarations}
+${namespace_start}
+${definition}
+${namespace_end}
+#endif
+"
+      cpp_src "${comment}
+${includes}
+${namespace_start}
+${members}
+${namespace_end}"
+      associated_elems
+	class_ref 175490 // StationLumineuse
+      end
+    end
+  end
+end
