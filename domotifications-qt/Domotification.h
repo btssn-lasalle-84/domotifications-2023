@@ -36,8 +36,8 @@ class Domotification : public QObject
     void             gererNotification(QString nomModule);
     void             ajouterModule(QString nomModule, Module::TypeModule type);
     void             notifier(QString message);
-    QVector<Module*> getMachines() const;
     QVector<Module*> getPoubelles() const;
+    QVector<Module*> getMachines() const;
     Module*          getBoite() const;
 
   signals:

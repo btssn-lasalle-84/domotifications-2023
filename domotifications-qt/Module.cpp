@@ -92,6 +92,15 @@ void Module::setActif(bool actif)
 }
 
 /**
+ * @brief Retourne le type de module sous forme de QString
+ * @param actif
+ */
+QString Module::recupererType()
+{
+    return getType(type);
+}
+
+/**
  * @brief Récupère le nom du type de module à utiliser dans une requête HTTP
  * @param type le type de module
  * @return QString le nom du type à utiliser dans une requête HTTP
