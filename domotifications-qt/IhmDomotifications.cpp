@@ -537,11 +537,10 @@ void IHMDomotifications::gererBoutonActivationDesactivation()
     QPushButton* boutonModule = qobject_cast<QPushButton*>(sender());
     QString      typeModule   = boutonModule->objectName();
     int          id           = recupererIdModule(boutonModule);
-    qDebug() << Q_FUNC_INFO << "typeModule" << typeModule;
-    qDebug() << Q_FUNC_INFO << "id" << id;
+    qDebug() << Q_FUNC_INFO << "typeModule" << typeModule << "id" << id;
 
     emit activationDesactivationModule(typeModule, id);
-    if(domotification->getActivationModule(boutonModule->objectName()))
+    if(domotification->getActivationModule(boutonModule->objectName(), id))
     {
         afficherBoutonActivation(boutonModule);
     }

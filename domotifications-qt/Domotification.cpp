@@ -53,10 +53,8 @@ Domotification::~Domotification()
 void Domotification::gererActivationModule(QString nomModule, int id)
 {
     qDebug() << Q_FUNC_INFO << "nomModule" << nomModule << "id" << id;
-
     for(auto i = 0; i < modules.size(); ++i)
     {
-        qDebug() << Q_FUNC_INFO << "module->getNom()" << modules[i]->getNom();
         if(modules[i]->getNom() == nomModule && modules[i]->getId() == id)
         {
             modules[i]->setActif(!modules[i]->estActif());
@@ -87,11 +85,14 @@ void Domotification::gererActivationModule(QString nomModule, int id)
  */
 bool Domotification::getActivationModule(QString nomModule, int id)
 {
-    qDebug() << Q_FUNC_INFO << "nomModule" << nomModule << "id" << id;
     for(int i = 0; i < modules.size(); ++i)
     {
         if(modules[i]->getNom() == nomModule && modules[i]->getId() == id)
+        {
+            qDebug() << Q_FUNC_INFO << "nomModule" << nomModule << "id" << id << "estActif"
+                     << modules[i]->estActif();
             return modules[i]->estActif();
+        }
     }
     return false;
 }
