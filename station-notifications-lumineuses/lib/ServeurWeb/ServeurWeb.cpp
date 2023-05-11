@@ -506,23 +506,74 @@ void ServeurWeb::traiterRequeteGETPoubelle()
     }
 #endif
 
-    /**
-     * @todo Répondre à la requête
-     */
-    // En attendant
-    String message = "501 Not Implemented\n\n";
-    message += "URI: ";
-    message += uri();
-    message += "\nMethod: ";
-    message += (method() == HTTP_GET) ? "GET" : "POST";
-    message += "\nArguments: ";
-    message += args();
-    message += "\n";
-    for(uint8_t i = 0; i < args(); i++)
+    if(hasArg("id") && hasArg("etat"))
     {
-        message += " " + argName(i) + ": " + arg(i) + "\n";
+        int id = arg("id").toInt();
+        bool etat = (arg("etat") == "1") || (arg("etat") == "true");
+
+#ifdef DEBUG_SERVEUR_WEB
+        Serial.print(F("id : "));
+        Serial.println(id);
+        Serial.print(F("etat : "));
+        Serial.println(etat);
+#endif
+
+        if (stationLumineuse->estIdValidePoubelle(id))
+        {
+            // Modifie l'état de la poubelle
+            stationLumineuse->setEtatPoubelle(id, etat);
+
+            send(200,
+                "application/json",
+                "{\"poubelle\": "
+                "\"ok\"}");
+        }
+        else
+        {
+            send(404,
+                 "application/json",
+                 "{\"error\": { \"code\": \"notFound\", \"message\": "
+                 "\"La poubelle demandée n'existe pas.\"}}");
+        }
     }
-    send(501, "text/plain", message);
+    else if(hasArg("id"))
+    {
+        int id = arg("id").toInt();
+        if(stationLumineuse->estIdValidePoubelle(id)){
+            // Récupérer l'état actuel de la poubelle
+            bool etat = stationLumineuse->getEtatPoubelle(id);
+
+            // Répondre à la requête en donnant l'état de la Poubelle
+            String jsonResponse = "{\"id\": ";
+            jsonResponse += id;
+            jsonResponse += ", \"etat\": ";
+            jsonResponse += etat ? "true" : "false";
+            jsonResponse += "}";
+            send(200, "application/json", jsonResponse);
+        }
+        else {
+            send(404,
+                 "application/json",
+                 "{\"error\": { \"code\": \"notFound\", \"message\": "
+                 "\"La poubelle demandée n'existe pas.\"}}");
+        }
+    }
+    else
+    {
+        String message = "400 Bad Request\n\n";
+        message += "URI: ";
+        message += uri();
+        message += "\nMethod: ";
+        message += (method() == HTTP_GET) ? "GET" : "POST";
+        message += "\nArguments: ";
+        message += args();
+        message += "\n";
+        for(uint8_t i = 0; i < args(); i++)
+        {
+            message += " " + argName(i) + ": " + arg(i) + "\n";
+        }
+        send(400, "text/plain", message);
+    }
 }
 
 /**
