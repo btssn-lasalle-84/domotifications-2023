@@ -1,0 +1,201 @@
+class StationLumineuse
+!!!169474.cpp!!!	StationLumineuse()
+    // initialiserCouleursPoubelles();
+!!!169730.cpp!!!	initialiserPreferences() : void
+    preferences.begin("eeprom", false); // false pour r/w
+    etatBoiteAuxLettres = preferences.getBool("boite", false);
+    char cle[64]        = "";
+    for(int i = 0; i < NB_LEDS_NOTIFICATION_MACHINES; ++i)
+    {
+        // machine0, machine1, etc..
+        sprintf((char*)cle, "%s%d", "machine", i);
+        etatMachines[i] = preferences.getBool(cle, false);
+    }
+    for(int i = 0; i < NB_LEDS_NOTIFICATION_POUBELLES; ++i)
+    {
+        // poubelle0, poubelle1, etc..
+        sprintf((char*)cle, "%s%d", "poubelle", i);
+        etatPoubelles[i] = preferences.getBool(cle, false);
+    }
+!!!169858.cpp!!!	initialiserNotifications() : void
+    leds.begin();
+    leds.clear();
+
+    if(etatBoiteAuxLettres)
+    {
+        allumerNotificationBoiteAuxLettres();
+    }
+    else
+    {
+        eteindreNotificationBoiteAuxLettres();
+    }
+
+    for(int i = 0; i < NB_LEDS_NOTIFICATION_MACHINES; i++)
+    {
+        if(etatMachines[i])
+        {
+            allumerNotificationMachine(i);
+        }
+        else
+        {
+            eteindreNotificationMachine(i);
+        }
+    }
+
+    for(int i = 0; i < NB_LEDS_NOTIFICATION_POUBELLES; i++)
+    {
+        if(etatPoubelles[i])
+        {
+            allumerNotificationPoubelle(i);
+        }
+        else
+        {
+            eteindreNotificationPoubelle(i);
+        }
+    }
+!!!169986.cpp!!!	initialiserCouleursPoubelles() : void
+    const uint8_t couleursRGB[NB_LEDS_NOTIFICATION_POUBELLES][NB_COULEURS] = {
+        { 0, 0, 255 },     // Couleur poubelle 0 (bleue)
+        { 0, 255, 0 },     // Couleur poubelle 1 (verte)
+        { 255, 255, 0 },   // Couleur poubelle 2 (jaune)
+        { 128, 128, 128 }, // Couleur poubelle 3 (grise)
+        { 255, 0, 0 }      // Couleur poubelle 4 (rouge)
+    };
+
+    for(uint8_t i = 0; i < NB_LEDS_NOTIFICATION_POUBELLES; i++)
+    {
+        couleursPoubelles[i] =
+          leds.Color(couleursRGB[i][ROUGE], couleursRGB[i][VERT], couleursRGB[i][BLEU]);
+    }
+!!!170114.cpp!!!	getEtatBoiteAuxLettres() : bool
+    return etatBoiteAuxLettres;
+!!!170242.cpp!!!	setEtatBoiteAuxLettres(in etat : bool) : void
+    etatBoiteAuxLettres = etat;
+    preferences.putBool("boite", etatBoiteAuxLettres);
+    if(etat)
+    {
+        allumerNotificationBoiteAuxLettres();
+    }
+    else
+    {
+        eteindreNotificationBoiteAuxLettres();
+    }
+!!!170370.cpp!!!	resetEtatBoiteAuxLettres() : void
+    etatBoiteAuxLettres = false;
+    preferences.putBool("boite", etatBoiteAuxLettres);
+    eteindreNotificationBoiteAuxLettres();
+!!!170498.cpp!!!	allumerNotificationBoiteAuxLettres() : void
+    for(int i = INDEX_LEDS_NOTIFICATION_BOITE;
+        i < (INDEX_LEDS_NOTIFICATION_BOITE + NB_LEDS_NOTIFICATION_BOITE);
+        ++i)
+    {
+        leds.setPixelColor(i, leds.Color(255, 0, 0));
+        leds.show();
+    }
+!!!170626.cpp!!!	eteindreNotificationBoiteAuxLettres() : void
+    for(int i = INDEX_LEDS_NOTIFICATION_BOITE;
+        i < (INDEX_LEDS_NOTIFICATION_BOITE + NB_LEDS_NOTIFICATION_BOITE);
+        ++i)
+    {
+        leds.setPixelColor(i, leds.Color(0, 0, 0));
+        leds.show();
+    }
+!!!170754.cpp!!!	estIdValideMachine(in numeroMachine : int) : bool
+    return (numeroMachine >= 0 && numeroMachine < NB_LEDS_NOTIFICATION_MACHINES);
+!!!170882.cpp!!!	getEtatMachine(in numeroMachine : int) : bool
+    if(estIdValideMachine(numeroMachine))
+    {
+        return etatMachines[numeroMachine];
+    }
+    else
+    {
+        return false;
+    }
+!!!171010.cpp!!!	setEtatMachine(in numeroMachine : int, in etat : bool) : void
+    if(!estIdValideMachine(numeroMachine))
+        return;
+    etatMachines[numeroMachine] = etat;
+    char cle[64]                = "";
+    sprintf((char*)cle, "%s%d", "machine", numeroMachine);
+    preferences.putBool(cle, etatMachines[numeroMachine]);
+    if(etat)
+    {
+        allumerNotificationMachine(numeroMachine);
+    }
+    else
+    {
+        eteindreNotificationMachine(numeroMachine);
+    }
+!!!171138.cpp!!!	resetEtatMachines() : void
+    for(int i = 0; i < NB_LEDS_NOTIFICATION_MACHINES; i++)
+    {
+        etatMachines[i] = false;
+        char cle[64]    = "";
+        sprintf((char*)cle, "%s%d", "machine", i);
+        preferences.putBool(cle, etatMachines[i]);
+        eteindreNotificationPoubelle(i);
+    }
+!!!171266.cpp!!!	allumerNotificationMachine(in numeroMachine : int) : void
+    if(estIdValideMachine(numeroMachine))
+    {
+        leds.setPixelColor(INDEX_LEDS_NOTIFICATION_MACHINES + numeroMachine,
+                           leds.Color(0, 255, 0)); // Appliquer la couleur correspondante
+        leds.show();                               // Allume le bandeau
+    }
+!!!171522.cpp!!!	eteindreNotificationMachine(in numeroMachine : int) : void
+    if(estIdValideMachine(numeroMachine))
+    {
+        int indexLed = INDEX_LEDS_NOTIFICATION_MACHINES + numeroMachine;
+        leds.setPixelColor(indexLed, leds.Color(0, 0, 0));
+        leds.show();
+    }
+!!!171778.cpp!!!	estIdValidePoubelle(in numeroPoubelle : int) : bool
+    return (numeroPoubelle >= 0 && numeroPoubelle < NB_LEDS_NOTIFICATION_POUBELLES);
+!!!171906.cpp!!!	getEtatPoubelle(in numeroPoubelle : int) : bool
+    if(estIdValidePoubelle(numeroPoubelle))
+    {
+        return etatPoubelles[numeroPoubelle];
+    }
+    else
+    {
+        return false;
+    }
+!!!172034.cpp!!!	setEtatPoubelle(in numeroPoubelle : int, in etat : bool) : void
+    if(!estIdValidePoubelle(numeroPoubelle))
+        return;
+    etatPoubelles[numeroPoubelle] = etat;
+    char cle[64]                  = "";
+    sprintf((char*)cle, "%s%d", "poubelle", numeroPoubelle);
+    preferences.putBool(cle, etatPoubelles[numeroPoubelle]);
+    if(etat)
+    {
+        allumerNotificationPoubelle(numeroPoubelle);
+    }
+    else
+    {
+        eteindreNotificationPoubelle(numeroPoubelle);
+    }
+!!!172162.cpp!!!	resetEtatPoubelles() : void
+    for(int i = 0; i < NB_LEDS_NOTIFICATION_POUBELLES; i++)
+    {
+        etatPoubelles[i] = false;
+        char cle[64]     = "";
+        sprintf((char*)cle, "%s%d", "poubelle", i);
+        preferences.putBool(cle, etatPoubelles[i]);
+        eteindreNotificationPoubelle(i);
+    }
+!!!172290.cpp!!!	allumerNotificationPoubelle(in numeroPoubelle : int) : void
+    if(estIdValidePoubelle(numeroPoubelle))
+    {
+        leds.setPixelColor(
+          INDEX_LEDS_NOTIFICATION_POUBELLES + numeroPoubelle,
+          couleursPoubelles[numeroPoubelle]); // Appliquer la couleur correspondante
+        leds.show();                          // Allume le bandeau
+    }
+!!!172418.cpp!!!	eteindreNotificationPoubelle(in numeroPoubelle : int) : void
+    if(estIdValidePoubelle(numeroPoubelle))
+    {
+        int indexLed = INDEX_LEDS_NOTIFICATION_POUBELLES + numeroPoubelle;
+        leds.setPixelColor(indexLed, leds.Color(0, 0, 0));
+        leds.show();
+    }

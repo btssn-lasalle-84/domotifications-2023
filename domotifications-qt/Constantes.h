@@ -49,8 +49,7 @@
 #define LARGEUR_IMAGE 30
 
 // Pour les tests
-#define SANS_STATION
+//#define SANS_STATION
 #define TEST_NOTIFICATIONS
 
 #endif // CONSTANTES_H
-
