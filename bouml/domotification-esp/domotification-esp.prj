@@ -1,6 +1,6 @@
 format 224
 "domotification-esp"
-  revision 8
+  revision 9
   modified_by 42 "tv"
   cpp_root_dir "../../"
 
@@ -438,6 +438,26 @@ ${inlines}
         end
       relations
         end
+    end
+
+    sequencediagram 147626 "Démarrer la station de notifications lumineuses"
+      sequencediagramsettings end
+      overlapping_bars size A0
+    end
+
+    class 141354 "main"
+      visibility package stereotype "actor"
+      cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
     end
   end
 end

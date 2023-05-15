@@ -10,233 +10,209 @@ end
 classinstance 129578 class_ref 147970 // Domotifications
   name ""   xyz 56 4 2000 life_line_z 2000
 note 130474 "Requête GET /notifications"
-  xyzwh 202 298 2000 385 51
+  xyzwh 202 103 2000 385 51
 note 131114 "Requête POST /machine avec :
 {\"etat\": true,\"id\":0}"
-  xyzwh 1352.5 368.5 2000 439 97
+  xyzwh 1352.5 173.5 2000 439 97
 fragment 133162 "alt"
-  xyzwh 461 747 1985 1295 568
-  separator 7515
+  xyzwh 461 552 1985 1295 568
+  separator 7514
 end
 fragment 134058 "alt"
-  xyzwh 1203 905.5 1990 532 247
+  xyzwh 1203 710.5 1990 532 247
   separator 5769
 end
 textcanvas 134186 "[id valide]"
-  xyzwh 548 1584 3005 125 30
+  xyzwh 548 1389 3005 125 30
 textcanvas 134314 "[etat]"
-  xyzwh 1285.5 919 2045 66 30
+  xyzwh 1285 724 2045 66 30
 note 134698 "Retourne une réponse 400"
-  xyzwh 750 1220 2000 379 49
+  xyzwh 750 1025 2000 379 49
 note 134826 "Retourne une réponse 200"
-  xyzwh 750.5 1052.5 2000 379 49
+  xyzwh 750.5 857.5 2000 379 49
 note 135594 "Requête GET /machine"
-  xyzwh 202.5 1376.5 2000 385 51
+  xyzwh 202.5 1181.5 2000 385 51
 note 137130 "Retourne une réponse 200"
-  xyzwh 754 1726 2000 379 49
+  xyzwh 754 1531 2000 379 49
 fragment 137258 "alt"
-  xyzwh 469.5 1569 1985 1291 394
+  xyzwh 469.5 1374 1985 1291 394
   separator 5809
 end
 textcanvas 137386 "[id valide]"
-  xyzwh 542.5 756 3005 125 30
+  xyzwh 542 561 3005 125 30
 note 137898 "Retourne une réponse 404"
-  xyzwh 754.5 1873.5 2000 379 49
-durationcanvas 128426 classinstance_ref 128042 // :ServeurWeb
-  xyzwh 628 94 2010 11 152
-  overlappingdurationcanvas 128682
-    xyzwh 634 140 2020 11 25
-  end
-  overlappingdurationcanvas 128938
-    xyzwh 634 198 2020 11 25
-  end
-end
+  xyzwh 754.5 1678.5 2000 379 49
 durationcanvas 129194 classinstance_ref 128042 // :ServeurWeb
-  xyzwh 628 301 2010 11 1681
+  xyzwh 628 106 2010 11 1681
   overlappingdurationcanvas 129834
-    xyzwh 634 389 2020 11 84
+    xyzwh 634 194 2020 11 84
     overlappingdurationcanvas 130090
-      xyzwh 640 408 2030 11 60
+      xyzwh 640 213 2030 11 60
     end
   end
   overlappingdurationcanvas 130858
-    xyzwh 634 538 2020 11 821
+    xyzwh 634 343 2020 11 821
     overlappingdurationcanvas 131370
-      xyzwh 640 606 2030 11 730
+      xyzwh 640 411 2030 11 730
       overlappingdurationcanvas 131626
-	xyzwh 646 649 2040 11 25
+	xyzwh 646 454 2040 11 25
       end
       overlappingdurationcanvas 132394
-	xyzwh 646 827 2040 11 25
+	xyzwh 646 632 2040 11 25
       end
       overlappingdurationcanvas 132906
-	xyzwh 646 1056 2040 11 36
+	xyzwh 646 861 2040 11 36
       end
       overlappingdurationcanvas 134442
-	xyzwh 646 1204 2040 11 25
+	xyzwh 646 1009 2040 11 25
       end
     end
   end
   overlappingdurationcanvas 135338
-    xyzwh 634 1452 2020 11 524
+    xyzwh 634 1257 2020 11 524
     overlappingdurationcanvas 135850
-      xyzwh 640 1487 2030 11 441
+      xyzwh 640 1292 2030 11 441
       overlappingdurationcanvas 136874
-	xyzwh 646 1693 2040 11 25
+	xyzwh 646 1498 2040 11 25
       end
       overlappingdurationcanvas 137642
-	xyzwh 646 1839 2040 11 25
+	xyzwh 646 1644 2040 11 25
       end
     end
   end
 end
 durationcanvas 129706 classinstance_ref 129578 // :Domotifications
-  xyzwh 156 387 2010 11 147
+  xyzwh 156 192 2010 11 147
 end
 durationcanvas 130730 classinstance_ref 129450 // machine:Module
-  xyzwh 1815 536 2010 11 40
+  xyzwh 1815 341 2010 11 40
 end
 durationcanvas 132138 classinstance_ref 128170 // :StationLumineuse
-  xyzwh 1314 709 2010 11 25
+  xyzwh 1314 514 2010 11 25
 end
 durationcanvas 132650 classinstance_ref 128170 // :StationLumineuse
-  xyzwh 1314 876 2040 11 264
+  xyzwh 1314 681 2040 11 264
   overlappingdurationcanvas 133418
-    xyzwh 1320 997 3005 11 27
+    xyzwh 1320 802 3005 11 27
   end
   overlappingdurationcanvas 133674
-    xyzwh 1320 1104 3005 11 30
+    xyzwh 1320 909 3005 11 30
   end
 end
 durationcanvas 135210 classinstance_ref 129578 // :Domotifications
-  xyzwh 156 1452 2010 11 40
+  xyzwh 156 1257 2010 11 40
 end
 durationcanvas 136362 classinstance_ref 128170 // :StationLumineuse
-  xyzwh 1314 1536 2010 11 25
+  xyzwh 1314 1341 2010 11 25
 end
 durationcanvas 136618 classinstance_ref 128170 // :StationLumineuse
-  xyzwh 1314 1625 2010 11 25
+  xyzwh 1314 1430 2010 11 25
 end
-reflexivemsg 128554 synchronous
-  to durationcanvas_ref 128426
-  yz 94 2015 msg operation_ref 135594 // "demarrer() : void"
-  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
-  label_xy 641 64
-reflexivemsg 128810 synchronous
-  to durationcanvas_ref 128682
-  yz 140 2025 msg operation_ref 134570 // "setNom(in nomStationLumineuse : String = NOM_SERVEUR_WEB) : void"
-  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
-  label_xy 646 110
-reflexivemsg 129066 synchronous
-  to durationcanvas_ref 128938
-  yz 198 2025 msg operation_ref 153130 // "installerGestionnairesRequetes() : void"
-  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
-  label_xy 644 173
 reflexivemsg 129322 synchronous
   to durationcanvas_ref 129194
-  yz 301 2015 msg operation_ref 135722 // "traiterRequetes() : void"
+  yz 106 2015 msg operation_ref 135722 // "traiterRequetes() : void"
   show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
-  label_xy 642 272
+  label_xy 642 77
 msg 129962 asynchronous
   from durationcanvas_ref 129706
   to durationcanvas_ref 129834
-  yz 389 2025 unspecifiedmsg
+  yz 194 2025 unspecifiedmsg
   show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
 reflexivemsg 130218 synchronous
   to durationcanvas_ref 130090
-  yz 408 2035 msg operation_ref 134826 // "traiterRequeteGETNotifications() : void"
+  yz 213 2035 msg operation_ref 134826 // "traiterRequeteGETNotifications() : void"
   show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
-  label_xy 651 380
+  label_xy 651 185
 msg 130346 return
   from durationcanvas_ref 130090
   to durationcanvas_ref 129706
-  yz 455 2035 explicitmsg "etats notifications"
+  yz 260 2035 explicitmsg "etats notifications"
   show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
-  label_xy 290 425
+  label_xy 290 230
 msg 130986 asynchronous
   from durationcanvas_ref 130730
   to durationcanvas_ref 130858
-  yz 538 2025 unspecifiedmsg
+  yz 343 2025 unspecifiedmsg
   show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
 reflexivemsg 131498 synchronous
   to durationcanvas_ref 131370
-  yz 606 2035 msg operation_ref 135338 // "traiterRequetePOSTMachine() : void"
+  yz 411 2035 msg operation_ref 135338 // "traiterRequetePOSTMachine() : void"
   show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
-  label_xy 654 576
+  label_xy 654 381
 reflexivemsg 131754 synchronous
   to durationcanvas_ref 131626
-  yz 649 2045 msg operation_ref 153258 // "extraireId() : int"
+  yz 454 2045 msg operation_ref 153258 // "extraireId() : int"
   show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
-  label_xy 660 623
+  label_xy 660 428
 msg 132266 synchronous
   from durationcanvas_ref 131370
   to durationcanvas_ref 132138
-  yz 710 2035 msg operation_ref 136874 // "estIdValideMachine(in numeroMachine : int) : bool"
+  yz 515 2035 msg operation_ref 136874 // "estIdValideMachine(in numeroMachine : int) : bool"
   show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
-  label_xy 845 680
+  label_xy 845 485
 reflexivemsg 132522 synchronous
   to durationcanvas_ref 132394
-  yz 827 2045 msg operation_ref 153386 // "extraireEtat() : bool"
+  yz 632 2045 msg operation_ref 153386 // "extraireEtat() : bool"
   show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
-  label_xy 658 800
+  label_xy 658 605
 msg 132778 synchronous
   from durationcanvas_ref 131370
   to durationcanvas_ref 132650
-  yz 877 2035 msg operation_ref 137130 // "setEtatMachine(in numeroMachine : int, in etat : bool) : void"
+  yz 682 2035 msg operation_ref 137130 // "setEtatMachine(in numeroMachine : int, in etat : bool) : void"
   show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
-  label_xy 872 847
+  label_xy 872 652
 reflexivemsg 133034 synchronous
   to durationcanvas_ref 132906
-  yz 1056 2045 explicitmsg "send()"
+  yz 861 2045 explicitmsg "send()"
   show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
-  label_xy 658 1026
+  label_xy 658 831
 reflexivemsg 133546 synchronous
   to durationcanvas_ref 133418
-  yz 997 2025 msg operation_ref 137386 // "allumerNotificationMachine(in numeroMachine : int) : void"
+  yz 802 2025 msg operation_ref 137386 // "allumerNotificationMachine(in numeroMachine : int) : void"
   show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
-  label_xy 1331 965
+  label_xy 1331 770
 reflexivemsg 133802 synchronous
   to durationcanvas_ref 133674
-  yz 1104 2025 msg operation_ref 137642 // "eteindreNotificationMachine(in numeroMachine : int) : void"
+  yz 909 2025 msg operation_ref 137642 // "eteindreNotificationMachine(in numeroMachine : int) : void"
   show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
-  label_xy 1332 1074
+  label_xy 1332 879
 reflexivemsg 134570 synchronous
   to durationcanvas_ref 134442
-  yz 1204 2045 explicitmsg "send()"
+  yz 1009 2045 explicitmsg "send()"
   show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
-  label_xy 655 1179
+  label_xy 655 984
 msg 135466 asynchronous
   from durationcanvas_ref 135210
   to durationcanvas_ref 135338
-  yz 1452 2025 unspecifiedmsg
+  yz 1257 2025 unspecifiedmsg
   show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
 reflexivemsg 135978 synchronous
   to durationcanvas_ref 135850
-  yz 1487 2035 msg operation_ref 146090 // "traiterRequeteGETMachine() : void"
+  yz 1292 2035 msg operation_ref 146090 // "traiterRequeteGETMachine() : void"
   show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
-  label_xy 651 1462
+  label_xy 651 1267
 msg 136490 synchronous
   from durationcanvas_ref 135850
   to durationcanvas_ref 136362
-  yz 1538 2035 msg operation_ref 136874 // "estIdValideMachine(in numeroMachine : int) : bool"
+  yz 1343 2035 msg operation_ref 136874 // "estIdValideMachine(in numeroMachine : int) : bool"
   show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
-  label_xy 845 1508
+  label_xy 845 1313
 msg 136746 synchronous
   from durationcanvas_ref 135850
   to durationcanvas_ref 136618
-  yz 1627 2035 msg operation_ref 137002 // "getEtatMachine(in numeroMachine : int) : bool"
+  yz 1432 2035 msg operation_ref 137002 // "getEtatMachine(in numeroMachine : int) : bool"
   show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
-  label_xy 871 1597
+  label_xy 871 1402
 reflexivemsg 137002 synchronous
   to durationcanvas_ref 136874
-  yz 1693 2045 explicitmsg "send()"
+  yz 1498 2045 explicitmsg "send()"
   show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
-  label_xy 658 1669
+  label_xy 658 1474
 reflexivemsg 137770 synchronous
   to durationcanvas_ref 137642
-  yz 1839 2045 explicitmsg "send()"
+  yz 1644 2045 explicitmsg "send()"
   show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
-  label_xy 659 1807
+  label_xy 659 1612
 line 130602 -_-_
   from ref 130474 z 2026 to ref 129962
 line 131242 -_-_

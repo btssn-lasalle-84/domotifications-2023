@@ -1,0 +1,80 @@
+format 224
+
+classinstance 128042 class_ref 134570 // ServeurWeb
+  name ""   xyz 408 4 2000 life_line_z 2000
+classinstance 128170 class_ref 134826 // StationLumineuse
+  name ""   xyz 904 4 2000 life_line_z 2000
+fragment 138154 "loop"
+  xyzwh 25 596 2000 528 143
+end
+note 138922 "Récupère les états de notifications lumineuses"
+  xyzwh 524 149 2000 353 89
+classinstance 139306 class_ref 141354 // main
+  name ""   xyz 97 4 2000 life_line_z 2000
+durationcanvas 139434 classinstance_ref 139306 // :main
+  xyzwh 129 119 2010 11 25
+end
+durationcanvas 139562 classinstance_ref 128170 // :StationLumineuse
+  xyzwh 1026 121 2010 11 25
+end
+durationcanvas 139946 classinstance_ref 139306 // :main
+  xyzwh 129 322 2010 11 40
+end
+durationcanvas 140074 classinstance_ref 128170 // :StationLumineuse
+  xyzwh 1026 322 2010 11 26
+end
+durationcanvas 140330 classinstance_ref 139306 // :main
+  xyzwh 129 409 2010 11 40
+end
+durationcanvas 140458 classinstance_ref 128042 // :ServeurWeb
+  xyzwh 493 411 2010 11 144
+  overlappingdurationcanvas 140714
+    xyzwh 499 447 2020 11 25
+  end
+  overlappingdurationcanvas 140970
+    xyzwh 499 501 2020 11 25
+  end
+end
+durationcanvas 141226 classinstance_ref 139306 // :main
+  xyzwh 129 648 2010 11 40
+end
+durationcanvas 141354 classinstance_ref 128042 // :ServeurWeb
+  xyzwh 493 648 2010 11 25
+end
+msg 139690 synchronous
+  from durationcanvas_ref 139434
+  to durationcanvas_ref 139562
+  yz 121 2015 msg operation_ref 135978 // "initialiserPreferences() : void"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 437 91
+msg 140202 synchronous
+  from durationcanvas_ref 139946
+  to durationcanvas_ref 140074
+  yz 322 2015 msg operation_ref 136106 // "initialiserNotifications() : void"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 436 292
+msg 140586 synchronous
+  from durationcanvas_ref 140330
+  to durationcanvas_ref 140458
+  yz 411 2015 msg operation_ref 135594 // "demarrer() : void"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 247 381
+reflexivemsg 140842 synchronous
+  to durationcanvas_ref 140714
+  yz 447 2025 msg operation_ref 134570 // "setNom(in nomStationLumineuse : String = NOM_SERVEUR_WEB) : void"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 510 419
+reflexivemsg 141098 synchronous
+  to durationcanvas_ref 140970
+  yz 501 2025 msg operation_ref 153130 // "installerGestionnairesRequetes() : void"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 510 472
+msg 141482 synchronous
+  from durationcanvas_ref 141226
+  to durationcanvas_ref 141354
+  yz 648 2015 msg operation_ref 135722 // "traiterRequetes() : void"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 209 618
+line 139818 -_-_
+  from ref 138922 z 2016 to ref 139690
+end
