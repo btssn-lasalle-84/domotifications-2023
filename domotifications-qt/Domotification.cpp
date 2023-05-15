@@ -19,19 +19,7 @@ Domotification::Domotification(IHMDomotifications* ihm) :
     QObject(ihm), communication(new Communication(this)), ihm(ihm)
 {
     qDebug() << Q_FUNC_INFO;
-    /**
-     * @todo Gérer un fichier de configuration INI pour les modules
-     */
-    // Pour les tests : 5 modules
-    // 2 machines (0..6)
-    modules.push_back(new Module("machine", Module::TypeModule::Machine, 0, this));
-    modules.push_back(new Module("machine", Module::TypeModule::Machine, 1, this));
-    // 2 poubelles (0..5)
-    modules.push_back(new Module("poubelle", Module::TypeModule::Poubelle, 0, this));
-    modules.push_back(new Module("poubelle", Module::TypeModule::Poubelle, 1, this));
-    // 1 boite (0..1)
-    modules.push_back(new Module("boite", Module::TypeModule::BoiteAuxLettres, 0, this));
-    qDebug() << Q_FUNC_INFO << "modules" << modules;
+    chargerModules();
 }
 
 /**
@@ -50,46 +38,65 @@ Domotification::~Domotification()
  * @param nomModule
  * @param id
  */
-void Domotification::gererActivationModule(QString nomModule, int id)
+void Domotification::gererActivationModule(QString typeModule, int id)
 {
-    qDebug() << Q_FUNC_INFO << "nomModule" << nomModule << "id" << id;
-    for(auto i = 0; i < modules.size(); ++i)
-    {
-        if(modules[i]->getNom() == nomModule && modules[i]->getId() == id)
-        {
-            modules[i]->setActif(!modules[i]->estActif());
-            // Exemple
-            QByteArray json = "{";
-            json += "\"id\":" + QString::number(modules[i]->getId()) + QString(",");
-            qDebug() << Q_FUNC_INFO << "json" << json;
-            if(modules[i]->estActif())
-            {
-                json += "\"etat\":true";
-            }
-            else
-            {
-                json += "\"etat\":false";
-            }
-            json += "}";
+    int indexModule = recupererIndexModule(typeModule, id);
+    qDebug() << Q_FUNC_INFO << "typeModule" << typeModule << "id" << id << "indexModule"
+             << indexModule;
+    if(indexModule == NON_TROUVE)
+        return;
 
-            communication->envoyerRequetePost(Module::getType(modules[i]->getType()), json);
-        }
+    QByteArray json = "{";
+    json += "\"id\":" + QString::number(id) + QString(",");
+    qDebug() << Q_FUNC_INFO << "json" << json;
+    if(modules[indexModule]->estActif())
+    {
+        json += "\"etat\":false";
     }
+    else
+    {
+        json += "\"etat\":true";
+    }
+    json += "}";
+
+    communication->envoyerRequetePost(typeModule, json);
+
+    modules[indexModule]->setActif(!modules[indexModule]->estActif());
 }
 
 // Méthodes
+
 /**
- * @brief Domotification::getActivationModule
- * @param nomModule
+ * @brief Domotification::estGere
+ * @param typeModule
+ * @param id
  * @return
  */
-bool Domotification::getActivationModule(QString nomModule, int id)
+int Domotification::recupererIndexModule(QString typeModule, int id)
 {
     for(int i = 0; i < modules.size(); ++i)
     {
-        if(modules[i]->getNom() == nomModule && modules[i]->getId() == id)
+        if(modules[i]->recupererType() == typeModule && modules[i]->getId() == id)
         {
-            qDebug() << Q_FUNC_INFO << "nomModule" << nomModule << "id" << id << "estActif"
+            return i;
+        }
+    }
+    return NON_TROUVE;
+}
+
+/**
+ * @brief Domotification::getActivationModule
+ * @param typeModule
+ * @param id
+ * @return
+ */
+bool Domotification::getActivationModule(QString typeModule, int id)
+{
+    for(int i = 0; i < modules.size(); ++i)
+    {
+        if(modules[i]->getNom() == typeModule && modules[i]->getId() == id)
+        {
+            qDebug() << Q_FUNC_INFO << "typeModule" << typeModule << "id" << id << "estActif"
                      << modules[i]->estActif();
             return modules[i]->estActif();
         }
@@ -184,4 +191,25 @@ Module* Domotification::getBoite() const
         }
     }
     return nullptr;
+}
+
+/**
+ * @brief Charge à partir de la configuration et crée les modules à gérer
+ * @fn Domotification::chargerModules
+ */
+void Domotification::chargerModules()
+{
+    /**
+     * @todo Gérer un fichier de configuration INI pour les modules
+     */
+    // Pour les tests : 5 modules
+    // 2 machines (0..6)
+    modules.push_back(new Module("machine", Module::TypeModule::Machine, 0, this));
+    modules.push_back(new Module("machine", Module::TypeModule::Machine, 1, this));
+    // 2 poubelles (0..5)
+    modules.push_back(new Module("poubelle", Module::TypeModule::Poubelle, 0, this));
+    modules.push_back(new Module("poubelle", Module::TypeModule::Poubelle, 1, this));
+    // 1 boite (0..1)
+    modules.push_back(new Module("boite", Module::TypeModule::BoiteAuxLettres, 0, this));
+    qDebug() << Q_FUNC_INFO << "modules" << modules;
 }

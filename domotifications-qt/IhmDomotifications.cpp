@@ -190,6 +190,9 @@ void IHMDomotifications::initialiserWidgets()
  */
 void IHMDomotifications::afficherBoutonsActivationDesactivation()
 {
+    /**
+     * @todo Demander l'état actuel d'activation/désactivation
+     */
     for(auto i = 0; i < machines.size(); i++)
     {
         boutonsActivationDesactivationMachine[i]->setIcon(*iconeActivation);
@@ -304,6 +307,16 @@ int IHMDomotifications::recupererIdModule(QPushButton* boutonModule)
     {
         return 0;
     }
+}
+
+/**
+ * @brief Récupère le type de module associé à ce bouton
+ * @fn IHMDomotifications::recupererTypeModule
+ * @param boutonModule le QPushButton associé au module
+ */
+QString IHMDomotifications::recupererTypeModule(QPushButton* boutonModule)
+{
+    return boutonModule->objectName();
 }
 
 /**
@@ -535,17 +548,17 @@ void IHMDomotifications::initialiserSignauxSlots()
 void IHMDomotifications::gererBoutonActivationDesactivation()
 {
     QPushButton* boutonModule = qobject_cast<QPushButton*>(sender());
-    QString      typeModule   = boutonModule->objectName();
+    QString      typeModule   = recupererTypeModule(boutonModule);
     int          id           = recupererIdModule(boutonModule);
     qDebug() << Q_FUNC_INFO << "typeModule" << typeModule << "id" << id;
 
     emit activationDesactivationModule(typeModule, id);
     if(domotification->getActivationModule(boutonModule->objectName(), id))
     {
-        afficherBoutonActivation(boutonModule);
+        afficherBoutonDesactivation(boutonModule);
     }
     else
     {
-        afficherBoutonDesactivation(boutonModule);
+        afficherBoutonActivation(boutonModule);
     }
 }
