@@ -157,9 +157,9 @@ class IHMDomotifications
 
     logoBTS->setPixmap(QPixmap(CHEMIN_LOGO_BTS_SN));
 
-    // logoPoubelle->setPixmap(QPixmap(CHEMIN_LOGO_POUBELLE));
-    // logoBoiteAuxLettres->setPixmap(QPixmap(CHEMIN_LOGO_BOITE_AUX_LETTRES));
-    // logoMachine->setPixmap(QPixmap(CHEMIN_LOGO_MACHINE));
+    logoPoubelle->setPixmap(QPixmap(CHEMIN_LOGO_POUBELLE));
+    logoBoiteAuxLettres->setPixmap(QPixmap(CHEMIN_LOGO_BOITE_AUX_LETTRES));
+    logoMachine->setPixmap(QPixmap(CHEMIN_LOGO_MACHINE));
 
     afficherBoutonsActivationDesactivation();
     afficherBoutonAcquittement();
@@ -320,23 +320,24 @@ class IHMDomotifications
     {
         return 0;
     }
+!!!144682.cpp!!!	recupererTypeModule(inout boutonModule : QPushButton) : QString
+    return boutonModule->objectName();
 !!!159106.cpp!!!	testerNotification() : void
     domotification->notifier("La machine est finie !");
 !!!136746.cpp!!!	gererBoutonActivationDesactivation() : void
     QPushButton* boutonModule = qobject_cast<QPushButton*>(sender());
-    QString      typeModule   = boutonModule->objectName();
+    QString      typeModule   = recupererTypeModule(boutonModule);
     int          id           = recupererIdModule(boutonModule);
-    qDebug() << Q_FUNC_INFO << "typeModule" << typeModule;
-    qDebug() << Q_FUNC_INFO << "id" << id;
+    qDebug() << Q_FUNC_INFO << "typeModule" << typeModule << "id" << id;
 
     emit activationDesactivationModule(typeModule, id);
-    if(domotification->getActivationModule(boutonModule->objectName()))
+    if(domotification->getActivationModule(boutonModule->objectName(), id))
     {
-        afficherBoutonActivation(boutonModule);
+        afficherBoutonDesactivation(boutonModule);
     }
     else
     {
-        afficherBoutonDesactivation(boutonModule);
+        afficherBoutonActivation(boutonModule);
     }
 !!!158978.cpp!!!	visualiserNotification(in message : QString, in type : IHMDomotifications::TypeNotification = IHMDomotifications::TypeNotification::Information) : void
     QSystemTrayIcon::MessageIcon messageIcon =

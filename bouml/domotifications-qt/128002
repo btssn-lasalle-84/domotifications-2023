@@ -1,7 +1,7 @@
 format 224
 "domotifications-qt" // domotifications-qt
-  revision 3
-  modified_by 2 "btssn2"
+  revision 5
+  modified_by 42 "tv"
   // class settings
   
   classdiagramsettings member_max_width 0 end
@@ -381,18 +381,42 @@ ${body}}
 	
       end
 
-      operation 134698 "getActivationModule"
-	preserve_cpp_body_indent public explicit_return_type "bool"
+      operation 151338 "recupererIndexModule"
+	preserve_cpp_body_indent public explicit_return_type "int"
 	nparams 2
-	  param in name "nomModule" explicit_type "QString"
+	  param in name "typeModule" explicit_type "QString"
 	  param in name "id" explicit_type "int"
 	    defaultvalue "0"
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}, ${t1} ${p1}${v1}${)}${const}${volatile}${throw}${abstract};
 "
 	cpp_def "// Méthodes
 //
-//@brief Domotification::getActivationModule
-//@param nomModule
+//@brief Domotification::estGere
+//@param typeModule
+//@param id
+//@return
+//
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}, ${t1} ${p1}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 134698 "getActivationModule"
+	preserve_cpp_body_indent public explicit_return_type "bool"
+	nparams 2
+	  param in name "typeModule" explicit_type "QString"
+	  param in name "id" explicit_type "int"
+	    defaultvalue "0"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}, ${t1} ${p1}${v1}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "//@brief Domotification::getActivationModule
+//@param typeModule
+//@param id
 //@return
 //
 
@@ -524,6 +548,24 @@ ${body}}
 	
       end
 
+      operation 144554 "chargerModules"
+	preserve_cpp_body_indent public explicit_return_type "void"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "//@brief Charge à partir de la configuration et crée les modules à gérer
+//@fn Domotification::chargerModules
+//
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+      end
+
       extra_member 128642 "signals"
 	
 	cpp "  signals:" ""
@@ -560,7 +602,7 @@ ${body}}
       operation 157826 "gererActivationModule"
 	preserve_cpp_body_indent public explicit_return_type "void"
 	nparams 2
-	  param in name "nomModule" explicit_type "QString"
+	  param in name "typeModule" explicit_type "QString"
 	  param in name "id" explicit_type "int"
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}, ${t1} ${p1}${v1}${)}${const}${volatile}${throw}${abstract};
 "
@@ -2004,6 +2046,26 @@ ${body}}
 "
 	cpp_def "//@brief Récupère l'id du module associé à ce bouton
 //@fn IHMDomotifications::recupererIdModule
+//@param boutonModule le QPushButton associé au module
+//
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${t0} * ${p0}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 144682 "recupererTypeModule"
+	preserve_cpp_body_indent public explicit_return_type "QString"
+	nparams 1
+	  param inout name "boutonModule" explicit_type "QPushButton"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} * ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "//@brief Récupère le type de module associé à ce bouton
+//@fn IHMDomotifications::recupererTypeModule
 //@param boutonModule le QPushButton associé au module
 //
 
