@@ -27,10 +27,10 @@ line 131842 ----
 line 131970 ----
   from ref 131458 z 3006 to ref 128386
 simplerelationcanvas 132098 simplerelation_ref 135042
-  from ref 128130 z 3006 stereotype "<<include>>" xyz 429.5 175.5 3000 to ref 128642
+  from ref 128130 z 3006 stereotype "<<include>>" xyz 429 175 3000 to ref 128642
 end
 simplerelationcanvas 132226 simplerelation_ref 135170
-  from ref 128386 z 3006 stereotype "<<include>>" xyz 428 267.5 3000 to ref 128642
+  from ref 128386 z 3006 stereotype "<<include>>" xyz 428 267 3000 to ref 128642
 end
 simplerelationcanvas 132354 simplerelation_ref 135298
   from ref 128514 z 3006 stereotype "<<include>>" xyz 570 322 3000 to ref 128386

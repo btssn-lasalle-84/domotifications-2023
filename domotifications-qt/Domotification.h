@@ -16,6 +16,8 @@
 #include "Constantes.h"
 #include "Module.h"
 
+#define NON_TROUVE -1
+
 class Module;
 class Communication;
 class IHMDomotifications;
@@ -32,19 +34,21 @@ class Domotification : public QObject
     Domotification(IHMDomotifications* ihm = nullptr);
     ~Domotification();
 
-    bool             getActivationModule(QString nomModule, int id = 0);
+    int              recupererIndexModule(QString typeModule, int id = 0);
+    bool             getActivationModule(QString typeModule, int id = 0);
     void             gererNotification(QString nomModule);
     void             ajouterModule(QString nomModule, Module::TypeModule type);
     void             notifier(QString message);
     QVector<Module*> getPoubelles() const;
     QVector<Module*> getMachines() const;
     Module*          getBoite() const;
+    void             chargerModules();
 
   signals:
     void nouvelleNotification(QString message);
 
   public slots:
-    void gererActivationModule(QString nomModule, int id);
+    void gererActivationModule(QString typeModule, int id);
 };
 
 #endif // DOMOTIFICATION_H

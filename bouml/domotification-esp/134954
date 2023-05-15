@@ -1,6 +1,6 @@
 format 224
 "StationLumineuse" // station-notifications-lumineuses::lib::StationLumineuse
-  revision 2
+  revision 3
   modified_by 42 "tv"
   // class settings
   
@@ -644,7 +644,6 @@ ${body}}
 	
 	
       end
-
     end
   end
 

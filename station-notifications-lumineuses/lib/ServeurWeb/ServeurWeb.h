@@ -44,6 +44,7 @@ class ServeurWeb : public WebServer
     StaticJsonDocument<TAILLE_JSON> documentJSON;
 
     void setNom(String nomStationLumineuse = NOM_SERVEUR_WEB);
+    void installerGestionnairesRequetes();
     void afficherAccueil();
     void traiterRequeteGETNotifications();
     void traiterRequeteGETBoite();
@@ -53,6 +54,8 @@ class ServeurWeb : public WebServer
     void traiterRequeteGETPoubelle();
     void traiterRequetePOSTPoubelle();
     void traiterRequeteNonTrouvee();
+    int  extraireId();
+    bool extraireEtat();
 
   public:
     ServeurWeb(StationLumineuse* stationLumineuse);

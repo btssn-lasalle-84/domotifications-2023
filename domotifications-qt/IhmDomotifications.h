@@ -112,22 +112,23 @@ class IHMDomotifications : public QMainWindow
     IHMDomotifications(QWidget* parent = nullptr);
     ~IHMDomotifications();
 
-    void initialiserGUI();
-    void initialiserBarreDeTaches();
-    void initialiserSignauxSlots();
-    void initialiserWidgets();
-    void afficherWidgets();
-    void initialiserFenetrePrincipale();
-    void creerActionsMenu();
-    void connecterActions();
-    void creerMenu();
-    void creerIconeBarreDesTaches();
-    void afficherIconeBarreDesTaches();
-    void afficherBoutonsActivationDesactivation();
-    void afficherBoutonActivation(QPushButton* boutonModule);
-    void afficherBoutonDesactivation(QPushButton* boutonModule);
-    void afficherBoutonAcquittement();
-    int  recupererIdModule(QPushButton* boutonModule);
+    void    initialiserGUI();
+    void    initialiserBarreDeTaches();
+    void    initialiserSignauxSlots();
+    void    initialiserWidgets();
+    void    afficherWidgets();
+    void    initialiserFenetrePrincipale();
+    void    creerActionsMenu();
+    void    connecterActions();
+    void    creerMenu();
+    void    creerIconeBarreDesTaches();
+    void    afficherIconeBarreDesTaches();
+    void    afficherBoutonsActivationDesactivation();
+    void    afficherBoutonActivation(QPushButton* boutonModule);
+    void    afficherBoutonDesactivation(QPushButton* boutonModule);
+    void    afficherBoutonAcquittement();
+    int     recupererIdModule(QPushButton* boutonModule);
+    QString recupererTypeModule(QPushButton* boutonModule);
 
   signals:
     void activationDesactivationModule(QString nomModule, int id);
