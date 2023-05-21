@@ -82,22 +82,22 @@ class IHMDomotifications : public QMainWindow
     QPushButton*          boutonAcquittementBoiteAuxLettres;
     QPushButton*          boutonParametres;
     // Les images
-    QPixmap* imageBoutonActivation;
-    QPixmap* imageBoutonDesactivation;
-    QPixmap* imageBoutonAcquittement;
-    QPixmap* imageLogoBTS;
-    QPixmap* imageLogoParametre;
-    QPixmap* imageLogoPoubelle;
-    QPixmap* imageLogoMachine;
-    QPixmap* imageLogoBoiteAuxLettres;
-    QIcon*   iconeActivation;
-    QIcon*   iconeDesactivation;
-    QIcon*   iconeAcquittement;
+    QPixmap*          imageBoutonActivation;
+    QPixmap*          imageBoutonDesactivation;
+    QPixmap*          imageBoutonAcquittement;
+    QPixmap*          imageLogoBTS;
+    QPixmap*          imageLogoParametre;
+    QVector<QPixmap*> imagesLogoPoubelle;
+    QPixmap*          imageLogoMachine;
+    QPixmap*          imageLogoBoiteAuxLettres;
+    QIcon*            iconeActivation;
+    QIcon*            iconeDesactivation;
+    QIcon*            iconeAcquittement;
     // Les labels
-    QLabel* logoBTS;
-    QLabel* logoMachine;
-    QLabel* logoBoiteAuxLettres;
-    QLabel* logoPoubelle;
+    QLabel*          logoBTS;
+    QLabel*          logoMachine;
+    QLabel*          logoBoiteAuxLettres;
+    QVector<QLabel*> logosPoubelle;
 
 #ifdef TEST_REQUETE
     // Widgets
