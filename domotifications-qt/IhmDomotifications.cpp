@@ -95,7 +95,7 @@ void IHMDomotifications::initialiserWidgets()
 {
     widgetPrincipal       = new QWidget(this);
     layoutPrincipal       = new QVBoxLayout;
-    layoutLogos           = new QHBoxLayout;
+    layoutLogos           = new QVBoxLayout;
     layoutPoubelles       = new QHBoxLayout;
     layoutMachines        = new QHBoxLayout;
     layoutBoiteAuxLettres = new QHBoxLayout;
@@ -143,7 +143,7 @@ void IHMDomotifications::initialiserWidgets()
     boutonActivationDesactivationBoiteAuxLettres = new QPushButton(this);
     boutonAcquittementBoiteAuxLettres            = new QPushButton(this);
 
-    boutonParametres = new QPushButton(this);
+    //boutonParametres = new QPushButton(this);
 
     for(auto i = 0; i < poubelles.size(); i++)
     {
@@ -169,11 +169,13 @@ void IHMDomotifications::initialiserWidgets()
     imageBoutonActivation    = new QPixmap(CHEMIN_BOUTON_ACTIVATION);
     imageBoutonDesactivation = new QPixmap(CHEMIN_BOUTON_DESACTIVATION);
     imageBoutonAcquittement  = new QPixmap(CHEMIN_BOUTON_ACQUITTEMENT);
-    imageLogoBTS             = new QPixmap(CHEMIN_LOGO_BTS_SN);
+    //imageLogoBTS             = new QPixmap(CHEMIN_LOGO_BTS_SN);
     imageLogoParametre       = new QPixmap(CHEMIN_LOGO_PARAMETRE);
-    imageLogoPoubelle        = new QPixmap(CHEMIN_LOGO_POUBELLE);
+    imageLogoPoubelle        = new QPixmap(CHEMIN_LOGO_POUBELLE_GRISE);
+    imageLogoMachine         = new QPixmap(CHEMIN_LOGO_MACHINE);
+    imageLogoBoiteAuxLettres = new QPixmap(CHEMIN_LOGO_BOITE_AUX_LETTRES);
 
-    logoBTS             = new QLabel(this);
+    //logoBTS             = new QLabel(this);
     logoBoiteAuxLettres = new QLabel(this);
     logoMachine         = new QLabel(this);
     logoPoubelle        = new QLabel(this);
@@ -190,6 +192,9 @@ void IHMDomotifications::initialiserWidgets()
  */
 void IHMDomotifications::afficherBoutonsActivationDesactivation()
 {
+    /**
+     * @todo Demander l'état actuel d'activation/désactivation
+     */
     for(auto i = 0; i < machines.size(); i++)
     {
         boutonsActivationDesactivationMachine[i]->setIcon(*iconeActivation);
@@ -307,26 +312,41 @@ int IHMDomotifications::recupererIdModule(QPushButton* boutonModule)
 }
 
 /**
+ * @brief Récupère le type de module associé à ce bouton
+ * @fn IHMDomotifications::recupererTypeModule
+ * @param boutonModule le QPushButton associé au module
+ */
+QString IHMDomotifications::recupererTypeModule(QPushButton* boutonModule)
+{
+    return boutonModule->objectName();
+}
+
+/**
  * @brief Affiche les Widgets
  * @fn IHMDomotifications::afficherWidgets
  * @details Affiche les widget de l'IHM
  */
 void IHMDomotifications::afficherWidgets()
 {
-    boutonParametres->setIcon(QIcon(*imageLogoParametre));
+    //boutonParametres->setIcon(QIcon(*imageLogoParametre));
 
-    logoBTS->setPixmap(QPixmap(CHEMIN_LOGO_BTS_SN));
+    //logoBTS->setPixmap(QPixmap(CHEMIN_LOGO_BTS_SN));
 
-    logoPoubelle->setPixmap(QPixmap(CHEMIN_LOGO_POUBELLE));
-    logoBoiteAuxLettres->setPixmap(QPixmap(CHEMIN_LOGO_BOITE_AUX_LETTRES));
-    logoMachine->setPixmap(QPixmap(CHEMIN_LOGO_MACHINE));
+    logoPoubelle->setPixmap(
+      imageLogoPoubelle->scaled(100, 60));
+    logoMachine->setPixmap(imageLogoMachine->scaled(100, 60));
+    logoBoiteAuxLettres->setPixmap(imageLogoBoiteAuxLettres->scaled(100, 60));
 
     afficherBoutonsActivationDesactivation();
     afficherBoutonAcquittement();
 
-    layoutLogos->addWidget(boutonParametres);
-    layoutLogos->addStretch();
-    layoutLogos->addWidget(logoBTS);
+
+    //layoutLogos->addWidget(logoPoubelle);
+    //layoutLogos->addWidget(logoMachine);
+    //layoutLogos->addWidget(logoBoiteAuxLettres);
+    //layoutLogos->addStretch();
+    layoutPrincipal->addLayout(layoutLogos);
+
 
     for(int indexVecteurPoubelle = 0; indexVecteurPoubelle < poubelles.size();
         indexVecteurPoubelle++)
@@ -347,7 +367,7 @@ void IHMDomotifications::afficherWidgets()
           boutonsAcquittementMachine[indexVecteurMachine]);
         layoutsBoutonsMachine[indexVecteurMachine]->addWidget(
           boutonsActivationDesactivationMachine[indexVecteurMachine]);
-        layoutsBoutonsMachine[indexVecteurMachine]->addWidget(logoMachine);
+        layoutsMachine[indexVecteurMachine]->addWidget(logoMachine);
         layoutsMachine[indexVecteurMachine]->addLayout(layoutsBoutonsMachine[indexVecteurMachine]);
         layoutsMachine[indexVecteurMachine]->addStretch();
     }
@@ -494,7 +514,7 @@ void IHMDomotifications::initialiserSignauxSlots()
     connect(iconeSysteme, SIGNAL(messageClicked()), this, SLOT(acquitterNotification()));
 
 #ifdef TEST_NOTIFICATIONS
-    connect(boutonParametres, SIGNAL(clicked(bool)), this, SLOT(testerNotification()));
+    //connect(boutonParametres, SIGNAL(clicked(bool)), this, SLOT(testerNotification()));
 #endif
     connect(domotification,
             SIGNAL(nouvelleNotification(QString)),
@@ -535,17 +555,17 @@ void IHMDomotifications::initialiserSignauxSlots()
 void IHMDomotifications::gererBoutonActivationDesactivation()
 {
     QPushButton* boutonModule = qobject_cast<QPushButton*>(sender());
-    QString      typeModule   = boutonModule->objectName();
+    QString      typeModule   = recupererTypeModule(boutonModule);
     int          id           = recupererIdModule(boutonModule);
     qDebug() << Q_FUNC_INFO << "typeModule" << typeModule << "id" << id;
 
     emit activationDesactivationModule(typeModule, id);
     if(domotification->getActivationModule(boutonModule->objectName(), id))
     {
-        afficherBoutonActivation(boutonModule);
+        afficherBoutonDesactivation(boutonModule);
     }
     else
     {
-        afficherBoutonDesactivation(boutonModule);
+        afficherBoutonActivation(boutonModule);
     }
 }

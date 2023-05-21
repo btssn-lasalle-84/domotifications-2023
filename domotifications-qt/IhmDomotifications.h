@@ -64,7 +64,7 @@ class IHMDomotifications : public QMainWindow
     QAction*         actionQuitter;    //!< L'action quitter l'application
     // Les layouts
     QVBoxLayout*          layoutPrincipal;
-    QHBoxLayout*          layoutLogos;
+    QVBoxLayout*          layoutLogos;
     QHBoxLayout*          layoutPoubelles;
     QHBoxLayout*          layoutMachines;
     QHBoxLayout*          layoutBoiteAuxLettres;
@@ -88,6 +88,8 @@ class IHMDomotifications : public QMainWindow
     QPixmap* imageLogoBTS;
     QPixmap* imageLogoParametre;
     QPixmap* imageLogoPoubelle;
+    QPixmap* imageLogoMachine;
+    QPixmap* imageLogoBoiteAuxLettres;
     QIcon*   iconeActivation;
     QIcon*   iconeDesactivation;
     QIcon*   iconeAcquittement;
@@ -112,22 +114,23 @@ class IHMDomotifications : public QMainWindow
     IHMDomotifications(QWidget* parent = nullptr);
     ~IHMDomotifications();
 
-    void initialiserGUI();
-    void initialiserBarreDeTaches();
-    void initialiserSignauxSlots();
-    void initialiserWidgets();
-    void afficherWidgets();
-    void initialiserFenetrePrincipale();
-    void creerActionsMenu();
-    void connecterActions();
-    void creerMenu();
-    void creerIconeBarreDesTaches();
-    void afficherIconeBarreDesTaches();
-    void afficherBoutonsActivationDesactivation();
-    void afficherBoutonActivation(QPushButton* boutonModule);
-    void afficherBoutonDesactivation(QPushButton* boutonModule);
-    void afficherBoutonAcquittement();
-    int  recupererIdModule(QPushButton* boutonModule);
+    void    initialiserGUI();
+    void    initialiserBarreDeTaches();
+    void    initialiserSignauxSlots();
+    void    initialiserWidgets();
+    void    afficherWidgets();
+    void    initialiserFenetrePrincipale();
+    void    creerActionsMenu();
+    void    connecterActions();
+    void    creerMenu();
+    void    creerIconeBarreDesTaches();
+    void    afficherIconeBarreDesTaches();
+    void    afficherBoutonsActivationDesactivation();
+    void    afficherBoutonActivation(QPushButton* boutonModule);
+    void    afficherBoutonDesactivation(QPushButton* boutonModule);
+    void    afficherBoutonAcquittement();
+    int     recupererIdModule(QPushButton* boutonModule);
+    QString recupererTypeModule(QPushButton* boutonModule);
 
   signals:
     void activationDesactivationModule(QString nomModule, int id);
