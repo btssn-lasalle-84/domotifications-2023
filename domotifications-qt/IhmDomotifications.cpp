@@ -43,7 +43,10 @@ IHMDomotifications::~IHMDomotifications()
     delete imageBoutonAcquittement;
     delete imageLogoBTS;
     delete imageLogoParametre;
-    delete imageLogoPoubelle;
+    for(int i = 0; i < poubelles.size(); i++)
+    {
+        delete imagesLogoPoubelle[i];
+    }
     qDebug() << Q_FUNC_INFO;
 }
 
@@ -95,7 +98,7 @@ void IHMDomotifications::initialiserWidgets()
 {
     widgetPrincipal       = new QWidget(this);
     layoutPrincipal       = new QVBoxLayout;
-    layoutLogos           = new QHBoxLayout;
+    layoutLogos           = new QVBoxLayout;
     layoutPoubelles       = new QHBoxLayout;
     layoutMachines        = new QHBoxLayout;
     layoutBoiteAuxLettres = new QHBoxLayout;
@@ -143,7 +146,7 @@ void IHMDomotifications::initialiserWidgets()
     boutonActivationDesactivationBoiteAuxLettres = new QPushButton(this);
     boutonAcquittementBoiteAuxLettres            = new QPushButton(this);
 
-    boutonParametres = new QPushButton(this);
+    // boutonParametres = new QPushButton(this);
 
     for(auto i = 0; i < poubelles.size(); i++)
     {
@@ -169,14 +172,23 @@ void IHMDomotifications::initialiserWidgets()
     imageBoutonActivation    = new QPixmap(CHEMIN_BOUTON_ACTIVATION);
     imageBoutonDesactivation = new QPixmap(CHEMIN_BOUTON_DESACTIVATION);
     imageBoutonAcquittement  = new QPixmap(CHEMIN_BOUTON_ACQUITTEMENT);
-    imageLogoBTS             = new QPixmap(CHEMIN_LOGO_BTS_SN);
-    imageLogoParametre       = new QPixmap(CHEMIN_LOGO_PARAMETRE);
-    imageLogoPoubelle        = new QPixmap(CHEMIN_LOGO_POUBELLE);
+    // imageLogoBTS             = new QPixmap(CHEMIN_LOGO_BTS_SN);
+    imageLogoParametre = new QPixmap(CHEMIN_LOGO_PARAMETRE);
+    for(auto i = 0; i < poubelles.size(); i++)
+    {
+        imagesLogoPoubelle.push_back(
+          new QPixmap(CHEMIN_LOGO_POUBELLE + QString::number(i + 1) + ".png"));
+    }
+    imageLogoMachine         = new QPixmap(CHEMIN_LOGO_MACHINE);
+    imageLogoBoiteAuxLettres = new QPixmap(CHEMIN_LOGO_BOITE_AUX_LETTRES);
 
-    logoBTS             = new QLabel(this);
+    // logoBTS             = new QLabel(this);
     logoBoiteAuxLettres = new QLabel(this);
     logoMachine         = new QLabel(this);
-    logoPoubelle        = new QLabel(this);
+    for(auto i = 0; i < poubelles.size(); i++)
+    {
+        logosPoubelle.push_back(new QLabel(this));
+    }
 
     iconeActivation    = new QIcon(*imageBoutonActivation);
     iconeDesactivation = new QIcon(*imageBoutonDesactivation);
@@ -196,26 +208,26 @@ void IHMDomotifications::afficherBoutonsActivationDesactivation()
     for(auto i = 0; i < machines.size(); i++)
     {
         boutonsActivationDesactivationMachine[i]->setIcon(*iconeActivation);
-        boutonsActivationDesactivationMachine[i]->setIconSize(
+        /*boutonsActivationDesactivationMachine[i]->setIconSize(
           imageBoutonActivation->scaled(HAUTEUR_IMAGE, LARGEUR_IMAGE).size());
         boutonsActivationDesactivationMachine[i]->setFixedSize(
-          imageBoutonActivation->scaled(HAUTEUR_IMAGE, LARGEUR_IMAGE).size());
+          imageBoutonActivation->scaled(HAUTEUR_IMAGE, LARGEUR_IMAGE).size());*/
     }
 
     for(auto i = 0; i < poubelles.size(); i++)
     {
         boutonsActivationDesactivationPoubelle[i]->setIcon(*iconeActivation);
-        boutonsActivationDesactivationPoubelle[i]->setIconSize(
+        /*boutonsActivationDesactivationPoubelle[i]->setIconSize(
           imageBoutonActivation->scaled(HAUTEUR_IMAGE, LARGEUR_IMAGE).size());
         boutonsActivationDesactivationPoubelle[i]->setFixedSize(
-          imageBoutonActivation->scaled(HAUTEUR_IMAGE, LARGEUR_IMAGE).size());
+          imageBoutonActivation->scaled(HAUTEUR_IMAGE, LARGEUR_IMAGE).size());*/
     }
 
     boutonActivationDesactivationBoiteAuxLettres->setIcon(*iconeActivation);
-    boutonActivationDesactivationBoiteAuxLettres->setIconSize(
+    /*boutonActivationDesactivationBoiteAuxLettres->setIconSize(
       imageBoutonActivation->scaled(HAUTEUR_IMAGE, LARGEUR_IMAGE).size());
     boutonActivationDesactivationBoiteAuxLettres->setFixedSize(
-      imageBoutonActivation->scaled(HAUTEUR_IMAGE, LARGEUR_IMAGE).size());
+      imageBoutonActivation->scaled(HAUTEUR_IMAGE, LARGEUR_IMAGE).size());*/
 }
 
 /**
@@ -226,8 +238,9 @@ void IHMDomotifications::afficherBoutonsActivationDesactivation()
 void IHMDomotifications::afficherBoutonActivation(QPushButton* boutonModule)
 {
     boutonModule->setIcon(*iconeActivation);
-    boutonModule->setIconSize(imageBoutonActivation->scaled(HAUTEUR_IMAGE, LARGEUR_IMAGE).size());
-    boutonModule->setFixedSize(imageBoutonActivation->scaled(HAUTEUR_IMAGE, LARGEUR_IMAGE).size());
+    /*boutonModule->setIconSize(imageBoutonActivation->scaled(HAUTEUR_IMAGE, LARGEUR_IMAGE).size());
+    boutonModule->setFixedSize(imageBoutonActivation->scaled(HAUTEUR_IMAGE,
+    LARGEUR_IMAGE).size());*/
 }
 
 /**
@@ -238,10 +251,10 @@ void IHMDomotifications::afficherBoutonActivation(QPushButton* boutonModule)
 void IHMDomotifications::afficherBoutonDesactivation(QPushButton* boutonModule)
 {
     boutonModule->setIcon(*iconeDesactivation);
-    boutonModule->setIconSize(
+    /*boutonModule->setIconSize(
       imageBoutonDesactivation->scaled(HAUTEUR_IMAGE, LARGEUR_IMAGE).size());
     boutonModule->setFixedSize(
-      imageBoutonDesactivation->scaled(HAUTEUR_IMAGE, LARGEUR_IMAGE).size());
+      imageBoutonDesactivation->scaled(HAUTEUR_IMAGE, LARGEUR_IMAGE).size());*/
 }
 
 /**
@@ -254,26 +267,26 @@ void IHMDomotifications::afficherBoutonAcquittement()
     for(auto i = 0; i < machines.size(); i++)
     {
         boutonsAcquittementMachine[i]->setIcon(*iconeAcquittement);
-        boutonsAcquittementMachine[i]->setIconSize(
+        /*boutonsAcquittementMachine[i]->setIconSize(
           imageBoutonAcquittement->scaled(HAUTEUR_IMAGE, LARGEUR_IMAGE).size());
         boutonsAcquittementMachine[i]->setFixedSize(
-          imageBoutonAcquittement->scaled(HAUTEUR_IMAGE, LARGEUR_IMAGE).size());
+          imageBoutonAcquittement->scaled(HAUTEUR_IMAGE, LARGEUR_IMAGE).size());*/
     }
 
     for(auto i = 0; i < poubelles.size(); i++)
     {
         boutonsAcquittementPoubelle[i]->setIcon(*iconeAcquittement);
-        boutonsAcquittementPoubelle[i]->setIconSize(
+        /*boutonsAcquittementPoubelle[i]->setIconSize(
           imageBoutonAcquittement->scaled(HAUTEUR_IMAGE, LARGEUR_IMAGE).size());
         boutonsAcquittementPoubelle[i]->setFixedSize(
-          imageBoutonAcquittement->scaled(HAUTEUR_IMAGE, LARGEUR_IMAGE).size());
+          imageBoutonAcquittement->scaled(HAUTEUR_IMAGE, LARGEUR_IMAGE).size());*/
     }
 
     boutonAcquittementBoiteAuxLettres->setIcon(*iconeAcquittement);
-    boutonAcquittementBoiteAuxLettres->setIconSize(
+    /*boutonAcquittementBoiteAuxLettres->setIconSize(
       imageBoutonAcquittement->scaled(HAUTEUR_IMAGE, LARGEUR_IMAGE).size());
     boutonAcquittementBoiteAuxLettres->setFixedSize(
-      imageBoutonAcquittement->scaled(HAUTEUR_IMAGE, LARGEUR_IMAGE).size());
+      imageBoutonAcquittement->scaled(HAUTEUR_IMAGE, LARGEUR_IMAGE).size());*/
 }
 
 /**
@@ -326,20 +339,22 @@ QString IHMDomotifications::recupererTypeModule(QPushButton* boutonModule)
  */
 void IHMDomotifications::afficherWidgets()
 {
-    boutonParametres->setIcon(QIcon(*imageLogoParametre));
-
-    logoBTS->setPixmap(QPixmap(CHEMIN_LOGO_BTS_SN));
-
-    logoPoubelle->setPixmap(QPixmap(CHEMIN_LOGO_POUBELLE));
-    logoBoiteAuxLettres->setPixmap(QPixmap(CHEMIN_LOGO_BOITE_AUX_LETTRES));
-    logoMachine->setPixmap(QPixmap(CHEMIN_LOGO_MACHINE));
+    // boutonParametres->setIcon(QIcon(*imageLogoParametre));
+    // logoBTS->setPixmap(QPixmap(CHEMIN_LOGO_BTS_SN));
+    for(int i = 0; i < poubelles.size(); i++)
+    {
+        logosPoubelle[i]->setPixmap(
+          imagesLogoPoubelle[i]->scaled(imagesLogoPoubelle[i]->width() / 3,
+                                        imagesLogoPoubelle[i]->height() / 3));
+    }
+    logoMachine->setPixmap(
+      imageLogoMachine->scaled(imageLogoMachine->width() / 3, imageLogoMachine->height() / 3));
+    logoBoiteAuxLettres->setPixmap(
+      imageLogoBoiteAuxLettres->scaled(imageLogoBoiteAuxLettres->width() / 3,
+                                       imageLogoBoiteAuxLettres->height() / 3));
 
     afficherBoutonsActivationDesactivation();
     afficherBoutonAcquittement();
-
-    layoutLogos->addWidget(boutonParametres);
-    layoutLogos->addStretch();
-    layoutLogos->addWidget(logoBTS);
 
     for(int indexVecteurPoubelle = 0; indexVecteurPoubelle < poubelles.size();
         indexVecteurPoubelle++)
@@ -348,21 +363,19 @@ void IHMDomotifications::afficherWidgets()
           boutonsAcquittementPoubelle[indexVecteurPoubelle]);
         layoutsBoutonsPoubelle[indexVecteurPoubelle]->addWidget(
           boutonsActivationDesactivationPoubelle[indexVecteurPoubelle]);
-        layoutsPoubelle[indexVecteurPoubelle]->addWidget(logoPoubelle);
+        layoutsPoubelle[indexVecteurPoubelle]->addWidget(logosPoubelle[indexVecteurPoubelle]);
         layoutsPoubelle[indexVecteurPoubelle]->addLayout(
           layoutsBoutonsPoubelle[indexVecteurPoubelle]);
-        layoutsPoubelle[indexVecteurPoubelle]->addStretch();
     }
 
+    layoutMachines->addWidget(logoMachine);
     for(int indexVecteurMachine = 0; indexVecteurMachine < machines.size(); indexVecteurMachine++)
     {
         layoutsBoutonsMachine[indexVecteurMachine]->addWidget(
           boutonsAcquittementMachine[indexVecteurMachine]);
         layoutsBoutonsMachine[indexVecteurMachine]->addWidget(
           boutonsActivationDesactivationMachine[indexVecteurMachine]);
-        layoutsBoutonsMachine[indexVecteurMachine]->addWidget(logoMachine);
         layoutsMachine[indexVecteurMachine]->addLayout(layoutsBoutonsMachine[indexVecteurMachine]);
-        layoutsMachine[indexVecteurMachine]->addStretch();
     }
 
     layoutBoutonsBoiteAuxLettres->addWidget(boutonAcquittementBoiteAuxLettres);
@@ -371,16 +384,24 @@ void IHMDomotifications::afficherWidgets()
     layoutBoiteAuxLettres->addLayout(layoutBoutonsBoiteAuxLettres);
     layoutBoiteAuxLettres->addStretch();
 
-    layoutPrincipal->addLayout(layoutLogos);
     for(int i = 0; i < poubelles.size(); i++)
     {
-        layoutPrincipal->addLayout(layoutsPoubelle[i]);
+        layoutPoubelles->addLayout(layoutsPoubelle[i]);
     }
     for(int indexMachine = 0; indexMachine < machines.size(); indexMachine++)
     {
-        layoutPrincipal->addLayout(layoutsMachine[indexMachine]);
+        layoutMachines->addLayout(layoutsMachine[indexMachine]);
     }
+
+    //----------------
+
+    layoutPrincipal->addLayout(layoutLogos);
+    layoutPoubelles->addStretch();
+    layoutPrincipal->addLayout(layoutPoubelles);
+    layoutMachines->addStretch();
+    layoutPrincipal->addLayout(layoutMachines);
     layoutPrincipal->addLayout(layoutBoiteAuxLettres);
+    layoutPrincipal->addStretch();
 }
 
 /**
@@ -507,7 +528,7 @@ void IHMDomotifications::initialiserSignauxSlots()
     connect(iconeSysteme, SIGNAL(messageClicked()), this, SLOT(acquitterNotification()));
 
 #ifdef TEST_NOTIFICATIONS
-    connect(boutonParametres, SIGNAL(clicked(bool)), this, SLOT(testerNotification()));
+    // connect(boutonParametres, SIGNAL(clicked(bool)), this, SLOT(testerNotification()));
 #endif
     connect(domotification,
             SIGNAL(nouvelleNotification(QString)),
