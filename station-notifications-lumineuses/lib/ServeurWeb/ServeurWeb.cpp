@@ -60,7 +60,7 @@ void ServeurWeb::traiterRequetes()
 /**
  * @brief Définit le nom du serveur web
  * @fn ServeurWeb::setNom
- * @param stationLumineuse
+ * @param nomStationLumineuse
  * @details Utilise le protocole mDNS pour définir le nom du serveur web.
     Le nom sera utilisé pour accéder au serveur via l'adresse http://nomStationLumineuse.local/.
  */

@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['typemodule_329',['typeModule',['../class_module.html#aefb89c77fdad2d3e1afe3dad154887ff',1,'Module']]]
+  ['reponsereseau_412',['reponseReseau',['../class_communication.html#a31ff273a956ddf2b60a51b6e38c34022',1,'Communication']]],
+  ['requetejson_413',['requeteJSON',['../class_communication.html#a2eeadc5667a84a49e547738dab5baf1b',1,'Communication']]]
 ];

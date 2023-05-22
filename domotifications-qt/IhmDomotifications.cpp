@@ -196,8 +196,8 @@ void IHMDomotifications::initialiserWidgets()
 }
 
 /**
- * @brief Affichage des boutons d'activation/desactivation
- * @fn IHMDomotifications::afficherBoutonActivationDesactivation
+ * @brief Affichage des boutons d'activation desactivation
+ * @fn IHMDomotifications::afficherBoutonsActivationDesactivation
  * @details Affichage des boutons d'activation et de desactivation des différents modules
  */
 void IHMDomotifications::afficherBoutonsActivationDesactivation()
@@ -233,7 +233,7 @@ void IHMDomotifications::afficherBoutonsActivationDesactivation()
 /**
  * @brief Affichage d'un bouton d'activation
  * @fn IHMDomotifications::afficherBoutonActivation
- * @param QPushButton* boutonModule
+ * @param boutonModule
  */
 void IHMDomotifications::afficherBoutonActivation(QPushButton* boutonModule)
 {
@@ -246,7 +246,7 @@ void IHMDomotifications::afficherBoutonActivation(QPushButton* boutonModule)
 /**
  * @brief Affichage d'un bouton de désactivation
  * @fn IHMDomotifications::afficherBoutonDesactivation
- * @param QPushButton* boutonModule
+ * @param boutonModule
  */
 void IHMDomotifications::afficherBoutonDesactivation(QPushButton* boutonModule)
 {

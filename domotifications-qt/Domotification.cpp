@@ -35,7 +35,7 @@ Domotification::~Domotification()
 /**
  * @brief Gère l'activation d'un module
  * @fn Domotification::gererActivationModule
- * @param nomModule
+ * @param typeModule
  * @param id
  */
 void Domotification::gererActivationModule(QString typeModule, int id)
@@ -108,7 +108,8 @@ bool Domotification::getActivationModule(QString typeModule, int id)
 /**
  * @fn Domotification::gererNotification
  * @brief Gère une notification
- * @param nomModule
+ * @param typeModule
+ * @param id
  */
 void Domotification::gererNotification(QString typeModule, int id)
 {

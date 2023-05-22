@@ -3,9 +3,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Projet domotifications:  Fichier source de Communication.h</title>
+<title>domotifications:  Fichier source de Communication.h</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -26,8 +26,8 @@
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="projet-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Projet domotifications
-   &#160;<span id="projectnumber">0.1</span>
+   <div id="projectname">domotifications
+   &#160;<span id="projectnumber">0.2</span>
    </div>
    <div id="projectbrief">BTS SNIR LaSalle Avignon 2023</div>
   </td>
@@ -36,10 +36,10 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- Généré par Doxygen 1.9.1 -->
+<!-- Généré par Doxygen 1.8.17 -->
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-var searchBox = new SearchBox("searchBox", "search",false,'Recherche','.html');
+var searchBox = new SearchBox("searchBox", "search",false,'Recherche');
 /* @license-end */
 </script>
 <script type="text/javascript" src="menudata.js"></script>
@@ -91,49 +91,59 @@ $(document).ready(function(){initNavTree('_communication_8h_source.html',''); in
 <a href="_communication_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef COMMUNICATION_H</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define COMMUNICATION_H</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;QObject&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;QString&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="_communication_8h.html#a5158b1e31a4e7aa84de308e3d792a1de">   11</a></span>&#160;<span class="preprocessor">#define PORT_HTTP 80</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="class_communication.html">   13</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_communication.html">Communication</a> : <span class="keyword">public</span> <a class="code" href="class_q_object.html">QObject</a></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    Q_OBJECT</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;QObject&gt;</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;QString&gt;</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;QtNetwork/QNetworkAccessManager&gt;</span></div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;  <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="class_communication.html#a761686d72b2a9bced5a1605dcafb9c7d">   18</a></span>&#160;    QString <a class="code" href="class_communication.html#a761686d72b2a9bced5a1605dcafb9c7d">identifiant</a>;</div>
-<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="class_communication.html#aef5688f514e101e409f095b0ea391086">   19</a></span>&#160;    QString <a class="code" href="class_communication.html#aef5688f514e101e409f095b0ea391086">motDePasse</a>;</div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="class_communication.html#a827a23145721608e036b6437775b8c3e">   20</a></span>&#160;    <span class="keywordtype">int</span>     <a class="code" href="class_communication.html#a827a23145721608e036b6437775b8c3e">httpPort</a>;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <a class="code" href="class_communication.html#a56cf4b262e592bcae1d987c3dd00487f">Communication</a>(<a class="code" href="class_q_object.html">QObject</a>* parent = <span class="keyword">nullptr</span>);</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <a class="code" href="class_communication.html#a75ba08ce908d45251e28e4c1db94e6f4">~Communication</a>();</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_communication.html#a49a00e5a4ca7e8cec970232fc4e2c263">connecter</a>();</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_communication.html#a24cf5596408373493f4c0202e7e8d890">envoyerNotification</a>();</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_communication.html#a67b85e724ebe1147a659e7b88324b25b">recevoirNotification</a>();</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_communication.html#aeae61e5cae6ba02d71d41f73309559f9">configurer</a>(QString <a class="code" href="class_communication.html#a761686d72b2a9bced5a1605dcafb9c7d">identifiant</a>, QString <a class="code" href="class_communication.html#aef5688f514e101e409f095b0ea391086">motDePasse</a>, <span class="keywordtype">int</span> <a class="code" href="class_communication.html#a827a23145721608e036b6437775b8c3e">httpPort</a>);</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;};</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// COMMUNICATION_H</span></div>
-<div class="ttc" id="aclass_communication_html"><div class="ttname"><a href="class_communication.html">Communication</a></div><div class="ttdef"><b>Definition:</b> <a href="_communication_8h_source.html#l00013">Communication.h:14</a></div></div>
-<div class="ttc" id="aclass_communication_html_a24cf5596408373493f4c0202e7e8d890"><div class="ttname"><a href="class_communication.html#a24cf5596408373493f4c0202e7e8d890">Communication::envoyerNotification</a></div><div class="ttdeci">void envoyerNotification()</div><div class="ttdef"><b>Definition:</b> <a href="_communication_8cpp_source.html#l00020">Communication.cpp:20</a></div></div>
-<div class="ttc" id="aclass_communication_html_a49a00e5a4ca7e8cec970232fc4e2c263"><div class="ttname"><a href="class_communication.html#a49a00e5a4ca7e8cec970232fc4e2c263">Communication::connecter</a></div><div class="ttdeci">void connecter()</div><div class="ttdef"><b>Definition:</b> <a href="_communication_8cpp_source.html#l00032">Communication.cpp:32</a></div></div>
-<div class="ttc" id="aclass_communication_html_a56cf4b262e592bcae1d987c3dd00487f"><div class="ttname"><a href="class_communication.html#a56cf4b262e592bcae1d987c3dd00487f">Communication::Communication</a></div><div class="ttdeci">Communication(QObject *parent=nullptr)</div><div class="ttdef"><b>Definition:</b> <a href="_communication_8cpp_source.html#l00011">Communication.cpp:11</a></div></div>
-<div class="ttc" id="aclass_communication_html_a67b85e724ebe1147a659e7b88324b25b"><div class="ttname"><a href="class_communication.html#a67b85e724ebe1147a659e7b88324b25b">Communication::recevoirNotification</a></div><div class="ttdeci">void recevoirNotification()</div><div class="ttdef"><b>Definition:</b> <a href="_communication_8cpp_source.html#l00024">Communication.cpp:24</a></div></div>
-<div class="ttc" id="aclass_communication_html_a75ba08ce908d45251e28e4c1db94e6f4"><div class="ttname"><a href="class_communication.html#a75ba08ce908d45251e28e4c1db94e6f4">Communication::~Communication</a></div><div class="ttdeci">~Communication()</div><div class="ttdef"><b>Definition:</b> <a href="_communication_8cpp_source.html#l00016">Communication.cpp:16</a></div></div>
-<div class="ttc" id="aclass_communication_html_a761686d72b2a9bced5a1605dcafb9c7d"><div class="ttname"><a href="class_communication.html#a761686d72b2a9bced5a1605dcafb9c7d">Communication::identifiant</a></div><div class="ttdeci">QString identifiant</div><div class="ttdef"><b>Definition:</b> <a href="_communication_8h_source.html#l00018">Communication.h:18</a></div></div>
-<div class="ttc" id="aclass_communication_html_a827a23145721608e036b6437775b8c3e"><div class="ttname"><a href="class_communication.html#a827a23145721608e036b6437775b8c3e">Communication::httpPort</a></div><div class="ttdeci">int httpPort</div><div class="ttdef"><b>Definition:</b> <a href="_communication_8h_source.html#l00020">Communication.h:20</a></div></div>
-<div class="ttc" id="aclass_communication_html_aeae61e5cae6ba02d71d41f73309559f9"><div class="ttname"><a href="class_communication.html#aeae61e5cae6ba02d71d41f73309559f9">Communication::configurer</a></div><div class="ttdeci">void configurer(QString identifiant, QString motDePasse, int httpPort)</div><div class="ttdef"><b>Definition:</b> <a href="_communication_8cpp_source.html#l00028">Communication.cpp:28</a></div></div>
-<div class="ttc" id="aclass_communication_html_aef5688f514e101e409f095b0ea391086"><div class="ttname"><a href="class_communication.html#aef5688f514e101e409f095b0ea391086">Communication::motDePasse</a></div><div class="ttdeci">QString motDePasse</div><div class="ttdef"><b>Definition:</b> <a href="_communication_8h_source.html#l00019">Communication.h:19</a></div></div>
-<div class="ttc" id="aclass_q_object_html"><div class="ttname"><a href="class_q_object.html">QObject</a></div></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_constantes_8h.html">Constantes.h</a>&quot;</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="class_communication.html">   19</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_communication.html">Communication</a> : <span class="keyword">public</span> <a class="code" href="class_q_object.html">QObject</a></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;{</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    Q_OBJECT</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;  <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="class_communication.html#a761686d72b2a9bced5a1605dcafb9c7d">   24</a></span>&#160;    QString                <a class="code" href="class_communication.html#a761686d72b2a9bced5a1605dcafb9c7d">identifiant</a>;</div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="class_communication.html#aef5688f514e101e409f095b0ea391086">   25</a></span>&#160;    QString                <a class="code" href="class_communication.html#aef5688f514e101e409f095b0ea391086">motDePasse</a>;</div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="class_communication.html#a827a23145721608e036b6437775b8c3e">   26</a></span>&#160;    <span class="keywordtype">int</span>                    <a class="code" href="class_communication.html#a827a23145721608e036b6437775b8c3e">httpPort</a>;</div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="class_communication.html#a17734bbdfa787beef2bd1fe89f1a9fbb">   27</a></span>&#160;    QNetworkAccessManager* <a class="code" href="class_communication.html#a17734bbdfa787beef2bd1fe89f1a9fbb">accesReseau</a>;</div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="class_communication.html#a31ff273a956ddf2b60a51b6e38c34022">   28</a></span>&#160;    QNetworkReply*         <a class="code" href="class_communication.html#a31ff273a956ddf2b60a51b6e38c34022">reponseReseau</a>;</div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="class_communication.html#a3cc84dc448afe3ab5ca3ab623a809b70">   29</a></span>&#160;    QString                <a class="code" href="class_communication.html#a3cc84dc448afe3ab5ca3ab623a809b70">urlStation</a>;</div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="class_communication.html#a2eeadc5667a84a49e547738dab5baf1b">   30</a></span>&#160;    QString                <a class="code" href="class_communication.html#a2eeadc5667a84a49e547738dab5baf1b">requeteJSON</a>;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <a class="code" href="class_communication.html#a56cf4b262e592bcae1d987c3dd00487f">Communication</a>(<a class="code" href="class_q_object.html">QObject</a>* parent = <span class="keyword">nullptr</span>);</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <a class="code" href="class_communication.html#a75ba08ce908d45251e28e4c1db94e6f4">~Communication</a>();</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_communication.html#a49a00e5a4ca7e8cec970232fc4e2c263">connecter</a>();</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_communication.html#a4a85eb1a29b7fd8c33362ffaee099956">envoyerRequetePost</a>(QString api, <span class="keyword">const</span> QByteArray&amp; json);</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_communication.html#a67b85e724ebe1147a659e7b88324b25b">recevoirNotification</a>();</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_communication.html#aeae61e5cae6ba02d71d41f73309559f9">configurer</a>(QString <a class="code" href="class_communication.html#a761686d72b2a9bced5a1605dcafb9c7d">identifiant</a>, QString <a class="code" href="class_communication.html#aef5688f514e101e409f095b0ea391086">motDePasse</a>, <span class="keywordtype">int</span> <a class="code" href="class_communication.html#a827a23145721608e036b6437775b8c3e">httpPort</a>);</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;};</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="preprocessor">#endif // COMMUNICATION_H</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
+<div class="ttc" id="aclass_communication_html_a2eeadc5667a84a49e547738dab5baf1b"><div class="ttname"><a href="class_communication.html#a2eeadc5667a84a49e547738dab5baf1b">Communication::requeteJSON</a></div><div class="ttdeci">QString requeteJSON</div><div class="ttdef"><b>Definition:</b> <a href="_communication_8h_source.html#l00030">Communication.h:30</a></div></div>
+<div class="ttc" id="aclass_communication_html_a17734bbdfa787beef2bd1fe89f1a9fbb"><div class="ttname"><a href="class_communication.html#a17734bbdfa787beef2bd1fe89f1a9fbb">Communication::accesReseau</a></div><div class="ttdeci">QNetworkAccessManager * accesReseau</div><div class="ttdef"><b>Definition:</b> <a href="_communication_8h_source.html#l00027">Communication.h:27</a></div></div>
+<div class="ttc" id="aclass_communication_html_a761686d72b2a9bced5a1605dcafb9c7d"><div class="ttname"><a href="class_communication.html#a761686d72b2a9bced5a1605dcafb9c7d">Communication::identifiant</a></div><div class="ttdeci">QString identifiant</div><div class="ttdef"><b>Definition:</b> <a href="_communication_8h_source.html#l00024">Communication.h:24</a></div></div>
+<div class="ttc" id="aclass_communication_html_a75ba08ce908d45251e28e4c1db94e6f4"><div class="ttname"><a href="class_communication.html#a75ba08ce908d45251e28e4c1db94e6f4">Communication::~Communication</a></div><div class="ttdeci">~Communication()</div><div class="ttdef"><b>Definition:</b> <a href="_communication_8cpp_source.html#l00018">Communication.cpp:18</a></div></div>
+<div class="ttc" id="aclass_communication_html_a67b85e724ebe1147a659e7b88324b25b"><div class="ttname"><a href="class_communication.html#a67b85e724ebe1147a659e7b88324b25b">Communication::recevoirNotification</a></div><div class="ttdeci">void recevoirNotification()</div><div class="ttdef"><b>Definition:</b> <a href="_communication_8cpp_source.html#l00051">Communication.cpp:51</a></div></div>
+<div class="ttc" id="aclass_communication_html_aeae61e5cae6ba02d71d41f73309559f9"><div class="ttname"><a href="class_communication.html#aeae61e5cae6ba02d71d41f73309559f9">Communication::configurer</a></div><div class="ttdeci">void configurer(QString identifiant, QString motDePasse, int httpPort)</div><div class="ttdef"><b>Definition:</b> <a href="_communication_8cpp_source.html#l00055">Communication.cpp:55</a></div></div>
+<div class="ttc" id="a_constantes_8h_html"><div class="ttname"><a href="_constantes_8h.html">Constantes.h</a></div><div class="ttdoc">Contient les constantes du projet.</div></div>
+<div class="ttc" id="aclass_communication_html_aef5688f514e101e409f095b0ea391086"><div class="ttname"><a href="class_communication.html#aef5688f514e101e409f095b0ea391086">Communication::motDePasse</a></div><div class="ttdeci">QString motDePasse</div><div class="ttdef"><b>Definition:</b> <a href="_communication_8h_source.html#l00025">Communication.h:25</a></div></div>
+<div class="ttc" id="aclass_communication_html"><div class="ttname"><a href="class_communication.html">Communication</a></div><div class="ttdef"><b>Definition:</b> <a href="_communication_8h_source.html#l00019">Communication.h:19</a></div></div>
+<div class="ttc" id="aclass_communication_html_a31ff273a956ddf2b60a51b6e38c34022"><div class="ttname"><a href="class_communication.html#a31ff273a956ddf2b60a51b6e38c34022">Communication::reponseReseau</a></div><div class="ttdeci">QNetworkReply * reponseReseau</div><div class="ttdef"><b>Definition:</b> <a href="_communication_8h_source.html#l00028">Communication.h:28</a></div></div>
+<div class="ttc" id="aclass_communication_html_a3cc84dc448afe3ab5ca3ab623a809b70"><div class="ttname"><a href="class_communication.html#a3cc84dc448afe3ab5ca3ab623a809b70">Communication::urlStation</a></div><div class="ttdeci">QString urlStation</div><div class="ttdef"><b>Definition:</b> <a href="_communication_8h_source.html#l00029">Communication.h:29</a></div></div>
+<div class="ttc" id="aclass_communication_html_a49a00e5a4ca7e8cec970232fc4e2c263"><div class="ttname"><a href="class_communication.html#a49a00e5a4ca7e8cec970232fc4e2c263">Communication::connecter</a></div><div class="ttdeci">void connecter()</div><div class="ttdef"><b>Definition:</b> <a href="_communication_8cpp_source.html#l00023">Communication.cpp:23</a></div></div>
+<div class="ttc" id="aclass_communication_html_a4a85eb1a29b7fd8c33362ffaee099956"><div class="ttname"><a href="class_communication.html#a4a85eb1a29b7fd8c33362ffaee099956">Communication::envoyerRequetePost</a></div><div class="ttdeci">void envoyerRequetePost(QString api, const QByteArray &amp;json)</div><div class="ttdoc">Envoie une requete http avec la méthode Post.</div><div class="ttdef"><b>Definition:</b> <a href="_communication_8cpp_source.html#l00033">Communication.cpp:33</a></div></div>
+<div class="ttc" id="aclass_communication_html_a827a23145721608e036b6437775b8c3e"><div class="ttname"><a href="class_communication.html#a827a23145721608e036b6437775b8c3e">Communication::httpPort</a></div><div class="ttdeci">int httpPort</div><div class="ttdef"><b>Definition:</b> <a href="_communication_8h_source.html#l00026">Communication.h:26</a></div></div>
+<div class="ttc" id="aclass_communication_html_a56cf4b262e592bcae1d987c3dd00487f"><div class="ttname"><a href="class_communication.html#a56cf4b262e592bcae1d987c3dd00487f">Communication::Communication</a></div><div class="ttdeci">Communication(QObject *parent=nullptr)</div><div class="ttdef"><b>Definition:</b> <a href="_communication_8cpp_source.html#l00011">Communication.cpp:11</a></div></div>
+<div class="ttc" id="aclass_q_object_html"><div class="ttname"><a href="class_q_object.html">QObject</a></div></div>
 <!-- HTML footer for doxygen 1.9.1-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_b9428594c0a642b61ab4082ecaceb181.html">domotifications-qt</a></li><li class="navelem"><a class="el" href="_communication_8h.html">Communication.h</a></li>
-    <li class="footer"><img class="footer" src="lasalle-logo.png" height="31" alt="La Salle Avignon"/>&nbsp;<b>Campus La Salle Avignon</b>&nbsp;-&nbsp;9 Rue Notre Dame des 7 douleurs&nbsp;-&nbsp;BP 50165&nbsp;-&nbsp;84008 Avignon&nbsp;-&nbsp;Généré le Lundi 10 Avril 2023 00:04:14 pour Projet domotifications par&nbsp;<a href="https://www.doxygen.org/index.html">doxygen</a>&nbsp;1.9.1&nbsp;</li>
+    <li class="footer"><img class="footer" src="lasalle-logo.png" height="31" alt="La Salle Avignon"/>&nbsp;<b>Campus La Salle Avignon</b>&nbsp;-&nbsp;9 Rue Notre Dame des 7 douleurs&nbsp;-&nbsp;BP 50165&nbsp;-&nbsp;84008 Avignon&nbsp;-&nbsp;Généré le Lundi 22 Mai 2023 16:01:34 pour domotifications par&nbsp;<a href="https://www.doxygen.org/index.html">doxygen</a>&nbsp;1.8.17&nbsp;</li>
   </ul>
 </div>
 </body>
