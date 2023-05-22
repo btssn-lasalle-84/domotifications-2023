@@ -1,5 +1,5 @@
 class ServeurWeb
-!!!134570.cpp!!!	setNom(in nomStationLumineuse : String = NOM_SERVEUR_WEB) : void
+!!!167810.cpp!!!	setNom(in nomStationLumineuse : String = NOM_SERVEUR_WEB) : void
     if(nomStationLumineuse.isEmpty())
         nomStationLumineuse = NOM_SERVEUR_WEB;
     // Pour un accès : http://nomStationLumineuse.local/
@@ -15,7 +15,7 @@ class ServeurWeb
         Serial.println("setNom() http://" + nomStationLumineuse + ".local/");
 #endif
     }
-!!!153130.cpp!!!	installerGestionnairesRequetes() : void
+!!!144170.cpp!!!	installerGestionnairesRequetes() : void
     on("/", HTTP_GET, std::bind(&ServeurWeb::afficherAccueil, this));
     on("/notifications", std::bind(&ServeurWeb::traiterRequeteGETNotifications, this));
     on("/boite", HTTP_GET, std::bind(&ServeurWeb::traiterRequeteGETBoite, this));
@@ -31,7 +31,7 @@ class ServeurWeb
        std::bind(&ServeurWeb::traiterRequetePOSTPoubelle,
                  this)); // Ajout de la route /poubelle en POST
     onNotFound(std::bind(&ServeurWeb::traiterRequeteNonTrouvee, this));
-!!!134698.cpp!!!	afficherAccueil() : void
+!!!167938.cpp!!!	afficherAccueil() : void
 #ifdef DEBUG_SERVEUR_WEB
     Serial.print(F("ServeurWeb::afficherAccueil() : requête = "));
     Serial.println((method() == HTTP_GET) ? "GET" : "POST");
@@ -41,7 +41,7 @@ class ServeurWeb
     String message = "<h1>Bienvenue sur la station de notifications lumineuses</h1>\n";
     message += "<p>LaSalle Avignon v1.0</p>\n";
     send(200, F("text/html"), message);
-!!!134826.cpp!!!	traiterRequeteGETNotifications() : void
+!!!168066.cpp!!!	traiterRequeteGETNotifications() : void
 #ifdef DEBUG_SERVEUR_WEB
     Serial.print(F("ServeurWeb::traiterRequeteGETNotifications() : requête = "));
     Serial.println((method() == HTTP_GET) ? "GET" : "POST");
@@ -70,7 +70,7 @@ class ServeurWeb
     char buffer[TAILLE_JSON];
     serializeJson(documentJSON, buffer);
     send(200, "application/json", buffer);
-!!!134954.cpp!!!	traiterRequeteGETBoite() : void
+!!!168194.cpp!!!	traiterRequeteGETBoite() : void
 #ifdef DEBUG_SERVEUR_WEB
     Serial.print(F("ServeurWeb::traiterRequeteGETBoite() : requête = "));
     Serial.println((method() == HTTP_GET) ? "GET" : "POST");
@@ -116,7 +116,7 @@ class ServeurWeb
         jsonResponse += "}";
         send(200, "application/json", jsonResponse);
     }
-!!!135082.cpp!!!	traiterRequetePOSTBoite() : void
+!!!168322.cpp!!!	traiterRequetePOSTBoite() : void
 #ifdef DEBUG_SERVEUR_WEB
     Serial.print(F("ServeurWeb::traiterRequetePOSTBoite() : requête = "));
     Serial.println((method() == HTTP_GET) ? "GET" : "POST");
@@ -182,7 +182,7 @@ class ServeurWeb
             return;
         }
     }
-!!!146090.cpp!!!	traiterRequeteGETMachine() : void
+!!!168450.cpp!!!	traiterRequeteGETMachine() : void
 #ifdef DEBUG_SERVEUR_WEB
     Serial.print(F("ServeurWeb::traiterRequeteGETMachine() : requête = "));
     Serial.println((method() == HTTP_GET) ? "GET" : "POST");
@@ -270,7 +270,7 @@ class ServeurWeb
         }
         send(400, "text/plain", message);
     }
-!!!135338.cpp!!!	traiterRequetePOSTMachine() : void
+!!!168578.cpp!!!	traiterRequetePOSTMachine() : void
 #ifdef DEBUG_SERVEUR_WEB
     Serial.print(F("ServeurWeb::traiterRequetePOSTMachine() : requête = "));
     Serial.println((method() == HTTP_GET) ? "GET" : "POST");
@@ -332,7 +332,7 @@ class ServeurWeb
                  "\"La demande est invalide.\"}}");
         }
     }
-!!!146218.cpp!!!	traiterRequeteGETPoubelle() : void
+!!!168706.cpp!!!	traiterRequeteGETPoubelle() : void
 #ifdef DEBUG_SERVEUR_WEB
     Serial.print(F("ServeurWeb::traiterRequeteGETPoubelle() : requête = "));
     Serial.println((method() == HTTP_GET) ? "GET" : "POST");
@@ -420,7 +420,7 @@ class ServeurWeb
         }
         send(400, "text/plain", message);
     }
-!!!146346.cpp!!!	traiterRequetePOSTPoubelle() : void
+!!!168834.cpp!!!	traiterRequetePOSTPoubelle() : void
 #ifdef DEBUG_SERVEUR_WEB
     Serial.print(F("ServeurWeb::traiterRequetePOSTPoubelle() : requête = "));
     Serial.println((method() == HTTP_GET) ? "GET" : "POST");
@@ -502,7 +502,7 @@ class ServeurWeb
             return;
         }
     }
-!!!135210.cpp!!!	traiterRequeteNonTrouvee() : void
+!!!168962.cpp!!!	traiterRequeteNonTrouvee() : void
 #ifdef DEBUG_SERVEUR_WEB
     Serial.print(F("ServeurWeb::traiterRequeteNonTrouvee() : requête = "));
     Serial.println((method() == HTTP_GET) ? "GET" : "POST");
@@ -523,7 +523,7 @@ class ServeurWeb
         message += " " + argName(i) + ": " + arg(i) + "\n";
     }
     send(404, "text/plain", message);
-!!!153258.cpp!!!	extraireId() : int
+!!!144298.cpp!!!	extraireId() : int
     JsonObject objetJSON = documentJSON.as<JsonObject>();
     if(objetJSON.containsKey("id"))
     {
@@ -534,7 +534,7 @@ class ServeurWeb
         return documentJSON["id"].as<int>();
     }
     return -1;
-!!!153386.cpp!!!	extraireEtat() : bool
+!!!144426.cpp!!!	extraireEtat() : bool
     JsonObject objetJSON = documentJSON.as<JsonObject>();
     if(objetJSON.containsKey("etat"))
     {
@@ -546,7 +546,7 @@ class ServeurWeb
         return documentJSON["etat"].as<bool>();
     }
     return false;
-!!!135594.cpp!!!	demarrer() : void
+!!!169218.cpp!!!	demarrer() : void
     setNom();
 #ifdef DEBUG_SERVEUR_WEB
     Serial.print(F("ServeurWeb::demarrer() : adresse IP = "));
@@ -561,5 +561,5 @@ class ServeurWeb
 #ifdef DEBUG_SERVEUR_WEB
     Serial.println(F("ServeurWeb::demarrer() ok"));
 #endif
-!!!135722.cpp!!!	traiterRequetes() : void
+!!!169346.cpp!!!	traiterRequetes() : void
     handleClient();

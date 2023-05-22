@@ -18,11 +18,7 @@ class IHMDomotifications
 !!!158722.cpp!!!	initialiserGUI() : void
     initialiserWidgets();
     afficherWidgets();
-
-    widgetPrincipal->setLayout(layoutPrincipal);
-    setCentralWidget(widgetPrincipal);
-    QRect screenGeometry = QGuiApplication::primaryScreen()->availableGeometry();
-    resize(screenGeometry.width(), screenGeometry.height());
+    initialiserFenetrePrincipale();
 !!!158850.cpp!!!	initialiserBarreDeTaches() : void
     creerActionsMenu();
 
@@ -44,47 +40,102 @@ class IHMDomotifications
             this,
             SLOT(visualiserNotification(QString)));
     // les boutons d'activation/désactivation des modules
-    connect(boutonActivationDesactivationMachine,
-            SIGNAL(clicked(bool)),
-            this,
-            SLOT(gererBoutonActivationDesactivation()));
+    for(int index = 0; index < poubelles.size(); index++)
+    {
+        connect(boutonsActivationDesactivationPoubelle[index],
+                SIGNAL(clicked(bool)),
+                this,
+                SLOT(gererBoutonActivationDesactivation()));
+    }
+    for(int index = 0; index < machines.size(); index++)
+    {
+        connect(boutonsActivationDesactivationMachine[index],
+                SIGNAL(clicked(bool)),
+                this,
+                SLOT(gererBoutonActivationDesactivation()));
+    }
     connect(boutonActivationDesactivationBoiteAuxLettres,
             SIGNAL(clicked(bool)),
             this,
             SLOT(gererBoutonActivationDesactivation()));
-    connect(boutonActivationDesactivationPoubelle,
-            SIGNAL(clicked(bool)),
-            this,
-            SLOT(gererBoutonActivationDesactivation()));
+
     connect(this,
             SIGNAL(activationDesactivationModule(QString, int)),
             domotification,
             SLOT(gererActivationModule(QString, int)));
 !!!135210.cpp!!!	initialiserWidgets() : void
-    widgetPrincipal              = new QWidget(this);
-    layoutPrincipal              = new QVBoxLayout;
-    layoutLogos                  = new QHBoxLayout;
-    layoutMachine                = new QHBoxLayout;
-    layoutBoiteAuxLettres        = new QHBoxLayout;
-    layoutPoubelle               = new QHBoxLayout;
-    layoutBoutonsMachine         = new QVBoxLayout;
+    widgetPrincipal       = new QWidget(this);
+    layoutPrincipal       = new QVBoxLayout;
+    layoutLogos           = new QHBoxLayout;
+    layoutPoubelles       = new QHBoxLayout;
+    layoutMachines        = new QHBoxLayout;
+    layoutBoiteAuxLettres = new QHBoxLayout;
+
+    poubelles = domotification->getPoubelles();
+    machines  = domotification->getMachines();
+    boite     = domotification->getBoite();
+
+    for(auto i = 0; i < poubelles.size(); i++)
+    {
+        layoutsPoubelle.push_back(new QHBoxLayout);
+    }
+
+    for(auto i = 0; i < machines.size(); i++)
+    {
+        layoutsMachine.push_back(new QHBoxLayout);
+    }
+
+    layoutBoiteAuxLettres = new QHBoxLayout;
+
+    for(auto i = 0; i < poubelles.size(); i++)
+    {
+        layoutsBoutonsPoubelle.push_back(new QVBoxLayout);
+    }
+
+    for(auto i = 0; i < machines.size(); i++)
+    {
+        layoutsBoutonsMachine.push_back(new QVBoxLayout);
+    }
+
     layoutBoutonsBoiteAuxLettres = new QVBoxLayout;
-    layoutBoutonsPoubelle        = new QVBoxLayout;
+
+    for(auto i = 0; i < poubelles.size(); i++)
+    {
+        boutonsActivationDesactivationPoubelle.push_back(new QPushButton(this));
+        boutonsAcquittementPoubelle.push_back(new QPushButton(this));
+    }
+
+    for(auto i = 0; i < machines.size(); i++)
+    {
+        boutonsActivationDesactivationMachine.push_back(new QPushButton);
+        boutonsAcquittementMachine.push_back(new QPushButton);
+    }
+
+    boutonActivationDesactivationBoiteAuxLettres = new QPushButton(this);
+    boutonAcquittementBoiteAuxLettres            = new QPushButton(this);
 
     boutonParametres = new QPushButton(this);
 
-    boutonActivationDesactivationMachine = new QPushButton(this);
-    boutonActivationDesactivationMachine->setObjectName("Machine");
-    boutonActivationDesactivationBoiteAuxLettres = new QPushButton(this);
-    boutonActivationDesactivationBoiteAuxLettres->setObjectName("BoiteAuxLettres");
-    boutonActivationDesactivationPoubelle = new QPushButton(this);
-    boutonActivationDesactivationPoubelle->setObjectName("Poubelle");
-    /**
-     * @todo Gérer un conteneur pour les machines et poubelles
-     */
-    boutonAcquittementPoubelle        = new QPushButton(this);
-    boutonAcquittementBoiteAuxLettres = new QPushButton(this);
-    boutonAcquittementMachine         = new QPushButton(this);
+    for(auto i = 0; i < poubelles.size(); i++)
+    {
+        qDebug() << Q_FUNC_INFO << "module" << poubelles[i]->getNom() << "id"
+                 << poubelles[i]->getId() << "type" << poubelles[i]->getType()
+                 << poubelles[i]->recupererType();
+        boutonsActivationDesactivationPoubelle[i]->setObjectName(poubelles[i]->recupererType());
+    }
+
+    for(auto i = 0; i < machines.size(); i++)
+    {
+        qDebug() << Q_FUNC_INFO << "module" << machines[i]->getNom() << "id" << machines[i]->getId()
+                 << "type" << machines[i]->getType() << machines[i]->recupererType();
+        boutonsActivationDesactivationMachine[i]->setObjectName(machines[i]->recupererType());
+    }
+
+    qDebug() << Q_FUNC_INFO << "module" << boite->getNom() << "type" << boite->getType()
+             << boite->recupererType();
+    boutonActivationDesactivationBoiteAuxLettres->setObjectName(boite->recupererType());
+
+    //----------------
 
     imageBoutonActivation    = new QPixmap(CHEMIN_BOUTON_ACTIVATION);
     imageBoutonDesactivation = new QPixmap(CHEMIN_BOUTON_DESACTIVATION);
@@ -105,6 +156,7 @@ class IHMDomotifications
     boutonParametres->setIcon(QIcon(*imageLogoParametre));
 
     logoBTS->setPixmap(QPixmap(CHEMIN_LOGO_BTS_SN));
+
     logoPoubelle->setPixmap(QPixmap(CHEMIN_LOGO_POUBELLE));
     logoBoiteAuxLettres->setPixmap(QPixmap(CHEMIN_LOGO_BOITE_AUX_LETTRES));
     logoMachine->setPixmap(QPixmap(CHEMIN_LOGO_MACHINE));
@@ -116,17 +168,29 @@ class IHMDomotifications
     layoutLogos->addStretch();
     layoutLogos->addWidget(logoBTS);
 
-    layoutBoutonsPoubelle->addWidget(boutonAcquittementPoubelle);
-    layoutBoutonsPoubelle->addWidget(boutonActivationDesactivationPoubelle);
-    layoutPoubelle->addWidget(logoPoubelle);
-    layoutPoubelle->addLayout(layoutBoutonsPoubelle);
-    layoutPoubelle->addStretch();
+    for(int indexVecteurPoubelle = 0; indexVecteurPoubelle < poubelles.size();
+        indexVecteurPoubelle++)
+    {
+        layoutsBoutonsPoubelle[indexVecteurPoubelle]->addWidget(
+          boutonsAcquittementPoubelle[indexVecteurPoubelle]);
+        layoutsBoutonsPoubelle[indexVecteurPoubelle]->addWidget(
+          boutonsActivationDesactivationPoubelle[indexVecteurPoubelle]);
+        layoutsPoubelle[indexVecteurPoubelle]->addWidget(logoPoubelle);
+        layoutsPoubelle[indexVecteurPoubelle]->addLayout(
+          layoutsBoutonsPoubelle[indexVecteurPoubelle]);
+        layoutsPoubelle[indexVecteurPoubelle]->addStretch();
+    }
 
-    layoutBoutonsMachine->addWidget(boutonAcquittementMachine);
-    layoutBoutonsMachine->addWidget(boutonActivationDesactivationMachine);
-    layoutMachine->addWidget(logoMachine);
-    layoutMachine->addLayout(layoutBoutonsMachine);
-    layoutMachine->addStretch();
+    for(int indexVecteurMachine = 0; indexVecteurMachine < machines.size(); indexVecteurMachine++)
+    {
+        layoutsBoutonsMachine[indexVecteurMachine]->addWidget(
+          boutonsAcquittementMachine[indexVecteurMachine]);
+        layoutsBoutonsMachine[indexVecteurMachine]->addWidget(
+          boutonsActivationDesactivationMachine[indexVecteurMachine]);
+        layoutsBoutonsMachine[indexVecteurMachine]->addWidget(logoMachine);
+        layoutsMachine[indexVecteurMachine]->addLayout(layoutsBoutonsMachine[indexVecteurMachine]);
+        layoutsMachine[indexVecteurMachine]->addStretch();
+    }
 
     layoutBoutonsBoiteAuxLettres->addWidget(boutonAcquittementBoiteAuxLettres);
     layoutBoutonsBoiteAuxLettres->addWidget(boutonActivationDesactivationBoiteAuxLettres);
@@ -135,9 +199,20 @@ class IHMDomotifications
     layoutBoiteAuxLettres->addStretch();
 
     layoutPrincipal->addLayout(layoutLogos);
-    layoutPrincipal->addLayout(layoutPoubelle);
-    layoutPrincipal->addLayout(layoutMachine);
+    for(int i = 0; i < poubelles.size(); i++)
+    {
+        layoutPrincipal->addLayout(layoutsPoubelle[i]);
+    }
+    for(int indexMachine = 0; indexMachine < machines.size(); indexMachine++)
+    {
+        layoutPrincipal->addLayout(layoutsMachine[indexMachine]);
+    }
     layoutPrincipal->addLayout(layoutBoiteAuxLettres);
+!!!166146.cpp!!!	initialiserFenetrePrincipale() : void
+    widgetPrincipal->setLayout(layoutPrincipal);
+    setCentralWidget(widgetPrincipal);
+    QRect screenGeometry = QGuiApplication::primaryScreen()->availableGeometry();
+    resize(screenGeometry.width(), screenGeometry.height());
 !!!135466.cpp!!!	creerActionsMenu() : void
     actionMinimiser = new QAction(QString::fromUtf8("Minimiser"), this);
     actionMaximiser = new QAction(QString::fromUtf8("Maximiser"), this);
@@ -163,17 +238,23 @@ class IHMDomotifications
     iconeSysteme->show();
     etatInitialIconeSysteme = true;
 !!!136106.cpp!!!	afficherBoutonsActivationDesactivation() : void
-    boutonActivationDesactivationMachine->setIcon(*iconeActivation);
-    boutonActivationDesactivationMachine->setIconSize(
-      imageBoutonActivation->scaled(HAUTEUR_IMAGE, LARGEUR_IMAGE).size());
-    boutonActivationDesactivationMachine->setFixedSize(
-      imageBoutonActivation->scaled(HAUTEUR_IMAGE, LARGEUR_IMAGE).size());
+    for(auto i = 0; i < machines.size(); i++)
+    {
+        boutonsActivationDesactivationMachine[i]->setIcon(*iconeActivation);
+        boutonsActivationDesactivationMachine[i]->setIconSize(
+          imageBoutonActivation->scaled(HAUTEUR_IMAGE, LARGEUR_IMAGE).size());
+        boutonsActivationDesactivationMachine[i]->setFixedSize(
+          imageBoutonActivation->scaled(HAUTEUR_IMAGE, LARGEUR_IMAGE).size());
+    }
 
-    boutonActivationDesactivationPoubelle->setIcon(*iconeActivation);
-    boutonActivationDesactivationPoubelle->setIconSize(
-      imageBoutonActivation->scaled(HAUTEUR_IMAGE, LARGEUR_IMAGE).size());
-    boutonActivationDesactivationPoubelle->setFixedSize(
-      imageBoutonActivation->scaled(HAUTEUR_IMAGE, LARGEUR_IMAGE).size());
+    for(auto i = 0; i < poubelles.size(); i++)
+    {
+        boutonsActivationDesactivationPoubelle[i]->setIcon(*iconeActivation);
+        boutonsActivationDesactivationPoubelle[i]->setIconSize(
+          imageBoutonActivation->scaled(HAUTEUR_IMAGE, LARGEUR_IMAGE).size());
+        boutonsActivationDesactivationPoubelle[i]->setFixedSize(
+          imageBoutonActivation->scaled(HAUTEUR_IMAGE, LARGEUR_IMAGE).size());
+    }
 
     boutonActivationDesactivationBoiteAuxLettres->setIcon(*iconeActivation);
     boutonActivationDesactivationBoiteAuxLettres->setIconSize(
@@ -191,69 +272,72 @@ class IHMDomotifications
     boutonModule->setFixedSize(
       imageBoutonDesactivation->scaled(HAUTEUR_IMAGE, LARGEUR_IMAGE).size());
 !!!136490.cpp!!!	afficherBoutonAcquittement() : void
-    boutonAcquittementMachine->setIcon(*iconeAcquittement);
-    boutonAcquittementMachine->setIconSize(
-      imageBoutonAcquittement->scaled(HAUTEUR_IMAGE, LARGEUR_IMAGE).size());
-    boutonAcquittementMachine->setFixedSize(
-      imageBoutonAcquittement->scaled(HAUTEUR_IMAGE, LARGEUR_IMAGE).size());
+    for(auto i = 0; i < machines.size(); i++)
+    {
+        boutonsAcquittementMachine[i]->setIcon(*iconeAcquittement);
+        boutonsAcquittementMachine[i]->setIconSize(
+          imageBoutonAcquittement->scaled(HAUTEUR_IMAGE, LARGEUR_IMAGE).size());
+        boutonsAcquittementMachine[i]->setFixedSize(
+          imageBoutonAcquittement->scaled(HAUTEUR_IMAGE, LARGEUR_IMAGE).size());
+    }
 
-    boutonAcquittementPoubelle->setIcon(*iconeAcquittement);
-    boutonAcquittementPoubelle->setIconSize(
-      imageBoutonAcquittement->scaled(HAUTEUR_IMAGE, LARGEUR_IMAGE).size());
-    boutonAcquittementPoubelle->setFixedSize(
-      imageBoutonAcquittement->scaled(HAUTEUR_IMAGE, LARGEUR_IMAGE).size());
+    for(auto i = 0; i < poubelles.size(); i++)
+    {
+        boutonsAcquittementPoubelle[i]->setIcon(*iconeAcquittement);
+        boutonsAcquittementPoubelle[i]->setIconSize(
+          imageBoutonAcquittement->scaled(HAUTEUR_IMAGE, LARGEUR_IMAGE).size());
+        boutonsAcquittementPoubelle[i]->setFixedSize(
+          imageBoutonAcquittement->scaled(HAUTEUR_IMAGE, LARGEUR_IMAGE).size());
+    }
 
     boutonAcquittementBoiteAuxLettres->setIcon(*iconeAcquittement);
     boutonAcquittementBoiteAuxLettres->setIconSize(
       imageBoutonAcquittement->scaled(HAUTEUR_IMAGE, LARGEUR_IMAGE).size());
     boutonAcquittementBoiteAuxLettres->setFixedSize(
       imageBoutonAcquittement->scaled(HAUTEUR_IMAGE, LARGEUR_IMAGE).size());
-!!!159106.cpp!!!	testerNotification() : void
-    domotification->notifier("La machine est finie !");
-!!!136746.cpp!!!	gererBoutonActivationDesactivation() : void
-    QPushButton* boutonModule = qobject_cast<QPushButton*>(sender());
-    qDebug() << Q_FUNC_INFO << "bouton" << boutonModule->objectName();
-    if(boutonModule == boutonActivationDesactivationMachine)
+!!!166274.cpp!!!	recupererIdModule(inout boutonModule : QPushButton) : int
+    if(boutonModule->objectName() == Module::getType(Module::TypeModule::Poubelle))
     {
-        /**
-         * @todo Gérer l'id du module
-         */
-        emit activationDesactivationModule(boutonModule->objectName(), 0);
-        if(domotification->getActivationModule(boutonModule->objectName()))
-            afficherBoutonActivation(boutonModule);
-        else
-            afficherBoutonDesactivation(boutonModule);
-    }
-    else if(boutonModule == boutonActivationDesactivationBoiteAuxLettres)
-    {
-        emit activationDesactivationModule(boutonModule->objectName(), 0);
-        if(domotification->getActivationModule(boutonModule->objectName()))
+        for(int i = 0; i < boutonsActivationDesactivationPoubelle.size(); i++)
         {
-            afficherBoutonActivation(boutonModule);
-        }
-        else
-        {
-            afficherBoutonDesactivation(boutonModule);
+            if(boutonModule == boutonsActivationDesactivationPoubelle[i])
+            {
+                return i;
+            }
         }
     }
-    else if(boutonModule == boutonActivationDesactivationPoubelle)
+    else if(boutonModule->objectName() == Module::getType(Module::TypeModule::Machine))
     {
-        /**
-         * @todo Gérer l'id du module
-         */
-        emit activationDesactivationModule(boutonModule->objectName(), 0);
-        if(domotification->getActivationModule(boutonModule->objectName()))
+        for(int i = 0; i < boutonsActivationDesactivationMachine.size(); i++)
         {
-            afficherBoutonActivation(boutonModule);
-        }
-        else
-        {
-            afficherBoutonDesactivation(boutonModule);
+            if(boutonModule == boutonsActivationDesactivationMachine[i])
+            {
+                return i;
+            }
         }
     }
     else
     {
-        qDebug() << Q_FUNC_INFO << "bouton inconnu !";
+        return 0;
+    }
+!!!144682.cpp!!!	recupererTypeModule(inout boutonModule : QPushButton) : QString
+    return boutonModule->objectName();
+!!!159106.cpp!!!	testerNotification() : void
+    domotification->notifier("La machine est finie !");
+!!!136746.cpp!!!	gererBoutonActivationDesactivation() : void
+    QPushButton* boutonModule = qobject_cast<QPushButton*>(sender());
+    QString      typeModule   = recupererTypeModule(boutonModule);
+    int          id           = recupererIdModule(boutonModule);
+    qDebug() << Q_FUNC_INFO << "typeModule" << typeModule << "id" << id;
+
+    emit activationDesactivationModule(typeModule, id);
+    if(domotification->getActivationModule(boutonModule->objectName(), id))
+    {
+        afficherBoutonDesactivation(boutonModule);
+    }
+    else
+    {
+        afficherBoutonActivation(boutonModule);
     }
 !!!158978.cpp!!!	visualiserNotification(in message : QString, in type : IHMDomotifications::TypeNotification = IHMDomotifications::TypeNotification::Information) : void
     QSystemTrayIcon::MessageIcon messageIcon =

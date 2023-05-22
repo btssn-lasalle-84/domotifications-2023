@@ -1,6 +1,6 @@
 format 224
 "ServeurWeb" // station-notifications-lumineuses::lib::ServeurWeb
-  revision 3
+  revision 2
   modified_by 42 "tv"
   // class settings
   
@@ -30,9 +30,9 @@ format 224
   activitydiagramsettings
    end
   
-  cpp_h_dir "/mnt/tv/Documents/git/projets-2023/domotifications-2023/station-notifications-lumineuses/lib/ServeurWeb/"
-  cpp_src_dir "/mnt/tv/Documents/git/projets-2023/domotifications-2023/station-notifications-lumineuses/lib/ServeurWeb/"
-  classview 134570 "ServeurWeb"
+  cpp_h_dir "station-notifications-lumineuses/lib/ServeurWeb/"
+  cpp_src_dir "station-notifications-lumineuses/lib/ServeurWeb/"
+  classview 141186 "ServeurWeb"
     
     classdiagramsettings member_max_width 0 end
     
@@ -52,7 +52,7 @@ format 224
     
     activitydiagramsettings
      end
-    class 134570 "ServeurWeb"
+    class 175362 "ServeurWeb"
       visibility package 
       cpp_decl "${comment}${template}class ${name}${inherit} {
 ${members}};
@@ -68,24 +68,24 @@ ${inlines}
       comment "@class ServeurWeb
 @brief Déclaration de la classe ServeurWeb
 "
-      classrelation 134570 // <generalisation>
-	relation 134570 ---|>
+      classrelation 163330 // <generalisation>
+	relation 162434 ---|>
 	  a public
 	    cpp default "${type}"
-	    classrelation_ref 134570 // <generalisation>
-	  b parent class_ref 134698 // WebServer
+	    classrelation_ref 163330 // <generalisation>
+	  b parent class_ref 175874 // typedef2
       end
 
-      classrelation 134698 // stationLumineuse (<unidirectional association>)
-	relation 134698 --->
+      classrelation 163458 // stationLumineuse (<unidirectional association>)
+	relation 162562 --->
 	  a role_name "stationLumineuse" private
 	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
 "
-	    classrelation_ref 134698 // stationLumineuse (<unidirectional association>)
-	  b parent class_ref 134826 // StationLumineuse
+	    classrelation_ref 163458 // stationLumineuse (<unidirectional association>)
+	  b parent class_ref 175490 // StationLumineuse
       end
 
-      attribute 134570 "documentJSON"
+      attribute 167938 "documentJSON"
 	private explicit_type "TAILLE_JSON"
 	stereotype "StaticJsonDocument"
 	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${stereotype}<${type}> ${name}${value};
@@ -98,7 +98,7 @@ ${inlines}
 	MysqlColumn
       end
 
-      operation 134570 "setNom"
+      operation 167810 "setNom"
 	preserve_cpp_body_indent private explicit_return_type "void"
 	nparams 1
 	  param in name "nomStationLumineuse" explicit_type "String"
@@ -121,7 +121,7 @@ ${body}}
 	
       end
 
-      operation 153130 "installerGestionnairesRequetes"
+      operation 144170 "installerGestionnairesRequetes"
 	preserve_cpp_body_indent private explicit_return_type "void"
 	nparams 0
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
@@ -140,7 +140,7 @@ ${body}}
 	
       end
 
-      operation 134698 "afficherAccueil"
+      operation 167938 "afficherAccueil"
 	preserve_cpp_body_indent private explicit_return_type "void"
 	nparams 0
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
@@ -163,7 +163,7 @@ ${body}}
 	
       end
 
-      operation 134826 "traiterRequeteGETNotifications"
+      operation 168066 "traiterRequeteGETNotifications"
 	preserve_cpp_body_indent private explicit_return_type "void"
 	nparams 0
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
@@ -185,7 +185,7 @@ ${body}}
 	
       end
 
-      operation 134954 "traiterRequeteGETBoite"
+      operation 168194 "traiterRequeteGETBoite"
 	preserve_cpp_body_indent private explicit_return_type "void"
 	nparams 0
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
@@ -205,7 +205,7 @@ ${body}}
 	
       end
 
-      operation 135082 "traiterRequetePOSTBoite"
+      operation 168322 "traiterRequetePOSTBoite"
 	preserve_cpp_body_indent private explicit_return_type "void"
 	nparams 0
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
@@ -227,7 +227,7 @@ ${body}}
 	
       end
 
-      operation 146090 "traiterRequeteGETMachine"
+      operation 168450 "traiterRequeteGETMachine"
 	preserve_cpp_body_indent private explicit_return_type "void"
 	nparams 0
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
@@ -247,7 +247,7 @@ ${body}}
 	
       end
 
-      operation 135338 "traiterRequetePOSTMachine"
+      operation 168578 "traiterRequetePOSTMachine"
 	preserve_cpp_body_indent private explicit_return_type "void"
 	nparams 0
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
@@ -269,7 +269,7 @@ ${body}}
 	
       end
 
-      operation 146218 "traiterRequeteGETPoubelle"
+      operation 168706 "traiterRequeteGETPoubelle"
 	preserve_cpp_body_indent private explicit_return_type "void"
 	nparams 0
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
@@ -289,7 +289,7 @@ ${body}}
 	
       end
 
-      operation 146346 "traiterRequetePOSTPoubelle"
+      operation 168834 "traiterRequetePOSTPoubelle"
 	preserve_cpp_body_indent private explicit_return_type "void"
 	nparams 0
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
@@ -311,7 +311,7 @@ ${body}}
 	
       end
 
-      operation 135210 "traiterRequeteNonTrouvee"
+      operation 168962 "traiterRequeteNonTrouvee"
 	preserve_cpp_body_indent private explicit_return_type "void"
 	nparams 0
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
@@ -331,7 +331,7 @@ ${body}}
 	
       end
 
-      operation 153258 "extraireId"
+      operation 144298 "extraireId"
 	preserve_cpp_body_indent private explicit_return_type "int"
 	nparams 0
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
@@ -350,7 +350,7 @@ ${body}}
 	
       end
 
-      operation 153386 "extraireEtat"
+      operation 144426 "extraireEtat"
 	preserve_cpp_body_indent private explicit_return_type "bool"
 	nparams 0
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
@@ -369,10 +369,10 @@ ${body}}
 	
       end
 
-      operation 135466 "ServeurWeb"
+      operation 169090 "ServeurWeb"
 	preserve_cpp_body_indent public explicit_return_type ""
 	nparams 1
-	  param inout name "stationLumineuse" type class_ref 134826 // StationLumineuse
+	  param inout name "stationLumineuse" type class_ref 175490 // StationLumineuse
 	cpp_decl "    ${comment}${inline}${name}${(}${t0} * ${p0}${v0}${)}${volatile}${throw}${abstract};
 "
 	cpp_def "//@brief Constructeur de la classe ServeurWeb
@@ -393,7 +393,7 @@ ${body}}
 	
       end
 
-      operation 135594 "demarrer"
+      operation 169218 "demarrer"
 	preserve_cpp_body_indent public explicit_return_type "void"
 	nparams 0
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
@@ -414,7 +414,7 @@ ${body}}
 	
       end
 
-      operation 135722 "traiterRequetes"
+      operation 169346 "traiterRequetes"
 	preserve_cpp_body_indent public explicit_return_type "void"
 	nparams 0
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
@@ -435,35 +435,25 @@ ${body}}
       end
     end
 
-    class 134698 "WebServer"
-      visibility package 
-      cpp_decl "${comment}${template}class ${name}${inherit} {
-${members}};
-${inlines}
+    class 175874 "typedef2"
+      visibility package stereotype "typedef" explicit_base_type "WebServer"
+      cpp_decl "${comment}typedef ${type} ${name};
 "
-      java_decl "${comment}${@}${visibility}${static}${final}${abstract}class ${name}${extends}${implements} {
-${members}}
-"
-      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
-${members}}
-"
-      python_2_2 python_decl "class ${name}${inherit}:
-${docstring}${members}
-"
-      idl_decl "${comment}${abstract}${custom}valuetype ${name}${inherit} {
-${members}};
-"
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
       explicit_switch_type ""
       mysql_decl ""
       
     end
   end
 
-  deploymentview 134570 "ServeurWeb"
+  deploymentview 141186 "ServeurWeb"
     //deployment diagram settings
     deploymentdiagramsettings
      end
-    artifact 134570 "ServeurWeb"
+    artifact 141826 "ServeurWeb"
       stereotype "source"
       cpp_h "#ifndef ${NAMESPACE}_${NAME}_H
 #define ${NAMESPACE}_${NAME}_H
@@ -482,7 +472,7 @@ ${namespace_start}
 ${members}
 ${namespace_end}"
       associated_elems
-	class_ref 134570 // ServeurWeb
+	class_ref 175362 // ServeurWeb
       end
     end
   end

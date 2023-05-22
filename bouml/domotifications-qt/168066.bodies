@@ -1,27 +1,27 @@
 class Domotification
 !!!157570.cpp!!!	Domotification(inout ihm : IHMDomotifications = nullptr)
     qDebug() << Q_FUNC_INFO;
-    /**
-     * @todo Gérer un fichier de configuration INI pour les modules
-     */
-    // Pour les tests : 5 modules
-    // 2 machines (0..6)
-    modules.push_back(new Module("Machine", Module::TypeModule::Machine, 0, this));
-    modules.push_back(new Module("Machine", Module::TypeModule::Machine, 1, this));
-    // 2 poubelles (0..5)
-    modules.push_back(new Module("Poubelle", Module::TypeModule::Poubelle, 0, this));
-    modules.push_back(new Module("Poubelle", Module::TypeModule::Poubelle, 1, this));
-    // 1 boite (0..1)
-    modules.push_back(new Module("BoiteAuxLettres", Module::TypeModule::BoiteAuxLettres, 0, this));
-    qDebug() << Q_FUNC_INFO << "modules" << modules;
+    chargerModules();
 !!!157698.cpp!!!	~Domotification()
     qDebug() << Q_FUNC_INFO;
-!!!134698.cpp!!!	getActivationModule(in nomModule : QString, in id : int = 0) : bool
-    qDebug() << Q_FUNC_INFO << "nomModule" << nomModule << "id" << id;
+!!!151338.cpp!!!	recupererIndexModule(in typeModule : QString, in id : int = 0) : int
     for(int i = 0; i < modules.size(); ++i)
     {
-        if(modules[i]->getNom() == nomModule && modules[i]->getId() == id)
+        if(modules[i]->recupererType() == typeModule && modules[i]->getId() == id)
+        {
+            return i;
+        }
+    }
+    return NON_TROUVE;
+!!!134698.cpp!!!	getActivationModule(in typeModule : QString, in id : int = 0) : bool
+    for(int i = 0; i < modules.size(); ++i)
+    {
+        if(modules[i]->getNom() == typeModule && modules[i]->getId() == id)
+        {
+            qDebug() << Q_FUNC_INFO << "typeModule" << typeModule << "id" << id << "estActif"
+                     << modules[i]->estActif();
             return modules[i]->estActif();
+        }
     }
     return false;
 !!!157954.cpp!!!	gererNotification(in nomModule : QString) : void
@@ -31,18 +31,6 @@ class Domotification
 !!!159362.cpp!!!	notifier(in message : QString) : void
     qDebug() << Q_FUNC_INFO << "message" << message;
     emit nouvelleNotification(message);
-!!!134826.cpp!!!	getMachines() : QVector<Module*>
-    QVector<Module*> machines;
-    for(auto i = 0; i < modules.size(); i++)
-    {
-        if(modules[i]->getType() == Module::Machine)
-        {
-            qDebug() << Q_FUNC_INFO << "module" << modules[i]->getNom() << "id"
-                     << modules[i]->getId();
-            machines.push_back(modules[i]);
-        }
-    }
-    return machines;
 !!!134954.cpp!!!	getPoubelles() : QVector<Module*>
     QVector<Module*> poubelles;
     for(auto i = 0; i < modules.size(); i++)
@@ -55,6 +43,18 @@ class Domotification
         }
     }
     return poubelles;
+!!!134826.cpp!!!	getMachines() : QVector<Module*>
+    QVector<Module*> machines;
+    for(auto i = 0; i < modules.size(); i++)
+    {
+        if(modules[i]->getType() == Module::Machine)
+        {
+            qDebug() << Q_FUNC_INFO << "module" << modules[i]->getNom() << "id"
+                     << modules[i]->getId();
+            machines.push_back(modules[i]);
+        }
+    }
+    return machines;
 !!!135082.cpp!!!	getBoite() : Module
     for(auto i = 0; i < modules.size(); i++)
     {
@@ -64,21 +64,40 @@ class Domotification
         }
     }
     return nullptr;
-!!!157826.cpp!!!	gererActivationModule(in nomModule : QString, in id : int) : void
-    qDebug() << Q_FUNC_INFO << "nomModule" << nomModule << "id" << id;
-    for(auto i = 0; i < modules.size(); ++i)
+!!!144554.cpp!!!	chargerModules() : void
+    /**
+     * @todo Gérer un fichier de configuration INI pour les modules
+     */
+    // Pour les tests : 5 modules
+    // 2 machines (0..6)
+    modules.push_back(new Module("machine", Module::TypeModule::Machine, 0, this));
+    modules.push_back(new Module("machine", Module::TypeModule::Machine, 1, this));
+    // 2 poubelles (0..5)
+    modules.push_back(new Module("poubelle", Module::TypeModule::Poubelle, 0, this));
+    modules.push_back(new Module("poubelle", Module::TypeModule::Poubelle, 1, this));
+    // 1 boite (0..1)
+    modules.push_back(new Module("boite", Module::TypeModule::BoiteAuxLettres, 0, this));
+    qDebug() << Q_FUNC_INFO << "modules" << modules;
+!!!157826.cpp!!!	gererActivationModule(in typeModule : QString, in id : int) : void
+    int indexModule = recupererIndexModule(typeModule, id);
+    qDebug() << Q_FUNC_INFO << "typeModule" << typeModule << "id" << id << "indexModule"
+             << indexModule;
+    if(indexModule == NON_TROUVE)
+        return;
+
+    QByteArray json = "{";
+    json += "\"id\":" + QString::number(id) + QString(",");
+    qDebug() << Q_FUNC_INFO << "json" << json;
+    if(modules[indexModule]->estActif())
     {
-        if(modules[i]->getNom() == nomModule && modules[i]->getId() == id)
-        {
-            modules[i]->setActif(!modules[i]->estActif());
-            // Exemple
-            QByteArray json = "{";
-            json += "\"id\":" + QString::number(modules[i]->getId()) + QString(",");
-            if(modules[i]->estActif())
-                json += "\"etat\":true";
-            else
-                json += "\"etat\":false";
-            json += "}";
-            communication->envoyerRequetePost(Module::getType(modules[i]->getType()), json);
-        }
+        json += "\"etat\":false";
     }
+    else
+    {
+        json += "\"etat\":true";
+    }
+    json += "}";
+
+    communication->envoyerRequetePost(typeModule, json);
+
+    modules[indexModule]->setActif(!modules[indexModule]->estActif());

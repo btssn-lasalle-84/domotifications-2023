@@ -1,6 +1,6 @@
 format 224
 "StationLumineuse" // station-notifications-lumineuses::lib::StationLumineuse
-  revision 3
+  revision 2
   modified_by 42 "tv"
   // class settings
   
@@ -30,9 +30,9 @@ format 224
   activitydiagramsettings
    end
   
-  cpp_h_dir "/mnt/tv/Documents/git/projets-2023/domotifications-2023/station-notifications-lumineuses/lib/StationLumineuse/"
-  cpp_src_dir "/mnt/tv/Documents/git/projets-2023/domotifications-2023/station-notifications-lumineuses/lib/StationLumineuse/"
-  classview 134698 "StationLumineuse"
+  cpp_h_dir "station-notifications-lumineuses/lib/StationLumineuse/"
+  cpp_src_dir "station-notifications-lumineuses/lib/StationLumineuse/"
+  classview 141314 "StationLumineuse"
     
     classdiagramsettings member_max_width 0 end
     
@@ -52,7 +52,7 @@ format 224
     
     activitydiagramsettings
      end
-    class 134826 "StationLumineuse"
+    class 175490 "StationLumineuse"
       visibility package 
       cpp_decl "${comment}${template}class ${name}${inherit} {
 ${members}};
@@ -68,7 +68,7 @@ ${inlines}
       comment "@class StationLumineuse
 @brief Déclaration de la classe StationLumineuse
 "
-      attribute 134698 "leds"
+      attribute 168066 "leds"
 	private explicit_type "Adafruit_NeoPixel"
 	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
 "
@@ -81,7 +81,7 @@ ${inlines}
 	comment "!< le bandeau à leds multi-couleurs"
       end
 
-      attribute 134826 "preferences"
+      attribute 168194 "preferences"
 	private explicit_type "Preferences"
 	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
 "
@@ -94,7 +94,7 @@ ${inlines}
 	comment "!< pour le stockage interne"
       end
 
-      attribute 134954 "etatBoiteAuxLettres"
+      attribute 168322 "etatBoiteAuxLettres"
 	private explicit_type "bool"
 	init_value "=  false"
 	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${h_value};
@@ -108,7 +108,7 @@ ${inlines}
 	comment "!< l'état de la boîte aux lettres"
       end
 
-      attribute 135082 "etatMachines"
+      attribute 168450 "etatMachines"
 	private explicit_type "bool"
 	multiplicity "[NB_LEDS_NOTIFICATION_MACHINES]"
 	init_value "=  {
@@ -125,7 +125,7 @@ ${inlines}
 	comment "!< l'état des machines"
       end
 
-      attribute 135210 "etatPoubelles"
+      attribute 168578 "etatPoubelles"
 	private explicit_type "bool"
 	multiplicity "[NB_LEDS_NOTIFICATION_POUBELLES]"
 	init_value "=  { false,
@@ -144,7 +144,7 @@ ${inlines}
 	comment "!< l'état des poubelles"
       end
 
-      attribute 141738 "couleursPoubelles"
+      attribute 168706 "couleursPoubelles"
 	private explicit_type "uint32_t"
 	multiplicity "[NB_LEDS_NOTIFICATION_POUBELLES]"
 	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${multiplicity}${value};
@@ -158,7 +158,7 @@ ${inlines}
 	comment "!< les couleurs des poubelles"
       end
 
-      operation 135850 "StationLumineuse"
+      operation 169474 "StationLumineuse"
 	preserve_cpp_body_indent public explicit_return_type ""
 	nparams 0
 	cpp_decl "    ${comment}${inline}${name}${(}${)}${volatile}${throw}${abstract};
@@ -185,7 +185,7 @@ ${body}}
 	
       end
 
-      operation 146474 "~StationLumineuse"
+      operation 169602 "~StationLumineuse"
 	preserve_cpp_body_indent public explicit_return_type ""
 	nparams 0
 	cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw}${abstract};
@@ -204,7 +204,7 @@ ${body}}
 	
       end
 
-      operation 135978 "initialiserPreferences"
+      operation 169730 "initialiserPreferences"
 	preserve_cpp_body_indent public explicit_return_type "void"
 	nparams 0
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
@@ -224,7 +224,7 @@ ${body}}
 	
       end
 
-      operation 136106 "initialiserNotifications"
+      operation 169858 "initialiserNotifications"
 	preserve_cpp_body_indent public explicit_return_type "void"
 	nparams 0
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
@@ -243,7 +243,7 @@ ${body}}
 	
       end
 
-      operation 146602 "initialiserCouleursPoubelles"
+      operation 169986 "initialiserCouleursPoubelles"
 	preserve_cpp_body_indent public explicit_return_type "void"
 	nparams 0
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
@@ -264,7 +264,7 @@ ${body}}
 	
       end
 
-      operation 136234 "getEtatBoiteAuxLettres"
+      operation 170114 "getEtatBoiteAuxLettres"
 	preserve_cpp_body_indent public explicit_return_type "bool"
 	nparams 0
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
@@ -284,7 +284,7 @@ ${body}}
 	
       end
 
-      operation 136362 "setEtatBoiteAuxLettres"
+      operation 170242 "setEtatBoiteAuxLettres"
 	preserve_cpp_body_indent public explicit_return_type "void"
 	nparams 1
 	  param in name "etat" explicit_type "bool"
@@ -306,7 +306,7 @@ ${body}}
 	
       end
 
-      operation 136490 "resetEtatBoiteAuxLettres"
+      operation 170370 "resetEtatBoiteAuxLettres"
 	preserve_cpp_body_indent public explicit_return_type "void"
 	nparams 0
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
@@ -325,7 +325,7 @@ ${body}}
 	
       end
 
-      operation 136618 "allumerNotificationBoiteAuxLettres"
+      operation 170498 "allumerNotificationBoiteAuxLettres"
 	preserve_cpp_body_indent public explicit_return_type "void"
 	nparams 0
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
@@ -344,7 +344,7 @@ ${body}}
 	
       end
 
-      operation 136746 "eteindreNotificationBoiteAuxLettres"
+      operation 170626 "eteindreNotificationBoiteAuxLettres"
 	preserve_cpp_body_indent public explicit_return_type "void"
 	nparams 0
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
@@ -363,7 +363,7 @@ ${body}}
 	
       end
 
-      operation 136874 "estIdValideMachine"
+      operation 170754 "estIdValideMachine"
 	preserve_cpp_body_indent public explicit_return_type "bool"
 	nparams 1
 	  param in name "numeroMachine" explicit_type "int"
@@ -385,7 +385,7 @@ ${body}}
 	
       end
 
-      operation 137002 "getEtatMachine"
+      operation 170882 "getEtatMachine"
 	preserve_cpp_body_indent public explicit_return_type "bool"
 	nparams 1
 	  param in name "numeroMachine" explicit_type "int"
@@ -407,7 +407,7 @@ ${body}}
 	
       end
 
-      operation 137130 "setEtatMachine"
+      operation 171010 "setEtatMachine"
 	preserve_cpp_body_indent public explicit_return_type "void"
 	nparams 2
 	  param in name "numeroMachine" explicit_type "int"
@@ -431,7 +431,7 @@ ${body}}
 	
       end
 
-      operation 137258 "resetEtatMachines"
+      operation 171138 "resetEtatMachines"
 	preserve_cpp_body_indent public explicit_return_type "void"
 	nparams 0
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
@@ -450,7 +450,7 @@ ${body}}
 	
       end
 
-      operation 137386 "allumerNotificationMachine"
+      operation 171266 "allumerNotificationMachine"
 	preserve_cpp_body_indent public explicit_return_type "void"
 	nparams 1
 	  param in name "numeroMachine" explicit_type "int"
@@ -471,8 +471,8 @@ ${body}}
 	
       end
 
-      operation 137514 "allumerNotificationMachines"
-	preserve_cpp_body_indent public explicit_return_type "void"
+      operation 171394 "allumerNotificationMachines"
+	public explicit_return_type "void"
 	nparams 0
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
 "
@@ -482,7 +482,7 @@ ${body}}
 	
       end
 
-      operation 137642 "eteindreNotificationMachine"
+      operation 171522 "eteindreNotificationMachine"
 	preserve_cpp_body_indent public explicit_return_type "void"
 	nparams 1
 	  param in name "numeroMachine" explicit_type "int"
@@ -503,8 +503,8 @@ ${body}}
 	
       end
 
-      operation 137770 "eteindreNotificationMachines"
-	preserve_cpp_body_indent public explicit_return_type "void"
+      operation 171650 "eteindreNotificationMachines"
+	public explicit_return_type "void"
 	nparams 0
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
 "
@@ -514,7 +514,7 @@ ${body}}
 	
       end
 
-      operation 137898 "estIdValidePoubelle"
+      operation 171778 "estIdValidePoubelle"
 	preserve_cpp_body_indent public explicit_return_type "bool"
 	nparams 1
 	  param in name "numeroPoubelle" explicit_type "int"
@@ -537,7 +537,7 @@ ${body}}
 	
       end
 
-      operation 138026 "getEtatPoubelle"
+      operation 171906 "getEtatPoubelle"
 	preserve_cpp_body_indent public explicit_return_type "bool"
 	nparams 1
 	  param in name "numeroPoubelle" explicit_type "int"
@@ -559,7 +559,7 @@ ${body}}
 	
       end
 
-      operation 139562 "setEtatPoubelle"
+      operation 172034 "setEtatPoubelle"
 	preserve_cpp_body_indent public explicit_return_type "void"
 	nparams 2
 	  param in name "numeroPoubelle" explicit_type "int"
@@ -583,7 +583,7 @@ ${body}}
 	
       end
 
-      operation 138410 "resetEtatPoubelles"
+      operation 172162 "resetEtatPoubelles"
 	preserve_cpp_body_indent public explicit_return_type "void"
 	nparams 0
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
@@ -602,7 +602,7 @@ ${body}}
 	
       end
 
-      operation 138538 "allumerNotificationPoubelle"
+      operation 172290 "allumerNotificationPoubelle"
 	preserve_cpp_body_indent public explicit_return_type "void"
 	nparams 1
 	  param in name "numeroPoubelle" explicit_type "int"
@@ -624,7 +624,7 @@ ${body}}
 	
       end
 
-      operation 138794 "eteindreNotificationPoubelle"
+      operation 172418 "eteindreNotificationPoubelle"
 	preserve_cpp_body_indent public explicit_return_type "void"
 	nparams 1
 	  param in name "numeroPoubelle" explicit_type "int"
@@ -647,11 +647,11 @@ ${body}}
     end
   end
 
-  deploymentview 134698 "StationLumineuse"
+  deploymentview 141314 "StationLumineuse"
     //deployment diagram settings
     deploymentdiagramsettings
      end
-    artifact 134698 "StationLumineuse"
+    artifact 141954 "StationLumineuse"
       stereotype "source"
       cpp_h "#ifndef ${NAMESPACE}_${NAME}_H
 #define ${NAMESPACE}_${NAME}_H
@@ -670,7 +670,7 @@ ${namespace_start}
 ${members}
 ${namespace_end}"
       associated_elems
-	class_ref 134826 // StationLumineuse
+	class_ref 175490 // StationLumineuse
       end
     end
   end

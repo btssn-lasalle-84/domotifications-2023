@@ -29,7 +29,7 @@ ServeurWeb::ServeurWeb(StationLumineuse* stationLumineuse) :
  méthodes membres à chaque route.
  */
 void ServeurWeb::demarrer()
-{
+ {
     setNom();
 #ifdef DEBUG_SERVEUR_WEB
     Serial.print(F("ServeurWeb::demarrer() : adresse IP = "));
@@ -39,7 +39,7 @@ void ServeurWeb::demarrer()
     // Installe les gestionnaires de requêtes
     on("/", HTTP_GET, std::bind(&ServeurWeb::afficherAccueil, this));
     on("/notifications", std::bind(&ServeurWeb::traiterRequeteGETNotifications, this));
-    
+
     on("/activations",HTTP_GET, std::bind(&ServeurWeb::traiterRequeteGETActivations, this));
     on("/activation",HTTP_POST,std::bind(&ServeurWeb::traiterRequetePOSTActivation, this));
 
@@ -100,6 +100,30 @@ void ServeurWeb::setNom(String nomStationLumineuse)
         Serial.println("setNom() http://" + nomStationLumineuse + ".local/");
 #endif
     }
+}
+
+/**
+ * @brief Affiche la page d'accueil du serveur web
+ * @fn ServeurWeb::installerGestionnairesRequetes
+ * @details Installe les gestionnaires de requêtes GET/POST
+ */
+void ServeurWeb::installerGestionnairesRequetes()
+{
+    on("/", HTTP_GET, std::bind(&ServeurWeb::afficherAccueil, this));
+    on("/notifications", std::bind(&ServeurWeb::traiterRequeteGETNotifications, this));
+    on("/boite", HTTP_GET, std::bind(&ServeurWeb::traiterRequeteGETBoite, this));
+    on("/boite", HTTP_POST, std::bind(&ServeurWeb::traiterRequetePOSTBoite, this));
+    on("/machine", HTTP_GET, std::bind(&ServeurWeb::traiterRequeteGETMachine, this));
+    on("/machine",
+       HTTP_POST,
+       std::bind(&ServeurWeb::traiterRequetePOSTMachine,
+                 this)); // Ajout de la route /machine en POST
+    on("/poubelle", HTTP_GET, std::bind(&ServeurWeb::traiterRequeteGETPoubelle, this));
+    on("/poubelle",
+       HTTP_POST,
+       std::bind(&ServeurWeb::traiterRequetePOSTPoubelle,
+                 this)); // Ajout de la route /poubelle en POST
+    onNotFound(std::bind(&ServeurWeb::traiterRequeteNonTrouvee, this));
 }
 
 /**
@@ -406,7 +430,7 @@ void ServeurWeb::traiterRequeteGETMachine()
 
     if(hasArg("id") && hasArg("etat"))
     {
-        int id = arg("id").toInt();
+        int  id   = arg("id").toInt();
         bool etat = (arg("etat") == "1") || (arg("etat") == "true");
 
 #ifdef DEBUG_SERVEUR_WEB
@@ -416,15 +440,15 @@ void ServeurWeb::traiterRequeteGETMachine()
         Serial.println(etat);
 #endif
 
-        if (stationLumineuse->estIdValideMachine(id))
+        if(stationLumineuse->estIdValideMachine(id))
         {
             // Modifie l'état de la machine
             stationLumineuse->setEtatMachine(id, etat);
 
             send(200,
-                "application/json",
-                "{\"machine\": "
-                "\"ok\"}");
+                 "application/json",
+                 "{\"machine\": "
+                 "\"ok\"}");
         }
         else
         {
@@ -437,7 +461,8 @@ void ServeurWeb::traiterRequeteGETMachine()
     else if(hasArg("id"))
     {
         int id = arg("id").toInt();
-        if(stationLumineuse->estIdValideMachine(id)){
+        if(stationLumineuse->estIdValideMachine(id))
+        {
             // Récupérer l'état actuel de la machine
             bool etat = stationLumineuse->getEtatMachine(id);
 
@@ -449,7 +474,8 @@ void ServeurWeb::traiterRequeteGETMachine()
             jsonResponse += "}";
             send(200, "application/json", jsonResponse);
         }
-        else {
+        else
+        {
             send(404,
                  "application/json",
                  "{\"error\": { \"code\": \"notFound\", \"message\": "
@@ -473,7 +499,6 @@ void ServeurWeb::traiterRequeteGETMachine()
         send(400, "text/plain", message);
     }
 }
-
 
 /**
  * @brief Traite la requête POST pour modifier l'état d'une machine
@@ -523,47 +548,27 @@ void ServeurWeb::traiterRequetePOSTMachine()
     }
     else
     {
-        JsonObject objetJSON = documentJSON.as<JsonObject>();
-        if(objetJSON.containsKey("etat") && objetJSON.containsKey("id"))
+        int  numeroMachine = extraireId();
+        bool etatMachine   = extraireEtat();
+
+        if(stationLumineuse->estIdValideMachine(numeroMachine))
         {
-#ifdef DEBUG_SERVEUR_WEB
-            Serial.print(F("id : "));
-            Serial.println(documentJSON["id"].as<int>());
-            Serial.print(F("etat : "));
-            Serial.println(documentJSON["etat"].as<bool>());
-#endif
+            stationLumineuse->setEtatMachine(numeroMachine, etatMachine);
 
-            // Modifier l'état de la machine ici
-            int  numeroMachine = documentJSON["id"].as<int>();
-            bool etatMachine   = documentJSON["etat"].as<bool>();
-
-            if(stationLumineuse->estIdValideMachine(numeroMachine))
-            {
-                stationLumineuse->setEtatMachine(numeroMachine, etatMachine);
-
-                send(200,
-                     "application/json",
-                     "{\"machine\": "
-                     "\"ok\"}");
-            }
-            else
-            {
-                send(404,
-                     "application/json",
-                     "{\"error\": { \"code\": \"notFound\", \"message\": "
-                     "\"La machine demandée n'existe pas.\"}}");
-            }
+            send(200,
+                 "application/json",
+                 "{\"machine\": "
+                 "\"ok\"}");
         }
         else
         {
 #ifdef DEBUG_SERVEUR_WEB
-            Serial.print(F("Erreur : champ etat ou numeroMachine manquant"));
+            Serial.print(F("Erreur : champ id invalide"));
 #endif
             send(400,
                  "application/json",
                  "{\"error\": { \"code\": \"invalidRequest\", \"message\": "
-                 "\"La demande est incomplète.\"}}");
-            return;
+                 "\"La demande est invalide.\"}}");
         }
     }
 }
@@ -595,7 +600,7 @@ void ServeurWeb::traiterRequeteGETPoubelle()
 
     if(hasArg("id") && hasArg("etat"))
     {
-        int id = arg("id").toInt();
+        int  id   = arg("id").toInt();
         bool etat = (arg("etat") == "1") || (arg("etat") == "true");
 
 #ifdef DEBUG_SERVEUR_WEB
@@ -605,15 +610,15 @@ void ServeurWeb::traiterRequeteGETPoubelle()
         Serial.println(etat);
 #endif
 
-        if (stationLumineuse->estIdValidePoubelle(id))
+        if(stationLumineuse->estIdValidePoubelle(id))
         {
             // Modifie l'état de la poubelle
             stationLumineuse->setEtatPoubelle(id, etat);
 
             send(200,
-                "application/json",
-                "{\"poubelle\": "
-                "\"ok\"}");
+                 "application/json",
+                 "{\"poubelle\": "
+                 "\"ok\"}");
         }
         else
         {
@@ -626,7 +631,8 @@ void ServeurWeb::traiterRequeteGETPoubelle()
     else if(hasArg("id"))
     {
         int id = arg("id").toInt();
-        if(stationLumineuse->estIdValidePoubelle(id)){
+        if(stationLumineuse->estIdValidePoubelle(id))
+        {
             // Récupérer l'état actuel de la poubelle
             bool etat = stationLumineuse->getEtatPoubelle(id);
 
@@ -638,7 +644,8 @@ void ServeurWeb::traiterRequeteGETPoubelle()
             jsonResponse += "}";
             send(200, "application/json", jsonResponse);
         }
-        else {
+        else
+        {
             send(404,
                  "application/json",
                  "{\"error\": { \"code\": \"notFound\", \"message\": "
@@ -784,4 +791,43 @@ void ServeurWeb::traiterRequeteNonTrouvee()
         message += " " + argName(i) + ": " + arg(i) + "\n";
     }
     send(404, "text/plain", message);
+}
+
+/**
+ * @brief Extrait l'id dans les données JSON
+ * @fn ServeurWeb::extraireId
+ * @return int l'id du module ou -1
+ */
+int ServeurWeb::extraireId()
+{
+    JsonObject objetJSON = documentJSON.as<JsonObject>();
+    if(objetJSON.containsKey("id"))
+    {
+#ifdef DEBUG_SERVEUR_WEB
+        Serial.print(F("id : "));
+        Serial.println(documentJSON["id"].as<int>());
+#endif
+        return documentJSON["id"].as<int>();
+    }
+    return -1;
+}
+
+/**
+ * @brief Extrait l'état dans les données JSON
+ * @fn ServeurWeb::extraireEtat
+ * @return bool
+ */
+bool ServeurWeb::extraireEtat()
+{
+    JsonObject objetJSON = documentJSON.as<JsonObject>();
+    if(objetJSON.containsKey("etat"))
+    {
+#ifdef DEBUG_SERVEUR_WEB
+        Serial.print(F("etat : "));
+        Serial.println(documentJSON["etat"].as<bool>());
+#endif
+
+        return documentJSON["etat"].as<bool>();
+    }
+    return false;
 }
