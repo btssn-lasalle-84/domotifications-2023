@@ -173,7 +173,7 @@ void IHMDomotifications::initialiserWidgets()
     imageBoutonDesactivation = new QPixmap(CHEMIN_BOUTON_DESACTIVATION);
     imageBoutonAcquittement  = new QPixmap(CHEMIN_BOUTON_ACQUITTEMENT);
     // imageLogoBTS             = new QPixmap(CHEMIN_LOGO_BTS_SN);
-    imageLogoParametre = new QPixmap(CHEMIN_LOGO_PARAMETRE);
+    // imageLogoParametre = new QPixmap(CHEMIN_LOGO_PARAMETRE);
     for(auto i = 0; i < poubelles.size(); i++)
     {
         imagesLogoPoubelle.push_back(

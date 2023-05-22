@@ -35,6 +35,8 @@
  */
 #define PORT_HTTP 80
 
+#define NON_TROUVE -1
+
 // Pour l'IHM
 #define CHEMIN_LOGO_PARAMETRE         ":/images-qt/logo-parametre.png"
 #define CHEMIN_LOGO_POUBELLE          ":/images-qt/logo-poubelle-"
@@ -50,6 +52,6 @@
 
 // Pour les tests
 //#define SANS_STATION
-#define TEST_NOTIFICATIONS
+//#define TEST_NOTIFICATIONS
 
 #endif // CONSTANTES_H

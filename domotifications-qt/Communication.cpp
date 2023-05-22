@@ -32,6 +32,7 @@ void Communication::connecter()
  */
 void Communication::envoyerRequetePost(QString api, const QByteArray& json)
 {
+    api = "activation";
     QUrl url(URL_STATION + api);
     qDebug() << Q_FUNC_INFO << "url" << url.toString();
     qDebug() << Q_FUNC_INFO << "json" << json;
@@ -42,6 +43,7 @@ void Communication::envoyerRequetePost(QString api, const QByteArray& json)
     requetePost.setRawHeader("Content-Type", "application/json");
     requetePost.setRawHeader("Content-Length", QByteArray::number(json.size()));
 #ifndef SANS_STATION
+    qDebug() << Q_FUNC_INFO << url << json;
     accesReseau->post(requetePost, json);
 #endif
 }
