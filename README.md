@@ -7,7 +7,7 @@
 - [Le projet domotifications 2023](#le-projet-domotifications-2023)
   - [Documentation du code](#documentation-du-code)
   - [Versions](#versions)
-    - [0.1](#01)
+    - [0.2](#01)
   - [Auteurs](#auteurs)
 
 ---
@@ -28,11 +28,11 @@ https://btssn-lasalle-84.github.io/domotifications-2023/
 
 ## Versions
 
-### 0.1
+### 0.2
 
-![](images/jira-tickets-v0.1.png)
+![](images/jira-tickets-v0.2.png)
 
-![](images/screenshot-qt-domotifications-v0.1.png)
+![](images/screenshot-qt-domotifications-v0.2.png)
 
 ## Auteurs
 
