@@ -39,6 +39,10 @@ void ServeurWeb::demarrer()
     // Installe les gestionnaires de requêtes
     on("/", HTTP_GET, std::bind(&ServeurWeb::afficherAccueil, this));
     on("/notifications", std::bind(&ServeurWeb::traiterRequeteGETNotifications, this));
+    
+    on("/activations",HTTP_GET, std::bind(&ServeurWeb::traiterRequeteGETActivations, this));
+    on("/activation",HTTP_POST,std::bind(&ServeurWeb::traiterRequetePOSTActivation, this));
+
     on("/boite", HTTP_GET, std::bind(&ServeurWeb::traiterRequeteGETBoite, this));
     on("/boite", HTTP_POST, std::bind(&ServeurWeb::traiterRequetePOSTBoite, this));
     on("/machine", HTTP_GET, std::bind(&ServeurWeb::traiterRequeteGETMachine, this));
@@ -144,7 +148,7 @@ void ServeurWeb::traiterRequeteGETNotifications()
     {
         machines.add(stationLumineuse->getEtatMachine(i));
     }
-    JsonArray poubelle = documentJSON.createNestedArray("poubelle");
+    JsonArray poubelle = documentJSON.createNestedArray("poubelles");
     for(int i = 0; i < NB_LEDS_NOTIFICATION_POUBELLES; ++i)
     {
         poubelle.add(stationLumineuse->getEtatPoubelle(i));
@@ -159,6 +163,89 @@ void ServeurWeb::traiterRequeteGETNotifications()
     serializeJson(documentJSON, buffer);
     send(200, "application/json", buffer);
 }
+
+void ServeurWeb::traiterRequeteGETActivations()
+{
+#ifdef DEBUG_SERVEUR_WEB
+    Serial.print(F("ServeurWeb::traiterRequeteGETActivations() : requête = "));
+    Serial.println((method() == HTTP_GET) ? "GET" : "POST");
+    Serial.print(F("URI : "));
+    Serial.println(uri());
+#endif
+
+    documentJSON.clear();
+    documentJSON["boite"] = stationLumineuse->getActivationBoiteAuxLettres(); // Remplacez par la méthode appropriée pour obtenir l'état d'activation de la boîte aux lettres
+    JsonArray machines    = documentJSON.createNestedArray("machines");
+    for(int i = 0; i < NB_LEDS_NOTIFICATION_MACHINES; ++i)
+    {
+        machines.add(stationLumineuse->getActivationMachine(i)); // Remplacez par la méthode appropriée pour obtenir l'état d'activation de la machine
+    }
+    JsonArray poubelles = documentJSON.createNestedArray("poubelles");
+    for(int i = 0; i < NB_LEDS_NOTIFICATION_POUBELLES; ++i)
+    {
+        poubelles.add(stationLumineuse->getActivationPoubelle(i)); // Remplacez par la méthode appropriée pour obtenir l'état d'activation de la poubelle
+    }
+
+#ifdef DEBUG_SERVEUR_WEB
+    Serial.print(F("JSON : "));
+    serializeJson(documentJSON, Serial);
+    Serial.println();
+#endif
+    char buffer[TAILLE_JSON];
+    serializeJson(documentJSON, buffer);
+    send(200, "application/json", buffer);
+}
+
+void ServeurWeb::traiterRequetePOSTActivation()
+{
+#ifdef DEBUG_SERVEUR_WEB
+    Serial.print(F("ServeurWeb::traiterRequetePOSTActivation() : requête = "));
+    Serial.println((method() == HTTP_POST) ? "POST" : "GET");
+    Serial.print(F("URI : "));
+    Serial.println(uri());
+#endif
+
+    // Récupérer les paramètres POST
+    String moduleType = arg("module");
+    int id = arg("id").toInt();
+    bool etat = arg("etat").toInt() != 0;
+
+    // Vérifier le type de module et mettre à jour l'état d'activation
+    if (moduleType == "boite")
+    {
+        stationLumineuse->setActivationBoiteAuxLettres(etat);
+        send(200, "application/json", "{\"type\": \"ok\"}");
+    }
+    else if (moduleType == "machine")
+    {
+        if (stationLumineuse->estIdValideMachine(id))
+        {
+            stationLumineuse->setActivationMachine(id, etat);
+            send(200, "application/json", "{\"type\": \"ok\"}");
+        }
+        else
+        {
+            send(400, "application/json", "{\"erreur\": \"Identifiant de machine invalide\"}");
+        }
+    }
+    else if (moduleType == "poubelle")
+    {
+        if (stationLumineuse->estIdValidePoubelle(id))
+        {
+            stationLumineuse->setActivationPoubelle(id, etat);
+            send(200, "application/json", "{\"type\": \"ok\"}");
+        }
+        else
+        {
+            send(400, "application/json", "{\"erreur\": \"Identifiant de poubelle invalide\"}");
+        }
+    }
+    else
+    {
+        send(400, "application/json", "{\"erreur\": \"Type de module invalide\"}");
+    }
+}
+
 
 /**
  * @brief Traite une requête HTTP GET relative à la boîte aux lettres

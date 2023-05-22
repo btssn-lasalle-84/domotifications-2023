@@ -115,8 +115,8 @@ void StationLumineuse::initialiserCouleursPoubelles()
         { 0, 0, 255 },     // Couleur poubelle 0 (bleue)
         { 0, 255, 0 },     // Couleur poubelle 1 (verte)
         { 255, 255, 0 },   // Couleur poubelle 2 (jaune)
-        { 128, 128, 128 }, // Couleur poubelle 3 (grise)
-        { 255, 0, 0 }      // Couleur poubelle 4 (rouge)
+        { 255, 0, 0 },     // Couleur poubelle 3 (rouge)
+        { 128, 128, 128 }  // Couleur poubelle 4 (grise)
     };
 
     for(uint8_t i = 0; i < NB_LEDS_NOTIFICATION_POUBELLES; i++)
@@ -124,6 +124,20 @@ void StationLumineuse::initialiserCouleursPoubelles()
         couleursPoubelles[i] =
           leds.Color(couleursRGB[i][ROUGE], couleursRGB[i][VERT], couleursRGB[i][BLEU]);
     }
+}
+
+void StationLumineuse::setActivationBoiteAuxLettres(bool etat)
+{
+    activationBoiteAuxLettres = etat;
+    if (!etat)
+    {
+        resetEtatBoiteAuxLettres();
+    }
+}
+
+bool StationLumineuse::getActivationBoiteAuxLettres()
+{
+    return activationBoiteAuxLettres;
 }
 
 /**
@@ -146,15 +160,18 @@ bool StationLumineuse::getEtatBoiteAuxLettres()
  */
 void StationLumineuse::setEtatBoiteAuxLettres(bool etat)
 {
-    etatBoiteAuxLettres = etat;
-    preferences.putBool("boite", etatBoiteAuxLettres);
-    if(etat)
+    if (activationBoiteAuxLettres) // Vérifiez si la boîte aux lettres est activée
     {
-        allumerNotificationBoiteAuxLettres();
-    }
-    else
-    {
-        eteindreNotificationBoiteAuxLettres();
+        etatBoiteAuxLettres = etat;
+        preferences.putBool("boite", etatBoiteAuxLettres);
+        if(etat)
+        {
+            allumerNotificationBoiteAuxLettres();
+        }
+        else
+        {
+            eteindreNotificationBoiteAuxLettres();
+        }
     }
 }
 
@@ -202,6 +219,35 @@ void StationLumineuse::eteindreNotificationBoiteAuxLettres()
     }
 }
 
+void StationLumineuse::setActivationMachine(int id, bool etat)
+{
+    if (estIdValideMachine(id))
+    {
+        activationMachines[id] = etat;
+        if (!etat)
+        {
+            resetEtatMachines(id);
+        }
+    }
+    else
+    {
+        Serial.println(F("Erreur: Identifiant de machine invalide"));
+    }
+}
+
+bool StationLumineuse::getActivationMachine(int id)
+{
+    if (estIdValideMachine(id))
+    {
+        return activationMachines[id];
+    }
+    else
+    {
+        Serial.println(F("Erreur: Identifiant de machine invalide"));
+        return false;
+    }
+}
+
 /**
  * @brief Vérifie si l'ID de la machine est valide
  * @fn StationLumineuse::estIdValideMachines
@@ -243,19 +289,22 @@ bool StationLumineuse::getEtatMachine(int numeroMachine)
  */
 void StationLumineuse::setEtatMachine(int numeroMachine, bool etat)
 {
-    if(!estIdValideMachine(numeroMachine))
-        return;
-    etatMachines[numeroMachine] = etat;
-    char cle[64]                = "";
-    sprintf((char*)cle, "%s%d", "machine", numeroMachine);
-    preferences.putBool(cle, etatMachines[numeroMachine]);
-    if(etat)
+    if (activationMachines[numeroMachine]) // Vérifiez si la machine est activée
     {
-        allumerNotificationMachine(numeroMachine);
-    }
-    else
-    {
-        eteindreNotificationMachine(numeroMachine);
+        if(!estIdValideMachine(numeroMachine))
+            return;
+        etatMachines[numeroMachine] = etat;
+        char cle[64]                = "";
+        sprintf((char*)cle, "%s%d", "machine", numeroMachine);
+        preferences.putBool(cle, etatMachines[numeroMachine]);
+        if(etat)
+        {
+            allumerNotificationMachine(numeroMachine);
+        }
+        else
+        {
+            eteindreNotificationMachine(numeroMachine);
+        }
     }
 }
 
@@ -264,17 +313,22 @@ void StationLumineuse::setEtatMachine(int numeroMachine, bool etat)
  * @fn StationLumineuse::resetEtatMachines
  * @details Change l'état de toutes les machines en false et éteint les notifications associées
  */
-void StationLumineuse::resetEtatMachines()
+void StationLumineuse::resetEtatMachines(int numeroMachine)
 {
-    for(int i = 0; i < NB_LEDS_NOTIFICATION_MACHINES; i++)
+    if (estIdValideMachine(numeroMachine))
     {
-        etatMachines[i] = false;
-        char cle[64]    = "";
-        sprintf((char*)cle, "%s%d", "machine", i);
-        preferences.putBool(cle, etatMachines[i]);
-        eteindreNotificationPoubelle(i);
+        etatMachines[numeroMachine] = false;
+        char cle[64] = "";
+        sprintf((char*)cle, "%s%d", "machine", numeroMachine);
+        preferences.putBool(cle, etatMachines[numeroMachine]);
+        eteindreNotificationMachine(numeroMachine);
+    }
+    else
+    {
+        Serial.println(F("Erreur: Identifiant de machine invalide"));
     }
 }
+
 
 /**
  * @brief Allume la notification de la machine donnée
@@ -305,6 +359,35 @@ void StationLumineuse::eteindreNotificationMachine(int numeroMachine)
         int indexLed = INDEX_LEDS_NOTIFICATION_MACHINES + numeroMachine;
         leds.setPixelColor(indexLed, leds.Color(0, 0, 0));
         leds.show();
+    }
+}
+
+void StationLumineuse::setActivationPoubelle(int id, bool etat)
+{
+    if (estIdValidePoubelle(id))
+    {
+        activationPoubelles[id] = etat;
+        if (!etat)
+        {
+            resetEtatPoubelles(id);
+        }
+    }
+    else
+    {
+        Serial.println(F("Erreur: Identifiant de poubelle invalide"));
+    }
+}
+
+bool StationLumineuse::getActivationPoubelle(int id)
+{
+    if (estIdValidePoubelle(id))
+    {
+        return activationPoubelles[id];
+    }
+    else
+    {
+        Serial.println(F("Erreur: Identifiant de poubelle invalide"));
+        return false;
     }
 }
 
@@ -350,19 +433,22 @@ bool StationLumineuse::getEtatPoubelle(int numeroPoubelle)
  */
 void StationLumineuse::setEtatPoubelle(int numeroPoubelle, bool etat)
 {
-    if(!estIdValidePoubelle(numeroPoubelle))
-        return;
-    etatPoubelles[numeroPoubelle] = etat;
-    char cle[64]                  = "";
-    sprintf((char*)cle, "%s%d", "poubelle", numeroPoubelle);
-    preferences.putBool(cle, etatPoubelles[numeroPoubelle]);
-    if(etat)
+    if (activationPoubelles[numeroPoubelle]) // Vérifiez si la poubelle est activée
     {
-        allumerNotificationPoubelle(numeroPoubelle);
-    }
-    else
-    {
-        eteindreNotificationPoubelle(numeroPoubelle);
+        if(!estIdValidePoubelle(numeroPoubelle))
+            return;
+        etatPoubelles[numeroPoubelle] = etat;
+        char cle[64]                  = "";
+        sprintf((char*)cle, "%s%d", "poubelle", numeroPoubelle);
+        preferences.putBool(cle, etatPoubelles[numeroPoubelle]);
+        if(etat)
+        {
+            allumerNotificationPoubelle(numeroPoubelle);
+        }
+        else
+        {
+            eteindreNotificationPoubelle(numeroPoubelle);
+        }
     }
 }
 
@@ -371,17 +457,22 @@ void StationLumineuse::setEtatPoubelle(int numeroPoubelle, bool etat)
  * @fn StationLumineuse::resetEtatPoubelles
  * @details Change l'état de toutes les poubelles et éteint les notifications associées
  */
-void StationLumineuse::resetEtatPoubelles()
+void StationLumineuse::resetEtatPoubelles(int numeroPoubelle)
 {
-    for(int i = 0; i < NB_LEDS_NOTIFICATION_POUBELLES; i++)
+    if (estIdValidePoubelle(numeroPoubelle))
     {
-        etatPoubelles[i] = false;
-        char cle[64]     = "";
-        sprintf((char*)cle, "%s%d", "poubelle", i);
-        preferences.putBool(cle, etatPoubelles[i]);
-        eteindreNotificationPoubelle(i);
+        etatPoubelles[numeroPoubelle] = false;
+        char cle[64] = "";
+        sprintf((char*)cle, "%s%d", "poubelle", numeroPoubelle);
+        preferences.putBool(cle, etatPoubelles[numeroPoubelle]);
+        eteindreNotificationPoubelle(numeroPoubelle);
+    }
+    else
+    {
+        Serial.println(F("Erreur: Identifiant de poubelle invalide"));
     }
 }
+
 
 /**
  * @brief Allume la notification de la poubelle donnée

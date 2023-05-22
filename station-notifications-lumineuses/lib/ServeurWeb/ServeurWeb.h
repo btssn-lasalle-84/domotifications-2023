@@ -46,6 +46,8 @@ class ServeurWeb : public WebServer
     void setNom(String nomStationLumineuse = NOM_SERVEUR_WEB);
     void afficherAccueil();
     void traiterRequeteGETNotifications();
+    void traiterRequeteGETActivations();
+    void traiterRequetePOSTActivation();
     void traiterRequeteGETBoite();
     void traiterRequetePOSTBoite();
     void traiterRequeteGETMachine();
