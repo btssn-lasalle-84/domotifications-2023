@@ -27,7 +27,7 @@
   <td id="projectlogo"><img alt="Logo" src="projet-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Projet domotifications
-   &#160;<span id="projectnumber">0.1</span>
+   &#160;<span id="projectnumber">0.2</span>
    </div>
    <div id="projectbrief">BTS SNIR LaSalle Avignon 2023</div>
   </td>
@@ -86,12 +86,22 @@ $(document).ready(function(){initNavTree('globals.html',''); initResizable(); })
 <div class="contents">
 <div class="textblock">Liste de toutes les fonctions, variables, macros, enumérations, et définitions de type avec des liens vers les fichiers auxquels ils appartiennent :</div>
 
+<h3><a id="index_b"></a>- b -</h3><ul>
+<li>BLEU
+: <a class="el" href="_station_lumineuse_8h.html#ae22837728df88da892b4bb16bb98296d">StationLumineuse.h</a>
+</li>
+</ul>
+
+
 <h3><a id="index_c"></a>- c -</h3><ul>
 <li>CHEMIN_BOUTON_ACQUITTEMENT
 : <a class="el" href="_constantes_8h.html#acece56c6e0499c0d2adae7d949c608d1">Constantes.h</a>
 </li>
-<li>CHEMIN_BOUTON_ACTIVATION_DESACTIVATION
-: <a class="el" href="_constantes_8h.html#aa9c6bae1aed7662112b7d8144123974c">Constantes.h</a>
+<li>CHEMIN_BOUTON_ACTIVATION
+: <a class="el" href="_constantes_8h.html#ad14bd290a97824ee7fdff4dad5f5961e">Constantes.h</a>
+</li>
+<li>CHEMIN_BOUTON_DESACTIVATION
+: <a class="el" href="_constantes_8h.html#afc3194bc95d4b852262467e8835fa6b3">Constantes.h</a>
 </li>
 <li>CHEMIN_LOGO_BOITE_AUX_LETTRES
 : <a class="el" href="_constantes_8h.html#a5b1414879132d310e2754eaa2a61470e">Constantes.h</a>
@@ -115,13 +125,13 @@ $(document).ready(function(){initNavTree('globals.html',''); initResizable(); })
 <li>DEBUG_SERVEUR_WEB
 : <a class="el" href="_serveur_web_8h.html#a457747e9f92eb4fc3ce5ab61a5d08eb6">ServeurWeb.h</a>
 </li>
-<li>DEBUG_STATION_LUMINEUSE
-: <a class="el" href="_station_lumineuse_8h.html#a1b5f6e32208d4420440542f41686f705">StationLumineuse.h</a>
-</li>
 </ul>
 
 
 <h3><a id="index_e"></a>- e -</h3><ul>
+<li>ERREUR_BROWNOUT
+: <a class="el" href="station-notifications-lumineuses_2src_2main_8cpp.html#a83562b86eeb1d0bf1af0e4e556749c7f">station-notifications-lumineuses/src/main.cpp</a>
+</li>
 <li>espClient
 : <a class="el" href="station-notifications-lumineuses_2src_2main_8cpp.html#abd77e757e4b3bb6f1e4b42b21ea9e040">station-notifications-lumineuses/src/main.cpp</a>
 </li>
@@ -166,6 +176,9 @@ $(document).ready(function(){initNavTree('globals.html',''); initResizable(); })
 
 
 <h3><a id="index_n"></a>- n -</h3><ul>
+<li>NB_COULEURS
+: <a class="el" href="_station_lumineuse_8h.html#a89ad436eb02e0483d24e46d0889e64e2">StationLumineuse.h</a>
+</li>
 <li>NB_LEDS
 : <a class="el" href="_station_lumineuse_8h.html#a9584ca171945d6fc1e8a19b2bf05c55b">StationLumineuse.h</a>
 </li>
@@ -181,6 +194,12 @@ $(document).ready(function(){initNavTree('globals.html',''); initResizable(); })
 <li>NOM_SERVEUR_WEB
 : <a class="el" href="_serveur_web_8h.html#ab71e20e2b03332d5786123f061dac79e">ServeurWeb.h</a>
 </li>
+<li>NOM_STATION
+: <a class="el" href="_constantes_8h.html#a48979c0c41c24dd34a9636103d278313">Constantes.h</a>
+</li>
+<li>NON_TROUVE
+: <a class="el" href="_constantes_8h.html#af79745369266041dfec45b3d49b9073c">Constantes.h</a>
+</li>
 </ul>
 
 
@@ -189,10 +208,17 @@ $(document).ready(function(){initNavTree('globals.html',''); initResizable(); })
 : <a class="el" href="_station_lumineuse_8h.html#a28b29f7e9fbbebea9d599a752f64160e">StationLumineuse.h</a>
 </li>
 <li>PORT_HTTP
-: <a class="el" href="_communication_8h.html#a5158b1e31a4e7aa84de308e3d792a1de">Communication.h</a>
+: <a class="el" href="_constantes_8h.html#a5158b1e31a4e7aa84de308e3d792a1de">Constantes.h</a>
 </li>
 <li>PORT_SERVEUR_WEB
 : <a class="el" href="_serveur_web_8h.html#acada9ad8dacc7ad524c257f091b13f01">ServeurWeb.h</a>
+</li>
+</ul>
+
+
+<h3><a id="index_r"></a>- r -</h3><ul>
+<li>ROUGE
+: <a class="el" href="_station_lumineuse_8h.html#a358a59dd21062085dd34d5c228c5f136">StationLumineuse.h</a>
 </li>
 </ul>
 
@@ -211,11 +237,22 @@ $(document).ready(function(){initNavTree('globals.html',''); initResizable(); })
 <li>TAILLE_JSON
 : <a class="el" href="_serveur_web_8h.html#a11a025c8bafe7b0ac9a8cf71dab9e79e">ServeurWeb.h</a>
 </li>
-<li>TEST_NOTIFICATIONS
-: <a class="el" href="_ihm_domotifications_8h.html#a32e994d5c5dec1d41eb22b104bbefc4e">IhmDomotifications.h</a>
-</li>
 <li>TITRE_APPLICATION
 : <a class="el" href="_constantes_8h.html#a9eb2396052c2167d0e0f70355a4f6ed5">Constantes.h</a>
+</li>
+</ul>
+
+
+<h3><a id="index_u"></a>- u -</h3><ul>
+<li>URL_STATION
+: <a class="el" href="_constantes_8h.html#a565338b0a58e3ae45f6e2ab6900fa1bf">Constantes.h</a>
+</li>
+</ul>
+
+
+<h3><a id="index_v"></a>- v -</h3><ul>
+<li>VERT
+: <a class="el" href="_station_lumineuse_8h.html#a22c2b7cb14b1ffb516a9ed4a164b5cda">StationLumineuse.h</a>
 </li>
 </ul>
 
@@ -231,7 +268,7 @@ $(document).ready(function(){initNavTree('globals.html',''); initResizable(); })
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer"><img class="footer" src="lasalle-logo.png" height="31" alt="La Salle Avignon"/>&nbsp;<b>Campus La Salle Avignon</b>&nbsp;-&nbsp;9 Rue Notre Dame des 7 douleurs&nbsp;-&nbsp;BP 50165&nbsp;-&nbsp;84008 Avignon&nbsp;-&nbsp;Généré le Lundi 10 Avril 2023 00:04:14 pour Projet domotifications par&nbsp;<a href="https://www.doxygen.org/index.html">doxygen</a>&nbsp;1.9.1&nbsp;</li>
+    <li class="footer"><img class="footer" src="lasalle-logo.png" height="31" alt="La Salle Avignon"/>&nbsp;<b>Campus La Salle Avignon</b>&nbsp;-&nbsp;9 Rue Notre Dame des 7 douleurs&nbsp;-&nbsp;BP 50165&nbsp;-&nbsp;84008 Avignon&nbsp;-&nbsp;Généré le Mardi 23 Mai 2023 06:05:32 pour Projet domotifications par&nbsp;<a href="https://www.doxygen.org/index.html">doxygen</a>&nbsp;1.9.1&nbsp;</li>
   </ul>
 </div>
 </body>

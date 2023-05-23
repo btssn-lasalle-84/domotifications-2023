@@ -7,14 +7,16 @@
 - [Le projet domotifications 2023](#le-projet-domotifications-2023)
   - [Documentation du code](#documentation-du-code)
   - [Versions](#versions)
+    - [0.2](#02)
     - [0.1](#01)
+  - [Protocole](#protocole)
   - [Auteurs](#auteurs)
 
 ---
 
 Le système **domotifications** doit permettre de notifier visuellement des évènements domotiques (quand et quelle poubelle sortir, quand est-ce qu’un colis a été livré dans la boîte aux lettres et quand est-ce qu’une des machines à laver ou sécher le linge a terminé, ...).
 
-La station de notifications lumineuses est composée d’un bandeau circulaire à leds piloté par un ESP32. Celui-ci est découpé en trois groupes distincts pour les notifications :
+La [station de notifications lumineuses](station-notifications-lumineuses/README.md) est composée d’un bandeau circulaire à leds piloté par un ESP32. Celui-ci est découpé en trois groupes distincts pour les notifications :
 
 - en vert : la notification d’une machine terminée (le système peut gérer jusqu’à _n_ machines individuellement),
 - en rouge : la présence d’un colis dans la boîte aux lettres,
@@ -28,15 +30,25 @@ https://btssn-lasalle-84.github.io/domotifications-2023/
 
 ## Versions
 
+![](images/livraisons.png)
+
+### 0.2
+
+![](images/jira-tickets-v0.2.png)
+
+![](images/screenshot-qt-domotifications-v0.2.png)
+
 ### 0.1
 
 ![](images/jira-tickets-v0.1.png)
 
-![](images/screenshot-qt-domotifications-v0.1.png)
+## Protocole
+
+- [Protocole HTTP Domotifications.pdf](docs/Protocole%20HTTP%20Domotifications.pdf)
 
 ## Auteurs
 
-- Étudiant IR : Alexis VAILLEN (Station ESP32)
+- Étudiant IR : Alexis VAILLEN ([Station ESP32](station-notifications-lumineuses/README.md))
 - Étudiant IR : Mathieu MOYAERTS (Application Qt)
 
 ---

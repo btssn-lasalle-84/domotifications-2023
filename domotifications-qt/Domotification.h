@@ -16,8 +16,6 @@
 #include "Constantes.h"
 #include "Module.h"
 
-#define NON_TROUVE -1
-
 class Module;
 class Communication;
 class IHMDomotifications;
@@ -36,7 +34,6 @@ class Domotification : public QObject
 
     int              recupererIndexModule(QString typeModule, int id = 0);
     bool             getActivationModule(QString typeModule, int id = 0);
-    void             gererNotification(QString nomModule);
     void             ajouterModule(QString nomModule, Module::TypeModule type);
     void             notifier(QString message);
     QVector<Module*> getPoubelles() const;
@@ -48,6 +45,7 @@ class Domotification : public QObject
     void nouvelleNotification(QString message);
 
   public slots:
+    void gererNotification(QString typeModule, int id);
     void gererActivationModule(QString typeModule, int id);
 };
 

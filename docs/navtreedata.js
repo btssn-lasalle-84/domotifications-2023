@@ -58,7 +58,8 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"_communication_8cpp.html"
+"_communication_8cpp.html",
+"globals_vars.html"
 ];
 
 var SYNCONMSG = 'cliquez pour désactiver la synchronisation du panel';

@@ -35,7 +35,7 @@ Domotification::~Domotification()
 /**
  * @brief Gère l'activation d'un module
  * @fn Domotification::gererActivationModule
- * @param nomModule
+ * @param typeModule
  * @param id
  */
 void Domotification::gererActivationModule(QString typeModule, int id)
@@ -47,15 +47,16 @@ void Domotification::gererActivationModule(QString typeModule, int id)
         return;
 
     QByteArray json = "{";
-    json += "\"id\":" + QString::number(id) + QString(",");
+    json += "\"module\":\"" + QString(typeModule) + QString("\"") + QString(",") +
+            "\"id\":" + QString::number(id) + QString(",");
     qDebug() << Q_FUNC_INFO << "json" << json;
     if(modules[indexModule]->estActif())
     {
-        json += "\"etat\":false";
+        json += "\"etat\":0";
     }
     else
     {
-        json += "\"etat\":true";
+        json += "\"etat\":1";
     }
     json += "}";
 
@@ -107,11 +108,12 @@ bool Domotification::getActivationModule(QString typeModule, int id)
 /**
  * @fn Domotification::gererNotification
  * @brief Gère une notification
- * @param nomModule
+ * @param typeModule
+ * @param id
  */
-void Domotification::gererNotification(QString nomModule)
+void Domotification::gererNotification(QString typeModule, int id)
 {
-    qDebug() << Q_FUNC_INFO << "nomModule" << nomModule;
+    qDebug() << Q_FUNC_INFO << "typeModule" << typeModule << "id" << id;
 }
 
 /**
@@ -209,6 +211,7 @@ void Domotification::chargerModules()
     // 2 poubelles (0..5)
     modules.push_back(new Module("poubelle", Module::TypeModule::Poubelle, 0, this));
     modules.push_back(new Module("poubelle", Module::TypeModule::Poubelle, 1, this));
+    modules.push_back(new Module("poubelle", Module::TypeModule::Poubelle, 2, this));
     // 1 boite (0..1)
     modules.push_back(new Module("boite", Module::TypeModule::BoiteAuxLettres, 0, this));
     qDebug() << Q_FUNC_INFO << "modules" << modules;
