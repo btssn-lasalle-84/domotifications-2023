@@ -126,6 +126,13 @@ void StationLumineuse::initialiserCouleursPoubelles()
     }
 }
 
+/**
+ * @brief Définit l'état d'activation de la boîte aux lettres.
+ * @fn void StationLumineuse::setActivationBoiteAuxLettres(bool etat)
+ * @details Cette méthode modifie l'état d'activation de la boîte aux lettres. Si l'état est défini sur false, 
+ *          elle réinitialise également l'état de la boîte aux lettres.
+ * @param etat
+ */
 void StationLumineuse::setActivationBoiteAuxLettres(bool etat)
 {
     activationBoiteAuxLettres = etat;
@@ -135,6 +142,12 @@ void StationLumineuse::setActivationBoiteAuxLettres(bool etat)
     }
 }
 
+/**
+ * @brief Obtient l'état d'activation de la boîte aux lettres.
+ * @fn bool StationLumineuse::getActivationBoiteAuxLettres()
+ * @details Cette méthode renvoie l'état d'activation actuel de la boîte aux lettres.
+ * @return activationBoiteAuxLettres
+ */
 bool StationLumineuse::getActivationBoiteAuxLettres()
 {
     return activationBoiteAuxLettres;

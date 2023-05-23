@@ -36,7 +36,7 @@
 
 /**
  * @class StationLumineuse
- * @brief Déclaration de la classe StationLumineuse
+ * @brief Déclaration de la classe StationLumineuse 
  */
 class StationLumineuse
 {

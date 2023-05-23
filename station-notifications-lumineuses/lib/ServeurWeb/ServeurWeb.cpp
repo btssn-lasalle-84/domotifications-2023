@@ -39,7 +39,7 @@ void ServeurWeb::demarrer()
     // Installe les gestionnaires de requêtes
     on("/", HTTP_GET, std::bind(&ServeurWeb::afficherAccueil, this));
     on("/notifications", std::bind(&ServeurWeb::traiterRequeteGETNotifications, this));
-    
+
     on("/activations",HTTP_GET, std::bind(&ServeurWeb::traiterRequeteGETActivations, this));
     on("/activation",HTTP_POST,std::bind(&ServeurWeb::traiterRequetePOSTActivation, this));
 
@@ -164,6 +164,12 @@ void ServeurWeb::traiterRequeteGETNotifications()
     send(200, "application/json", buffer);
 }
 
+/**
+ * @brief Traite une requête GET pour obtenir les activations.
+ * @fn void ServeurWeb::traiterRequeteGETActivations()
+ * @details Cette méthode récupère l'état d'activation de la boîte aux lettres, des machines et des poubelles. 
+ *          Elle crée un document JSON avec ces informations et l'envoie en réponse à la requête.
+ */
 void ServeurWeb::traiterRequeteGETActivations()
 {
 #ifdef DEBUG_SERVEUR_WEB
@@ -196,53 +202,116 @@ void ServeurWeb::traiterRequeteGETActivations()
     send(200, "application/json", buffer);
 }
 
+/**
+ * @brief Traite une requête POST pour modifier une activation.
+ * @fn void ServeurWeb::traiterRequetePOSTActivation()
+ * @details Cette méthode traite une requête POST qui contient des informations sur l'état d'activation 
+ *          d'un module spécifique (machine, poubelle ou boîte aux lettres). Elle modifie l'état d'activation 
+ *          du module correspondant et renvoie une réponse appropriée.
+ */
 void ServeurWeb::traiterRequetePOSTActivation()
 {
 #ifdef DEBUG_SERVEUR_WEB
     Serial.print(F("ServeurWeb::traiterRequetePOSTActivation() : requête = "));
-    Serial.println((method() == HTTP_POST) ? "POST" : "GET");
+    Serial.println((method() == HTTP_GET) ? "GET" : "POST");
     Serial.print(F("URI : "));
     Serial.println(uri());
 #endif
 
-    // Récupérer les paramètres POST
-    String moduleType = arg("module");
-    int id = arg("id").toInt();
-    bool etat = arg("etat").toInt() != 0;
+    if(hasArg("plain") == false)
+    {
+#ifdef DEBUG_SERVEUR_WEB
+        Serial.println(F("Erreur !"));
+#endif
+        send(400, "application/json",
+             "{\"error\": { \"code\": \"invalidRequest\", \"message\": \"La demande est vide ou incorrecte.\"}}");
+        return;
+    }
 
-    // Vérifier le type de module et mettre à jour l'état d'activation
-    if (moduleType == "boite")
+    String body = arg("plain");
+#ifdef DEBUG_SERVEUR_WEB
+    Serial.println(body);
+#endif
+    DeserializationError erreur = deserializeJson(documentJSON, body);
+    if(erreur)
     {
-        stationLumineuse->setActivationBoiteAuxLettres(etat);
-        send(200, "application/json", "{\"type\": \"ok\"}");
-    }
-    else if (moduleType == "machine")
-    {
-        if (stationLumineuse->estIdValideMachine(id))
-        {
-            stationLumineuse->setActivationMachine(id, etat);
-            send(200, "application/json", "{\"type\": \"ok\"}");
-        }
-        else
-        {
-            send(400, "application/json", "{\"erreur\": \"Identifiant de machine invalide\"}");
-        }
-    }
-    else if (moduleType == "poubelle")
-    {
-        if (stationLumineuse->estIdValidePoubelle(id))
-        {
-            stationLumineuse->setActivationPoubelle(id, etat);
-            send(200, "application/json", "{\"type\": \"ok\"}");
-        }
-        else
-        {
-            send(400, "application/json", "{\"erreur\": \"Identifiant de poubelle invalide\"}");
-        }
+#ifdef DEBUG_SERVEUR_WEB
+        Serial.print(F("Erreur deserializeJson() : "));
+        Serial.println(erreur.f_str());
+#endif
+        send(400, "application/json",
+             "{\"error\": { \"code\": \"invalidRequest\", \"message\": \"La demande est mal exprimée ou incorrecte.\"}}");
+        return;
     }
     else
     {
-        send(400, "application/json", "{\"erreur\": \"Type de module invalide\"}");
+        JsonObject objetJSON = documentJSON.as<JsonObject>();
+        if(objetJSON.containsKey("etat") && objetJSON.containsKey("id") && objetJSON.containsKey("module"))
+        {
+#ifdef DEBUG_SERVEUR_WEB
+            Serial.print(F("module : "));
+            Serial.println(documentJSON["module"].as<String>());
+            Serial.print(F("id : "));
+            Serial.println(documentJSON["id"].as<int>());
+            Serial.print(F("etat : "));
+            Serial.println(documentJSON["etat"].as<bool>());
+#endif
+
+            String module = documentJSON["module"].as<String>();
+            int id = documentJSON["id"].as<int>();
+            bool etat = documentJSON["etat"].as<bool>();
+
+            if(module == "machine")
+            {
+                if(stationLumineuse->estIdValideMachine(id))
+                {
+                    stationLumineuse->setActivationMachine(id, etat);
+                    send(200, "application/json", "{\"machine\": \"ok\"}");
+                }
+                else
+                {
+                    send(404, "application/json",
+                         "{\"error\": { \"code\": \"notFound\", \"message\": \"La machine demandée n'existe pas.\"}}");
+                }
+            }
+            else if(module == "poubelle")
+            {
+                if(stationLumineuse->estIdValidePoubelle(id))
+                {
+                    stationLumineuse->setActivationPoubelle(id, etat);
+                    send(200, "application/json", "{\"poubelle\": \"ok\"}");
+                }
+                else
+                {
+                    send(404, "application/json",
+                         "{\"error\": { \"code\": \"notFound\", \"message\": \"La poubelle demandée n'existe pas.\"}}");
+                }
+            }
+            else if(module == "boite")
+            {
+                // Pour la boite aux lettres, il n'y a pas d'ID spécifique.
+                stationLumineuse->setActivationBoiteAuxLettres(etat);
+                send(200, "application/json", "{\"boite\": \"ok\"}");
+            }
+            else
+            {
+#ifdef DEBUG_SERVEUR_WEB
+                Serial.print(F("Erreur : module non reconnu"));
+#endif
+                send(400, "application/json",
+                     "{\"error\": { \"code\": \"invalidRequest\", \"message\": \"Le module spécifié n'est pas reconnu.\"}}");
+                return;
+            }
+        }
+        else
+        {
+#ifdef DEBUG_SERVEUR_WEB
+            Serial.print(F("Erreur : champ etat, id ou module manquant"));
+#endif
+            send(400, "application/json",
+                 "{\"error\": { \"code\": \"invalidRequest\", \"message\": \"La demande est incomplète.\"}}");
+            return;
+        }
     }
 }
 
