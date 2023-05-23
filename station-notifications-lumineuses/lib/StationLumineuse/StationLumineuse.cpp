@@ -218,7 +218,7 @@ void StationLumineuse::allumerNotificationBoiteAuxLettres()
 
 /**
  * @brief Eteint la notification lumineuse de la boîte aux lettres
- * @fn void StationLumineuse::eteindreNotificationBoiteAuxLettre
+ * @fn void StationLumineuse::eteindreNotificationBoiteAuxLettres
  * @details Eteint les LEDS de couleur rouge pour indiquer que la boîte aux lettres est vide
  */
 void StationLumineuse::eteindreNotificationBoiteAuxLettres()
@@ -263,7 +263,7 @@ bool StationLumineuse::getActivationMachine(int id)
 
 /**
  * @brief Vérifie si l'ID de la machine est valide
- * @fn StationLumineuse::estIdValideMachines
+ * @fn StationLumineuse::estIdValideMachine
  * @param numeroMachine
  * @return bool true si l'ID est valide sinon false
  * @details renvoie Vrai si l'ID de la machine est compris entre 1 et NB_MACHINES, faux sinon
@@ -275,7 +275,7 @@ bool StationLumineuse::estIdValideMachine(int numeroMachine)
 
 /**
  * @brief Récupère l'état de la machine donnée
- * @fn  StationLumineuse::getEtatMachines
+ * @fn  StationLumineuse::getEtatMachine
  * @param numeroMachine Numéro de la machine
  * @return l'état true ou false de la machine
  * @details renvoie l'etat de la machine si l'id et valide, faux sinon

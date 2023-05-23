@@ -27,7 +27,7 @@
   <td id="projectlogo"><img alt="Logo" src="projet-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Projet domotifications
-   &#160;<span id="projectnumber">0.1</span>
+   &#160;<span id="projectnumber">0.2</span>
    </div>
    <div id="projectbrief">BTS SNIR LaSalle Avignon 2023</div>
   </td>
@@ -88,11 +88,49 @@ $(document).ready(function(){initNavTree('md__mnt_sda_home_tv__documents_git_pro
 <div class="title">README </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><img src="https://img.shields.io/badge/Espressif-E7352C?logo=espressif&amp;logoColor=fff&amp;style=plastic" alt="Espressif Badge" class="inline"/></p>
-<p><a href="https://github.com/btssn-lasalle-84/domotifications-2023/actions/workflows/pages/pages-build-deployment"><img src="https://github.com/btssn-lasalle-84/domotifications-2023/actions/workflows/pages/pages-build-deployment/badge.svg?branch=develop" alt="pages-build-deployment" style="pointer-events: none;" class="inline"/></a></p>
-<h1>Le projet domotifications-2023</h1>
+<div class="textblock"><p><img src="https://img.shields.io/badge/C%2B%2B-00599C?logo=cplusplus&amp;logoColor=fff&amp;style=plastic" alt="C++ Badge" class="inline"/> <img src="https://img.shields.io/badge/Espressif-E7352C?logo=espressif&amp;logoColor=fff&amp;style=plastic" alt="Espressif Badge" class="inline"/></p>
+<p><img src="https://badgen.net/badge/Qt/5.12.8/green" alt="" class="inline"/> <a href="https://github.com/btssn-lasalle-84/domotifications-2023/actions/workflows/make-qt.yml"><img src="https://github.com/btssn-lasalle-84/domotifications-2023/actions/workflows/make-qt.yml/badge.svg" alt="qt-build" style="pointer-events: none;" class="inline"/></a> <a href="https://github.com/btssn-lasalle-84/domotifications-2023/actions/workflows/build-platformio.yml"><img src="https://github.com/btssn-lasalle-84/domotifications-2023/actions/workflows/build-platformio.yml/badge.svg" alt="platformio-build" style="pointer-events: none;" class="inline"/></a> <a href="https://github.com/btssn-lasalle-84/domotifications-2023/actions/workflows/pages/pages-build-deployment"><img src="https://github.com/btssn-lasalle-84/domotifications-2023/actions/workflows/pages/pages-build-deployment/badge.svg?branch=develop" alt="pages-build-deployment" style="pointer-events: none;" class="inline"/></a></p>
+<h1>Le projet domotifications 2023</h1>
+<ul>
+<li><a href="#le-projet-domotifications-2023">Le projet domotifications 2023</a><ul>
+<li><a href="#documentation-du-code">Documentation du code</a></li>
+<li><a href="#versions">Versions</a><ul>
+<li><a href="#02">0.2</a></li>
+<li><a href="#01">0.1</a></li>
+</ul>
+</li>
+<li><a href="#protocole">Protocole</a></li>
+<li><a href="#auteurs">Auteurs</a></li>
+</ul>
+</li>
+</ul>
 <hr  />
- <h2>Documentation du code : <a href="https://btssn-lasalle-84.github.io/domotifications-2023/">https://btssn-lasalle-84.github.io/domotifications-2023/</a> </h2>
+<p>Le système <b>domotifications</b> doit permettre de notifier visuellement des évènements domotiques (quand et quelle poubelle sortir, quand est-ce qu’un colis a été livré dans la boîte aux lettres et quand est-ce qu’une des machines à laver ou sécher le linge a terminé, ...).</p>
+<p>La <a class="el" href="md__mnt_sda_home_tv__documents_git_projets_2023_domotifications_2023_station_notifications_lumineuses__r_e_a_d_m_e.html">station de notifications lumineuses</a> est composée d’un bandeau circulaire à leds piloté par un ESP32. Celui-ci est découpé en trois groupes distincts pour les notifications :</p>
+<ul>
+<li>en vert : la notification d’une machine terminée (le système peut gérer jusqu’à <em>n</em> machines individuellement),</li>
+<li>en rouge : la présence d’un colis dans la boîte aux lettres,</li>
+<li>en rouge/bleu/vert/gris/jaune : la notification d'une poubelle de tri à sortir.</li>
+</ul>
+<p>L’application PC Desktop permet de configurer l’ensemble du système, activer/désactiver un module et afficher/acquitter une notification.</p>
+<h2>Documentation du code</h2>
+<p><a href="https://btssn-lasalle-84.github.io/domotifications-2023/">https://btssn-lasalle-84.github.io/domotifications-2023/</a></p>
+<h2>Versions</h2>
+<p><img src="livraisons.png" alt="" class="inline"/></p>
+<h3>0.2</h3>
+<p><img src="jira-tickets-v0.2.png" alt="" class="inline"/></p>
+<p><img src="screenshot-qt-domotifications-v0.2.png" alt="" class="inline"/></p>
+<h3>0.1</h3>
+<p><img src="jira-tickets-v0.1.png" alt="" class="inline"/></p>
+<h2>Protocole</h2>
+<ul>
+<li><a href="docs/Protocole%20HTTP%20Domotifications.pdf">Protocole HTTP Domotifications.pdf</a></li>
+</ul>
+<h2>Auteurs</h2>
+<ul>
+<li>Étudiant IR : Alexis VAILLEN (<a class="el" href="md__mnt_sda_home_tv__documents_git_projets_2023_domotifications_2023_station_notifications_lumineuses__r_e_a_d_m_e.html">Station ESP32</a>)</li>
+<li>Étudiant IR : Mathieu MOYAERTS (Application Qt)</li>
+</ul>
 <hr  />
 <p> ©️ LaSalle Avignon 2023 </p>
 </div></div><!-- contents -->
@@ -102,7 +140,7 @@ $(document).ready(function(){initNavTree('md__mnt_sda_home_tv__documents_git_pro
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer"><img class="footer" src="lasalle-logo.png" height="31" alt="La Salle Avignon"/>&nbsp;<b>Campus La Salle Avignon</b>&nbsp;-&nbsp;9 Rue Notre Dame des 7 douleurs&nbsp;-&nbsp;BP 50165&nbsp;-&nbsp;84008 Avignon&nbsp;-&nbsp;Généré le Lundi 10 Avril 2023 00:04:14 pour Projet domotifications par&nbsp;<a href="https://www.doxygen.org/index.html">doxygen</a>&nbsp;1.9.1&nbsp;</li>
+    <li class="footer"><img class="footer" src="lasalle-logo.png" height="31" alt="La Salle Avignon"/>&nbsp;<b>Campus La Salle Avignon</b>&nbsp;-&nbsp;9 Rue Notre Dame des 7 douleurs&nbsp;-&nbsp;BP 50165&nbsp;-&nbsp;84008 Avignon&nbsp;-&nbsp;Généré le Mardi 23 Mai 2023 06:05:32 pour Projet domotifications par&nbsp;<a href="https://www.doxygen.org/index.html">doxygen</a>&nbsp;1.9.1&nbsp;</li>
   </ul>
 </div>
 </body>

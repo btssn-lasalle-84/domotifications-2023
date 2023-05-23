@@ -1,6 +1,6 @@
 format 224
 "domotifications-qt" // domotifications-qt
-  revision 2
+  revision 5
   modified_by 42 "tv"
   // class settings
   
@@ -266,7 +266,6 @@ ${body}}
 	
 	
       end
-
     end
 
     class 167938 "typedef1"
@@ -348,7 +347,12 @@ ${inlines}
 	    defaultvalue "nullptr"
 	cpp_decl "    ${comment}${inline}${name}${(}${t0} * ${p0}${v0}${)}${volatile}${throw}${abstract};
 "
-	cpp_def "${comment}${inline}${typeprefix}${class}::${name}${(}${t0} * ${p0}${)} :
+	cpp_def "//@brief Constructeur de la classe Domotification
+//@fn Domotification::Domotification
+//@param ihm
+//
+
+${inline}${typeprefix}${class}::${name}${(}${t0} * ${p0}${)} :
     QObject(ihm), communication(new Communication(this)), ihm(ihm)
 ${throw}{
 ${body}}
@@ -364,7 +368,36 @@ ${body}}
 	nparams 0
 	cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw}${abstract};
 "
-	cpp_def "${comment}${inline}${typeprefix}${class}::${name}${(}${)}${throw}{
+	cpp_def "//@brief Destructeur de la classe Domotification
+//@fn Domotification::~Domotification
+//
+
+${inline}${typeprefix}${class}::${name}${(}${)}${throw}{
+${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 151338 "recupererIndexModule"
+	preserve_cpp_body_indent public explicit_return_type "int"
+	nparams 2
+	  param in name "typeModule" explicit_type "QString"
+	  param in name "id" explicit_type "int"
+	    defaultvalue "0"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}, ${t1} ${p1}${v1}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// Méthodes
+//
+//@brief Domotification::estGere
+//@param typeModule
+//@param id
+//@return
+//
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}, ${t1} ${p1}${)}${const}${volatile}${throw}${staticnl}{
 ${body}}
 "
 	
@@ -376,12 +409,16 @@ ${body}}
       operation 134698 "getActivationModule"
 	preserve_cpp_body_indent public explicit_return_type "bool"
 	nparams 2
-	  param in name "nomModule" explicit_type "QString"
+	  param in name "typeModule" explicit_type "QString"
 	  param in name "id" explicit_type "int"
 	    defaultvalue "0"
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}, ${t1} ${p1}${v1}${)}${const}${volatile}${throw}${abstract};
 "
-	cpp_def "// Méthodes
+	cpp_def "//@brief Domotification::getActivationModule
+//@param typeModule
+//@param id
+//@return
+//
 
 ${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}, ${t1} ${p1}${)}${const}${volatile}${throw}${staticnl}{
 ${body}}
@@ -398,7 +435,12 @@ ${body}}
 	  param in name "nomModule" explicit_type "QString"
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
 "
-	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}${)}${const}${volatile}${throw}${staticnl}{
+	cpp_def "//@fn Domotification::gererNotification
+//@brief Gère une notification
+//@param nomModule
+//
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}${)}${const}${volatile}${throw}${staticnl}{
 ${body}}
 "
 	
@@ -414,7 +456,13 @@ ${body}}
 	  param in name "type" type class_ref 168322 // TypeModule
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}, ${t1} ${p1}${v1}${)}${const}${volatile}${throw}${abstract};
 "
-	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}, ${t1} ${p1}${)}${const}${volatile}${throw}${staticnl}{
+	cpp_def "//@brief Ajoute un module
+//@fn Domotification::ajouterModule
+//@param nomModule
+//@param type
+//
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}, ${t1} ${p1}${)}${const}${volatile}${throw}${staticnl}{
 ${body}}
 "
 	
@@ -429,7 +477,31 @@ ${body}}
 	  param in name "message" explicit_type "QString"
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
 "
-	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}${)}${const}${volatile}${throw}${staticnl}{
+	cpp_def "//@brief envoyer une notification
+//@fn Domotification::notifier
+//@param message
+//
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 134954 "getPoubelles"
+	preserve_cpp_body_indent const public explicit_return_type "QVector<Module*>"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "//@brief Retourne le vecteur des modules poubelles
+//@fn Domotification::getPoubelles
+//@return
+//
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
 ${body}}
 "
 	
@@ -443,22 +515,13 @@ ${body}}
 	nparams 0
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
 "
-	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-	
-	
-	
-	
-      end
+	cpp_def "//@brief Retourne le vecteur des modules machines
+//@fn Domotification::getMachines
+//@return
+//
 
-      operation 134954 "getPoubelles"
-	preserve_cpp_body_indent const public explicit_return_type "QVector<Module*>"
-	nparams 0
-	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
-"
-	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
+${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
 "
 	
 	
@@ -471,8 +534,31 @@ ${body}}
 	nparams 0
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} * ${name}${(}${)}${const}${volatile}${throw}${abstract};
 "
-	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
+	cpp_def "//@brief Retourne le module boite
+//@fn Domotification::getBoite
+//@return
+//
+
+${inline}${typeprefix}${type} * ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 144554 "chargerModules"
+	preserve_cpp_body_indent public explicit_return_type "void"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "//@brief Charge à partir de la configuration et crée les modules à gérer
+//@fn Domotification::chargerModules
+//
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
 "
 	
 	
@@ -503,24 +589,6 @@ ${body}}
 	
       end
 
-      operation 157826 "gererActivationModule"
-	preserve_cpp_body_indent public explicit_return_type "void"
-	nparams 2
-	  param in name "nomModule" explicit_type "QString"
-	  param in name "id" explicit_type "int"
-	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}, ${t1} ${p1}${v1}${)}${const}${volatile}${throw}${abstract};
-"
-	cpp_def "// Slots
-
-${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}, ${t1} ${p1}${)}${const}${volatile}${throw}${staticnl}{
-${body}}
-"
-	
-	
-	
-	
-      end
-
       extra_member 134570 "slots"
 	
 	cpp "  public slots:" ""
@@ -529,6 +597,30 @@ ${body}}
 	python ""
 	idl ""
 	mysql ""
+      end
+
+      operation 157826 "gererActivationModule"
+	preserve_cpp_body_indent public explicit_return_type "void"
+	nparams 2
+	  param in name "typeModule" explicit_type "QString"
+	  param in name "id" explicit_type "int"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}, ${t1} ${p1}${v1}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "// Slots
+//
+//@brief Gère l'activation d'un module
+//@fn Domotification::gererActivationModule
+//@param nomModule
+//@param id
+//
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}, ${t1} ${p1}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
       end
     end
 
@@ -687,7 +779,15 @@ ${items}};
 	    defaultvalue "nullptr"
 	cpp_decl "    ${comment}${inline}${name}${(}${t0} ${p0}${v0}, ${t1} ${p1}${v1}, ${t2} ${p2}${v2}, ${t3} * ${p3}${v3}${)}${volatile}${throw}${abstract};
 "
-	cpp_def "${comment}${inline}${typeprefix}${class}::${name}${(}${t0} ${p0}, ${t1} ${p1}, ${t2} ${p2}, ${t3} * ${p3}${)} :
+	cpp_def "//@brief Constructeur de la classe Module
+//@fn    Module::Module
+//@param nomModule
+//@param type
+//@param id
+//@param parent
+//
+
+${inline}${typeprefix}${class}::${name}${(}${t0} ${p0}, ${t1} ${p1}, ${t2} ${p2}, ${t3} * ${p3}${)} :
     QObject(parent), id(id), nom(nomModule), type(type), actif(true), notifie(false)
 ${throw}{
 ${body}}
@@ -703,7 +803,12 @@ ${body}}
 	nparams 0
 	cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw}${abstract};
 "
-	cpp_def "${comment}${inline}${typeprefix}${class}::${name}${(}${)}${throw}{
+	cpp_def "//@brief Destructeur de la classe Module
+//@fn Module::~Module
+//
+//
+
+${inline}${typeprefix}${class}::${name}${(}${)}${throw}{
 ${body}}
 "
 	
@@ -717,8 +822,13 @@ ${body}}
 	nparams 0
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
 "
-	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
+	cpp_def "//@brief retourn l'id du module
+//@fn Module::getId
+//@return entier : id
+//
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
 "
 	
 	
@@ -733,8 +843,13 @@ ${body}}
 	nparams 0
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
 "
-	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
+	cpp_def "//@brief Retourne le nom du module
+//@fn Module::getNom
+//@return
+//
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
 "
 	
 	
@@ -747,8 +862,13 @@ ${body}}
 	nparams 0
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
 "
-	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
+	cpp_def "//@brief Retourne le type du module
+//@fn Module::getType
+//@return un Type module d'un module
+//
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
 "
 	
 	
@@ -761,8 +881,13 @@ ${body}}
 	nparams 0
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
 "
-	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
+	cpp_def "//@brief retourne l'état du module
+//@fn Module::estActif
+//@return l'état du module
+//
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
 "
 	
 	
@@ -771,9 +896,17 @@ ${body}}
       end
 
       operation 137386 "estNotifie"
-	const public explicit_return_type "bool"
+	preserve_cpp_body_indent const public explicit_return_type "bool"
 	nparams 0
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "//@brief Retourne l'état de notification
+//@fn Module::estNotifie
+//@return si le module est notifié
+//
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
 "
 	
 	
@@ -787,8 +920,32 @@ ${body}}
 	  param in name "actif" explicit_type "bool"
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
 "
-	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
+	cpp_def "//@brief Change l'attribut actif d'un module
+//@fn Module::setActif
+//@param actif
+//
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 166402 "recupererType"
+	preserve_cpp_body_indent public explicit_return_type "QString"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "//@brief Retourne le type de module sous forme de QString
+//@fn Module::recupererType
+//@param actif
+//
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
 "
 	
 	
@@ -803,6 +960,7 @@ ${body}}
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
 "
 	cpp_def "//@brief Récupère le nom du type de module à utiliser dans une requête HTTP
+//@fn Module::getType
 //@param type le type de module
 //@return QString le nom du type à utiliser dans une requête HTTP
 //
@@ -937,11 +1095,68 @@ ${items}};
       classrelation 156290 // domotification (<unidirectional association>)
 	relation 155394 --->
 	  a role_name "domotification" private
-	    comment "!< l'objet contrôleur de l'application"
+	    comment "!< L'objet contrôleur de l'application"
 	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
 "
 	    classrelation_ref 156290 // domotification (<unidirectional association>)
 	  b parent class_ref 168066 // Domotification
+      end
+
+      classrelation 162818 // machines (<unidirectional association>)
+	relation 161922 --->
+	  stereotype "QVector"
+	  a role_name "machines" private
+	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${stereotype}<${type}*> ${name}${value};
+"
+	    classrelation_ref 162818 // machines (<unidirectional association>)
+	  b parent class_ref 168194 // Module
+      end
+
+      classrelation 162946 // poubelles (<unidirectional association>)
+	relation 162050 --->
+	  stereotype "QVector"
+	  a role_name "poubelles" private
+	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${stereotype}<${type}*> ${name}${value};
+"
+	    classrelation_ref 162946 // poubelles (<unidirectional association>)
+	  b parent class_ref 168194 // Module
+      end
+
+      classrelation 163074 // boite (<unidirectional association>)
+	relation 162178 --->
+	  a role_name "boite" private
+	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+"
+	    classrelation_ref 163074 // boite (<unidirectional association>)
+	  b parent class_ref 168194 // Module
+      end
+
+      attribute 158594 "etatInitialIconeSysteme"
+	private explicit_type "bool"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "!< Booléen indiquant si c'est la première"
+      end
+
+      attribute 135082 "widgetPrincipal"
+	private explicit_type "QWidget"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "!< demande Quitter
+ Widgets
+!< Le widget central"
       end
 
       attribute 157826 "iconeSysteme"
@@ -954,7 +1169,8 @@ ${items}};
 	idl_decl ""
 	mysql_decl ""
 	MysqlColumn
-	comment "!< L'icône de l'application pour la barre système"
+	comment " La barre système
+!< L'icône de l'application pour la barre système"
       end
 
       attribute 157954 "menuIconeSysteme"
@@ -1022,33 +1238,6 @@ ${items}};
 	comment "!< L'action quitter l'application"
       end
 
-      attribute 158594 "etatInitialIconeSysteme"
-	private explicit_type "bool"
-	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
-"
-	java_decl ""
-	php_decl ""
-	python_decl ""
-	idl_decl ""
-	mysql_decl ""
-	MysqlColumn
-	comment "!< Booléen indiquant si c'est la première"
-      end
-
-      attribute 135082 "widgetPrincipal"
-	private explicit_type "QWidget"
-	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
-"
-	java_decl ""
-	php_decl ""
-	python_decl ""
-	idl_decl ""
-	mysql_decl ""
-	MysqlColumn
-	comment "!< demande Quitter
-!< Le widget central"
-      end
-
       attribute 135210 "layoutPrincipal"
 	private explicit_type "QVBoxLayout"
 	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
@@ -1059,6 +1248,8 @@ ${items}};
 	idl_decl ""
 	mysql_decl ""
 	MysqlColumn
+	comment " Les layouts
+"
       end
 
       attribute 135338 "layoutLogos"
@@ -1073,7 +1264,7 @@ ${items}};
 	MysqlColumn
       end
 
-      attribute 135466 "layoutPoubelle"
+      attribute 165634 "layoutPoubelles"
 	private explicit_type "QHBoxLayout"
 	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
 "
@@ -1085,7 +1276,7 @@ ${items}};
 	MysqlColumn
       end
 
-      attribute 135594 "layoutMachine"
+      attribute 165762 "layoutMachines"
 	private explicit_type "QHBoxLayout"
 	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
 "
@@ -1109,9 +1300,10 @@ ${items}};
 	MysqlColumn
       end
 
-      attribute 135850 "layoutBoutonsPoubelle"
-	private explicit_type "QVBoxLayout"
-	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+      attribute 165890 "layoutsPoubelle"
+	private explicit_type "QHBoxLayout*"
+	stereotype "QVector"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${stereotype}<${type}> ${name}${value};
 "
 	java_decl ""
 	php_decl ""
@@ -1121,9 +1313,36 @@ ${items}};
 	MysqlColumn
       end
 
-      attribute 135978 "layoutBoutonsMachine"
-	private explicit_type "QVBoxLayout"
-	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+      attribute 166018 "layoutsMachine"
+	private explicit_type "QHBoxLayout*"
+	stereotype "QVector"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${stereotype}<${type}> ${name}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 166146 "layoutsBoutonsPoubelle"
+	private explicit_type "QVBoxLayout*"
+	stereotype "QVector"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${stereotype}<${type}> ${name}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 166274 "layoutsBoutonsMachine"
+	private explicit_type "QVBoxLayout*"
+	stereotype "QVector"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${stereotype}<${type}> ${name}${value};
 "
 	java_decl ""
 	php_decl ""
@@ -1135,6 +1354,84 @@ ${items}};
 
       attribute 136106 "layoutBoutonsBoiteAuxLettres"
 	private explicit_type "QVBoxLayout"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 166402 "boutonsActivationDesactivationPoubelle"
+	private explicit_type "QPushButton*"
+	stereotype "QVector"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${stereotype}<${type}> ${name}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment " Les boutons
+"
+      end
+
+      attribute 166530 "boutonsActivationDesactivationMachine"
+	private explicit_type "QPushButton*"
+	stereotype "QVector"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${stereotype}<${type}> ${name}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 136490 "boutonActivationDesactivationBoiteAuxLettres"
+	private explicit_type "QPushButton"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 166658 "boutonsAcquittementPoubelle"
+	private explicit_type "QPushButton*"
+	stereotype "QVector"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${stereotype}<${type}> ${name}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 166786 "boutonsAcquittementMachine"
+	private explicit_type "QPushButton*"
+	stereotype "QVector"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${stereotype}<${type}> ${name}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 137002 "boutonAcquittementBoiteAuxLettres"
+	private explicit_type "QPushButton"
 	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
 "
 	java_decl ""
@@ -1157,84 +1454,6 @@ ${items}};
 	MysqlColumn
       end
 
-      attribute 136362 "boutonActivationDesactivationMachine"
-	private explicit_type "QPushButton"
-	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
-"
-	java_decl ""
-	php_decl ""
-	python_decl ""
-	idl_decl ""
-	mysql_decl ""
-	MysqlColumn
-	comment "@todo Gérer un conteneur pour les machines et poubelles
-
-"
-      end
-
-      attribute 136490 "boutonActivationDesactivationBoiteAuxLettres"
-	private explicit_type "QPushButton"
-	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
-"
-	java_decl ""
-	php_decl ""
-	python_decl ""
-	idl_decl ""
-	mysql_decl ""
-	MysqlColumn
-      end
-
-      attribute 136618 "boutonActivationDesactivationPoubelle"
-	private explicit_type "QPushButton"
-	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
-"
-	java_decl ""
-	php_decl ""
-	python_decl ""
-	idl_decl ""
-	mysql_decl ""
-	MysqlColumn
-      end
-
-      attribute 136746 "boutonAcquittementMachine"
-	private explicit_type "QPushButton"
-	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
-"
-	java_decl ""
-	php_decl ""
-	python_decl ""
-	idl_decl ""
-	mysql_decl ""
-	MysqlColumn
-	comment "@todo Gérer un conteneur pour les machines et poubelles
-
-"
-      end
-
-      attribute 136874 "boutonAcquittementPoubelle"
-	private explicit_type "QPushButton"
-	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
-"
-	java_decl ""
-	php_decl ""
-	python_decl ""
-	idl_decl ""
-	mysql_decl ""
-	MysqlColumn
-      end
-
-      attribute 137002 "boutonAcquittementBoiteAuxLettres"
-	private explicit_type "QPushButton"
-	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
-"
-	java_decl ""
-	php_decl ""
-	python_decl ""
-	idl_decl ""
-	mysql_decl ""
-	MysqlColumn
-      end
-
       attribute 137130 "imageBoutonActivation"
 	private explicit_type "QPixmap"
 	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
@@ -1245,6 +1464,8 @@ ${items}};
 	idl_decl ""
 	mysql_decl ""
 	MysqlColumn
+	comment " Les images
+"
       end
 
       attribute 137258 "imageBoutonDesactivation"
@@ -1307,6 +1528,42 @@ ${items}};
 	MysqlColumn
       end
 
+      attribute 138410 "iconeActivation"
+	private explicit_type "QIcon"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 138538 "iconeDesactivation"
+	private explicit_type "QIcon"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 138666 "iconeAcquittement"
+	private explicit_type "QIcon"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
       attribute 137898 "logoBTS"
 	private explicit_type "QLabel"
 	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
@@ -1317,6 +1574,8 @@ ${items}};
 	idl_decl ""
 	mysql_decl ""
 	MysqlColumn
+	comment " Les labels
+"
       end
 
       attribute 138026 "logoMachine"
@@ -1345,42 +1604,6 @@ ${items}};
 
       attribute 138282 "logoPoubelle"
 	private explicit_type "QLabel"
-	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
-"
-	java_decl ""
-	php_decl ""
-	python_decl ""
-	idl_decl ""
-	mysql_decl ""
-	MysqlColumn
-      end
-
-      attribute 138410 "iconeActivation"
-	private explicit_type "QIcon"
-	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
-"
-	java_decl ""
-	php_decl ""
-	python_decl ""
-	idl_decl ""
-	mysql_decl ""
-	MysqlColumn
-      end
-
-      attribute 138538 "iconeDesactivation"
-	private explicit_type "QIcon"
-	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
-"
-	java_decl ""
-	php_decl ""
-	python_decl ""
-	idl_decl ""
-	mysql_decl ""
-	MysqlColumn
-      end
-
-      attribute 138666 "iconeAcquittement"
-	private explicit_type "QIcon"
 	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
 "
 	java_decl ""
@@ -1525,7 +1748,7 @@ ${body}}
 	nparams 0
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
 "
-	cpp_def "//@brief Initialise la page
+	cpp_def "//@brief Initialise l'interface graphique
 //
 //@fn IHMDomotifications::initialiserGUI
 //@details Génère la page graphique d'interface
@@ -1608,6 +1831,24 @@ ${body}}
 	cpp_def "//@brief Affiche les Widgets
 //@fn IHMDomotifications::afficherWidgets
 //@details Affiche les widget de l'IHM
+//
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 166146 "initialiserFenetrePrincipale"
+	preserve_cpp_body_indent public explicit_return_type "void"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "//@brief Initialise le widget central
+//@fn IHMDomotifications::initialiserFenetrePrincipale
 //
 
 ${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
@@ -1745,6 +1986,8 @@ ${body}}
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} * ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
 "
 	cpp_def "//@brief Affichage d'un bouton d'activation
+//@fn IHMDomotifications::afficherBoutonActivation
+//@param QPushButton* boutonModule
 //
 
 ${inline}${typeprefix}${type} ${class}::${name}${(}${t0} * ${p0}${)}${const}${volatile}${throw}${staticnl}{
@@ -1763,6 +2006,8 @@ ${body}}
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} * ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
 "
 	cpp_def "//@brief Affichage d'un bouton de désactivation
+//@fn IHMDomotifications::afficherBoutonDesactivation
+//@param QPushButton* boutonModule
 //
 
 ${inline}${typeprefix}${type} ${class}::${name}${(}${t0} * ${p0}${)}${const}${volatile}${throw}${staticnl}{
@@ -1785,6 +2030,46 @@ ${body}}
 //
 
 ${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 166274 "recupererIdModule"
+	preserve_cpp_body_indent public explicit_return_type "int"
+	nparams 1
+	  param inout name "boutonModule" explicit_type "QPushButton"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} * ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "//@brief Récupère l'id du module associé à ce bouton
+//@fn IHMDomotifications::recupererIdModule
+//@param boutonModule le QPushButton associé au module
+//
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${t0} * ${p0}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 144682 "recupererTypeModule"
+	preserve_cpp_body_indent public explicit_return_type "QString"
+	nparams 1
+	  param inout name "boutonModule" explicit_type "QPushButton"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} * ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "//@brief Récupère le type de module associé à ce bouton
+//@fn IHMDomotifications::recupererTypeModule
+//@param boutonModule le QPushButton associé au module
+//
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${t0} * ${p0}${)}${const}${volatile}${throw}${staticnl}{
 ${body}}
 "
 	
@@ -1905,6 +2190,108 @@ ${body}}
 	
 	
 	
+      end
+
+      attribute 135466 "layoutPoubelle"
+	private explicit_type "QHBoxLayout"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 135594 "layoutMachine"
+	private explicit_type "QHBoxLayout"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 135850 "layoutBoutonsPoubelle"
+	private explicit_type "QVBoxLayout"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 135978 "layoutBoutonsMachine"
+	private explicit_type "QVBoxLayout"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 136362 "boutonActivationDesactivationMachine"
+	private explicit_type "QPushButton"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "@todo Gérer un conteneur pour les machines et poubelles
+
+"
+      end
+
+      attribute 136618 "boutonActivationDesactivationPoubelle"
+	private explicit_type "QPushButton"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 136746 "boutonAcquittementMachine"
+	private explicit_type "QPushButton"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "@todo Gérer un conteneur pour les machines et poubelles
+
+"
+      end
+
+      attribute 136874 "boutonAcquittementPoubelle"
+	private explicit_type "QPushButton"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
       end
     end
 

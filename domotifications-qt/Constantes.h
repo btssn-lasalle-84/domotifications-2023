@@ -35,9 +35,11 @@
  */
 #define PORT_HTTP 80
 
+#define NON_TROUVE -1
+
 // Pour l'IHM
 #define CHEMIN_LOGO_PARAMETRE         ":/images-qt/logo-parametre.png"
-#define CHEMIN_LOGO_POUBELLE          ":/images-qt/logo-poubelle.png"
+#define CHEMIN_LOGO_POUBELLE          ":/images-qt/logo-poubelle-"
 #define CHEMIN_LOGO_BOITE_AUX_LETTRES ":/images-qt/logo-boite-aux-lettres.png"
 #define CHEMIN_LOGO_MACHINE           ":/images-qt/logo-machine.png"
 #define CHEMIN_BOUTON_ACTIVATION      ":/images-qt/bouton-activation.png"
@@ -49,8 +51,7 @@
 #define LARGEUR_IMAGE 30
 
 // Pour les tests
-#define SANS_STATION
-#define TEST_NOTIFICATIONS
+//#define SANS_STATION
+//#define TEST_NOTIFICATIONS
 
 #endif // CONSTANTES_H
-

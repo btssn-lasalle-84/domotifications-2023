@@ -21,13 +21,13 @@ classcanvas 130434 class_ref 168194 // Module
   xyz 734 1001 2000
 end
 relationcanvas 128042 relation_ref 154754 // <unidirectional association>
-  from ref 130306 z 2001 stereotype "<<QVector>>" xyz 1922.5 752.5 3000 to ref 130434
-  role_a_pos 1690 953 3000 no_role_b
+  from ref 130306 z 2001 stereotype "<<QVector>>" xyz 1902 784 3000 to ref 130434
+  role_a_pos 1717 953 3000 no_role_b
   no_multiplicity_a no_multiplicity_b
 end
 relationcanvas 128170 relation_ref 134570 // <unidirectional association>
   from ref 130306 z 2001 to ref 130178
-  role_a_pos 2668 961 3000 no_role_b
+  role_a_pos 2667 961 3000 no_role_b
   no_multiplicity_a no_multiplicity_b
 end
 relationcanvas 128298 relation_ref 134954 // <dependency>
@@ -37,12 +37,27 @@ relationcanvas 128298 relation_ref 134954 // <dependency>
 end
 relationcanvas 128554 relation_ref 155394 // <unidirectional association>
   from ref 128426 z 3006 to ref 130306
-  role_a_pos 1946 285 3000 no_role_b
+  role_a_pos 1946 320 3000 no_role_b
   no_multiplicity_a no_multiplicity_b
 end
 relationcanvas 128682 relation_ref 134698 // <unidirectional association>
   from ref 130306 z 3006 to ref 128426
-  role_a_pos 1842 301 3000 no_role_b
+  role_a_pos 1842 340 3000 no_role_b
+  no_multiplicity_a no_multiplicity_b
+end
+relationcanvas 128810 relation_ref 161922 // <unidirectional association>
+  from ref 128426 z 3006 stereotype "<<QVector>>" xyz 1109 921 3000 to ref 130434
+  role_a_pos 1243 960 3000 no_role_b
+  no_multiplicity_a no_multiplicity_b
+end
+relationcanvas 128938 relation_ref 162050 // <unidirectional association>
+  from ref 128426 z 3006 stereotype "<<QVector>>" xyz 1109 921 3000 to ref 130434
+  role_a_pos 1243 960 3000 no_role_b
+  no_multiplicity_a no_multiplicity_b
+end
+relationcanvas 129066 relation_ref 162178 // <unidirectional association>
+  from ref 128426 z 3006 to ref 130434
+  role_a_pos 1243 960 3000 no_role_b
   no_multiplicity_a no_multiplicity_b
 end
 end

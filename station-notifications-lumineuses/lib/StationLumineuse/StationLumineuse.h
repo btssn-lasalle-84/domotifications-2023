@@ -48,10 +48,10 @@ class StationLumineuse
         false, false, false, false, false, false
     }; //!< l'état des machines
     bool     etatPoubelles[NB_LEDS_NOTIFICATION_POUBELLES] = { false,
-                                                               false,
-                                                               false,
-                                                               false,
-                                                               false }; //!< l'état des poubelles
+                                                           false,
+                                                           false,
+                                                           false,
+                                                           false }; //!< l'état des poubelles
     uint32_t couleursPoubelles[NB_LEDS_NOTIFICATION_POUBELLES]; //!< les couleurs des poubelles
 
     bool activationBoiteAuxLettres = true; //!< l'état d'activation de la boîte aux lettres
@@ -88,7 +88,7 @@ class StationLumineuse
     void allumerNotificationMachines();
     void eteindreNotificationMachine(int numeroMachine);
     void eteindreNotificationMachines();
-    bool estIdValidePoubelle(int id);
+    bool estIdValidePoubelle(int numeroPoubelle);
     bool getEtatPoubelle(int numeroPoubelle);
     void setEtatPoubelle(int numeroPoubelle, bool etat);
     void resetEtatPoubelles(int numeroPoubelle);

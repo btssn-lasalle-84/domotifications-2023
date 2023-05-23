@@ -86,44 +86,32 @@ $ curl -X POST http://192.168.1.40/poubelle -H 'Content-Type: application/json' 
 $ curl http://192.168.1.40/notifications
 {"boite":true,"machines":[true,false,false,false,false,false],"poubelle":[false,true,false,false,false]}
 
+
+$ curl -X GET "http://station-lumineuse.local/boite?etat=true"
+{"boite": "ok"}
+// Vérification
+curl http://station-lumineuse.local/notifications
+{"boite":true,"machines":[false,false,false,false,false,false],"poubelle":[ false,false,false,false,false]}
+
+curl -X GET "http://station-lumineuse.local/machine?id=0&etat=true"
+{"machine": "ok"}
+// Vérification 
+curl http://station-lumineuse.local/notifications
+{"boite":false,"machines":[true,false,false,false,false,false],"poubelle":[ false,false,false,false,true]}
+
+curl -X GET "http://station-lumineuse.local/poubelle?id=0&etat=1"
+{"poubelle": "ok"}
+// Vérification
+curl http://station-lumineuse.local/notifications
+{"boite":false,"machines":[true,false,false,false,false,false],"poubelle":[ true,false,false,false,false]}
+
 ....
 ```
-
 Les erreurs :
 
 ```sh
 $ curl "http://station-lumineuse.local/boites"
 404 File Not Found
-```
-
-A faire :
-
-```sh
-$ curl "http://station-lumineuse.local/boite?etat=true"
-501 Not Implemented
-
-URI: /boite
-Method: GET
-Arguments: 1
- etat: true
-
-$ curl "http://station-lumineuse.local/machine?id=0&etat=false"
-501 Not Implemented
-
-URI: /machine
-Method: GET
-Arguments: 2
- id: 0
- etat: false
-
-$ curl "http://station-lumineuse.local/poubelle?id=1&etat=true"
-501 Not Implemented
-
-URI: /poubelle
-Method: GET
-Arguments: 2
- id: 1
- etat: true
 ```
 
 ---
