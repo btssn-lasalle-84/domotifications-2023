@@ -2,62 +2,57 @@ format 224
 
 classcanvas 128426 class_ref 168450 // IHMDomotifications
   classdiagramsettings hide_attributes yes member_max_width 0 end
-  xyz 12 27 3005
+  xyz 12 30.2 3005
 end
 classcanvas 129922 class_ref 161282 // TypeModule
   classdiagramsettings member_max_width 0 end
-  xyz 1161 1521 2000
+  xyz 840 832.6 2000
 end
 classcanvas 130178 class_ref 167810 // Communication
   classdiagramsettings member_max_width 0 end
-  xyz 2132 1002 2000
+  xyz 1331 490 2000
 end
 classcanvas 130306 class_ref 168066 // Domotification
   classdiagramsettings member_max_width 0 end
-  xyz 2148 105 2000
+  xyz 1304.1 139.2 2000
 end
 classcanvas 130434 class_ref 168194 // Module
   classdiagramsettings member_max_width 0 end
-  xyz 734 1001 2000
+  xyz 147.9 761.5 2000
 end
 relationcanvas 128042 relation_ref 154754 // <unidirectional association>
-  from ref 130306 z 2001 stereotype "<<QVector>>" xyz 1902 784 3000 to ref 130434
-  role_a_pos 1717 953 3000 no_role_b
+  from ref 130306 z 2001 stereotype "<<QVector>>" xyz 951 526.5 3000 to ref 130434
+  role_a_pos 704 732 3000 no_role_b
   no_multiplicity_a no_multiplicity_b
 end
 relationcanvas 128170 relation_ref 134570 // <unidirectional association>
   from ref 130306 z 2001 to ref 130178
-  role_a_pos 2667 961 3000 no_role_b
-  no_multiplicity_a no_multiplicity_b
-end
-relationcanvas 128298 relation_ref 134954 // <dependency>
-  from ref 130434 z 2001 to ref 129922
-  no_role_a no_role_b
+  role_a_pos 1592 467 3000 no_role_b
   no_multiplicity_a no_multiplicity_b
 end
 relationcanvas 128554 relation_ref 155394 // <unidirectional association>
   from ref 128426 z 3006 to ref 130306
-  role_a_pos 1946 320 3000 no_role_b
+  role_a_pos 1193 242 3000 no_role_b
   no_multiplicity_a no_multiplicity_b
 end
 relationcanvas 128682 relation_ref 134698 // <unidirectional association>
   from ref 130306 z 3006 to ref 128426
-  role_a_pos 1842 340 3000 no_role_b
+  role_a_pos 940 236 3000 no_role_b
   no_multiplicity_a no_multiplicity_b
 end
-relationcanvas 128810 relation_ref 161922 // <unidirectional association>
-  from ref 128426 z 3006 stereotype "<<QVector>>" xyz 1109 921 3000 to ref 130434
-  role_a_pos 1243 960 3000 no_role_b
+relationcanvas 130562 relation_ref 161922 // <unidirectional association>
+  from ref 128426 z 3006 stereotype "<<QVector>>" xyz 427 613 3000 to ref 130434
+  role_a_pos 486 739 3000 no_role_b
   no_multiplicity_a no_multiplicity_b
 end
-relationcanvas 128938 relation_ref 162050 // <unidirectional association>
-  from ref 128426 z 3006 stereotype "<<QVector>>" xyz 1109 921 3000 to ref 130434
-  role_a_pos 1243 960 3000 no_role_b
+relationcanvas 130690 relation_ref 162050 // <unidirectional association>
+  from ref 128426 z 3006 stereotype "<<QVector>>" xyz 427 613 3000 to ref 130434
+  role_a_pos 486 739 3000 no_role_b
   no_multiplicity_a no_multiplicity_b
 end
-relationcanvas 129066 relation_ref 162178 // <unidirectional association>
+relationcanvas 130818 relation_ref 162178 // <unidirectional association>
   from ref 128426 z 3006 to ref 130434
-  role_a_pos 1243 960 3000 no_role_b
+  role_a_pos 485 739 3000 no_role_b
   no_multiplicity_a no_multiplicity_b
 end
 end

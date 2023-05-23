@@ -67,20 +67,6 @@ void IHMDomotifications::visualiserNotification(QString message, TypeNotificatio
     iconeSysteme->showMessage(TITRE_APPLICATION, message, messageIcon);
 }
 
-/**
- * @brief Methode pour l'acquittement des notifications
- *
- * @fn IHMDomotifications::acquitterNotification
- * @details Acquitte les notifications envoyés par le système de notification.
- */
-void IHMDomotifications::acquitterNotification()
-{
-    /**
-     * @fixme Vérifier le moyen d'acquitter la notification
-     */
-    qDebug() << Q_FUNC_INFO;
-}
-
 #ifdef TEST_NOTIFICATIONS
 void IHMDomotifications::testerNotification()
 {
@@ -525,8 +511,6 @@ void IHMDomotifications::afficherIconeBarreDesTaches()
  */
 void IHMDomotifications::initialiserSignauxSlots()
 {
-    connect(iconeSysteme, SIGNAL(messageClicked()), this, SLOT(acquitterNotification()));
-
 #ifdef TEST_NOTIFICATIONS
     // connect(boutonParametres, SIGNAL(clicked(bool)), this, SLOT(testerNotification()));
 #endif
@@ -534,13 +518,17 @@ void IHMDomotifications::initialiserSignauxSlots()
             SIGNAL(nouvelleNotification(QString)),
             this,
             SLOT(visualiserNotification(QString)));
-    // les boutons d'activation/désactivation des modules
+    // les boutons des modules
     for(int index = 0; index < poubelles.size(); index++)
     {
         connect(boutonsActivationDesactivationPoubelle[index],
                 SIGNAL(clicked(bool)),
                 this,
                 SLOT(gererBoutonActivationDesactivation()));
+        connect(boutonsAcquittementPoubelle[index],
+                SIGNAL(clicked(bool)),
+                this,
+                SLOT(gererBoutonAcquittement()));
     }
     for(int index = 0; index < machines.size(); index++)
     {
@@ -548,16 +536,29 @@ void IHMDomotifications::initialiserSignauxSlots()
                 SIGNAL(clicked(bool)),
                 this,
                 SLOT(gererBoutonActivationDesactivation()));
+        connect(boutonsAcquittementMachine[index],
+                SIGNAL(clicked(bool)),
+                this,
+                SLOT(gererBoutonAcquittement()));
     }
     connect(boutonActivationDesactivationBoiteAuxLettres,
             SIGNAL(clicked(bool)),
             this,
             SLOT(gererBoutonActivationDesactivation()));
+    connect(boutonAcquittementBoiteAuxLettres,
+            SIGNAL(clicked(bool)),
+            this,
+            SLOT(gererBoutonAcquittement()));
 
     connect(this,
             SIGNAL(activationDesactivationModule(QString, int)),
             domotification,
             SLOT(gererActivationModule(QString, int)));
+
+    connect(this,
+            SIGNAL(acquittementNotification(QString, int)),
+            domotification,
+            SLOT(gererAcquittement(QString, int)));
 }
 
 /**
@@ -582,4 +583,20 @@ void IHMDomotifications::gererBoutonActivationDesactivation()
     {
         afficherBoutonActivation(boutonModule);
     }
+}
+/**
+ * @brief Gère les boutons d'acquittement
+ * @fn IHMDomotifications::gererBoutonAcquittement
+ * @details Envoie les signaux de chaque bouton d'acquittement vers leur slots
+ * respectifs
+ */
+void IHMDomotifications::gererBoutonAcquittement()
+{
+    QPushButton* boutonModule = qobject_cast<QPushButton*>(sender());
+    QString      typeModule   = recupererTypeModule(boutonModule);
+    int          id           = recupererIdModule(boutonModule);
+    qDebug() << Q_FUNC_INFO << "boutonmodule" << boutonModule << "typeModule" << typeModule << "id"
+             << id;
+
+    emit acquittementNotification(typeModule, id);
 }

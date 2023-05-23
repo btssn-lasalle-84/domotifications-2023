@@ -33,6 +33,23 @@ Domotification::~Domotification()
 
 // Slots
 /**
+ * @brief Gère l'acquittement d'une notification
+ * @fn Domotification::gererAcquittement
+ * @param typeModule
+ * @param id
+ */
+void Domotification::gererAcquittement(QString typeModule, int id)
+{
+    int indexModule = recupererIndexModule(typeModule, id);
+    qDebug() << Q_FUNC_INFO << "typeModule" << typeModule << "id" << id;
+
+    QByteArray json = "{";
+    json += "\"id\":" + QString::number(id) + QString(",") + "\"etat\":0" + "}";
+
+    communication->envoyerRequetePost(typeModule, json);
+}
+
+/**
  * @brief Gère l'activation d'un module
  * @fn Domotification::gererActivationModule
  * @param typeModule
@@ -40,7 +57,8 @@ Domotification::~Domotification()
  */
 void Domotification::gererActivationModule(QString typeModule, int id)
 {
-    int indexModule = recupererIndexModule(typeModule, id);
+    QString api         = "activation";
+    int     indexModule = recupererIndexModule(typeModule, id);
     qDebug() << Q_FUNC_INFO << "typeModule" << typeModule << "id" << id << "indexModule"
              << indexModule;
     if(indexModule == NON_TROUVE)
@@ -60,7 +78,7 @@ void Domotification::gererActivationModule(QString typeModule, int id)
     }
     json += "}";
 
-    communication->envoyerRequetePost(typeModule, json);
+    communication->envoyerRequetePost(api, json);
 
     modules[indexModule]->setActif(!modules[indexModule]->estActif());
 }

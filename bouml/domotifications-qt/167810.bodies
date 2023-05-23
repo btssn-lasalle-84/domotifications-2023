@@ -4,6 +4,7 @@ class Communication
 !!!156930.cpp!!!	~Communication()
     qDebug() << Q_FUNC_INFO;
 !!!134570.cpp!!!	envoyerRequetePost(in api : QString, in json : QByteArray) : void
+    api = "activation";
     QUrl url(URL_STATION + api);
     qDebug() << Q_FUNC_INFO << "url" << url.toString();
     qDebug() << Q_FUNC_INFO << "json" << json;
@@ -14,5 +15,6 @@ class Communication
     requetePost.setRawHeader("Content-Type", "application/json");
     requetePost.setRawHeader("Content-Length", QByteArray::number(json.size()));
 #ifndef SANS_STATION
+    qDebug() << Q_FUNC_INFO << url << json;
     accesReseau->post(requetePost, json);
 #endif

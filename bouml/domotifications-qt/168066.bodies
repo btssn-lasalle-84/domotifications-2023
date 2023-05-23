@@ -4,7 +4,7 @@ class Domotification
     chargerModules();
 !!!157698.cpp!!!	~Domotification()
     qDebug() << Q_FUNC_INFO;
-!!!151338.cpp!!!	recupererIndexModule(in typeModule : QString, in id : int = 0) : int
+!!!178946.cpp!!!	recupererIndexModule(in typeModule : QString, in id : int = 0) : int
     for(int i = 0; i < modules.size(); ++i)
     {
         if(modules[i]->recupererType() == typeModule && modules[i]->getId() == id)
@@ -24,8 +24,6 @@ class Domotification
         }
     }
     return false;
-!!!157954.cpp!!!	gererNotification(in nomModule : QString) : void
-    qDebug() << Q_FUNC_INFO << "nomModule" << nomModule;
 !!!158082.cpp!!!	ajouterModule(in nomModule : QString, in type : Module::TypeModule) : void
     qDebug() << Q_FUNC_INFO << "nomModule" << nomModule << "TypeModule" << type;
 !!!159362.cpp!!!	notifier(in message : QString) : void
@@ -64,7 +62,7 @@ class Domotification
         }
     }
     return nullptr;
-!!!144554.cpp!!!	chargerModules() : void
+!!!179074.cpp!!!	chargerModules() : void
     /**
      * @todo Gérer un fichier de configuration INI pour les modules
      */
@@ -75,9 +73,12 @@ class Domotification
     // 2 poubelles (0..5)
     modules.push_back(new Module("poubelle", Module::TypeModule::Poubelle, 0, this));
     modules.push_back(new Module("poubelle", Module::TypeModule::Poubelle, 1, this));
+    modules.push_back(new Module("poubelle", Module::TypeModule::Poubelle, 2, this));
     // 1 boite (0..1)
     modules.push_back(new Module("boite", Module::TypeModule::BoiteAuxLettres, 0, this));
     qDebug() << Q_FUNC_INFO << "modules" << modules;
+!!!157954.cpp!!!	gererNotification(in typeModule : QString, in id : int) : void
+    qDebug() << Q_FUNC_INFO << "typeModule" << typeModule << "id" << id;
 !!!157826.cpp!!!	gererActivationModule(in typeModule : QString, in id : int) : void
     int indexModule = recupererIndexModule(typeModule, id);
     qDebug() << Q_FUNC_INFO << "typeModule" << typeModule << "id" << id << "indexModule"
@@ -86,15 +87,16 @@ class Domotification
         return;
 
     QByteArray json = "{";
-    json += "\"id\":" + QString::number(id) + QString(",");
+    json += "\"module\":\"" + QString(typeModule) + QString("\"") + QString(",") +
+            "\"id\":" + QString::number(id) + QString(",");
     qDebug() << Q_FUNC_INFO << "json" << json;
     if(modules[indexModule]->estActif())
     {
-        json += "\"etat\":false";
+        json += "\"etat\":0";
     }
     else
     {
-        json += "\"etat\":true";
+        json += "\"etat\":1";
     }
     json += "}";
 

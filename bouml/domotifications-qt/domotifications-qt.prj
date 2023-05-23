@@ -1,7 +1,7 @@
 format 224
 "domotifications-qt"
-  revision 17
-  modified_by 42 "tv"
+  revision 16
+  modified_by 2 "btssn2"
   cpp_root_dir "../../"
 
 
@@ -113,7 +113,7 @@ format 224
       simplerelation 128642
 	-_->
 	  stereotype "extend"
-	  on usecase_ref 128642 // Activer/Desactiver un module
+	  on usecase_ref 128642 // Activer/Desactiver une notification
       end
     end
 
@@ -196,7 +196,7 @@ format 224
        end
     end
 
-    usecase 128642 "Activer/Desactiver un module"
+    usecase 128642 "Activer/Desactiver une notification"
       
       usecasediagramsettings end
       
@@ -225,7 +225,7 @@ format 224
 
       simplerelation 128770
 	-_->
-	  on usecase_ref 128642 // Activer/Desactiver un module
+	  on usecase_ref 128642 // Activer/Desactiver une notification
       end
 
       simplerelation 128898
@@ -836,36 +836,4 @@ ${items}};
   package_ref 134530 // simulateur
 
   package_ref 134914 // station-notifications-lumineuses
-
-  usecaseview 134570 "DS_domotification"
-    
-    usecasediagramsettings end
-    
-    sequencediagramsettings end
-    
-    collaborationdiagramsettings end
-    
-    classdiagramsettings member_max_width 0 end
-    
-    classcompositediagramsettings end
-    
-    objectdiagramsettings end
-    
-    objectcompositediagramsettings end
-    
-    statediagramsettings
-     end
-    
-    activitydiagramsettings
-     end
-    sequencediagram 134570 "Activer/Desactiver un module"
-      sequencediagramsettings end
-      overlapping_bars size A0
-    end
-
-    sequencediagram 134698 "Démarrer"
-      sequencediagramsettings end
-      overlapping_bars size A0
-    end
-  end
 end
