@@ -1,7 +1,7 @@
 format 224
 "domotifications-qt"
-  revision 13
-  modified_by 2 "btssn2"
+  revision 17
+  modified_by 42 "tv"
   cpp_root_dir "../../"
 
 
@@ -113,7 +113,7 @@ format 224
       simplerelation 128642
 	-_->
 	  stereotype "extend"
-	  on usecase_ref 128642 // Activer/Desactiver une notification
+	  on usecase_ref 128642 // Activer/Desactiver un module
       end
     end
 
@@ -196,7 +196,7 @@ format 224
        end
     end
 
-    usecase 128642 "Activer/Desactiver une notification"
+    usecase 128642 "Activer/Desactiver un module"
       
       usecasediagramsettings end
       
@@ -225,7 +225,7 @@ format 224
 
       simplerelation 128770
 	-_->
-	  on usecase_ref 128642 // Activer/Desactiver une notification
+	  on usecase_ref 128642 // Activer/Desactiver un module
       end
 
       simplerelation 128898
@@ -384,7 +384,7 @@ format 224
      end
     associated_deployment_view deploymentview_ref 128002 // Domotifications_vue_deployement
     classdiagram 141314 "Diagramme_classe_domotifications"
-      classdiagramsettings draw_all_relations no member_max_width 0 end
+      classdiagramsettings member_max_width 0 end
       size A0
     end
 
@@ -832,4 +832,40 @@ ${items}};
   end
 
   package_ref 128002 // domotifications-qt
+
+  package_ref 134530 // simulateur
+
+  package_ref 134914 // station-notifications-lumineuses
+
+  usecaseview 134570 "DS_domotification"
+    
+    usecasediagramsettings end
+    
+    sequencediagramsettings end
+    
+    collaborationdiagramsettings end
+    
+    classdiagramsettings member_max_width 0 end
+    
+    classcompositediagramsettings end
+    
+    objectdiagramsettings end
+    
+    objectcompositediagramsettings end
+    
+    statediagramsettings
+     end
+    
+    activitydiagramsettings
+     end
+    sequencediagram 134570 "Activer/Desactiver un module"
+      sequencediagramsettings end
+      overlapping_bars size A0
+    end
+
+    sequencediagram 134698 "Démarrer"
+      sequencediagramsettings end
+      overlapping_bars size A0
+    end
+  end
 end

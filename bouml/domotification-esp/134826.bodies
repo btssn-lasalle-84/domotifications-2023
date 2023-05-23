@@ -1,4 +1,6 @@
 class StationLumineuse
+!!!135850.cpp!!!	StationLumineuse()
+    // initialiserCouleursPoubelles();
 !!!135978.cpp!!!	initialiserPreferences() : void
     preferences.begin("eeprom", false); // false pour r/w
     etatBoiteAuxLettres = preferences.getBool("boite", false);
@@ -19,16 +21,6 @@ class StationLumineuse
     leds.begin();
     leds.clear();
 
-#ifdef TEST_BANDEAU
-    testerBoiteAuxLettres();
-    testerMachines();
-    testerPoubelles();
-#endif
-
-    /**
-     * Allumer/Eteindre les leds de notifications à partir des états
-     * sauvegardés
-     */
     if(etatBoiteAuxLettres)
     {
         allumerNotificationBoiteAuxLettres();
@@ -61,6 +53,20 @@ class StationLumineuse
             eteindreNotificationPoubelle(i);
         }
     }
+!!!146602.cpp!!!	initialiserCouleursPoubelles() : void
+    const uint8_t couleursRGB[NB_LEDS_NOTIFICATION_POUBELLES][NB_COULEURS] = {
+        { 0, 0, 255 },     // Couleur poubelle 0 (bleue)
+        { 0, 255, 0 },     // Couleur poubelle 1 (verte)
+        { 255, 255, 0 },   // Couleur poubelle 2 (jaune)
+        { 128, 128, 128 }, // Couleur poubelle 3 (grise)
+        { 255, 0, 0 }      // Couleur poubelle 4 (rouge)
+    };
+
+    for(uint8_t i = 0; i < NB_LEDS_NOTIFICATION_POUBELLES; i++)
+    {
+        couleursPoubelles[i] =
+          leds.Color(couleursRGB[i][ROUGE], couleursRGB[i][VERT], couleursRGB[i][BLEU]);
+    }
 !!!136234.cpp!!!	getEtatBoiteAuxLettres() : bool
     return etatBoiteAuxLettres;
 !!!136362.cpp!!!	setEtatBoiteAuxLettres(in etat : bool) : void
@@ -83,9 +89,6 @@ class StationLumineuse
         i < (INDEX_LEDS_NOTIFICATION_BOITE + NB_LEDS_NOTIFICATION_BOITE);
         ++i)
     {
-        /**
-         *  Définir des constantes pour les couleurs
-         */
         leds.setPixelColor(i, leds.Color(255, 0, 0));
         leds.show();
     }
@@ -94,9 +97,6 @@ class StationLumineuse
         i < (INDEX_LEDS_NOTIFICATION_BOITE + NB_LEDS_NOTIFICATION_BOITE);
         ++i)
     {
-        /**
-         * @todo Définir des constantes pour les couleurs
-         */
         leds.setPixelColor(i, leds.Color(0, 0, 0));
         leds.show();
     }
@@ -126,6 +126,22 @@ class StationLumineuse
     {
         eteindreNotificationMachine(numeroMachine);
     }
+!!!137258.cpp!!!	resetEtatMachines() : void
+    for(int i = 0; i < NB_LEDS_NOTIFICATION_MACHINES; i++)
+    {
+        etatMachines[i] = false;
+        char cle[64]    = "";
+        sprintf((char*)cle, "%s%d", "machine", i);
+        preferences.putBool(cle, etatMachines[i]);
+        eteindreNotificationPoubelle(i);
+    }
+!!!137386.cpp!!!	allumerNotificationMachine(in numeroMachine : int) : void
+    if(estIdValideMachine(numeroMachine))
+    {
+        leds.setPixelColor(INDEX_LEDS_NOTIFICATION_MACHINES + numeroMachine,
+                           leds.Color(0, 255, 0)); // Appliquer la couleur correspondante
+        leds.show();                               // Allume le bandeau
+    }
 !!!137514.cpp!!!	allumerNotificationMachines() : void
     for(int i = INDEX_LEDS_NOTIFICATION_MACHINES;
         i < (INDEX_LEDS_NOTIFICATION_MACHINES + NB_LEDS_NOTIFICATION_MACHINES);
@@ -135,6 +151,13 @@ class StationLumineuse
          * Définir des constantes pour les couleurs
          */
         leds.setPixelColor(i, leds.Color(0, 255, 0));
+        leds.show();
+    }
+!!!137642.cpp!!!	eteindreNotificationMachine(in numeroMachine : int) : void
+    if(estIdValideMachine(numeroMachine))
+    {
+        int indexLed = INDEX_LEDS_NOTIFICATION_MACHINES + numeroMachine;
+        leds.setPixelColor(indexLed, leds.Color(0, 0, 0));
         leds.show();
     }
 !!!137770.cpp!!!	eteindreNotificationMachines() : void
@@ -148,46 +171,53 @@ class StationLumineuse
         leds.setPixelColor(i, leds.Color(0, 0, 0));
         leds.show();
     }
-!!!137898.cpp!!!	estIdValidePoubelle(in id : int) : bool
-    return false;
+!!!137898.cpp!!!	estIdValidePoubelle(in numeroPoubelle : int) : bool
+    return (numeroPoubelle >= 0 && numeroPoubelle < NB_LEDS_NOTIFICATION_POUBELLES);
 !!!138026.cpp!!!	getEtatPoubelle(in numeroPoubelle : int) : bool
-    return false;
-!!!139050.cpp!!!	testerBoiteAuxLettres() : void
-    for(int i = INDEX_LEDS_NOTIFICATION_BOITE;
-        i < (INDEX_LEDS_NOTIFICATION_BOITE + NB_LEDS_NOTIFICATION_BOITE);
-        ++i)
+    if(estIdValidePoubelle(numeroPoubelle))
     {
-        leds.setPixelColor(i, leds.Color(255, 0, 0));
-        leds.show();
+        return etatPoubelles[numeroPoubelle];
     }
-    delay(1000);
-!!!139178.cpp!!!	testerMachines() : void
-    for(int i = INDEX_LEDS_NOTIFICATION_machines;
-        i < (INDEX_LEDS_NOTIFICATION_machines + NB_LEDS_NOTIFICATION_machines);
-        ++i)
+    else
     {
-        leds.setPixelColor(i, leds.Color(0, 255, 0)); // RGB
-        leds.show();
-        delay(1000);
+        return false;
     }
-!!!139306.cpp!!!	testerPoubelles() : void
-    for(int i = INDEX_LEDS_NOTIFICATION_POUBELLES;
-        i < (INDEX_LEDS_NOTIFICATION_POUBELLES + NB_LEDS_NOTIFICATION_POUBELLES);
-        ++i)
+!!!139562.cpp!!!	setEtatPoubelle(in numeroPoubelle : int, in etat : bool) : void
+    if(!estIdValidePoubelle(numeroPoubelle))
+        return;
+    etatPoubelles[numeroPoubelle] = etat;
+    char cle[64]                  = "";
+    sprintf((char*)cle, "%s%d", "poubelle", numeroPoubelle);
+    preferences.putBool(cle, etatPoubelles[numeroPoubelle]);
+    if(etat)
     {
-        leds.setPixelColor(i, leds.Color(0, 255, 0)); // RGB vert
+        allumerNotificationPoubelle(numeroPoubelle);
+    }
+    else
+    {
+        eteindreNotificationPoubelle(numeroPoubelle);
+    }
+!!!138410.cpp!!!	resetEtatPoubelles() : void
+    for(int i = 0; i < NB_LEDS_NOTIFICATION_POUBELLES; i++)
+    {
+        etatPoubelles[i] = false;
+        char cle[64]     = "";
+        sprintf((char*)cle, "%s%d", "poubelle", i);
+        preferences.putBool(cle, etatPoubelles[i]);
+        eteindreNotificationPoubelle(i);
+    }
+!!!138538.cpp!!!	allumerNotificationPoubelle(in numeroPoubelle : int) : void
+    if(estIdValidePoubelle(numeroPoubelle))
+    {
+        leds.setPixelColor(
+          INDEX_LEDS_NOTIFICATION_POUBELLES + numeroPoubelle,
+          couleursPoubelles[numeroPoubelle]); // Appliquer la couleur correspondante
+        leds.show();                          // Allume le bandeau
+    }
+!!!138794.cpp!!!	eteindreNotificationPoubelle(in numeroPoubelle : int) : void
+    if(estIdValidePoubelle(numeroPoubelle))
+    {
+        int indexLed = INDEX_LEDS_NOTIFICATION_POUBELLES + numeroPoubelle;
+        leds.setPixelColor(indexLed, leds.Color(0, 0, 0));
         leds.show();
-        delay(1000);
-        leds.setPixelcolor(in leds.Color(255, 0, 0)); // rouge
-        leds.show();
-        delay(1000);
-        leds.setPixelcolor(in leds.Color(0, 0, 255)); // bleu
-        leds.show();
-        delay(1000);
-        leds.setPixelColor(i, leds.Color(128, 128, 128)); // gris
-        leds.show();
-        delay(1000);
-        leds.setPixelColor(i, leds.Color(255, 255, 0)); // jaune
-        leds.show();
-        delay(1000);
     }

@@ -1,0 +1,38 @@
+format 224
+"lib" // station-notifications-lumineuses::lib
+  revision 1
+  modified_by 2 "btssn2"
+  // class settings
+  
+  classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
+  
+  usecasediagramsettings end
+  
+  sequencediagramsettings end
+  
+  collaborationdiagramsettings end
+  
+  objectdiagramsettings end
+  
+  objectcompositediagramsettings end
+  
+  componentdiagramsettings
+   end
+  
+  deploymentdiagramsettings
+   end
+  
+  statediagramsettings
+   end
+  
+  activitydiagramsettings
+   end
+  
+  cpp_h_dir "station-notifications-lumineuses/lib/"
+  cpp_src_dir "station-notifications-lumineuses/lib/"
+  package_ref 135170 // ServeurWeb
+
+  package_ref 135298 // StationLumineuse
+end

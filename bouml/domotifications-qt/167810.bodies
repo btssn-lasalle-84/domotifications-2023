@@ -1,0 +1,18 @@
+class Communication
+!!!156802.cpp!!!	Communication(inout parent : QObject = nullptr)
+    qDebug() << Q_FUNC_INFO;
+!!!156930.cpp!!!	~Communication()
+    qDebug() << Q_FUNC_INFO;
+!!!134570.cpp!!!	envoyerRequetePost(in api : QString, in json : QByteArray) : void
+    QUrl url(URL_STATION + api);
+    qDebug() << Q_FUNC_INFO << "url" << url.toString();
+    qDebug() << Q_FUNC_INFO << "json" << json;
+    QNetworkRequest requetePost;
+    requetePost.setUrl(url);
+    requetePost.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
+
+    requetePost.setRawHeader("Content-Type", "application/json");
+    requetePost.setRawHeader("Content-Length", QByteArray::number(json.size()));
+#ifndef SANS_STATION
+    accesReseau->post(requetePost, json);
+#endif

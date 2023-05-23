@@ -1,28 +1,52 @@
 #ifndef DOMOTIFICATION_H
 #define DOMOTIFICATION_H
 
+/**
+ * @file Domotification.h
+ *
+ * @brief Déclaration de la classe Domotification
+ * @author Mathieu MOYAERTS
+ * @version 0.2
+ */
+
 #include <QObject>
 #include <QString>
-#include <QMap>
+#include <QVector>
 
+#include "Constantes.h"
 #include "Module.h"
+
+class Module;
+class Communication;
+class IHMDomotifications;
 
 class Domotification : public QObject
 {
     Q_OBJECT
   private:
-    QMap<QString, Module*> modules;
+    QVector<Module*>    modules;
+    Communication*      communication;
+    IHMDomotifications* ihm;
 
   public:
-    Domotification(QObject* parent = nullptr);
+    Domotification(IHMDomotifications* ihm = nullptr);
     ~Domotification();
-    void gererActivationModule(QString nomModule, bool etatActivation);
-    void gererNotification(QString nomModule, bool etatActivation);
-    void ajouterModule(QString nomModule, Module::TypeModule type);
-    void notifier(QString message);
+
+    int              recupererIndexModule(QString typeModule, int id = 0);
+    bool             getActivationModule(QString typeModule, int id = 0);
+    void             ajouterModule(QString nomModule, Module::TypeModule type);
+    void             notifier(QString message);
+    QVector<Module*> getPoubelles() const;
+    QVector<Module*> getMachines() const;
+    Module*          getBoite() const;
+    void             chargerModules();
 
   signals:
     void nouvelleNotification(QString message);
+
+  public slots:
+    void gererNotification(QString typeModule, int id);
+    void gererActivationModule(QString typeModule, int id);
 };
 
 #endif // DOMOTIFICATION_H

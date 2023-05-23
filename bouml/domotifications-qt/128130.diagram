@@ -16,8 +16,8 @@ end
 usecasecanvas 129282 usecase_ref 128514 // Dialoguer avec la station de notifications lumineuses
   xyzwh 617 174 3005 67 33 label_xy 438 208
 end
-usecasecanvas 129410 usecase_ref 128642 // Activer/Desactiver une notification
-  xyzwh 534 9 3005 64 32 label_xy 478 48
+usecasecanvas 129410 usecase_ref 128642 // Activer/Desactiver un module
+  xyzwh 534 9 3005 64 32 label_xy 508 48
 end
 line 130690 ---- decenter_end 468
   from ref 128002 z 3006 to ref 128130

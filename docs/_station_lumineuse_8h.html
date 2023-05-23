@@ -27,7 +27,7 @@
   <td id="projectlogo"><img alt="Logo" src="projet-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Projet domotifications
-   &#160;<span id="projectnumber">0.1</span>
+   &#160;<span id="projectnumber">0.2</span>
    </div>
    <div id="projectbrief">BTS SNIR LaSalle Avignon 2023</div>
   </td>
@@ -97,6 +97,7 @@ $(document).ready(function(){initNavTree('_station_lumineuse_8h.html',''); initR
 <div class="textblock"><code>#include &lt;Arduino.h&gt;</code><br />
 <code>#include &lt;Preferences.h&gt;</code><br />
 <code>#include &lt;Adafruit_NeoPixel.h&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
 </div>
 <p><a href="_station_lumineuse_8h_source.html">Aller au code source de ce fichier.</a></p>
 <table class="memberdecls">
@@ -108,17 +109,19 @@ Structures de données</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a1b5f6e32208d4420440542f41686f705"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_station_lumineuse_8h.html#a1b5f6e32208d4420440542f41686f705">DEBUG_STATION_LUMINEUSE</a></td></tr>
-<tr class="separator:a1b5f6e32208d4420440542f41686f705"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae22837728df88da892b4bb16bb98296d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_station_lumineuse_8h.html#ae22837728df88da892b4bb16bb98296d">BLEU</a>&#160;&#160;&#160;2</td></tr>
+<tr class="separator:ae22837728df88da892b4bb16bb98296d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abe5f0b8e134e6cf5e432a7946e5bf3e4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_station_lumineuse_8h.html#abe5f0b8e134e6cf5e432a7946e5bf3e4">INDEX_LEDS_NOTIFICATION_BOITE</a>&#160;&#160;&#160;    (<a class="el" href="_station_lumineuse_8h.html#a1a4d79375255191414c66a7f3bb21d3a">INDEX_LEDS_NOTIFICATION_POUBELLES</a> + <a class="el" href="_station_lumineuse_8h.html#ae5598b0513d99829f679ebfca011e485">NB_LEDS_NOTIFICATION_POUBELLES</a>)</td></tr>
 <tr class="separator:abe5f0b8e134e6cf5e432a7946e5bf3e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac8321ed7a404e369c0d627dd5f121ebd"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_station_lumineuse_8h.html#ac8321ed7a404e369c0d627dd5f121ebd">INDEX_LEDS_NOTIFICATION_MACHINES</a>&#160;&#160;&#160;0</td></tr>
 <tr class="separator:ac8321ed7a404e369c0d627dd5f121ebd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1a4d79375255191414c66a7f3bb21d3a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_station_lumineuse_8h.html#a1a4d79375255191414c66a7f3bb21d3a">INDEX_LEDS_NOTIFICATION_POUBELLES</a>&#160;&#160;&#160;    (<a class="el" href="_station_lumineuse_8h.html#ac8321ed7a404e369c0d627dd5f121ebd">INDEX_LEDS_NOTIFICATION_MACHINES</a> + <a class="el" href="_station_lumineuse_8h.html#a23c3f5a0129dad47f58c8433901d206e">NB_LEDS_NOTIFICATION_MACHINES</a>)</td></tr>
 <tr class="separator:a1a4d79375255191414c66a7f3bb21d3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9584ca171945d6fc1e8a19b2bf05c55b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_station_lumineuse_8h.html#a9584ca171945d6fc1e8a19b2bf05c55b">NB_LEDS</a>&#160;&#160;&#160;16</td></tr>
+<tr class="memitem:a89ad436eb02e0483d24e46d0889e64e2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_station_lumineuse_8h.html#a89ad436eb02e0483d24e46d0889e64e2">NB_COULEURS</a>&#160;&#160;&#160;3</td></tr>
+<tr class="separator:a89ad436eb02e0483d24e46d0889e64e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9584ca171945d6fc1e8a19b2bf05c55b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_station_lumineuse_8h.html#a9584ca171945d6fc1e8a19b2bf05c55b">NB_LEDS</a>&#160;&#160;&#160;15</td></tr>
 <tr class="separator:a9584ca171945d6fc1e8a19b2bf05c55b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7a652884fc19634e1c1f8812ff4e9a48"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_station_lumineuse_8h.html#a7a652884fc19634e1c1f8812ff4e9a48">NB_LEDS_NOTIFICATION_BOITE</a>&#160;&#160;&#160;5</td></tr>
+<tr class="memitem:a7a652884fc19634e1c1f8812ff4e9a48"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_station_lumineuse_8h.html#a7a652884fc19634e1c1f8812ff4e9a48">NB_LEDS_NOTIFICATION_BOITE</a>&#160;&#160;&#160;    (<a class="el" href="_station_lumineuse_8h.html#a9584ca171945d6fc1e8a19b2bf05c55b">NB_LEDS</a> - <a class="el" href="_station_lumineuse_8h.html#a23c3f5a0129dad47f58c8433901d206e">NB_LEDS_NOTIFICATION_MACHINES</a> - <a class="el" href="_station_lumineuse_8h.html#ae5598b0513d99829f679ebfca011e485">NB_LEDS_NOTIFICATION_POUBELLES</a>)</td></tr>
 <tr class="separator:a7a652884fc19634e1c1f8812ff4e9a48"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a23c3f5a0129dad47f58c8433901d206e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_station_lumineuse_8h.html#a23c3f5a0129dad47f58c8433901d206e">NB_LEDS_NOTIFICATION_MACHINES</a>&#160;&#160;&#160;6</td></tr>
 <tr class="separator:a23c3f5a0129dad47f58c8433901d206e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -126,27 +129,31 @@ Macros</h2></td></tr>
 <tr class="separator:ae5598b0513d99829f679ebfca011e485"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a28b29f7e9fbbebea9d599a752f64160e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_station_lumineuse_8h.html#a28b29f7e9fbbebea9d599a752f64160e">PIN_BANDEAU</a>&#160;&#160;&#160;16</td></tr>
 <tr class="separator:a28b29f7e9fbbebea9d599a752f64160e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a358a59dd21062085dd34d5c228c5f136"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_station_lumineuse_8h.html#a358a59dd21062085dd34d5c228c5f136">ROUGE</a>&#160;&#160;&#160;0</td></tr>
+<tr class="separator:a358a59dd21062085dd34d5c228c5f136"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a22c2b7cb14b1ffb516a9ed4a164b5cda"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_station_lumineuse_8h.html#a22c2b7cb14b1ffb516a9ed4a164b5cda">VERT</a>&#160;&#160;&#160;1</td></tr>
+<tr class="separator:a22c2b7cb14b1ffb516a9ed4a164b5cda"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Description détaillée</h2>
 <div class="textblock"><p>Déclaration de la classe <a class="el" href="class_station_lumineuse.html" title="Déclaration de la classe StationLumineuse.">StationLumineuse</a>. </p>
 <dl class="section author"><dt>Auteur</dt><dd>Alexis Vaillen </dd></dl>
-<dl class="section version"><dt>Version</dt><dd>0.1 </dd></dl>
+<dl class="section version"><dt>Version</dt><dd>0.2 </dd></dl>
 
 <p class="definition">Définition dans le fichier <a class="el" href="_station_lumineuse_8h_source.html">StationLumineuse.h</a>.</p>
 </div><h2 class="groupheader">Documentation des macros</h2>
-<a id="a1b5f6e32208d4420440542f41686f705"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1b5f6e32208d4420440542f41686f705">&#9670;&nbsp;</a></span>DEBUG_STATION_LUMINEUSE</h2>
+<a id="ae22837728df88da892b4bb16bb98296d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae22837728df88da892b4bb16bb98296d">&#9670;&nbsp;</a></span>BLEU</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define DEBUG_STATION_LUMINEUSE</td>
+          <td class="memname">#define BLEU&#160;&#160;&#160;2</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Définition à la ligne <a class="el" href="_station_lumineuse_8h_source.html#l00015">15</a> du fichier <a class="el" href="_station_lumineuse_8h_source.html">StationLumineuse.h</a>.</p>
+<p class="definition">Définition à la ligne <a class="el" href="_station_lumineuse_8h_source.html#l00034">34</a> du fichier <a class="el" href="_station_lumineuse_8h_source.html">StationLumineuse.h</a>.</p>
 
 </div>
 </div>
@@ -198,6 +205,22 @@ Macros</h2></td></tr>
 
 </div>
 </div>
+<a id="a89ad436eb02e0483d24e46d0889e64e2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a89ad436eb02e0483d24e46d0889e64e2">&#9670;&nbsp;</a></span>NB_COULEURS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define NB_COULEURS&#160;&#160;&#160;3</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="_station_lumineuse_8h_source.html#l00035">35</a> du fichier <a class="el" href="_station_lumineuse_8h_source.html">StationLumineuse.h</a>.</p>
+
+</div>
+</div>
 <a id="a9584ca171945d6fc1e8a19b2bf05c55b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9584ca171945d6fc1e8a19b2bf05c55b">&#9670;&nbsp;</a></span>NB_LEDS</h2>
 
@@ -205,12 +228,12 @@ Macros</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define NB_LEDS&#160;&#160;&#160;16</td>
+          <td class="memname">#define NB_LEDS&#160;&#160;&#160;15</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Définition à la ligne <a class="el" href="_station_lumineuse_8h_source.html#l00021">21</a> du fichier <a class="el" href="_station_lumineuse_8h_source.html">StationLumineuse.h</a>.</p>
+<p class="definition">Définition à la ligne <a class="el" href="_station_lumineuse_8h_source.html#l00020">20</a> du fichier <a class="el" href="_station_lumineuse_8h_source.html">StationLumineuse.h</a>.</p>
 
 </div>
 </div>
@@ -221,12 +244,12 @@ Macros</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define NB_LEDS_NOTIFICATION_BOITE&#160;&#160;&#160;5</td>
+          <td class="memname">#define NB_LEDS_NOTIFICATION_BOITE&#160;&#160;&#160;    (<a class="el" href="_station_lumineuse_8h.html#a9584ca171945d6fc1e8a19b2bf05c55b">NB_LEDS</a> - <a class="el" href="_station_lumineuse_8h.html#a23c3f5a0129dad47f58c8433901d206e">NB_LEDS_NOTIFICATION_MACHINES</a> - <a class="el" href="_station_lumineuse_8h.html#ae5598b0513d99829f679ebfca011e485">NB_LEDS_NOTIFICATION_POUBELLES</a>)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Définition à la ligne <a class="el" href="_station_lumineuse_8h_source.html#l00024">24</a> du fichier <a class="el" href="_station_lumineuse_8h_source.html">StationLumineuse.h</a>.</p>
+<p class="definition">Définition à la ligne <a class="el" href="_station_lumineuse_8h_source.html#l00023">23</a> du fichier <a class="el" href="_station_lumineuse_8h_source.html">StationLumineuse.h</a>.</p>
 
 </div>
 </div>
@@ -242,7 +265,7 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Définition à la ligne <a class="el" href="_station_lumineuse_8h_source.html#l00022">22</a> du fichier <a class="el" href="_station_lumineuse_8h_source.html">StationLumineuse.h</a>.</p>
+<p class="definition">Définition à la ligne <a class="el" href="_station_lumineuse_8h_source.html#l00021">21</a> du fichier <a class="el" href="_station_lumineuse_8h_source.html">StationLumineuse.h</a>.</p>
 
 </div>
 </div>
@@ -258,7 +281,7 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Définition à la ligne <a class="el" href="_station_lumineuse_8h_source.html#l00023">23</a> du fichier <a class="el" href="_station_lumineuse_8h_source.html">StationLumineuse.h</a>.</p>
+<p class="definition">Définition à la ligne <a class="el" href="_station_lumineuse_8h_source.html#l00022">22</a> du fichier <a class="el" href="_station_lumineuse_8h_source.html">StationLumineuse.h</a>.</p>
 
 </div>
 </div>
@@ -274,7 +297,39 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Définition à la ligne <a class="el" href="_station_lumineuse_8h_source.html#l00020">20</a> du fichier <a class="el" href="_station_lumineuse_8h_source.html">StationLumineuse.h</a>.</p>
+<p class="definition">Définition à la ligne <a class="el" href="_station_lumineuse_8h_source.html#l00019">19</a> du fichier <a class="el" href="_station_lumineuse_8h_source.html">StationLumineuse.h</a>.</p>
+
+</div>
+</div>
+<a id="a358a59dd21062085dd34d5c228c5f136"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a358a59dd21062085dd34d5c228c5f136">&#9670;&nbsp;</a></span>ROUGE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ROUGE&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="_station_lumineuse_8h_source.html#l00032">32</a> du fichier <a class="el" href="_station_lumineuse_8h_source.html">StationLumineuse.h</a>.</p>
+
+</div>
+</div>
+<a id="a22c2b7cb14b1ffb516a9ed4a164b5cda"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a22c2b7cb14b1ffb516a9ed4a164b5cda">&#9670;&nbsp;</a></span>VERT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define VERT&#160;&#160;&#160;1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="_station_lumineuse_8h_source.html#l00033">33</a> du fichier <a class="el" href="_station_lumineuse_8h_source.html">StationLumineuse.h</a>.</p>
 
 </div>
 </div>
@@ -285,7 +340,7 @@ Macros</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_c4bee523723c22158d5c364f1b456f3f.html">station-notifications-lumineuses</a></li><li class="navelem"><a class="el" href="dir_0ae7571552f2445ca76fc9527b92d49f.html">lib</a></li><li class="navelem"><a class="el" href="dir_b1f1224756b8c6eef68ab8016574bb9a.html">StationLumineuse</a></li><li class="navelem"><a class="el" href="_station_lumineuse_8h.html">StationLumineuse.h</a></li>
-    <li class="footer"><img class="footer" src="lasalle-logo.png" height="31" alt="La Salle Avignon"/>&nbsp;<b>Campus La Salle Avignon</b>&nbsp;-&nbsp;9 Rue Notre Dame des 7 douleurs&nbsp;-&nbsp;BP 50165&nbsp;-&nbsp;84008 Avignon&nbsp;-&nbsp;Généré le Lundi 10 Avril 2023 00:04:14 pour Projet domotifications par&nbsp;<a href="https://www.doxygen.org/index.html">doxygen</a>&nbsp;1.9.1&nbsp;</li>
+    <li class="footer"><img class="footer" src="lasalle-logo.png" height="31" alt="La Salle Avignon"/>&nbsp;<b>Campus La Salle Avignon</b>&nbsp;-&nbsp;9 Rue Notre Dame des 7 douleurs&nbsp;-&nbsp;BP 50165&nbsp;-&nbsp;84008 Avignon&nbsp;-&nbsp;Généré le Mardi 23 Mai 2023 06:05:32 pour Projet domotifications par&nbsp;<a href="https://www.doxygen.org/index.html">doxygen</a>&nbsp;1.9.1&nbsp;</li>
   </ul>
 </div>
 </body>

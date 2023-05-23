@@ -1,0 +1,565 @@
+class ServeurWeb
+!!!167810.cpp!!!	setNom(in nomStationLumineuse : String = NOM_SERVEUR_WEB) : void
+    if(nomStationLumineuse.isEmpty())
+        nomStationLumineuse = NOM_SERVEUR_WEB;
+    // Pour un accès : http://nomStationLumineuse.local/
+    if(!MDNS.begin(nomStationLumineuse.c_str()))
+    {
+#ifdef DEBUG_SERVEUR_WEB
+        Serial.println(F("setNom() Erreur mDNS !"));
+#endif
+    }
+    else
+    {
+#ifdef DEBUG_SERVEUR_WEB
+        Serial.println("setNom() http://" + nomStationLumineuse + ".local/");
+#endif
+    }
+!!!144170.cpp!!!	installerGestionnairesRequetes() : void
+    on("/", HTTP_GET, std::bind(&ServeurWeb::afficherAccueil, this));
+    on("/notifications", std::bind(&ServeurWeb::traiterRequeteGETNotifications, this));
+    on("/boite", HTTP_GET, std::bind(&ServeurWeb::traiterRequeteGETBoite, this));
+    on("/boite", HTTP_POST, std::bind(&ServeurWeb::traiterRequetePOSTBoite, this));
+    on("/machine", HTTP_GET, std::bind(&ServeurWeb::traiterRequeteGETMachine, this));
+    on("/machine",
+       HTTP_POST,
+       std::bind(&ServeurWeb::traiterRequetePOSTMachine,
+                 this)); // Ajout de la route /machine en POST
+    on("/poubelle", HTTP_GET, std::bind(&ServeurWeb::traiterRequeteGETPoubelle, this));
+    on("/poubelle",
+       HTTP_POST,
+       std::bind(&ServeurWeb::traiterRequetePOSTPoubelle,
+                 this)); // Ajout de la route /poubelle en POST
+    onNotFound(std::bind(&ServeurWeb::traiterRequeteNonTrouvee, this));
+!!!167938.cpp!!!	afficherAccueil() : void
+#ifdef DEBUG_SERVEUR_WEB
+    Serial.print(F("ServeurWeb::afficherAccueil() : requête = "));
+    Serial.println((method() == HTTP_GET) ? "GET" : "POST");
+    Serial.print(F("URI : "));
+    Serial.println(uri());
+#endif
+    String message = "<h1>Bienvenue sur la station de notifications lumineuses</h1>\n";
+    message += "<p>LaSalle Avignon v1.0</p>\n";
+    send(200, F("text/html"), message);
+!!!168066.cpp!!!	traiterRequeteGETNotifications() : void
+#ifdef DEBUG_SERVEUR_WEB
+    Serial.print(F("ServeurWeb::traiterRequeteGETNotifications() : requête = "));
+    Serial.println((method() == HTTP_GET) ? "GET" : "POST");
+    Serial.print(F("URI : "));
+    Serial.println(uri());
+#endif
+
+    documentJSON.clear();
+    documentJSON["boite"] = stationLumineuse->getEtatBoiteAuxLettres();
+    JsonArray machines    = documentJSON.createNestedArray("machines");
+    for(int i = 0; i < NB_LEDS_NOTIFICATION_MACHINES; ++i)
+    {
+        machines.add(stationLumineuse->getEtatMachine(i));
+    }
+    JsonArray poubelle = documentJSON.createNestedArray("poubelle");
+    for(int i = 0; i < NB_LEDS_NOTIFICATION_POUBELLES; ++i)
+    {
+        poubelle.add(stationLumineuse->getEtatPoubelle(i));
+    }
+
+#ifdef DEBUG_SERVEUR_WEB
+    Serial.print(F("JSON : "));
+    serializeJson(documentJSON, Serial);
+    Serial.println();
+#endif
+    char buffer[TAILLE_JSON];
+    serializeJson(documentJSON, buffer);
+    send(200, "application/json", buffer);
+!!!168194.cpp!!!	traiterRequeteGETBoite() : void
+#ifdef DEBUG_SERVEUR_WEB
+    Serial.print(F("ServeurWeb::traiterRequeteGETBoite() : requête = "));
+    Serial.println((method() == HTTP_GET) ? "GET" : "POST");
+    Serial.print(F("URI : "));
+    Serial.println(uri());
+    Serial.print(F("Nb arguments : "));
+    Serial.println(args());
+    // les arguments du type : /boite?etat=true
+    for(int i = 0; i < args(); ++i)
+    {
+        Serial.print("argument : ");
+        Serial.print(argName(i));
+        Serial.print(" -> ");
+        Serial.println(arg(i));
+    }
+#endif
+
+    if(hasArg("etat"))
+    {
+        bool etat = (arg("etat") == "1") || (arg("etat") == "true");
+
+#ifdef DEBUG_SERVEUR_WEB
+        Serial.print(F("etat : "));
+        Serial.println(etat);
+#endif
+
+        // Modifie l'état de la boîte
+        stationLumineuse->setEtatBoiteAuxLettres(etat);
+
+        send(200,
+             "application/json",
+             "{\"boite\": "
+             "\"ok\"}");
+    }
+    else
+    {
+        // Récupérer l'état actuel de la boîte aux lettres
+        bool etat = stationLumineuse->getEtatBoiteAuxLettres();
+
+        // Répondre à la requête en donnant l'état de la boîte aux lettres
+        String jsonResponse = "{\"etat\": ";
+        jsonResponse += etat ? "true" : "false";
+        jsonResponse += "}";
+        send(200, "application/json", jsonResponse);
+    }
+!!!168322.cpp!!!	traiterRequetePOSTBoite() : void
+#ifdef DEBUG_SERVEUR_WEB
+    Serial.print(F("ServeurWeb::traiterRequetePOSTBoite() : requête = "));
+    Serial.println((method() == HTTP_GET) ? "GET" : "POST");
+    Serial.print(F("URI : "));
+    Serial.println(uri());
+#endif
+
+    if(hasArg("plain") == false)
+    {
+#ifdef DEBUG_SERVEUR_WEB
+        Serial.println(F("Erreur !"));
+#endif
+        send(400,
+             "application/json",
+             "{\"error\": { \"code\": \"invalidRequest\", \"message\": "
+             "\" La demande est vide ou incorrecte.\"}}");
+        return;
+    }
+
+    String body = arg("plain");
+#ifdef DEBUG_SERVEUR_WEB
+    Serial.println(body);
+#endif
+    DeserializationError erreur = deserializeJson(documentJSON, body);
+    if(erreur)
+    {
+#ifdef DEBUG_SERVEUR_WEB
+        Serial.print(F("Erreur deserializeJson() : "));
+        Serial.println(erreur.f_str());
+#endif
+        send(400,
+             "application/json",
+             "{\"error\": { \"code\": \"invalidRequest\", \"message\": "
+             "\"La demande est mal exprimée ou incorrecte.\"}}");
+        return;
+    }
+    else
+    {
+        JsonObject objetJSON = documentJSON.as<JsonObject>();
+        if(objetJSON.containsKey("etat"))
+        {
+#ifdef DEBUG_SERVEUR_WEB
+            Serial.print(F("etat : "));
+            Serial.println(documentJSON["etat"].as<bool>());
+#endif
+
+            stationLumineuse->setEtatBoiteAuxLettres(documentJSON["etat"].as<bool>());
+
+            send(200,
+                 "application/json",
+                 "{\"boite\": "
+                 "\"ok\"}");
+        }
+        else
+        {
+#ifdef DEBUG_SERVEUR_WEB
+            Serial.print(F("Erreur : champ etat manquant"));
+#endif
+            send(400,
+                 "application/json",
+                 "{\"error\": { \"code\": \"invalidRequest\", \"message\": "
+                 "\"La demande est incomplète.\"}}");
+            return;
+        }
+    }
+!!!168450.cpp!!!	traiterRequeteGETMachine() : void
+#ifdef DEBUG_SERVEUR_WEB
+    Serial.print(F("ServeurWeb::traiterRequeteGETMachine() : requête = "));
+    Serial.println((method() == HTTP_GET) ? "GET" : "POST");
+    Serial.print(F("URI : "));
+    Serial.println(uri());
+    Serial.print(F("Nb arguments : "));
+    Serial.println(args());
+    // les arguments du type : /machine?id=x&etat=true
+    for(int i = 0; i < args(); ++i)
+    {
+        Serial.print("argument : ");
+        Serial.print(argName(i));
+        Serial.print(" -> ");
+        Serial.println(arg(i));
+    }
+#endif
+
+    if(hasArg("id") && hasArg("etat"))
+    {
+        int  id   = arg("id").toInt();
+        bool etat = (arg("etat") == "1") || (arg("etat") == "true");
+
+#ifdef DEBUG_SERVEUR_WEB
+        Serial.print(F("id : "));
+        Serial.println(id);
+        Serial.print(F("etat : "));
+        Serial.println(etat);
+#endif
+
+        if(stationLumineuse->estIdValideMachine(id))
+        {
+            // Modifie l'état de la machine
+            stationLumineuse->setEtatMachine(id, etat);
+
+            send(200,
+                 "application/json",
+                 "{\"machine\": "
+                 "\"ok\"}");
+        }
+        else
+        {
+            send(404,
+                 "application/json",
+                 "{\"error\": { \"code\": \"notFound\", \"message\": "
+                 "\"La machine demandée n'existe pas.\"}}");
+        }
+    }
+    else if(hasArg("id"))
+    {
+        int id = arg("id").toInt();
+        if(stationLumineuse->estIdValideMachine(id))
+        {
+            // Récupérer l'état actuel de la machine
+            bool etat = stationLumineuse->getEtatMachine(id);
+
+            // Répondre à la requête en donnant l'état de la machine
+            String jsonResponse = "{\"id\": ";
+            jsonResponse += id;
+            jsonResponse += ", \"etat\": ";
+            jsonResponse += etat ? "true" : "false";
+            jsonResponse += "}";
+            send(200, "application/json", jsonResponse);
+        }
+        else
+        {
+            send(404,
+                 "application/json",
+                 "{\"error\": { \"code\": \"notFound\", \"message\": "
+                 "\"La machine demandée n'existe pas.\"}}");
+        }
+    }
+    else
+    {
+        String message = "400 Bad Request\n\n";
+        message += "URI: ";
+        message += uri();
+        message += "\nMethod: ";
+        message += (method() == HTTP_GET) ? "GET" : "POST";
+        message += "\nArguments: ";
+        message += args();
+        message += "\n";
+        for(uint8_t i = 0; i < args(); i++)
+        {
+            message += " " + argName(i) + ": " + arg(i) + "\n";
+        }
+        send(400, "text/plain", message);
+    }
+!!!168578.cpp!!!	traiterRequetePOSTMachine() : void
+#ifdef DEBUG_SERVEUR_WEB
+    Serial.print(F("ServeurWeb::traiterRequetePOSTMachine() : requête = "));
+    Serial.println((method() == HTTP_GET) ? "GET" : "POST");
+    Serial.print(F("URI : "));
+    Serial.println(uri());
+#endif
+
+    if(hasArg("plain") == false)
+    {
+#ifdef DEBUG_SERVEUR_WEB
+        Serial.println(F("Erreur !"));
+#endif
+        send(400,
+             "application/json",
+             "{\"error\": { \"code\": \"invalidRequest\", \"message\": "
+             "\"La demande est vide ou incorrecte.\"}}");
+        return;
+    }
+
+    String body = arg("plain");
+#ifdef DEBUG_SERVEUR_WEB
+    Serial.println(body);
+#endif
+    DeserializationError erreur = deserializeJson(documentJSON, body);
+    if(erreur)
+    {
+#ifdef DEBUG_SERVEUR_WEB
+        Serial.print(F("Erreur deserializeJson() : "));
+        Serial.println(erreur.f_str());
+#endif
+        send(400,
+             "application/json",
+             "{\"error\": { \"code\": \"invalidRequest\", \"message\": "
+             "\"La demande est mal exprimée ou incorrecte.\"}}");
+        return;
+    }
+    else
+    {
+        int  numeroMachine = extraireId();
+        bool etatMachine   = extraireEtat();
+
+        if(stationLumineuse->estIdValideMachine(numeroMachine))
+        {
+            stationLumineuse->setEtatMachine(numeroMachine, etatMachine);
+
+            send(200,
+                 "application/json",
+                 "{\"machine\": "
+                 "\"ok\"}");
+        }
+        else
+        {
+#ifdef DEBUG_SERVEUR_WEB
+            Serial.print(F("Erreur : champ id invalide"));
+#endif
+            send(400,
+                 "application/json",
+                 "{\"error\": { \"code\": \"invalidRequest\", \"message\": "
+                 "\"La demande est invalide.\"}}");
+        }
+    }
+!!!168706.cpp!!!	traiterRequeteGETPoubelle() : void
+#ifdef DEBUG_SERVEUR_WEB
+    Serial.print(F("ServeurWeb::traiterRequeteGETPoubelle() : requête = "));
+    Serial.println((method() == HTTP_GET) ? "GET" : "POST");
+    Serial.print(F("URI : "));
+    Serial.println(uri());
+    Serial.print(F("Nb arguments : "));
+    Serial.println(args());
+    // les arguments du type : /poubelle?id=x&etat=true
+    for(int i = 0; i < args(); ++i)
+    {
+        Serial.print("argument : ");
+        Serial.print(argName(i));
+        Serial.print(" -> ");
+        Serial.println(arg(i));
+    }
+#endif
+
+    if(hasArg("id") && hasArg("etat"))
+    {
+        int  id   = arg("id").toInt();
+        bool etat = (arg("etat") == "1") || (arg("etat") == "true");
+
+#ifdef DEBUG_SERVEUR_WEB
+        Serial.print(F("id : "));
+        Serial.println(id);
+        Serial.print(F("etat : "));
+        Serial.println(etat);
+#endif
+
+        if(stationLumineuse->estIdValidePoubelle(id))
+        {
+            // Modifie l'état de la poubelle
+            stationLumineuse->setEtatPoubelle(id, etat);
+
+            send(200,
+                 "application/json",
+                 "{\"poubelle\": "
+                 "\"ok\"}");
+        }
+        else
+        {
+            send(404,
+                 "application/json",
+                 "{\"error\": { \"code\": \"notFound\", \"message\": "
+                 "\"La poubelle demandée n'existe pas.\"}}");
+        }
+    }
+    else if(hasArg("id"))
+    {
+        int id = arg("id").toInt();
+        if(stationLumineuse->estIdValidePoubelle(id))
+        {
+            // Récupérer l'état actuel de la poubelle
+            bool etat = stationLumineuse->getEtatPoubelle(id);
+
+            // Répondre à la requête en donnant l'état de la Poubelle
+            String jsonResponse = "{\"id\": ";
+            jsonResponse += id;
+            jsonResponse += ", \"etat\": ";
+            jsonResponse += etat ? "true" : "false";
+            jsonResponse += "}";
+            send(200, "application/json", jsonResponse);
+        }
+        else
+        {
+            send(404,
+                 "application/json",
+                 "{\"error\": { \"code\": \"notFound\", \"message\": "
+                 "\"La poubelle demandée n'existe pas.\"}}");
+        }
+    }
+    else
+    {
+        String message = "400 Bad Request\n\n";
+        message += "URI: ";
+        message += uri();
+        message += "\nMethod: ";
+        message += (method() == HTTP_GET) ? "GET" : "POST";
+        message += "\nArguments: ";
+        message += args();
+        message += "\n";
+        for(uint8_t i = 0; i < args(); i++)
+        {
+            message += " " + argName(i) + ": " + arg(i) + "\n";
+        }
+        send(400, "text/plain", message);
+    }
+!!!168834.cpp!!!	traiterRequetePOSTPoubelle() : void
+#ifdef DEBUG_SERVEUR_WEB
+    Serial.print(F("ServeurWeb::traiterRequetePOSTPoubelle() : requête = "));
+    Serial.println((method() == HTTP_GET) ? "GET" : "POST");
+    Serial.print(F("URI : "));
+    Serial.println(uri());
+#endif
+
+    if(hasArg("plain") == false)
+    {
+#ifdef DEBUG_SERVEUR_WEB
+        Serial.println(F("Erreur !"));
+#endif
+        send(400,
+             "application/json",
+             "{\"error\": { \"code\": \"invalidRequest\", \"message\": "
+             "\"La demande est vide ou incorrecte.\"}}");
+        return;
+    }
+
+    String body = arg("plain");
+#ifdef DEBUG_SERVEUR_WEB
+    Serial.println(body);
+#endif
+    DeserializationError erreur = deserializeJson(documentJSON, body);
+    if(erreur)
+    {
+#ifdef DEBUG_SERVEUR_WEB
+        Serial.print(F("Erreur deserializeJson() : "));
+        Serial.println(erreur.f_str());
+#endif
+        send(400,
+             "application/json",
+             "{\"error\": { \"code\": \"invalidRequest\", \"message\": "
+             "\"La demande est mal exprimée ou incorrecte.\"}}");
+        return;
+    }
+    else
+    {
+        JsonObject objetJSON = documentJSON.as<JsonObject>();
+        if(objetJSON.containsKey("etat") && objetJSON.containsKey("id"))
+        {
+#ifdef DEBUG_SERVEUR_WEB
+            Serial.print(F("id : "));
+            Serial.println(documentJSON["id"].as<int>());
+            Serial.print(F("etat : "));
+            Serial.println(documentJSON["etat"].as<bool>());
+#endif
+
+            // Modifier l'état de la Poubelle ici
+            int  numeroPoubelle = documentJSON["id"].as<int>();
+            bool etatPoubelle   = documentJSON["etat"].as<bool>();
+
+            if(stationLumineuse->estIdValidePoubelle(numeroPoubelle))
+            {
+                stationLumineuse->setEtatPoubelle(numeroPoubelle, etatPoubelle);
+
+                send(200,
+                     "application/json",
+                     "{\"poubelle\": "
+                     "\"ok\"}");
+            }
+            else
+            {
+                send(404,
+                     "application/json",
+                     "{\"error\": { \"code\": \"notFound\", \"message\": "
+                     "\"La poubelle demandée n'existe pas.\"}}");
+            }
+        }
+        else
+        {
+#ifdef DEBUG_SERVEUR_WEB
+            Serial.print(F("Erreur : champ etat ou numeroPoubelle manquant"));
+#endif
+            send(400,
+                 "application/json",
+                 "{\"error\": { \"code\": \"invalidRequest\", \"message\": "
+                 "\"La demande est incomplète.\"}}");
+            return;
+        }
+    }
+!!!168962.cpp!!!	traiterRequeteNonTrouvee() : void
+#ifdef DEBUG_SERVEUR_WEB
+    Serial.print(F("ServeurWeb::traiterRequeteNonTrouvee() : requête = "));
+    Serial.println((method() == HTTP_GET) ? "GET" : "POST");
+    Serial.print(F("URI : "));
+    Serial.println(uri());
+#endif
+
+    String message = "404 File Not Found\n\n";
+    message += "URI: ";
+    message += uri();
+    message += "\nMethod: ";
+    message += (method() == HTTP_GET) ? "GET" : "POST";
+    message += "\nArguments: ";
+    message += args();
+    message += "\n";
+    for(uint8_t i = 0; i < args(); i++)
+    {
+        message += " " + argName(i) + ": " + arg(i) + "\n";
+    }
+    send(404, "text/plain", message);
+!!!144298.cpp!!!	extraireId() : int
+    JsonObject objetJSON = documentJSON.as<JsonObject>();
+    if(objetJSON.containsKey("id"))
+    {
+#ifdef DEBUG_SERVEUR_WEB
+        Serial.print(F("id : "));
+        Serial.println(documentJSON["id"].as<int>());
+#endif
+        return documentJSON["id"].as<int>();
+    }
+    return -1;
+!!!144426.cpp!!!	extraireEtat() : bool
+    JsonObject objetJSON = documentJSON.as<JsonObject>();
+    if(objetJSON.containsKey("etat"))
+    {
+#ifdef DEBUG_SERVEUR_WEB
+        Serial.print(F("etat : "));
+        Serial.println(documentJSON["etat"].as<bool>());
+#endif
+
+        return documentJSON["etat"].as<bool>();
+    }
+    return false;
+!!!169218.cpp!!!	demarrer() : void
+    setNom();
+#ifdef DEBUG_SERVEUR_WEB
+    Serial.print(F("ServeurWeb::demarrer() : adresse IP = "));
+    Serial.println(WiFi.localIP());
+#endif
+
+    installerGestionnairesRequetes();
+
+    // Démarre le serveur
+    begin();
+
+#ifdef DEBUG_SERVEUR_WEB
+    Serial.println(F("ServeurWeb::demarrer() ok"));
+#endif
+!!!169346.cpp!!!	traiterRequetes() : void
+    handleClient();
