@@ -154,6 +154,7 @@ void IHMDomotifications::initialiserWidgets()
                  << poubelles[i]->getId() << "type" << poubelles[i]->getType()
                  << poubelles[i]->recupererType();
         boutonsActivationDesactivationPoubelle[i]->setObjectName(poubelles[i]->recupererType());
+        boutonsAcquittementPoubelle[i]->setObjectName(poubelles[i]->recupererType());
     }
 
     for(auto i = 0; i < machines.size(); i++)
@@ -161,11 +162,13 @@ void IHMDomotifications::initialiserWidgets()
         qDebug() << Q_FUNC_INFO << "module" << machines[i]->getNom() << "id" << machines[i]->getId()
                  << "type" << machines[i]->getType() << machines[i]->recupererType();
         boutonsActivationDesactivationMachine[i]->setObjectName(machines[i]->recupererType());
+        boutonsAcquittementMachine[i]->setObjectName(machines[i]->recupererType());
     }
 
     qDebug() << Q_FUNC_INFO << "module" << boite->getNom() << "type" << boite->getType()
              << boite->recupererType();
     boutonActivationDesactivationBoiteAuxLettres->setObjectName(boite->recupererType());
+    boutonAcquittementBoiteAuxLettres->setObjectName(boite->recupererType());
 
     //----------------
 
@@ -305,6 +308,13 @@ int IHMDomotifications::recupererIdModule(QPushButton* boutonModule)
                 return i;
             }
         }
+        for(int i = 0; i < boutonsAcquittementPoubelle.size(); i++)
+        {
+            if(boutonModule == boutonsAcquittementPoubelle[i])
+            {
+                return i;
+            }
+        }
     }
     else if(boutonModule->objectName() == Module::getType(Module::TypeModule::Machine))
     {
@@ -315,6 +325,9 @@ int IHMDomotifications::recupererIdModule(QPushButton* boutonModule)
                 return i;
             }
         }
+        /**
+         * @todo Gérer la récupération pour les boutons acquittement des machines
+         */
     }
     else
     {
@@ -541,6 +554,10 @@ void IHMDomotifications::initialiserSignauxSlots()
                 SIGNAL(clicked(bool)),
                 this,
                 SLOT(gererBoutonActivationDesactivation()));
+        connect(boutonsAcquittementPoubelle[index],
+                SIGNAL(clicked(bool)),
+                this,
+                SLOT(gererBoutonAcquittement()));
     }
     for(int index = 0; index < machines.size(); index++)
     {
@@ -548,16 +565,27 @@ void IHMDomotifications::initialiserSignauxSlots()
                 SIGNAL(clicked(bool)),
                 this,
                 SLOT(gererBoutonActivationDesactivation()));
+        connect(boutonsAcquittementMachine[index],
+                SIGNAL(clicked(bool)),
+                this,
+                SLOT(gererBoutonAcquittement()));
     }
     connect(boutonActivationDesactivationBoiteAuxLettres,
             SIGNAL(clicked(bool)),
             this,
             SLOT(gererBoutonActivationDesactivation()));
+    connect(boutonAcquittementBoiteAuxLettres,
+            SIGNAL(clicked(bool)),
+            this,
+            SLOT(gererBoutonAcquittement()));
 
     connect(this,
             SIGNAL(activationDesactivationModule(QString, int)),
             domotification,
             SLOT(gererActivationModule(QString, int)));
+    /**
+     * @todo Gérer la connexion signal/slot pour l'acquittement
+     */
 }
 
 /**
@@ -582,4 +610,22 @@ void IHMDomotifications::gererBoutonActivationDesactivation()
     {
         afficherBoutonActivation(boutonModule);
     }
+}
+
+/**
+ * @brief Gère les boutons d'acquittement
+ * @fn IHMDomotifications::gererBoutonAcquittement
+ * @details Envoie les signaux de chaque bouton d'acquittement vers leur slots
+ * respectifs
+ */
+void IHMDomotifications::gererBoutonAcquittement()
+{
+    QPushButton* boutonModule = qobject_cast<QPushButton*>(sender());
+    QString      typeModule   = recupererTypeModule(boutonModule);
+    int          id           = recupererIdModule(boutonModule);
+    qDebug() << Q_FUNC_INFO << "typeModule" << typeModule << "id" << id;
+
+    /**
+     * @todo Gérer l'envoi du signal acquittementModule
+     */
 }
