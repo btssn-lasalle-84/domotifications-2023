@@ -141,11 +141,12 @@ class IHMDomotifications : public QMainWindow
     void testerNotification();
 #endif
     void gererBoutonActivationDesactivation();
+    void gererBoutonAcquittement();
 
     void visualiserNotification(
       QString          message,
       TypeNotification type = IHMDomotifications::TypeNotification::Information);
-    void gererBoutonAcquittement();
+    void acquitterNotification();
 };
 
 #endif // IHMDOMOTIFICATIONS_H

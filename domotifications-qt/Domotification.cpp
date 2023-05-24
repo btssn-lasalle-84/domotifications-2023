@@ -32,12 +32,7 @@ Domotification::~Domotification()
 }
 
 // Slots
-/**
- * @brief Gère l'acquittement d'une notification
- * @fn Domotification::gererAcquittement
- * @param typeModule
- * @param id
- */
+
 void Domotification::gererAcquittement(QString typeModule, int id)
 {
     int indexModule = recupererIndexModule(typeModule, id);
@@ -121,17 +116,6 @@ bool Domotification::getActivationModule(QString typeModule, int id)
         }
     }
     return false;
-}
-
-/**
- * @fn Domotification::gererNotification
- * @brief Gère une notification
- * @param typeModule
- * @param id
- */
-void Domotification::gererNotification(QString typeModule, int id)
-{
-    qDebug() << Q_FUNC_INFO << "typeModule" << typeModule << "id" << id;
 }
 
 /**

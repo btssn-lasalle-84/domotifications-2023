@@ -45,7 +45,6 @@ class Domotification : public QObject
     void nouvelleNotification(QString message);
 
   public slots:
-    void gererNotification(QString typeModule, int id);
     void gererAcquittement(QString typeModule, int id);
     void gererActivationModule(QString typeModule, int id);
 };

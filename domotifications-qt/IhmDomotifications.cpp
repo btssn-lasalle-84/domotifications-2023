@@ -67,6 +67,20 @@ void IHMDomotifications::visualiserNotification(QString message, TypeNotificatio
     iconeSysteme->showMessage(TITRE_APPLICATION, message, messageIcon);
 }
 
+/**
+ * @brief Methode pour l'acquittement des notifications
+ *
+ * @fn IHMDomotifications::acquitterNotification
+ * @details Acquitte les notifications envoyés par le système de notification.
+ */
+void IHMDomotifications::acquitterNotification()
+{
+    /**
+     * @fixme Vérifier le moyen d'acquitter la notification
+     */
+    qDebug() << Q_FUNC_INFO;
+}
+
 #ifdef TEST_NOTIFICATIONS
 void IHMDomotifications::testerNotification()
 {
@@ -140,6 +154,7 @@ void IHMDomotifications::initialiserWidgets()
                  << poubelles[i]->getId() << "type" << poubelles[i]->getType()
                  << poubelles[i]->recupererType();
         boutonsActivationDesactivationPoubelle[i]->setObjectName(poubelles[i]->recupererType());
+        boutonsAcquittementPoubelle[i]->setObjectName(poubelles[i]->recupererType());
     }
 
     for(auto i = 0; i < machines.size(); i++)
@@ -147,11 +162,13 @@ void IHMDomotifications::initialiserWidgets()
         qDebug() << Q_FUNC_INFO << "module" << machines[i]->getNom() << "id" << machines[i]->getId()
                  << "type" << machines[i]->getType() << machines[i]->recupererType();
         boutonsActivationDesactivationMachine[i]->setObjectName(machines[i]->recupererType());
+        boutonsAcquittementMachine[i]->setObjectName(machines[i]->recupererType());
     }
 
     qDebug() << Q_FUNC_INFO << "module" << boite->getNom() << "type" << boite->getType()
              << boite->recupererType();
     boutonActivationDesactivationBoiteAuxLettres->setObjectName(boite->recupererType());
+    boutonAcquittementBoiteAuxLettres->setObjectName(boite->recupererType());
 
     //----------------
 
@@ -291,12 +308,26 @@ int IHMDomotifications::recupererIdModule(QPushButton* boutonModule)
                 return i;
             }
         }
+        for(int i = 0; i < boutonsAcquittementPoubelle.size(); i++)
+        {
+            if(boutonModule == boutonsAcquittementPoubelle[i])
+            {
+                return i;
+            }
+        }
     }
     else if(boutonModule->objectName() == Module::getType(Module::TypeModule::Machine))
     {
         for(int i = 0; i < boutonsActivationDesactivationMachine.size(); i++)
         {
             if(boutonModule == boutonsActivationDesactivationMachine[i])
+            {
+                return i;
+            }
+        }
+        for(int i = 0; i < boutonsAcquittementMachine.size(); i++)
+        {
+            if(boutonModule == boutonsAcquittementMachine[i])
             {
                 return i;
             }
@@ -511,6 +542,8 @@ void IHMDomotifications::afficherIconeBarreDesTaches()
  */
 void IHMDomotifications::initialiserSignauxSlots()
 {
+    connect(iconeSysteme, SIGNAL(messageClicked()), this, SLOT(acquitterNotification()));
+
 #ifdef TEST_NOTIFICATIONS
     // connect(boutonParametres, SIGNAL(clicked(bool)), this, SLOT(testerNotification()));
 #endif
@@ -518,7 +551,7 @@ void IHMDomotifications::initialiserSignauxSlots()
             SIGNAL(nouvelleNotification(QString)),
             this,
             SLOT(visualiserNotification(QString)));
-    // les boutons des modules
+    // les boutons d'activation/désactivation des modules
     for(int index = 0; index < poubelles.size(); index++)
     {
         connect(boutonsActivationDesactivationPoubelle[index],
@@ -554,7 +587,6 @@ void IHMDomotifications::initialiserSignauxSlots()
             SIGNAL(activationDesactivationModule(QString, int)),
             domotification,
             SLOT(gererActivationModule(QString, int)));
-
     connect(this,
             SIGNAL(acquittementNotification(QString, int)),
             domotification,
@@ -584,6 +616,7 @@ void IHMDomotifications::gererBoutonActivationDesactivation()
         afficherBoutonActivation(boutonModule);
     }
 }
+
 /**
  * @brief Gère les boutons d'acquittement
  * @fn IHMDomotifications::gererBoutonAcquittement
