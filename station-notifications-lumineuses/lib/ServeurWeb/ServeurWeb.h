@@ -15,7 +15,7 @@
 
 /**
  * @def NOM_SERVEUR_WEB
- * @brief Le nom du serveur web (http://station-lumineuse.local/) 
+ * @brief Le nom du serveur web (http://station-lumineuse.local/)
  */
 #define NOM_SERVEUR_WEB "station-lumineuse"
 

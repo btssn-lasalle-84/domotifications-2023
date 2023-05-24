@@ -65,6 +65,8 @@ class StationLumineuse
   public:
     StationLumineuse();
     ~StationLumineuse();
+    void recupererEtatsNotifications();
+    void recupererEtatsActivations();
     void initialiserPreferences();
     void initialiserNotifications();
     void initialiserCouleursPoubelles();

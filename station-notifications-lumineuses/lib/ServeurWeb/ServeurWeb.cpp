@@ -108,11 +108,13 @@ void ServeurWeb::setNom(String nomStationLumineuse)
  */
 void ServeurWeb::installerGestionnairesRequetes()
 {
-    /**
-     * @todo Ajouter l'enregistrement des requêtes GET/POST pour l'activation/désactivation
-     */
+
     on("/", HTTP_GET, std::bind(&ServeurWeb::afficherAccueil, this));
     on("/notifications", std::bind(&ServeurWeb::traiterRequeteGETNotifications, this));
+
+    on("/activations", HTTP_GET, std::bind(&ServeurWeb::traiterRequeteGETActivations, this));
+    on("/activation", HTTP_POST, std::bind(&ServeurWeb::traiterRequetePOSTActivation, this));
+
     on("/boite", HTTP_GET, std::bind(&ServeurWeb::traiterRequeteGETBoite, this));
     on("/boite", HTTP_POST, std::bind(&ServeurWeb::traiterRequetePOSTBoite, this));
     on("/machine", HTTP_GET, std::bind(&ServeurWeb::traiterRequeteGETMachine, this));

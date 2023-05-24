@@ -33,6 +33,41 @@ StationLumineuse::~StationLumineuse()
 {
 }
 
+void StationLumineuse::recupererEtatsNotifications() 
+{
+    char cle[64] = "";
+    etatBoiteAuxLettres = preferences.getBool("boite", false);
+    
+    for(int i = 0; i < NB_LEDS_NOTIFICATION_MACHINES; ++i)
+    {
+        sprintf((char*)cle, "%s%d", "machine", i);
+        etatMachines[i] = preferences.getBool(cle, false);
+    }
+
+    for(int i = 0; i < NB_LEDS_NOTIFICATION_POUBELLES; ++i)
+    {
+        sprintf((char*)cle, "%s%d", "poubelle", i);
+        etatPoubelles[i] = preferences.getBool(cle, false);
+    }
+}
+
+void StationLumineuse::recupererEtatsActivations()
+{
+    char cle[64] = "";
+    activationBoiteAuxLettres = preferences.getBool("activationBoite", true);
+    for(int i = 0; i < NB_LEDS_NOTIFICATION_MACHINES; ++i)
+    {
+        sprintf((char*)cle, "%s%d", "activationMachine", i);
+        activationMachines[i] = preferences.getBool(cle, true);
+    }
+
+    for(int i = 0; i < NB_LEDS_NOTIFICATION_POUBELLES; ++i)
+    {
+        sprintf((char*)cle, "%s%d", "activationPoubelle", i);
+        activationPoubelles[i] = preferences.getBool(cle, true);
+    }
+}
+
 /**
  * @brief Initialise les préférences de la station lumineuse
  * @fn StationLumineuse::initialiserPreferences
@@ -42,27 +77,10 @@ StationLumineuse::~StationLumineuse()
 void StationLumineuse::initialiserPreferences()
 {
     preferences.begin("eeprom", false); // false pour r/w
-    /**
-     * @todo Créer une méthode pour récupérer les états des notifications enregistrées
-     */
-    etatBoiteAuxLettres = preferences.getBool("boite", false);
-    char cle[64]        = "";
-    for(int i = 0; i < NB_LEDS_NOTIFICATION_MACHINES; ++i)
-    {
-        // machine0, machine1, etc..
-        sprintf((char*)cle, "%s%d", "machine", i);
-        etatMachines[i] = preferences.getBool(cle, false);
-    }
-    for(int i = 0; i < NB_LEDS_NOTIFICATION_POUBELLES; ++i)
-    {
-        // poubelle0, poubelle1, etc..
-        sprintf((char*)cle, "%s%d", "poubelle", i);
-        etatPoubelles[i] = preferences.getBool(cle, false);
-    }
-    /**
-     * @todo Créer une méthode pour récupérer les états des activations enregistrées
-     */
+    recupererEtatsNotifications();
+    recupererEtatsActivations();
 }
+
 
 /**
  * @brief Initialisation de l'état des notifications
@@ -74,10 +92,7 @@ void StationLumineuse::initialiserNotifications()
     leds.begin();
     leds.clear();
 
-    /**
-     * @todo Seulement pour les modules activés
-     */
-    if(etatBoiteAuxLettres)
+    if(activationBoiteAuxLettres && etatBoiteAuxLettres)
     {
         allumerNotificationBoiteAuxLettres();
     }
@@ -88,7 +103,7 @@ void StationLumineuse::initialiserNotifications()
 
     for(int i = 0; i < NB_LEDS_NOTIFICATION_MACHINES; i++)
     {
-        if(etatMachines[i])
+        if(activationMachines[i] && etatMachines[i])
         {
             allumerNotificationMachine(i);
         }
@@ -100,7 +115,7 @@ void StationLumineuse::initialiserNotifications()
 
     for(int i = 0; i < NB_LEDS_NOTIFICATION_POUBELLES; i++)
     {
-        if(etatPoubelles[i])
+        if(activationPoubelles[i] && etatPoubelles[i])
         {
             allumerNotificationPoubelle(i);
         }
@@ -145,10 +160,9 @@ void StationLumineuse::initialiserCouleursPoubelles()
 void StationLumineuse::setActivationBoiteAuxLettres(bool etat)
 {
     activationBoiteAuxLettres = etat;
-    /**
-     * @todo Enregistrer le nouvel état d'activation
-     */
+    preferences.putBool("activationBoite", etat);
 }
+
 
 /**
  * @brief Obtient l'état d'activation de la boîte aux lettres.
@@ -245,15 +259,16 @@ void StationLumineuse::setActivationMachine(int id, bool etat)
     if(estIdValideMachine(id))
     {
         activationMachines[id] = etat;
-        /**
-         * @todo Enregistrer le nouvel état d'activation
-         */
+        char cle[64] = "";
+        sprintf((char*)cle, "%s%d", "activationMachine", id);
+        preferences.putBool(cle, etat);
     }
     else
     {
         Serial.println(F("Erreur: Identifiant de machine invalide"));
     }
 }
+
 
 bool StationLumineuse::getActivationMachine(int id)
 {
@@ -386,15 +401,16 @@ void StationLumineuse::setActivationPoubelle(int id, bool etat)
     if(estIdValidePoubelle(id))
     {
         activationPoubelles[id] = etat;
-        /**
-         * @todo Enregistrer le nouvel état d'activation
-         */
+        char cle[64] = "";
+        sprintf((char*)cle, "%s%d", "activationPoubelle", id);
+        preferences.putBool(cle, etat);
     }
     else
     {
         Serial.println(F("Erreur: Identifiant de poubelle invalide"));
     }
 }
+
 
 bool StationLumineuse::getActivationPoubelle(int id)
 {
