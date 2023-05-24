@@ -3,7 +3,7 @@
 \author Mathieu Moyaerts <<mathieu.moyaerts.pro@gmail.com>>
 \author Alexis VAILLEN <<alexis.vaillen@gmail.com>>
 \date 2023
-\version 0.1
+\version 0.2
 \see https://github.com/btssn-lasalle-84/domotifications-2023
 
 
