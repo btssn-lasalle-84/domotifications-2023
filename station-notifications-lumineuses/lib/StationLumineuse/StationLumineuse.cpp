@@ -103,36 +103,45 @@ void StationLumineuse::initialiserNotifications()
     leds.begin();
     leds.clear();
 
-    if(activationBoiteAuxLettres && etatBoiteAuxLettres)
+    if(activationBoiteAuxLettres)
     {
-        allumerNotificationBoiteAuxLettres();
-    }
-    else
-    {
-        eteindreNotificationBoiteAuxLettres();
+        if(etatBoiteAuxLettres)
+        {
+            allumerNotificationBoiteAuxLettres();
+        }
+        else
+        {
+            eteindreNotificationBoiteAuxLettres();
+        }
     }
 
     for(int i = 0; i < NB_LEDS_NOTIFICATION_MACHINES; i++)
     {
-        if(activationMachines[i] && etatMachines[i])
+        if(activationMachines[i])
         {
-            allumerNotificationMachine(i);
-        }
-        else
-        {
-            eteindreNotificationMachine(i);
+            if(etatMachines[i])
+            {
+                allumerNotificationMachine(i);
+            }
+            else
+            {
+                eteindreNotificationMachine(i);
+            }
         }
     }
 
     for(int i = 0; i < NB_LEDS_NOTIFICATION_POUBELLES; i++)
     {
-        if(activationPoubelles[i] && etatPoubelles[i])
+        if(activationPoubelles[i])
         {
-            allumerNotificationPoubelle(i);
-        }
-        else
-        {
-            eteindreNotificationPoubelle(i);
+            if(etatPoubelles[i])
+            {
+                allumerNotificationPoubelle(i);
+            }
+            else
+            {
+                eteindreNotificationPoubelle(i);
+            }
         }
     }
 }
