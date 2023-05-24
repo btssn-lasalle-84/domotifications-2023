@@ -39,8 +39,8 @@ void ServeurWeb::demarrer()
     on("/", HTTP_GET, std::bind(&ServeurWeb::afficherAccueil, this));
     on("/notifications", std::bind(&ServeurWeb::traiterRequeteGETNotifications, this));
 
-    on("/activations",HTTP_GET, std::bind(&ServeurWeb::traiterRequeteGETActivations, this));
-    on("/activation",HTTP_POST,std::bind(&ServeurWeb::traiterRequetePOSTActivation, this));
+    on("/activations", HTTP_GET, std::bind(&ServeurWeb::traiterRequeteGETActivations, this));
+    on("/activation", HTTP_POST, std::bind(&ServeurWeb::traiterRequetePOSTActivation, this));
 
     on("/boite", HTTP_GET, std::bind(&ServeurWeb::traiterRequeteGETBoite, this));
     on("/boite", HTTP_POST, std::bind(&ServeurWeb::traiterRequetePOSTBoite, this));
@@ -108,6 +108,9 @@ void ServeurWeb::setNom(String nomStationLumineuse)
  */
 void ServeurWeb::installerGestionnairesRequetes()
 {
+    /**
+     * @todo Ajouter l'enregistrement des requêtes GET/POST pour l'activation/désactivation
+     */
     on("/", HTTP_GET, std::bind(&ServeurWeb::afficherAccueil, this));
     on("/notifications", std::bind(&ServeurWeb::traiterRequeteGETNotifications, this));
     on("/boite", HTTP_GET, std::bind(&ServeurWeb::traiterRequeteGETBoite, this));
@@ -190,8 +193,8 @@ void ServeurWeb::traiterRequeteGETNotifications()
 /**
  * @brief Traite une requête GET pour obtenir les activations.
  * @fn void ServeurWeb::traiterRequeteGETActivations()
- * @details Cette méthode récupère l'état d'activation de la boîte aux lettres, des machines et des poubelles. 
- *          Elle crée un document JSON avec ces informations et l'envoie en réponse à la requête.
+ * @details Cette méthode récupère l'état d'activation de la boîte aux lettres, des machines et des
+ * poubelles. Elle crée un document JSON avec ces informations et l'envoie en réponse à la requête.
  */
 void ServeurWeb::traiterRequeteGETActivations()
 {
@@ -203,16 +206,22 @@ void ServeurWeb::traiterRequeteGETActivations()
 #endif
 
     documentJSON.clear();
-    documentJSON["boite"] = stationLumineuse->getActivationBoiteAuxLettres(); // Remplacez par la méthode appropriée pour obtenir l'état d'activation de la boîte aux lettres
-    JsonArray machines    = documentJSON.createNestedArray("machines");
+    documentJSON["boite"] =
+      stationLumineuse
+        ->getActivationBoiteAuxLettres(); // Remplacez par la méthode appropriée pour obtenir l'état
+                                          // d'activation de la boîte aux lettres
+    JsonArray machines = documentJSON.createNestedArray("machines");
     for(int i = 0; i < NB_LEDS_NOTIFICATION_MACHINES; ++i)
     {
-        machines.add(stationLumineuse->getActivationMachine(i)); // Remplacez par la méthode appropriée pour obtenir l'état d'activation de la machine
+        machines.add(stationLumineuse->getActivationMachine(
+          i)); // Remplacez par la méthode appropriée pour obtenir l'état d'activation de la machine
     }
     JsonArray poubelles = documentJSON.createNestedArray("poubelles");
     for(int i = 0; i < NB_LEDS_NOTIFICATION_POUBELLES; ++i)
     {
-        poubelles.add(stationLumineuse->getActivationPoubelle(i)); // Remplacez par la méthode appropriée pour obtenir l'état d'activation de la poubelle
+        poubelles.add(
+          stationLumineuse->getActivationPoubelle(i)); // Remplacez par la méthode appropriée pour
+                                                       // obtenir l'état d'activation de la poubelle
     }
 
 #ifdef DEBUG_SERVEUR_WEB
@@ -228,9 +237,9 @@ void ServeurWeb::traiterRequeteGETActivations()
 /**
  * @brief Traite une requête POST pour modifier une activation.
  * @fn void ServeurWeb::traiterRequetePOSTActivation()
- * @details Cette méthode traite une requête POST qui contient des informations sur l'état d'activation 
- *          d'un module spécifique (machine, poubelle ou boîte aux lettres). Elle modifie l'état d'activation 
- *          du module correspondant et renvoie une réponse appropriée.
+ * @details Cette méthode traite une requête POST qui contient des informations sur l'état
+ * d'activation d'un module spécifique (machine, poubelle ou boîte aux lettres). Elle modifie l'état
+ * d'activation du module correspondant et renvoie une réponse appropriée.
  */
 void ServeurWeb::traiterRequetePOSTActivation()
 {
@@ -246,8 +255,10 @@ void ServeurWeb::traiterRequetePOSTActivation()
 #ifdef DEBUG_SERVEUR_WEB
         Serial.println(F("Erreur !"));
 #endif
-        send(400, "application/json",
-             "{\"error\": { \"code\": \"invalidRequest\", \"message\": \"La demande est vide ou incorrecte.\"}}");
+        send(400,
+             "application/json",
+             "{\"error\": { \"code\": \"invalidRequest\", \"message\": \"La demande est vide ou "
+             "incorrecte.\"}}");
         return;
     }
 
@@ -262,14 +273,17 @@ void ServeurWeb::traiterRequetePOSTActivation()
         Serial.print(F("Erreur deserializeJson() : "));
         Serial.println(erreur.f_str());
 #endif
-        send(400, "application/json",
-             "{\"error\": { \"code\": \"invalidRequest\", \"message\": \"La demande est mal exprimée ou incorrecte.\"}}");
+        send(400,
+             "application/json",
+             "{\"error\": { \"code\": \"invalidRequest\", \"message\": \"La demande est mal "
+             "exprimée ou incorrecte.\"}}");
         return;
     }
     else
     {
         JsonObject objetJSON = documentJSON.as<JsonObject>();
-        if(objetJSON.containsKey("etat") && objetJSON.containsKey("id") && objetJSON.containsKey("module"))
+        if(objetJSON.containsKey("etat") && objetJSON.containsKey("id") &&
+           objetJSON.containsKey("module"))
         {
 #ifdef DEBUG_SERVEUR_WEB
             Serial.print(F("module : "));
@@ -281,8 +295,8 @@ void ServeurWeb::traiterRequetePOSTActivation()
 #endif
 
             String module = documentJSON["module"].as<String>();
-            int id = documentJSON["id"].as<int>();
-            bool etat = documentJSON["etat"].as<bool>();
+            int    id     = documentJSON["id"].as<int>();
+            bool   etat   = documentJSON["etat"].as<bool>();
 
             if(module == "machine")
             {
@@ -293,8 +307,10 @@ void ServeurWeb::traiterRequetePOSTActivation()
                 }
                 else
                 {
-                    send(404, "application/json",
-                         "{\"error\": { \"code\": \"notFound\", \"message\": \"La machine demandée n'existe pas.\"}}");
+                    send(404,
+                         "application/json",
+                         "{\"error\": { \"code\": \"notFound\", \"message\": \"La machine demandée "
+                         "n'existe pas.\"}}");
                 }
             }
             else if(module == "poubelle")
@@ -306,8 +322,10 @@ void ServeurWeb::traiterRequetePOSTActivation()
                 }
                 else
                 {
-                    send(404, "application/json",
-                         "{\"error\": { \"code\": \"notFound\", \"message\": \"La poubelle demandée n'existe pas.\"}}");
+                    send(404,
+                         "application/json",
+                         "{\"error\": { \"code\": \"notFound\", \"message\": \"La poubelle "
+                         "demandée n'existe pas.\"}}");
                 }
             }
             else if(module == "boite")
@@ -321,8 +339,10 @@ void ServeurWeb::traiterRequetePOSTActivation()
 #ifdef DEBUG_SERVEUR_WEB
                 Serial.print(F("Erreur : module non reconnu"));
 #endif
-                send(400, "application/json",
-                     "{\"error\": { \"code\": \"invalidRequest\", \"message\": \"Le module spécifié n'est pas reconnu.\"}}");
+                send(400,
+                     "application/json",
+                     "{\"error\": { \"code\": \"invalidRequest\", \"message\": \"Le module "
+                     "spécifié n'est pas reconnu.\"}}");
                 return;
             }
         }
@@ -331,13 +351,14 @@ void ServeurWeb::traiterRequetePOSTActivation()
 #ifdef DEBUG_SERVEUR_WEB
             Serial.print(F("Erreur : champ etat, id ou module manquant"));
 #endif
-            send(400, "application/json",
-                 "{\"error\": { \"code\": \"invalidRequest\", \"message\": \"La demande est incomplète.\"}}");
+            send(400,
+                 "application/json",
+                 "{\"error\": { \"code\": \"invalidRequest\", \"message\": \"La demande est "
+                 "incomplète.\"}}");
             return;
         }
     }
 }
-
 
 /**
  * @brief Traite une requête HTTP GET relative à la boîte aux lettres
