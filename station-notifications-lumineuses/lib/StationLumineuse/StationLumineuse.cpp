@@ -8,9 +8,9 @@
 #include "StationLumineuse.h"
 
 /**
- * @brief Constructeur par défaut de la classe StationLumineuse.
- * @fn StationLumineuse::StationLumineuse
- * @details Ce constructeur initialise les attributs de la classe
+* @brief Constructeur de la classe StationLumineuse
+* @fn StationLumineuse::StationLumineuse()
+* @details Initialise la bande de LEDs, ainsi que les couleurs associées aux poubelles. Les couleurs sont définies dans le tableau couleursPoubelles.
  */
 StationLumineuse::StationLumineuse() :
     leds(NB_LEDS, PIN_BANDEAU, NEO_GRB + NEO_KHZ800), couleursPoubelles{
@@ -33,11 +33,16 @@ StationLumineuse::~StationLumineuse()
 {
 }
 
-void StationLumineuse::recupererEtatsNotifications() 
+/**
+ * @brief Récupère les états des notifications depuis les préférences
+ * @fn StationLumineuse::recupererEtatsNotifications()
+ * @details Récupère les états des différentes notifications (boîte aux lettres, machines, poubelles) depuis les préférences enregistrées dans la mémoire. 
+ * Ces états sont stockés dans les variables correspondantes de la classe.
+ */
+void StationLumineuse::recupererEtatsNotifications()
 {
     char cle[64] = "";
     etatBoiteAuxLettres = preferences.getBool("boite", false);
-    
     for(int i = 0; i < NB_LEDS_NOTIFICATION_MACHINES; ++i)
     {
         sprintf((char*)cle, "%s%d", "machine", i);
@@ -51,6 +56,12 @@ void StationLumineuse::recupererEtatsNotifications()
     }
 }
 
+/**
+ * @brief Récupère les états d'activation depuis les préférences
+ * @fn StationLumineuse::recupererEtatsActivations()
+ * @details Récupère les états d'activation des différentes fonctionnalités (boîte aux lettres, machines, poubelles) depuis les
+ *  préférences enregistrées dans la mémoire. Ces états d'activation sont stockés dans les variables correspondantes de la classe.
+ */
 void StationLumineuse::recupererEtatsActivations()
 {
     char cle[64] = "";
@@ -70,9 +81,9 @@ void StationLumineuse::recupererEtatsActivations()
 
 /**
  * @brief Initialise les préférences de la station lumineuse
- * @fn StationLumineuse::initialiserPreferences
- * @details Charge les préférences depuis la mémoire EEPROM ou les valeurs par défaut si les
- * préférences n'ont pas été définies
+ * @fn StationLumineuse::initialiserPreferences()
+ * @details Démarre la gestion des préférences en utilisant la mémoire EEPROM. Ensuite, appelle les fonctions pour récupérer les états des notifications
+ * et les états d'activation depuis les préférences enregistrées dans la mémoire.
  */
 void StationLumineuse::initialiserPreferences()
 {
@@ -81,11 +92,11 @@ void StationLumineuse::initialiserPreferences()
     recupererEtatsActivations();
 }
 
-
 /**
- * @brief Initialisation de l'état des notifications
- * @fn  StationLumineuse::initialiserNotifications
- * @details Allumer/Eteindre les leds de notifications à partir des états sauvegardés
+ * @brief Initialise les notifications lumineuses
+ * @fn StationLumineuse::initialiserNotifications()
+ * @details Initialise les LEDs et configure les notifications lumineuses en fonction des états et des activations enregistrés.
+ * Les notifications des différents capteurs sont allumées ou éteintes en fonction de ces paramètres.
  */
 void StationLumineuse::initialiserNotifications()
 {
@@ -151,11 +162,11 @@ void StationLumineuse::initialiserCouleursPoubelles()
 }
 
 /**
- * @brief Définit l'état d'activation de la boîte aux lettres.
- * @fn void StationLumineuse::setActivationBoiteAuxLettres(bool etat)
- * @details Cette méthode modifie l'état d'activation de la boîte aux lettres. Si l'état est défini
- * sur false, elle réinitialise également l'état de la boîte aux lettres.
- * @param etat
+ * @brief Modifie l'état d'activation de la boîte aux lettres
+ * @fn StationLumineuse::setActivationBoiteAuxLettres(bool etat)
+ * @param etat Nouvel état d'activation de la boîte aux lettres
+ * @details Modifie l'état d'activation de la boîte aux lettres et enregistre cette valeur dans les préférences.
+ * L'état d'activation détermine si la notification lumineuse de la boîte aux lettres sera activée ou désactivée.
  */
 void StationLumineuse::setActivationBoiteAuxLettres(bool etat)
 {
@@ -165,10 +176,11 @@ void StationLumineuse::setActivationBoiteAuxLettres(bool etat)
 
 
 /**
- * @brief Obtient l'état d'activation de la boîte aux lettres.
+ * @brief Obtient l'état d'activation de la boîte aux lettres
  * @fn bool StationLumineuse::getActivationBoiteAuxLettres()
- * @details Cette méthode renvoie l'état d'activation actuel de la boîte aux lettres.
- * @return activationBoiteAuxLettres
+ * @details Renvoie l'état d'activation actuel de la boîte aux lettres. L'état d'activation détermine si la notification lumineuse de la boîte aux lettres 
+ * est activée ou désactivée.
+ * @return activationBoiteAuxLettres État d'activation de la boîte aux lettres (true si activée, false sinon).
  */
 bool StationLumineuse::getActivationBoiteAuxLettres()
 {
@@ -179,7 +191,7 @@ bool StationLumineuse::getActivationBoiteAuxLettres()
  * @brief Obtient l'état de la boîte aux lettres
  * @fn StationLumineuse::getEtatBoiteAuxLettres
  * @details Obtient l'état actuel de la boîte aux lettres, vrai si elle est pleine, faux sinon
- * @return etatBoiteAuxLettres
+ * @return etatBoiteAuxLettres État de la boîte aux lettres (true si ouverte, false si fermée).
  */
 bool StationLumineuse::getEtatBoiteAuxLettres()
 {
@@ -188,10 +200,10 @@ bool StationLumineuse::getEtatBoiteAuxLettres()
 
 /**
  * @brief Modifie l'état de la boîte aux lettres
- * @fn StationLumineuse::setEtatBoiteAuxLettres
- * @details Modifie l'état actuel de la boîte aux lettres et allume ou éteint les leds en fonction
- * de celui-ci
- * @param etat
+ * @fn void StationLumineuse::setEtatBoiteAuxLettres(bool etat)
+ * @param etat Nouvel état de la boîte aux lettres (true si ouverte, false si fermée)
+ * @details Modifie l'état de la boîte aux lettres et enregistre cette valeur dans les préférences. Si l'activation de la boîte aux lettres est activée,
+ * la notification lumineuse sera allumée ou éteinte en fonction de l'état spécifié.
  */
 void StationLumineuse::setEtatBoiteAuxLettres(bool etat)
 {
@@ -212,8 +224,9 @@ void StationLumineuse::setEtatBoiteAuxLettres(bool etat)
 
 /**
  * @brief Réinitialise l'état de la boîte aux lettres
- * @fn StationLumineuse::resetEtatBoiteAuxLettres
- * @details Change l'état de boite aux lettres en false et eteint les leds attribuer a celle-ci
+ * @fn void StationLumineuse::resetEtatBoiteAuxLettres()
+ * @details Rétablit l'état de la boîte aux lettres à sa valeur par défaut, c'est-à-dire fermée. Enregistre cette valeur dans les préférences et éteint 
+ * la notification lumineuse de la boîte aux lettres.
  */
 void StationLumineuse::resetEtatBoiteAuxLettres()
 {
@@ -254,6 +267,14 @@ void StationLumineuse::eteindreNotificationBoiteAuxLettres()
     }
 }
 
+/**
+ * @brief Modifie l'état d'activation de la machine spécifiée
+ * @fn void StationLumineuse::setActivationMachine(int id, bool etat)
+ * @param id Identifiant de la machine à modifier
+ * @param etat Nouvel état d'activation de la machine
+ * @details Modifie l'état d'activation de la machine spécifiée par son identifiant. Si l'identifiant de la machine est valide,
+ * l'état d'activation est mis à jour et enregistré dans les préférences. Sinon, un message d'erreur est affiché dans la console.
+ */
 void StationLumineuse::setActivationMachine(int id, bool etat)
 {
     if(estIdValideMachine(id))
@@ -269,7 +290,14 @@ void StationLumineuse::setActivationMachine(int id, bool etat)
     }
 }
 
-
+/**
+ * @brief Obtient l'état d'activation de la machine spécifiée
+ * @fn bool StationLumineuse::getActivationMachine(int id)
+ * @param id Identifiant de la machine
+ * @details Renvoie l'état d'activation actuel de la machine spécifiée par son identifiant. Si l'identifiant de la machine est valide,
+ * l'état d'activation correspondant est renvoyé. Sinon, un message d'erreur est affiché dans la console et la valeur par défaut (false) est renvoyée.
+ * @return État d'activation de la machine (true si activée, false sinon).
+ */
 bool StationLumineuse::getActivationMachine(int id)
 {
     if(estIdValideMachine(id))
@@ -286,7 +314,7 @@ bool StationLumineuse::getActivationMachine(int id)
 /**
  * @brief Vérifie si l'ID de la machine est valide
  * @fn StationLumineuse::estIdValideMachine
- * @param numeroMachine
+ * @param numeroMachine Identifiant de la machine à vérifier
  * @return bool true si l'ID est valide sinon false
  * @details renvoie Vrai si l'ID de la machine est compris entre 1 et NB_MACHINES, faux sinon
  */
@@ -315,12 +343,12 @@ bool StationLumineuse::getEtatMachine(int numeroMachine)
 }
 
 /**
- * @brief Modifie l'état de la machine donnée
- * @fn StationLumineuse::setEtatMachine
- * @param numeroMachine
- * @param etat
- * @details Modifie l'état de la machine spécifiée par le numéro donné. Enregistre l'état dans les
- préférences, et allume ou éteint la notification de la machine en fonction de son nouvel état.
+ * @brief Modifie l'état de la machine spécifiée
+ * @fn void StationLumineuse::setEtatMachine(int numeroMachine, bool etat)
+ * @param numeroMachine Numéro de la machine à modifier
+ * @param etat Nouvel état de la machine (true si allumée, false sinon)
+ * @details Modifie l'état de la machine spécifiée par son numéro. Si l'activation de la machine est activée et si l'identifiant de la machine est valide,
+ * l'état de la machine est mis à jour et enregistré dans les préférences. En fonction du nouvel état, la notification lumineuse de la machine est allumée ou éteinte.
  */
 void StationLumineuse::setEtatMachine(int numeroMachine, bool etat)
 {
@@ -344,9 +372,11 @@ void StationLumineuse::setEtatMachine(int numeroMachine, bool etat)
 }
 
 /**
- * @brief Réinitialise l'état de toutes les machines
- * @fn StationLumineuse::resetEtatMachines
- * @details Change l'état de toutes les machines en false et éteint les notifications associées
+ * @brief Réinitialise l'état de la machine spécifiée
+ * @fn void StationLumineuse::resetEtatMachines(int numeroMachine)
+ * @param numeroMachine Numéro de la machine à réinitialiser
+ * @details Rétablit l'état de la machine spécifiée par son numéro à la valeur par défaut (false). Enregistre cette valeur dans les préférences et éteint 
+ * la notification lumineuse de la machine.
  */
 void StationLumineuse::resetEtatMachines(int numeroMachine)
 {
@@ -367,7 +397,7 @@ void StationLumineuse::resetEtatMachines(int numeroMachine)
 /**
  * @brief Allume la notification de la machine donnée
  * @fn StationLumineuse::allumerNotificationMachine
- * @param numeroMachine
+ * @param numeroMachine Numéro de la machine  a allumer
  * @details Allume les LEDs de couleur verte pour indiquer que la machine spécifiée est finie
  */
 void StationLumineuse::allumerNotificationMachine(int numeroMachine)
@@ -383,7 +413,7 @@ void StationLumineuse::allumerNotificationMachine(int numeroMachine)
 /**
  * @brief Éteint la notification de la machine donnée
  * @fn StationLumineuse::eteindreNotificationMachine
- * @param numeroMachine
+ * @param numeroMachine Numéro de la machine a éteindre
  * @details Éteint les LEDS associées à la notification de la machine donnée
  */
 void StationLumineuse::eteindreNotificationMachine(int numeroMachine)
@@ -396,6 +426,14 @@ void StationLumineuse::eteindreNotificationMachine(int numeroMachine)
     }
 }
 
+/**
+ * @brief Modifie l'état d'activation de la poubelle spécifiée
+ * @fn void StationLumineuse::setActivationPoubelle(int id, bool etat)
+ * @param id Identifiant de la poubelle à modifier
+ * @param etat Nouvel état d'activation de la poubelle
+ * @details Modifie l'état d'activation de la poubelle spécifiée par son identifiant. Si l'identifiant de la poubelle est valide, l'état d'activation
+ *  est mis à jour et enregistré dans les préférences. Sinon, un message d'erreur est affiché dans la console.
+ */
 void StationLumineuse::setActivationPoubelle(int id, bool etat)
 {
     if(estIdValidePoubelle(id))
@@ -411,7 +449,14 @@ void StationLumineuse::setActivationPoubelle(int id, bool etat)
     }
 }
 
-
+/**
+  * @brief Obtient l'état d'activation de la poubelle spécifiée
+  * @fn bool StationLumineuse::getActivationPoubelle(int id)
+  * @param id Identifiant de la poubelle
+  * @details Renvoie l'état d'activation actuel de la poubelle spécifiée par son identifiant. Si l'identifiant de la poubelle est valide, l'état d'activation
+  * correspondant est renvoyé. Sinon, un message d'erreur est affiché dans la console et la valeur par défaut (false) est renvoyée.
+  * @return État d'activation de la poubelle (true si activée, false sinon).
+  */
 bool StationLumineuse::getActivationPoubelle(int id)
 {
     if(estIdValidePoubelle(id))
@@ -426,25 +471,26 @@ bool StationLumineuse::getActivationPoubelle(int id)
 }
 
 /**
- * @brief Vérifie si le numero de la poubelle est valide
- * @fn StationLumineuse::estIdValidePoubelle
- * @param numeroPoubelle
- * @return bool true si le numeroPoubelle est valide sinon false
- * @details renvoie Vrai si l'numeroPoubelle de la poubelle est compris entre 1 et NB_POUBELLES,
- * faux sinon
- */
+  * @brief Vérifie si l'identifiant de la poubelle est valide
+  * @fn bool StationLumineuse::estIdValidePoubelle(int numeroPoubelle)
+  * @param numeroPoubelle Identifiant de la poubelle à vérifier
+  * @details Vérifie si l'identifiant de la poubelle est compris entre 0 et le nombre maximum de poubelles (NB_LEDS_NOTIFICATION_POUBELLES).
+  * Renvoie true si l'identifiant est valide, sinon renvoie false.
+  * @return true si l'identifiant de la poubelle est valide, false sinon.
+  */
 bool StationLumineuse::estIdValidePoubelle(int numeroPoubelle)
 {
     return (numeroPoubelle >= 0 && numeroPoubelle < NB_LEDS_NOTIFICATION_POUBELLES);
 }
 
 /**
- * @brief Récupère l'état de la poubelle donnée
- * @fn  StationLumineuse::getEtatPoubelle
- * @param numeroPoubelle Numéro de la poubelle
- * @return etatPoubelle[numeroPoubelle]
- * @details renvoie l'etat de la poubelle si l'id et valide, faux sinon
- */
+  * @brief Obtient l'état de la poubelle spécifiée
+  * @fn bool StationLumineuse::getEtatPoubelle(int numeroPoubelle)
+  * @param numeroPoubelle Numéro de la poubelle
+  * @details Renvoie l'état actuel de la poubelle spécifiée par son numéro. Si l'identifiant de la poubelle est valide, l'état correspondant est renvoyé. 
+  * Sinon, false est renvoyé.
+  * @return État de la poubelle (true si pleine, false si vide ou si l'identifiant est invalide).
+  */
 bool StationLumineuse::getEtatPoubelle(int numeroPoubelle)
 {
     if(estIdValidePoubelle(numeroPoubelle))
@@ -458,13 +504,13 @@ bool StationLumineuse::getEtatPoubelle(int numeroPoubelle)
 }
 
 /**
- * @brief Modifie l'état de la poubelle donnée
- * @fn StationLumineuse::setEtatPoubelle
- * @param numeroPoubelle
- * @param etat
- * @details Modifie l'état de la poubelle spécifiée par le numéro donné. Enregistre l'état dans les
- préférences, et allume ou éteint la notification de la poubelle en fonction de son nouvel état.
- */
+  * @brief Modifie l'état de la poubelle spécifiée
+  * @fn void StationLumineuse::setEtatPoubelle(int numeroPoubelle, bool etat)
+  * @param numeroPoubelle Numéro de la poubelle à modifier
+  * @param etat Nouvel état de la poubelle (true si pleine, false si vide)
+  * @details Modifie l'état de la poubelle spécifiée par son numéro. Si l'activation de la poubelle est activée et si l'identifiant de la poubelle est valide, 
+  * l'état de la poubelle est mis à jour et enregistré dans les préférences. En fonction du nouvel état, la notification lumineuse de la poubelle est allumée ou éteinte.
+  */
 void StationLumineuse::setEtatPoubelle(int numeroPoubelle, bool etat)
 {
     if(activationPoubelles[numeroPoubelle])
@@ -487,9 +533,11 @@ void StationLumineuse::setEtatPoubelle(int numeroPoubelle, bool etat)
 }
 
 /**
- * @brief Réinitialise l'état de toutes les poubelles
- * @fn StationLumineuse::resetEtatPoubelles
- * @details Change l'état de toutes les poubelles et éteint les notifications associées
+ * @brief Réinitialise l'état de la poubelle spécifiée
+ * @fn void StationLumineuse::resetEtatPoubelles(int numeroPoubelle)
+ * @param numeroPoubelle Numéro de la poubelle à réinitialiser
+ * @details Rétablit l'état de la poubelle spécifiée par son numéro à la valeur par défaut (false). Enregistre cette valeur dans les préférences 
+ * et éteint la notification lumineuse de la poubelle.
  */
 void StationLumineuse::resetEtatPoubelles(int numeroPoubelle)
 {
@@ -508,12 +556,12 @@ void StationLumineuse::resetEtatPoubelles(int numeroPoubelle)
 }
 
 /**
- * @brief Allume la notification de la poubelle donnée
- * @fn StationLumineuse::allumerNotificationPoubelle
- * @param numeroPoubelle
- * @details Allume les LEDS en fonction de la couleur correspond aux poublles 0 ROUGE 1 VERT 2 BLEU
- 3 GRIS 4 JAUNE pour indiquer quelle poubelle sortir
- */
+  * @brief Allume la notification lumineuse de la poubelle spécifiée
+  * @fn void StationLumineuse::allumerNotificationPoubelle(int numeroPoubelle)
+  * @param numeroPoubelle Numéro de la poubelle
+  * @details Allume la notification lumineuse de la poubelle spécifiée par son numéro. Si l'identifiant de la poubelle est valide, 
+  * la couleur correspondante est appliquée aux LED de la poubelle et le bandeau lumineux est mis à jour pour afficher la notification.
+  */
 void StationLumineuse::allumerNotificationPoubelle(int numeroPoubelle)
 {
     if(estIdValidePoubelle(numeroPoubelle))
@@ -526,10 +574,11 @@ void StationLumineuse::allumerNotificationPoubelle(int numeroPoubelle)
 }
 
 /**
- * @brief Éteint la notification de la poubelle donnée
- * @fn StationLumineuse::eteindreNotificationPoubelle
- * @param numeroPoubelle
- * @details Éteint les LEDS associées à la notification de la poubelle donnée
+ * @brief Éteint la notification lumineuse de la poubelle spécifiée
+ * @fn void StationLumineuse::eteindreNotificationPoubelle(int numeroPoubelle)
+ * @param numeroPoubelle Numéro de la poubelle
+ * @details Éteint la notification lumineuse de la poubelle spécifiée par son numéro. Si l'identifiant de la poubelle est valide, 
+ * la LED correspondante est éteinte en attribuant la couleur noire (0, 0, 0). Le bandeau lumineux est mis à jour pour refléter cette modification.
  */
 void StationLumineuse::eteindreNotificationPoubelle(int numeroPoubelle)
 {

@@ -12,9 +12,9 @@
 /**
  * @brief Constructeur de la classe ServeurWeb
  * @fn ServeurWeb::ServeurWeb
- * @param stationLumineuse
- * @details Initialise un serveur web sur le port PORT_SERVEUR_WEB et l'association avec la classe
- * StationLumineuse
+ * @param stationLumineuse Pointeur vers l'objet de la classe StationLumineuse
+ * @details Initialise un nouvel objet ServeurWeb en utilisant le constructeur de la classe de base WebServer. Le pointeur vers l'objet de la classe StationLumineuse 
+ * est stocké dans la variable membre stationLumineuse.
  */
 ServeurWeb::ServeurWeb(StationLumineuse* stationLumineuse) :
     WebServer(PORT_SERVEUR_WEB), stationLumineuse(stationLumineuse)
@@ -24,9 +24,8 @@ ServeurWeb::ServeurWeb(StationLumineuse* stationLumineuse) :
 /**
  * @brief Démarre le serveur web et installe les gestionnaires de requêtes
  * @fn ServeurWeb::demarrer
- * @details Configure les routes pour les différentes requêtes HTTP
-    et démarre le serveur web. Elle utilise des fonctions de liaison std::bind pour attacher les
- méthodes membres à chaque route.
+ * @details Cette méthode configure et démarre le serveur Web. Elle définit les gestionnaires de requêtes pour les différentes routes, puis démarre le serveur 
+ * en utilisant la méthode begin(). Le serveur sera accessible à partir de l'adresse IP locale obtenue via la connexion WiFi.
  */
 void ServeurWeb::demarrer()
 {
@@ -76,12 +75,13 @@ void ServeurWeb::traiterRequetes()
 }
 
 /**
- * @brief Définit le nom du serveur web
- * @fn ServeurWeb::setNom
- * @param nomStationLumineuse
- * @details Utilise le protocole mDNS pour définir le nom du serveur web.
-    Le nom sera utilisé pour accéder au serveur via l'adresse http://nomStationLumineuse.local/.
- */
+  * @brief Définit le nom du serveur Web
+  * @fn ServeurWeb::setNom
+  * @param nomStationLumineuse Le nom du serveur Web à utiliser
+  * @details Cette méthode permet de définir le nom du serveur Web. Si aucun nom n'est spécifié, le nom par défaut NOM_SERVEUR_WEB sera utilisé. 
+  *  Le serveur sera accessible à partir de l'adresse http://nomStationLumineuse.local/. La méthode utilise le service mDNS pour permettre 
+  *  l'accès au serveur avec un nom d'hôte convivial.
+  */
 void ServeurWeb::setNom(String nomStationLumineuse)
 {
     if(nomStationLumineuse.isEmpty())
@@ -102,10 +102,11 @@ void ServeurWeb::setNom(String nomStationLumineuse)
 }
 
 /**
- * @brief Affiche la page d'accueil du serveur web
- * @fn ServeurWeb::installerGestionnairesRequetes
- * @details Installe les gestionnaires de requêtes GET/POST
- */
+  * @brief Installe les gestionnaires de requêtes
+  * @fn ServeurWeb::installerGestionnairesRequetes
+  * @details Cette méthode installe les gestionnaires de requêtes pour les différentes routes du serveur Web. Les gestionnaires sont définis à l'aide de la méthode
+  *  on(). Les routes sont associées aux méthodes de traitement des requêtes correspondantes.
+  */
 void ServeurWeb::installerGestionnairesRequetes()
 {
 
@@ -193,11 +194,12 @@ void ServeurWeb::traiterRequeteGETNotifications()
 }
 
 /**
- * @brief Traite une requête GET pour obtenir les activations.
- * @fn void ServeurWeb::traiterRequeteGETActivations()
- * @details Cette méthode récupère l'état d'activation de la boîte aux lettres, des machines et des
- * poubelles. Elle crée un document JSON avec ces informations et l'envoie en réponse à la requête.
- */
+  * @brief Traite une requête GET pour obtenir les états d'activation
+  * @fn ServeurWeb::traiterRequeteGETActivations
+  * @details Cette méthode traite une requête GET pour obtenir les états d'activation de la station lumineuse. Elle récupère les états d'activation 
+  * de la boîte aux lettres, des machines et des poubelles à l'aide des méthodes appropriées de la classe StationLumineuse, puis les stocke dans un document JSON.
+  * Le document JSON est ensuite envoyé en réponse à la requête.
+  */
 void ServeurWeb::traiterRequeteGETActivations()
 {
 #ifdef DEBUG_SERVEUR_WEB
@@ -237,12 +239,13 @@ void ServeurWeb::traiterRequeteGETActivations()
 }
 
 /**
- * @brief Traite une requête POST pour modifier une activation.
- * @fn void ServeurWeb::traiterRequetePOSTActivation()
- * @details Cette méthode traite une requête POST qui contient des informations sur l'état
- * d'activation d'un module spécifique (machine, poubelle ou boîte aux lettres). Elle modifie l'état
- * d'activation du module correspondant et renvoie une réponse appropriée.
- */
+  * @brief Traite une requête POST pour modifier les activations
+  * @fn ServeurWeb::traiterRequetePOSTActivation
+  * @details Cette méthode traite une requête POST pour modifier les activations de la station lumineuse. Elle récupère les données de la requête, 
+  * telles que l'état, l'ID et le module concernés, à l'aide de la méthode arg() de la classe WebServer. Ensuite, elle utilise les méthodes appropriées 
+  * de la classe StationLumineuse pour modifier les activations correspondantes. La méthode renvoie une réponse JSON indiquant le succès de l'opération ou une 
+  * erreur si les données de la requête sont incorrectes ou invalides.
+  */
 void ServeurWeb::traiterRequetePOSTActivation()
 {
 #ifdef DEBUG_SERVEUR_WEB
