@@ -134,12 +134,14 @@ class IHMDomotifications : public QMainWindow
 
   signals:
     void activationDesactivationModule(QString nomModule, int id);
+    void acquittementModule(QString nomModule, int id);
 
   public slots:
 #ifdef TEST_NOTIFICATIONS
     void testerNotification();
 #endif
     void gererBoutonActivationDesactivation();
+    void gererBoutonAcquittement();
 
     void visualiserNotification(
       QString          message,

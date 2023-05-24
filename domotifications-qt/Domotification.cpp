@@ -40,6 +40,9 @@ Domotification::~Domotification()
  */
 void Domotification::gererActivationModule(QString typeModule, int id)
 {
+    /**
+     * @todo Modifier la requête pour activer/désactiver
+     */
     int indexModule = recupererIndexModule(typeModule, id);
     qDebug() << Q_FUNC_INFO << "typeModule" << typeModule << "id" << id << "indexModule"
              << indexModule;
@@ -114,6 +117,9 @@ bool Domotification::getActivationModule(QString typeModule, int id)
 void Domotification::gererNotification(QString typeModule, int id)
 {
     qDebug() << Q_FUNC_INFO << "typeModule" << typeModule << "id" << id;
+    /**
+     * @todo Gérer l'envoi de la requête pour acquitter une notification
+     */
 }
 
 /**
