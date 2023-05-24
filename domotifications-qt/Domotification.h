@@ -12,6 +12,7 @@
 #include <QObject>
 #include <QString>
 #include <QVector>
+#include <QTimer>
 
 #include "Constantes.h"
 #include "Module.h"
@@ -27,6 +28,7 @@ class Domotification : public QObject
     QVector<Module*>    modules;
     Communication*      communication;
     IHMDomotifications* ihm;
+    QTimer*             minuteurRecuperationNotifications;
 
   public:
     Domotification(IHMDomotifications* ihm = nullptr);
@@ -40,6 +42,7 @@ class Domotification : public QObject
     QVector<Module*> getMachines() const;
     Module*          getBoite() const;
     void             chargerModules();
+    void             initialiserRecuperationNotifications();
 
   signals:
     void nouvelleNotification(QString message);
