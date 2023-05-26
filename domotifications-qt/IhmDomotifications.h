@@ -136,6 +136,7 @@ class IHMDomotifications : public QMainWindow
     void activationDesactivationModule(QString nomModule, int id);
     void acquittementNotification(QString typeModule, int id);
 
+
   public slots:
 #ifdef TEST_NOTIFICATIONS
     void testerNotification();
