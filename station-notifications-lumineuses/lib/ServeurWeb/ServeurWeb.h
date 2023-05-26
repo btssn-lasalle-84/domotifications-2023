@@ -47,6 +47,8 @@ class ServeurWeb : public WebServer
     void installerGestionnairesRequetes();
     void afficherAccueil();
     void traiterRequeteGETNotifications();
+    void traiterRequeteGETActivations();
+    void traiterRequetePOSTActivation();
     void traiterRequeteGETBoite();
     void traiterRequetePOSTBoite();
     void traiterRequeteGETMachine();

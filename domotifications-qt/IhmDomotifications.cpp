@@ -597,6 +597,7 @@ void IHMDomotifications::initialiserSignauxSlots()
             SIGNAL(acquittementNotification(QString, int)),
             domotification,
             SLOT(gererAcquittement(QString, int)));
+
 }
 
 /**
@@ -634,6 +635,7 @@ void IHMDomotifications::gererBoutonAcquittement()
     QPushButton* boutonModule = qobject_cast<QPushButton*>(sender());
     QString      typeModule   = recupererTypeModule(boutonModule);
     int          id           = recupererIdModule(boutonModule);
+
     qDebug() << Q_FUNC_INFO << "boutonmodule" << boutonModule << "typeModule" << typeModule << "id"
              << id;
 

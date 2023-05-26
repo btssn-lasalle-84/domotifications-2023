@@ -50,6 +50,12 @@
 #define HAUTEUR_IMAGE 50
 #define LARGEUR_IMAGE 30
 
+/**
+ * @def PERIODE_RECUPERATION_NOTIFICATIONS
+ * @brief La période de récupération des notifications auprès de la station
+ */
+#define PERIODE_RECUPERATION_NOTIFICATIONS 10000 // en ms
+
 // Pour les tests
 //#define SANS_STATION
 //#define TEST_NOTIFICATIONS

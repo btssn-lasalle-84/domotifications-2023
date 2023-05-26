@@ -36,7 +36,7 @@
 
 /**
  * @class StationLumineuse
- * @brief Déclaration de la classe StationLumineuse
+ * @brief Déclaration de la classe StationLumineuse 
  */
 class StationLumineuse
 {
@@ -54,12 +54,28 @@ class StationLumineuse
                                                            false }; //!< l'état des poubelles
     uint32_t couleursPoubelles[NB_LEDS_NOTIFICATION_POUBELLES]; //!< les couleurs des poubelles
 
+    bool activationBoiteAuxLettres = true; //!< l'état d'activation de la boîte aux lettres
+    bool activationMachines[NB_LEDS_NOTIFICATION_MACHINES] = {
+        true, true, true, true, true, true
+    }; //!< l'état d'activation des machines
+    bool activationPoubelles[NB_LEDS_NOTIFICATION_POUBELLES] = {
+        true, true, true, true, true
+    }; //!< l'état d'activation des poubelles
+
   public:
     StationLumineuse();
     ~StationLumineuse();
+    void recupererEtatsNotifications();
+    void recupererEtatsActivations();
     void initialiserPreferences();
     void initialiserNotifications();
     void initialiserCouleursPoubelles();
+    void setActivationBoiteAuxLettres(bool etat);
+    bool getActivationBoiteAuxLettres();
+    void setActivationMachine(int id, bool etat);
+    bool getActivationMachine(int id);
+    void setActivationPoubelle(int id, bool etat);
+    bool getActivationPoubelle(int id);
 
     bool getEtatBoiteAuxLettres();
     void setEtatBoiteAuxLettres(bool etat);
@@ -69,7 +85,7 @@ class StationLumineuse
     bool estIdValideMachine(int numeroMachine);
     bool getEtatMachine(int numeroMachine);
     void setEtatMachine(int numeroMachine, bool etat);
-    void resetEtatMachines();
+    void resetEtatMachines(int numeroMachine);
     void allumerNotificationMachine(int numeroMachine);
     void allumerNotificationMachines();
     void eteindreNotificationMachine(int numeroMachine);
@@ -77,7 +93,7 @@ class StationLumineuse
     bool estIdValidePoubelle(int numeroPoubelle);
     bool getEtatPoubelle(int numeroPoubelle);
     void setEtatPoubelle(int numeroPoubelle, bool etat);
-    void resetEtatPoubelles();
+    void resetEtatPoubelles(int numeroPoubelle);
     void allumerNotificationPoubelle(int numeroPoubelle);
     void eteindreNotificationPoubelle(int numeroPoubelle);
 };

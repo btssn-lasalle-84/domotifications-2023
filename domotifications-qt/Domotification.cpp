@@ -16,10 +16,12 @@
  * @param ihm
  */
 Domotification::Domotification(IHMDomotifications* ihm) :
-    QObject(ihm), communication(new Communication(this)), ihm(ihm)
+    QObject(ihm), communication(new Communication(this)), ihm(ihm),
+    minuteurRecuperationNotifications(nullptr)
 {
     qDebug() << Q_FUNC_INFO;
     chargerModules();
+    initialiserRecuperationNotifications();
 }
 
 /**
@@ -35,13 +37,23 @@ Domotification::~Domotification()
 
 void Domotification::gererAcquittement(QString typeModule, int id)
 {
-    int indexModule = recupererIndexModule(typeModule, id);
-    qDebug() << Q_FUNC_INFO << "typeModule" << typeModule << "id" << id;
+    QString api         = typeModule;
+    int     indexModule = recupererIndexModule(typeModule, id);
+    qDebug() << Q_FUNC_INFO << "typeModule" << typeModule << "id" << id << "indexModule"
+             << indexModule;
 
-    QByteArray json = "{";
-    json += "\"id\":" + QString::number(id) + QString(",") + "\"etat\":0" + "}";
+    if(modules[indexModule]->estActif())
+    {
+        QByteArray json = "{";
+        json += "\"id\":" + QString::number(id) + QString(",") + "\"etat\":0" + "}";
 
-    communication->envoyerRequetePost(typeModule, json);
+        qDebug() << Q_FUNC_INFO << "api" << api << "json" << json;
+        communication->envoyerRequetePost(api, json);
+    }
+    else
+    {
+        qDebug() << Q_FUNC_INFO << "le module n'est pas activé !";
+    }
 }
 
 /**
@@ -54,6 +66,10 @@ void Domotification::gererActivationModule(QString typeModule, int id)
 {
     QString api         = "activation";
     int     indexModule = recupererIndexModule(typeModule, id);
+
+    /**
+     * @todo Modifier la requête pour activer/désactiver
+     */
     qDebug() << Q_FUNC_INFO << "typeModule" << typeModule << "id" << id << "indexModule"
              << indexModule;
     if(indexModule == NON_TROUVE)
@@ -62,7 +78,6 @@ void Domotification::gererActivationModule(QString typeModule, int id)
     QByteArray json = "{";
     json += "\"module\":\"" + QString(typeModule) + QString("\"") + QString(",") +
             "\"id\":" + QString::number(id) + QString(",");
-    qDebug() << Q_FUNC_INFO << "json" << json;
     if(modules[indexModule]->estActif())
     {
         json += "\"etat\":0";
@@ -73,6 +88,7 @@ void Domotification::gererActivationModule(QString typeModule, int id)
     }
     json += "}";
 
+    qDebug() << Q_FUNC_INFO << "api" << api << "json" << json;
     communication->envoyerRequetePost(api, json);
 
     modules[indexModule]->setActif(!modules[indexModule]->estActif());
@@ -116,6 +132,20 @@ bool Domotification::getActivationModule(QString typeModule, int id)
         }
     }
     return false;
+}
+
+/**
+ * @fn Domotification::gererNotification
+ * @brief Gère une notification
+ * @param typeModule
+ * @param id
+ */
+void Domotification::gererNotification(QString typeModule, int id)
+{
+    qDebug() << Q_FUNC_INFO << "typeModule" << typeModule << "id" << id;
+    /**
+     * @todo Gérer l'envoi de la requête pour acquitter une notification
+     */
 }
 
 /**
@@ -217,4 +247,18 @@ void Domotification::chargerModules()
     // 1 boite (0..1)
     modules.push_back(new Module("boite", Module::TypeModule::BoiteAuxLettres, 0, this));
     qDebug() << Q_FUNC_INFO << "modules" << modules;
+}
+
+void Domotification::initialiserRecuperationNotifications()
+{
+    /**
+     * @todo Instancier le miniteur
+     */
+    /**
+     * @todo Connecter le signal timeout du minuteur au slot qui effectue la requête HTTP pour
+     * récupérer les notifications
+     */
+    /**
+     * @todo Démarrer le minuteur avec la PERIODE_RECUPERATION_NOTIFICATIONS
+     */
 }

@@ -12,7 +12,7 @@ var class_module =
     [ "estNotifie", "class_module.html#a07eb0d63b2e46789a70f014507c695a0", null ],
     [ "getId", "class_module.html#a5b98ee69de08ef6fae32580cfb36744c", null ],
     [ "getNom", "class_module.html#a1cb7dde43e97fbb22553d935bca50944", null ],
-    [ "getType", "class_module.html#a2a0f9c636ac1780c46749d83dafa6d12", null ],
+    [ "getType", "class_module.html#ad118116221977dcf7ed04d3df4239838", null ],
     [ "getType", "class_module.html#aff6dc77e0596be7d13764f43e1a56ad9", null ],
     [ "recupererType", "class_module.html#a7824fca317c222d09dd77c89a5eb2244", null ],
     [ "setActif", "class_module.html#a65c4843bc7e7b08950678a5cf66719a1", null ],

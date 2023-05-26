@@ -9,10 +9,13 @@
 #include "Communication.h"
 
 Communication::Communication(QObject* parent) :
-    QObject(parent), identifiant(""), motDePasse(""), httpPort(PORT_HTTP),
-    accesReseau(new QNetworkAccessManager(this))
+    QObject(parent), accesReseau(new QNetworkAccessManager(this)), httpPort(PORT_HTTP)
 {
     qDebug() << Q_FUNC_INFO;
+    /**
+     * @todo Connecter le signal finished() vers le slot qui traite les réponses envoyées par la
+     * station
+     */
 }
 
 Communication::~Communication()
@@ -20,37 +23,46 @@ Communication::~Communication()
     qDebug() << Q_FUNC_INFO;
 }
 
-void Communication::connecter()
-{
-}
-
 /**
- * @brief Envoie une requete http avec la méthode Post
+ * @brief Envoie une requete http avec la méthode POST
  * @fn Communication::envoyerRequetePost
  * @param api le type de requête
  * @param json les données au format JSON envoyées via la requête
  */
 void Communication::envoyerRequetePost(QString api, const QByteArray& json)
 {
-    QUrl url(URL_STATION + api);
-    qDebug() << Q_FUNC_INFO << "url" << url.toString();
-    qDebug() << Q_FUNC_INFO << "json" << json;
     QNetworkRequest requetePost;
+    QUrl            url(URL_STATION + api);
     requetePost.setUrl(url);
     requetePost.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
-
     requetePost.setRawHeader("Content-Type", "application/json");
     requetePost.setRawHeader("Content-Length", QByteArray::number(json.size()));
+    qDebug() << Q_FUNC_INFO << "url" << url << "json" << json;
 #ifndef SANS_STATION
-    qDebug() << Q_FUNC_INFO << url << json;
     accesReseau->post(requetePost, json);
 #endif
 }
 
-void Communication::recevoirNotification()
+/**
+ * @brief Slot qui envoie la requête avec la méthode GET pour récupérer les notifications
+ * @fn Communication::recevoirNotifications
+ */
+void Communication::recevoirNotifications()
 {
+    /**
+     * @todo Emettre la requête permettant de récupérer les états des notifications des modules
+     */
 }
 
-void Communication::configurer(QString identifiant, QString motDePasse, int httpPort)
+/**
+ * @brief Slot qui traite les réponses renvoyées par la station
+ * @fn Communication::traiterReponseStation
+ */
+void Communication::traiterReponseStation(QNetworkReply* reponse)
 {
+    qDebug() << Q_FUNC_INFO;
+    /**
+     * @todo Traiter la réponses et émettre un signal pour la classe Domotification (mettre à jour
+     * l'état et le traiter) et l'IHM pour afficher une notification ...
+     */
 }
