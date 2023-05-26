@@ -131,11 +131,12 @@ class IHMDomotifications : public QMainWindow
     void    afficherBoutonAcquittement();
     int     recupererIdModule(QPushButton* boutonModule);
     QString recupererTypeModule(QPushButton* boutonModule);
+    void    afficherEtatBoutonActivationDesactivation(QPushButton* boutonModule, int id);
+    void    gererEtatBoutonAcquittement(QPushButton* boutonModule, int id);
 
   signals:
     void activationDesactivationModule(QString nomModule, int id);
     void acquittementNotification(QString typeModule, int id);
-
 
   public slots:
 #ifdef TEST_NOTIFICATIONS

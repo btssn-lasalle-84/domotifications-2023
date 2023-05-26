@@ -15,6 +15,8 @@ class Module
     return notifie;
 !!!137514.cpp!!!	setActif(in actif : bool) : void
     this->actif = actif;
+!!!145578.cpp!!!	setNotifie(in notifie : bool) : void
+    this->notifie = notifie;
 !!!166402.cpp!!!	recupererType() : QString
     return getType(type);
 !!!137642.cpp!!!	getType(in type : Module::TypeModule) : QString

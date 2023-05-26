@@ -49,6 +49,10 @@ void Domotification::gererAcquittement(QString typeModule, int id)
 
         qDebug() << Q_FUNC_INFO << "api" << api << "json" << json;
         communication->envoyerRequetePost(api, json);
+        /**
+         * @todo Générer une requête HTTP pour récupérer l'état de l'acquittement de la notification
+et mettre à jour le module avec setNotifie()
+        */
     }
     else
     {
@@ -97,10 +101,10 @@ void Domotification::gererActivationModule(QString typeModule, int id)
 // Méthodes
 
 /**
- * @brief Domotification::estGere
+ * @brief Domotification::recupererIndexModule
  * @param typeModule
  * @param id
- * @return
+ * @return int
  */
 int Domotification::recupererIndexModule(QString typeModule, int id)
 {
@@ -118,7 +122,7 @@ int Domotification::recupererIndexModule(QString typeModule, int id)
  * @brief Domotification::getActivationModule
  * @param typeModule
  * @param id
- * @return
+ * @return bool
  */
 bool Domotification::getActivationModule(QString typeModule, int id)
 {
@@ -135,16 +139,38 @@ bool Domotification::getActivationModule(QString typeModule, int id)
 }
 
 /**
- * @fn Domotification::gererNotification
- * @brief Gère une notification
+ * @brief Domotification::getNotificationModule
  * @param typeModule
  * @param id
+ * @return bool
  */
-void Domotification::gererNotification(QString typeModule, int id)
+bool Domotification::getNotificationModule(QString typeModule, int id)
 {
-    qDebug() << Q_FUNC_INFO << "typeModule" << typeModule << "id" << id;
+    for(int i = 0; i < modules.size(); ++i)
+    {
+        if(modules[i]->getNom() == typeModule && modules[i]->getId() == id)
+        {
+            qDebug() << Q_FUNC_INFO << "typeModule" << typeModule << "id" << id << "estNotifie"
+                     << modules[i]->estNotifie();
+            return modules[i]->estNotifie();
+        }
+    }
+    return false;
+}
+
+/**
+ * @fn Domotification::gererNotifications
+ * @brief Gère les états des notifications
+ * @param machines
+ * @param poubelles
+ * @param boite
+ */
+void Domotification::gererNotifications(QVector<bool> machines, QVector<bool> poubelles, bool boite)
+{
+    qDebug() << Q_FUNC_INFO;
     /**
-     * @todo Gérer l'envoi de la requête pour acquitter une notification
+     * @todo Gérer les états des notifications reçues de la station et détecter si un ou
+     * plusieurs états sont à notifier (IHM).
      */
 }
 
@@ -233,19 +259,35 @@ Module* Domotification::getBoite() const
  */
 void Domotification::chargerModules()
 {
-    /**
-     * @todo Gérer un fichier de configuration INI pour les modules
-     */
-    // Pour les tests : 5 modules
+/**
+ * @todo Gérer un fichier de configuration INI pour les modules
+ */
+#ifdef SIMULATION_MODULES
+    // Pour les tests : 6 modules
     // 2 machines (0..6)
     modules.push_back(new Module("machine", Module::TypeModule::Machine, 0, this));
     modules.push_back(new Module("machine", Module::TypeModule::Machine, 1, this));
-    // 2 poubelles (0..5)
+    // 3 poubelles (0..5)
     modules.push_back(new Module("poubelle", Module::TypeModule::Poubelle, 0, this));
     modules.push_back(new Module("poubelle", Module::TypeModule::Poubelle, 1, this));
     modules.push_back(new Module("poubelle", Module::TypeModule::Poubelle, 2, this));
     // 1 boite (0..1)
     modules.push_back(new Module("boite", Module::TypeModule::BoiteAuxLettres, 0, this));
+
+    // Pour les tests : simule des états
+    // une machine
+    modules[0]->setActif(true);
+    modules[0]->setNotifie(true);
+    modules[1]->setActif(false);
+    // une poubelle
+    modules[3]->setActif(true);
+    modules[3]->setNotifie(true);
+    modules[4]->setActif(false);
+    // la boite aux lettres
+    modules[5]->setActif(true);
+    modules[5]->setNotifie(true);
+
+#endif
     qDebug() << Q_FUNC_INFO << "modules" << modules;
 }
 
@@ -255,8 +297,8 @@ void Domotification::initialiserRecuperationNotifications()
      * @todo Instancier le miniteur
      */
     /**
-     * @todo Connecter le signal timeout du minuteur au slot qui effectue la requête HTTP pour
-     * récupérer les notifications
+     * @todo Connecter le signal timeout du minuteur au slot qui effectue la requête HTTP
+     * pour récupérer les notifications
      */
     /**
      * @todo Démarrer le minuteur avec la PERIODE_RECUPERATION_NOTIFICATIONS

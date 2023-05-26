@@ -96,6 +96,16 @@ void Module::setActif(bool actif)
 }
 
 /**
+ * @brief Change l'attribut notifie d'un module
+ * @fn Module::setNotifie
+ * @param notifie
+ */
+void Module::setNotifie(bool notifie)
+{
+    this->notifie = notifie;
+}
+
+/**
  * @brief Retourne le type de module sous forme de QString
  * @fn Module::recupererType
  * @param actif

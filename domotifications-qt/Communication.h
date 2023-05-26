@@ -33,8 +33,11 @@ class Communication : public QObject
     void envoyerRequetePost(QString api, const QByteArray& json);
 
   public slots:
-    void recevoirNotifications();
+    void recupererNotifications();
     void traiterReponseStation(QNetworkReply* reponse);
+
+  signals:
+    void etatsNotifications(QVector<bool> machines, QVector<bool> poubelles, bool boite);
 };
 
 #endif // COMMUNICATION_H

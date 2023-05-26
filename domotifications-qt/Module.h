@@ -47,6 +47,7 @@ class Module : public QObject
     bool               estActif() const;
     bool               estNotifie() const;
     void               setActif(bool actif);
+    void               setNotifie(bool notifie);
     QString            recupererType();
     static QString     getType(Module::TypeModule type);
 };

@@ -1,7 +1,7 @@
 format 224
 "domotifications-qt"
-  revision 16
-  modified_by 2 "btssn2"
+  revision 17
+  modified_by 42 "tv"
   cpp_root_dir "../../"
 
 

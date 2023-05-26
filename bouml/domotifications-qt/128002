@@ -1,7 +1,7 @@
 format 224
 "domotifications-qt" // domotifications-qt
-  revision 4
-  modified_by 2 "btssn2"
+  revision 5
+  modified_by 42 "tv"
   // class settings
   
   classdiagramsettings member_max_width 0 end
@@ -83,42 +83,6 @@ ${inlines}
 	mysql ""
       end
 
-      attribute 155522 "identifiant"
-	private explicit_type "QString"
-	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
-"
-	java_decl ""
-	php_decl ""
-	python_decl ""
-	idl_decl ""
-	mysql_decl ""
-	MysqlColumn
-      end
-
-      attribute 155650 "motDePasse"
-	private explicit_type "QString"
-	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
-"
-	java_decl ""
-	php_decl ""
-	python_decl ""
-	idl_decl ""
-	mysql_decl ""
-	MysqlColumn
-      end
-
-      attribute 155778 "httpPort"
-	private explicit_type "int"
-	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
-"
-	java_decl ""
-	php_decl ""
-	python_decl ""
-	idl_decl ""
-	mysql_decl ""
-	MysqlColumn
-      end
-
       attribute 134570 "accesReseau"
 	private explicit_type "QNetworkAccessManager"
 	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
@@ -155,6 +119,18 @@ ${inlines}
 	MysqlColumn
       end
 
+      attribute 155778 "httpPort"
+	private explicit_type "int"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
       attribute 134954 "requeteJSON"
 	private explicit_type "QString"
 	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
@@ -175,8 +151,7 @@ ${inlines}
 	cpp_decl "    ${comment}${inline}${name}${(}${t0} * ${p0}${v0}${)}${volatile}${throw}${abstract};
 "
 	cpp_def "${comment}${inline}${typeprefix}${class}::${name}${(}${t0} * ${p0}${)} :
-    QObject(parent), identifiant(\"\"), motDePasse(\"\"), httpPort(PORT_HTTP),
-    accesReseau(new QNetworkAccessManager(this))
+    QObject(parent), accesReseau(new QNetworkAccessManager(this)), httpPort(PORT_HTTP)
 ${throw}{
 ${body}}
 "
@@ -200,20 +175,6 @@ ${body}}
 	
       end
 
-      operation 157058 "connecter"
-	preserve_cpp_body_indent public explicit_return_type "void"
-	nparams 0
-	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
-"
-	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
-${body}}
-"
-	
-	
-	
-	
-      end
-
       operation 134570 "envoyerRequetePost"
 	preserve_cpp_body_indent public explicit_return_type "void"
 	nparams 2
@@ -221,7 +182,7 @@ ${body}}
 	  param in name "json" explicit_type "QByteArray"
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}, const ${t1} & ${p1}${v1}${)}${const}${volatile}${throw}${abstract};
 "
-	cpp_def "//@brief Envoie une requete http avec la méthode Post
+	cpp_def "//@brief Envoie une requete http avec la méthode POST
 //@fn Communication::envoyerRequetePost
 //@param api le type de requête
 //@param json les données au format JSON envoyées via la requête
@@ -236,12 +197,26 @@ ${body}}
 	
       end
 
-      operation 157314 "recevoirNotification"
+      extra_member 141226 "slots"
+	
+	cpp "  public slots:" ""
+	java ""
+	php ""
+	python ""
+	idl ""
+	mysql ""
+      end
+
+      operation 144170 "recupererNotifications"
 	preserve_cpp_body_indent public explicit_return_type "void"
 	nparams 0
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
 "
-	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+	cpp_def "//@brief Slot qui envoie la requête avec la méthode GET pour récupérer les notifications
+//@fn Communication::recevoirNotifications
+//
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
 ${body}}
 "
 	
@@ -250,16 +225,42 @@ ${body}}
 	
       end
 
-      operation 157442 "configurer"
+      operation 144298 "traiterReponseStation"
 	preserve_cpp_body_indent public explicit_return_type "void"
-	nparams 3
-	  param in name "identifiant" explicit_type "QString"
-	  param in name "motDePasse" explicit_type "QString"
-	  param in name "httpPort" explicit_type "int"
-	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}, ${t1} ${p1}${v1}, ${t2} ${p2}${v2}${)}${const}${volatile}${throw}${abstract};
+	nparams 1
+	  param inout name "reponse" explicit_type "QNetworkReply"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} * ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
 "
-	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}, ${t1} ${p1}, ${t2} ${p2}${)}${const}${throw}${staticnl}{
+	cpp_def "//@brief Slot qui traite les réponses renvoyées par la station
+//@fn Communication::traiterReponseStation
+//
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${t0} * ${p0}${)}${const}${volatile}${throw}${staticnl}{
 ${body}}
+"
+	
+	
+	
+	
+      end
+
+      extra_member 141354 "signals"
+	
+	cpp "  signals:" ""
+	java ""
+	php ""
+	python ""
+	idl ""
+	mysql ""
+      end
+
+      operation 144426 "etatsNotifications"
+	public explicit_return_type "void"
+	nparams 3
+	  param in name "machines" explicit_type "QVector<bool>"
+	  param in name "poubelles" explicit_type "QVector<bool>"
+	  param in name "boite" explicit_type "bool"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}, ${t1} ${p1}${v1}, ${t2} ${p2}${v2}${)}${const}${volatile}${throw}${abstract};
 "
 	
 	
@@ -340,6 +341,18 @@ ${inlines}
 	  b parent class_ref 168450 // IHMDomotifications
       end
 
+      attribute 146602 "minuteurRecuperationNotifications"
+	private explicit_type "QTimer"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
       operation 157570 "Domotification"
 	preserve_cpp_body_indent public explicit_return_type ""
 	nparams 1
@@ -353,7 +366,8 @@ ${inlines}
 //
 
 ${inline}${typeprefix}${class}::${name}${(}${t0} * ${p0}${)} :
-    QObject(ihm), communication(new Communication(this)), ihm(ihm)
+    QObject(ihm), communication(new Communication(this)), ihm(ihm),
+    minuteurRecuperationNotifications(nullptr)
 ${throw}{
 ${body}}
 "
@@ -391,10 +405,10 @@ ${body}}
 "
 	cpp_def "// Méthodes
 //
-//@brief Domotification::estGere
+//@brief Domotification::recupererIndexModule
 //@param typeModule
 //@param id
-//@return
+//@return int
 //
 
 ${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}, ${t1} ${p1}${)}${const}${volatile}${throw}${staticnl}{
@@ -417,7 +431,29 @@ ${body}}
 	cpp_def "//@brief Domotification::getActivationModule
 //@param typeModule
 //@param id
-//@return
+//@return bool
+//
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}, ${t1} ${p1}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 144554 "getNotificationModule"
+	preserve_cpp_body_indent public explicit_return_type "bool"
+	nparams 2
+	  param in name "typeModule" explicit_type "QString"
+	  param in name "id" explicit_type "int"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}, ${t1} ${p1}${v1}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "//@brief Domotification::getNotificationModule
+//@param typeModule
+//@param id
+//@return bool
 //
 
 ${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}, ${t1} ${p1}${)}${const}${volatile}${throw}${staticnl}{
@@ -546,6 +582,20 @@ ${body}}
 	
       end
 
+      operation 144682 "initialiserRecuperationNotifications"
+	preserve_cpp_body_indent public explicit_return_type "void"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	
+      end
+
       extra_member 128642 "signals"
 	
 	cpp "  signals:" ""
@@ -579,17 +629,14 @@ ${body}}
 	mysql ""
       end
 
-      operation 157954 "gererNotification"
+      operation 144810 "gererAcquittement"
 	preserve_cpp_body_indent public explicit_return_type "void"
 	nparams 2
 	  param in name "typeModule" explicit_type "QString"
 	  param in name "id" explicit_type "int"
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}, ${t1} ${p1}${v1}${)}${const}${volatile}${throw}${abstract};
 "
-	cpp_def "//@fn Domotification::gererNotification
-//@brief Gère une notification
-//@param nomModule
-//
+	cpp_def "// Slots
 
 ${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}, ${t1} ${p1}${)}${const}${volatile}${throw}${staticnl}{
 ${body}}
@@ -607,11 +654,9 @@ ${body}}
 	  param in name "id" explicit_type "int"
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}, ${t1} ${p1}${v1}${)}${const}${volatile}${throw}${abstract};
 "
-	cpp_def "// Slots
-//
-//@brief Gère l'activation d'un module
+	cpp_def "//@brief Gère l'activation d'un module
 //@fn Domotification::gererActivationModule
-//@param nomModule
+//@param typeModule
 //@param id
 //
 
@@ -623,6 +668,31 @@ ${body}}
 	
 	
       end
+
+      operation 144938 "gererNotifications"
+	preserve_cpp_body_indent public explicit_return_type "void"
+	nparams 3
+	  param in name "machines" explicit_type "QVector<bool>"
+	  param in name "poubelles" explicit_type "QVector<bool>"
+	  param in name "boite" explicit_type "bool"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}, ${t1} ${p1}${v1}, ${t2} ${p2}${v2}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "//@fn Domotification::gererNotifications
+//@brief Gère les états des notifications
+//@param machines
+//@param poubelles
+//@param boite
+//
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}, ${t1} ${p1}, ${t2} ${p2}${)}${const}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+      end
+
     end
 
     class 168194 "Module"
@@ -935,6 +1005,26 @@ ${body}}
 	
       end
 
+      operation 145578 "setNotifie"
+	preserve_cpp_body_indent public explicit_return_type "void"
+	nparams 1
+	  param in name "notifie" explicit_type "bool"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "//@brief Change l'attribut notifie d'un module
+//@fn Module::setNotifie
+//@param notifie
+//
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+      end
+
       operation 166402 "recupererType"
 	preserve_cpp_body_indent public explicit_return_type "QString"
 	nparams 0
@@ -974,7 +1064,6 @@ ${body}}
 	
 	
       end
-
     end
 
     classdiagram 147842 "diagramme de classes 0.2"
@@ -1597,9 +1686,10 @@ ${items}};
 "
       end
 
-      attribute 138026 "logoMachine"
-	private explicit_type "QLabel"
-	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} * ${name}${value};
+      attribute 146730 "logosMachine"
+	private explicit_type "QLabel*"
+	stereotype "QVector"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${stereotype}<${type}> ${name}${value};
 "
 	java_decl ""
 	php_decl ""
@@ -1985,8 +2075,8 @@ ${body}}
 	nparams 0
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
 "
-	cpp_def "//@brief Affichage des boutons d'activation/desactivation
-//@fn IHMDomotifications::afficherBoutonActivationDesactivation
+	cpp_def "//@brief Affichage des boutons d'activation desactivation
+//@fn IHMDomotifications::afficherBoutonsActivationDesactivation
 //@details Affichage des boutons d'activation et de desactivation des différents modules
 //
 
@@ -2007,7 +2097,7 @@ ${body}}
 "
 	cpp_def "//@brief Affichage d'un bouton d'activation
 //@fn IHMDomotifications::afficherBoutonActivation
-//@param QPushButton* boutonModule
+//@param boutonModule
 //
 
 ${inline}${typeprefix}${type} ${class}::${name}${(}${t0} * ${p0}${)}${const}${volatile}${throw}${staticnl}{
@@ -2027,7 +2117,7 @@ ${body}}
 "
 	cpp_def "//@brief Affichage d'un bouton de désactivation
 //@fn IHMDomotifications::afficherBoutonDesactivation
-//@param QPushButton* boutonModule
+//@param boutonModule
 //
 
 ${inline}${typeprefix}${type} ${class}::${name}${(}${t0} * ${p0}${)}${const}${volatile}${throw}${staticnl}{
@@ -2098,6 +2188,38 @@ ${body}}
 	
       end
 
+      operation 145066 "afficherEtatBoutonActivationDesactivation"
+	preserve_cpp_body_indent public explicit_return_type "void"
+	nparams 2
+	  param inout name "boutonModule" explicit_type "QPushButton"
+	  param in name "id" explicit_type "int"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} * ${p0}${v0}, ${t1} ${p1}${v1}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 145194 "gererEtatBoutonAcquittement"
+	preserve_cpp_body_indent public explicit_return_type "void"
+	nparams 2
+	  param inout name "boutonModule" explicit_type "QPushButton"
+	  param in name "id" explicit_type "int"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} * ${p0}${v0}, ${t1} ${p1}${v1}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	
+      end
+
       extra_member 134698 "signals"
 	
 	cpp "  signals:" ""
@@ -2112,6 +2234,19 @@ ${body}}
 	public explicit_return_type "void"
 	nparams 2
 	  param in name "nomModule" explicit_type "QString"
+	  param in name "id" explicit_type "int"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}, ${t1} ${p1}${v1}${)}${const}${volatile}${throw}${abstract};
+"
+	
+	
+	
+	
+      end
+
+      operation 145322 "acquittementNotification"
+	public explicit_return_type "void"
+	nparams 2
+	  param in name "typeModule" explicit_type "QString"
 	  param in name "id" explicit_type "int"
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}, ${t1} ${p1}${v1}${)}${const}${volatile}${throw}${abstract};
 "
@@ -2153,6 +2288,26 @@ ${body}}
 	cpp_def "//@brief Gère les boutons d'activation et de desactivation
 //@fn IHMDomotifications::gererBoutonActivationDesactivation
 //@details Envoie les signaux de chaque bouton d'activation/désactivation vers leur slots
+//respectifs
+//
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 145450 "gererBoutonAcquittement"
+	preserve_cpp_body_indent public explicit_return_type "void"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "//@brief Gère les boutons d'acquittement
+//@fn IHMDomotifications::gererBoutonAcquittement
+//@details Envoie les signaux de chaque bouton d'acquittement vers leur slots
 //respectifs
 //
 
@@ -2211,7 +2366,6 @@ ${body}}
 	
 	
       end
-
     end
 
     class 168578 "typedef2"

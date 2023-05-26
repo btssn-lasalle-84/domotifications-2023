@@ -47,10 +47,12 @@ void Communication::envoyerRequetePost(QString api, const QByteArray& json)
  * @brief Slot qui envoie la requête avec la méthode GET pour récupérer les notifications
  * @fn Communication::recevoirNotifications
  */
-void Communication::recevoirNotifications()
+void Communication::recupererNotifications()
 {
     /**
-     * @todo Emettre la requête permettant de récupérer les états des notifications des modules
+     * @todo Emettre la requête permettant de récupérer les états des notifications des modules. La
+     * réception des données sra signalée par finished() qui devra déclencher le slot
+     * traiterReponseStation() qui recevra les états des notifications.
      */
 }
 
@@ -62,7 +64,8 @@ void Communication::traiterReponseStation(QNetworkReply* reponse)
 {
     qDebug() << Q_FUNC_INFO;
     /**
-     * @todo Traiter la réponses et émettre un signal pour la classe Domotification (mettre à jour
-     * l'état et le traiter) et l'IHM pour afficher une notification ...
+     * @todo Traiter la réponses et émettre un signal etatsNotifications() pour la classe
+     * Domotification (mettre à jour les états et les traiter) et l'IHM pour afficher une
+     * notification ...
      */
 }
