@@ -1,7 +1,7 @@
 format 224
 "StationLumineuse" // station-notifications-lumineuses::lib::StationLumineuse
   revision 2
-  modified_by 42 "tv"
+  modified_by 2 "btssn2"
   // class settings
   
   classdiagramsettings member_max_width 0 end
