@@ -95,7 +95,7 @@ class IHMDomotifications : public QMainWindow
     QIcon*            iconeAcquittement;
     // Les labels
     QLabel*          logoBTS;
-    QLabel*          logoMachine;
+    QVector<QLabel*> logosMachine;
     QLabel*          logoBoiteAuxLettres;
     QVector<QLabel*> logosPoubelle;
 

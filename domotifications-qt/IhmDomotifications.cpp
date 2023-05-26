@@ -187,7 +187,10 @@ void IHMDomotifications::initialiserWidgets()
 
     // logoBTS             = new QLabel(this);
     logoBoiteAuxLettres = new QLabel(this);
-    logoMachine         = new QLabel(this);
+    for(auto i = 0; i < machines.size(); i++)
+    {
+        logosMachine.push_back(new QLabel(this));
+    }
     for(auto i = 0; i < poubelles.size(); i++)
     {
         logosPoubelle.push_back(new QLabel(this));
@@ -364,8 +367,11 @@ void IHMDomotifications::afficherWidgets()
           imagesLogoPoubelle[i]->scaled(imagesLogoPoubelle[i]->width() / 3,
                                         imagesLogoPoubelle[i]->height() / 3));
     }
-    logoMachine->setPixmap(
-      imageLogoMachine->scaled(imageLogoMachine->width() / 3, imageLogoMachine->height() / 3));
+    for(int i = 0; i < machines.size(); i++)
+    {
+        logosMachine[i]->setPixmap(
+          imageLogoMachine->scaled(imageLogoMachine->width() / 3, imageLogoMachine->height() / 3));
+    }
     logoBoiteAuxLettres->setPixmap(
       imageLogoBoiteAuxLettres->scaled(imageLogoBoiteAuxLettres->width() / 3,
                                        imageLogoBoiteAuxLettres->height() / 3));
@@ -385,13 +391,13 @@ void IHMDomotifications::afficherWidgets()
           layoutsBoutonsPoubelle[indexVecteurPoubelle]);
     }
 
-    layoutMachines->addWidget(logoMachine);
     for(int indexVecteurMachine = 0; indexVecteurMachine < machines.size(); indexVecteurMachine++)
     {
         layoutsBoutonsMachine[indexVecteurMachine]->addWidget(
           boutonsAcquittementMachine[indexVecteurMachine]);
         layoutsBoutonsMachine[indexVecteurMachine]->addWidget(
           boutonsActivationDesactivationMachine[indexVecteurMachine]);
+        layoutsMachine[indexVecteurMachine]->addWidget(logosMachine[indexVecteurMachine]);
         layoutsMachine[indexVecteurMachine]->addLayout(layoutsBoutonsMachine[indexVecteurMachine]);
     }
 
