@@ -15,7 +15,7 @@ class ServeurWeb
         Serial.println("setNom() http://" + nomStationLumineuse + ".local/");
 #endif
     }
-!!!144170.cpp!!!	installerGestionnairesRequetes() : void
+!!!179330.cpp!!!	installerGestionnairesRequetes() : void
     on("/", HTTP_GET, std::bind(&ServeurWeb::afficherAccueil, this));
     on("/notifications", std::bind(&ServeurWeb::traiterRequeteGETNotifications, this));
     on("/boite", HTTP_GET, std::bind(&ServeurWeb::traiterRequeteGETBoite, this));
@@ -523,7 +523,7 @@ class ServeurWeb
         message += " " + argName(i) + ": " + arg(i) + "\n";
     }
     send(404, "text/plain", message);
-!!!144298.cpp!!!	extraireId() : int
+!!!179458.cpp!!!	extraireId() : int
     JsonObject objetJSON = documentJSON.as<JsonObject>();
     if(objetJSON.containsKey("id"))
     {
@@ -534,7 +534,7 @@ class ServeurWeb
         return documentJSON["id"].as<int>();
     }
     return -1;
-!!!144426.cpp!!!	extraireEtat() : bool
+!!!179586.cpp!!!	extraireEtat() : bool
     JsonObject objetJSON = documentJSON.as<JsonObject>();
     if(objetJSON.containsKey("etat"))
     {

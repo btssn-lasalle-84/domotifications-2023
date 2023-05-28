@@ -12,9 +12,9 @@
 /**
  * @brief Constructeur de la classe ServeurWeb
  * @fn ServeurWeb::ServeurWeb
- * @param stationLumineuse
- * @details Initialise un serveur web sur le port PORT_SERVEUR_WEB et l'association avec la classe
- * StationLumineuse
+ * @param stationLumineuse Pointeur vers l'objet de la classe StationLumineuse
+ * @details Initialise un nouvel objet ServeurWeb en utilisant le constructeur de la classe de base WebServer. Le pointeur vers l'objet de la classe StationLumineuse 
+ * est stocké dans la variable membre stationLumineuse.
  */
 ServeurWeb::ServeurWeb(StationLumineuse* stationLumineuse) :
     WebServer(PORT_SERVEUR_WEB), stationLumineuse(stationLumineuse)
@@ -24,9 +24,8 @@ ServeurWeb::ServeurWeb(StationLumineuse* stationLumineuse) :
 /**
  * @brief Démarre le serveur web et installe les gestionnaires de requêtes
  * @fn ServeurWeb::demarrer
- * @details Configure les routes pour les différentes requêtes HTTP
-    et démarre le serveur web. Elle utilise des fonctions de liaison std::bind pour attacher les
- méthodes membres à chaque route.
+ * @details Cette méthode configure et démarre le serveur Web. Elle définit les gestionnaires de requêtes pour les différentes routes, puis démarre le serveur 
+ * en utilisant la méthode begin(). Le serveur sera accessible à partir de l'adresse IP locale obtenue via la connexion WiFi.
  */
 void ServeurWeb::demarrer()
 {
@@ -35,8 +34,26 @@ void ServeurWeb::demarrer()
     Serial.print(F("ServeurWeb::demarrer() : adresse IP = "));
     Serial.println(WiFi.localIP());
 #endif
+    // Installe les gestionnaires de requêtes
+    on("/", HTTP_GET, std::bind(&ServeurWeb::afficherAccueil, this));
+    on("/notifications", std::bind(&ServeurWeb::traiterRequeteGETNotifications, this));
 
-    installerGestionnairesRequetes();
+    on("/activations", HTTP_GET, std::bind(&ServeurWeb::traiterRequeteGETActivations, this));
+    on("/activation", HTTP_POST, std::bind(&ServeurWeb::traiterRequetePOSTActivation, this));
+
+    on("/boite", HTTP_GET, std::bind(&ServeurWeb::traiterRequeteGETBoite, this));
+    on("/boite", HTTP_POST, std::bind(&ServeurWeb::traiterRequetePOSTBoite, this));
+    on("/machine", HTTP_GET, std::bind(&ServeurWeb::traiterRequeteGETMachine, this));
+    on("/machine",
+       HTTP_POST,
+       std::bind(&ServeurWeb::traiterRequetePOSTMachine,
+                 this)); // Ajout de la route /machine en POST
+    on("/poubelle", HTTP_GET, std::bind(&ServeurWeb::traiterRequeteGETPoubelle, this));
+    on("/poubelle",
+       HTTP_POST,
+       std::bind(&ServeurWeb::traiterRequetePOSTPoubelle,
+                 this)); // Ajout de la route /poubelle en POST
+    onNotFound(std::bind(&ServeurWeb::traiterRequeteNonTrouvee, this));
 
     // Démarre le serveur
     begin();
@@ -58,12 +75,13 @@ void ServeurWeb::traiterRequetes()
 }
 
 /**
- * @brief Définit le nom du serveur web
- * @fn ServeurWeb::setNom
- * @param nomStationLumineuse
- * @details Utilise le protocole mDNS pour définir le nom du serveur web.
-    Le nom sera utilisé pour accéder au serveur via l'adresse http://nomStationLumineuse.local/.
- */
+  * @brief Définit le nom du serveur Web
+  * @fn ServeurWeb::setNom
+  * @param nomStationLumineuse Le nom du serveur Web à utiliser
+  * @details Cette méthode permet de définir le nom du serveur Web. Si aucun nom n'est spécifié, le nom par défaut NOM_SERVEUR_WEB sera utilisé. 
+  *  Le serveur sera accessible à partir de l'adresse http://nomStationLumineuse.local/. La méthode utilise le service mDNS pour permettre 
+  *  l'accès au serveur avec un nom d'hôte convivial.
+  */
 void ServeurWeb::setNom(String nomStationLumineuse)
 {
     if(nomStationLumineuse.isEmpty())
@@ -84,14 +102,20 @@ void ServeurWeb::setNom(String nomStationLumineuse)
 }
 
 /**
- * @brief Affiche la page d'accueil du serveur web
- * @fn ServeurWeb::installerGestionnairesRequetes
- * @details Installe les gestionnaires de requêtes GET/POST
- */
+  * @brief Installe les gestionnaires de requêtes
+  * @fn ServeurWeb::installerGestionnairesRequetes
+  * @details Cette méthode installe les gestionnaires de requêtes pour les différentes routes du serveur Web. Les gestionnaires sont définis à l'aide de la méthode
+  *  on(). Les routes sont associées aux méthodes de traitement des requêtes correspondantes.
+  */
 void ServeurWeb::installerGestionnairesRequetes()
 {
+
     on("/", HTTP_GET, std::bind(&ServeurWeb::afficherAccueil, this));
     on("/notifications", std::bind(&ServeurWeb::traiterRequeteGETNotifications, this));
+
+    on("/activations", HTTP_GET, std::bind(&ServeurWeb::traiterRequeteGETActivations, this));
+    on("/activation", HTTP_POST, std::bind(&ServeurWeb::traiterRequetePOSTActivation, this));
+
     on("/boite", HTTP_GET, std::bind(&ServeurWeb::traiterRequeteGETBoite, this));
     on("/boite", HTTP_POST, std::bind(&ServeurWeb::traiterRequetePOSTBoite, this));
     on("/machine", HTTP_GET, std::bind(&ServeurWeb::traiterRequeteGETMachine, this));
@@ -153,7 +177,7 @@ void ServeurWeb::traiterRequeteGETNotifications()
     {
         machines.add(stationLumineuse->getEtatMachine(i));
     }
-    JsonArray poubelle = documentJSON.createNestedArray("poubelle");
+    JsonArray poubelle = documentJSON.createNestedArray("poubelles");
     for(int i = 0; i < NB_LEDS_NOTIFICATION_POUBELLES; ++i)
     {
         poubelle.add(stationLumineuse->getEtatPoubelle(i));
@@ -167,6 +191,178 @@ void ServeurWeb::traiterRequeteGETNotifications()
     char buffer[TAILLE_JSON];
     serializeJson(documentJSON, buffer);
     send(200, "application/json", buffer);
+}
+
+/**
+  * @brief Traite une requête GET pour obtenir les états d'activation
+  * @fn ServeurWeb::traiterRequeteGETActivations
+  * @details Cette méthode traite une requête GET pour obtenir les états d'activation de la station lumineuse. Elle récupère les états d'activation 
+  * de la boîte aux lettres, des machines et des poubelles à l'aide des méthodes appropriées de la classe StationLumineuse, puis les stocke dans un document JSON.
+  * Le document JSON est ensuite envoyé en réponse à la requête.
+  */
+void ServeurWeb::traiterRequeteGETActivations()
+{
+#ifdef DEBUG_SERVEUR_WEB
+    Serial.print(F("ServeurWeb::traiterRequeteGETActivations() : requête = "));
+    Serial.println((method() == HTTP_GET) ? "GET" : "POST");
+    Serial.print(F("URI : "));
+    Serial.println(uri());
+#endif
+
+    documentJSON.clear();
+    documentJSON["boite"] =
+      stationLumineuse
+        ->getActivationBoiteAuxLettres(); // Remplacez par la méthode appropriée pour obtenir l'état
+                                          // d'activation de la boîte aux lettres
+    JsonArray machines = documentJSON.createNestedArray("machines");
+    for(int i = 0; i < NB_LEDS_NOTIFICATION_MACHINES; ++i)
+    {
+        machines.add(stationLumineuse->getActivationMachine(
+          i)); // Remplacez par la méthode appropriée pour obtenir l'état d'activation de la machine
+    }
+    JsonArray poubelles = documentJSON.createNestedArray("poubelles");
+    for(int i = 0; i < NB_LEDS_NOTIFICATION_POUBELLES; ++i)
+    {
+        poubelles.add(
+          stationLumineuse->getActivationPoubelle(i)); // Remplacez par la méthode appropriée pour
+                                                       // obtenir l'état d'activation de la poubelle
+    }
+
+#ifdef DEBUG_SERVEUR_WEB
+    Serial.print(F("JSON : "));
+    serializeJson(documentJSON, Serial);
+    Serial.println();
+#endif
+    char buffer[TAILLE_JSON];
+    serializeJson(documentJSON, buffer);
+    send(200, "application/json", buffer);
+}
+
+/**
+  * @brief Traite une requête POST pour modifier les activations
+  * @fn ServeurWeb::traiterRequetePOSTActivation
+  * @details Cette méthode traite une requête POST pour modifier les activations de la station lumineuse. Elle récupère les données de la requête, 
+  * telles que l'état, l'ID et le module concernés, à l'aide de la méthode arg() de la classe WebServer. Ensuite, elle utilise les méthodes appropriées 
+  * de la classe StationLumineuse pour modifier les activations correspondantes. La méthode renvoie une réponse JSON indiquant le succès de l'opération ou une 
+  * erreur si les données de la requête sont incorrectes ou invalides.
+  */
+void ServeurWeb::traiterRequetePOSTActivation()
+{
+#ifdef DEBUG_SERVEUR_WEB
+    Serial.print(F("ServeurWeb::traiterRequetePOSTActivation() : requête = "));
+    Serial.println((method() == HTTP_GET) ? "GET" : "POST");
+    Serial.print(F("URI : "));
+    Serial.println(uri());
+#endif
+
+    if(hasArg("plain") == false)
+    {
+#ifdef DEBUG_SERVEUR_WEB
+        Serial.println(F("Erreur !"));
+#endif
+        send(400,
+             "application/json",
+             "{\"error\": { \"code\": \"invalidRequest\", \"message\": \"La demande est vide ou "
+             "incorrecte.\"}}");
+        return;
+    }
+
+    String body = arg("plain");
+#ifdef DEBUG_SERVEUR_WEB
+    Serial.println(body);
+#endif
+    DeserializationError erreur = deserializeJson(documentJSON, body);
+    if(erreur)
+    {
+#ifdef DEBUG_SERVEUR_WEB
+        Serial.print(F("Erreur deserializeJson() : "));
+        Serial.println(erreur.f_str());
+#endif
+        send(400,
+             "application/json",
+             "{\"error\": { \"code\": \"invalidRequest\", \"message\": \"La demande est mal "
+             "exprimée ou incorrecte.\"}}");
+        return;
+    }
+    else
+    {
+        JsonObject objetJSON = documentJSON.as<JsonObject>();
+        if(objetJSON.containsKey("etat") && objetJSON.containsKey("id") &&
+           objetJSON.containsKey("module"))
+        {
+#ifdef DEBUG_SERVEUR_WEB
+            Serial.print(F("module : "));
+            Serial.println(documentJSON["module"].as<String>());
+            Serial.print(F("id : "));
+            Serial.println(documentJSON["id"].as<int>());
+            Serial.print(F("etat : "));
+            Serial.println(documentJSON["etat"].as<bool>());
+#endif
+
+            String module = documentJSON["module"].as<String>();
+            int    id     = documentJSON["id"].as<int>();
+            bool   etat   = documentJSON["etat"].as<bool>();
+
+            if(module == "machine")
+            {
+                if(stationLumineuse->estIdValideMachine(id))
+                {
+                    stationLumineuse->setActivationMachine(id, etat);
+                    send(200, "application/json", "{\"machine\": \"ok\"}");
+                }
+                else
+                {
+                    send(404,
+                         "application/json",
+                         "{\"error\": { \"code\": \"notFound\", \"message\": \"La machine demandée "
+                         "n'existe pas.\"}}");
+                }
+            }
+            else if(module == "poubelle")
+            {
+                if(stationLumineuse->estIdValidePoubelle(id))
+                {
+                    stationLumineuse->setActivationPoubelle(id, etat);
+                    send(200, "application/json", "{\"poubelle\": \"ok\"}");
+                }
+                else
+                {
+                    send(404,
+                         "application/json",
+                         "{\"error\": { \"code\": \"notFound\", \"message\": \"La poubelle "
+                         "demandée n'existe pas.\"}}");
+                }
+            }
+            else if(module == "boite")
+            {
+                // Pour la boite aux lettres, il n'y a pas d'ID spécifique.
+                stationLumineuse->setActivationBoiteAuxLettres(etat);
+                send(200, "application/json", "{\"boite\": \"ok\"}");
+            }
+            else
+            {
+#ifdef DEBUG_SERVEUR_WEB
+                Serial.print(F("Erreur : module non reconnu"));
+#endif
+                send(400,
+                     "application/json",
+                     "{\"error\": { \"code\": \"invalidRequest\", \"message\": \"Le module "
+                     "spécifié n'est pas reconnu.\"}}");
+                return;
+            }
+        }
+        else
+        {
+#ifdef DEBUG_SERVEUR_WEB
+            Serial.print(F("Erreur : champ etat, id ou module manquant"));
+#endif
+            send(400,
+                 "application/json",
+                 "{\"error\": { \"code\": \"invalidRequest\", \"message\": \"La demande est "
+                 "incomplète.\"}}");
+            return;
+        }
+    }
 }
 
 /**

@@ -1,7 +1,7 @@
 format 224
 "ServeurWeb" // station-notifications-lumineuses::lib::ServeurWeb
   revision 2
-  modified_by 42 "tv"
+  modified_by 2 "btssn2"
   // class settings
   
   classdiagramsettings member_max_width 0 end
@@ -121,7 +121,7 @@ ${body}}
 	
       end
 
-      operation 144170 "installerGestionnairesRequetes"
+      operation 179330 "installerGestionnairesRequetes"
 	preserve_cpp_body_indent private explicit_return_type "void"
 	nparams 0
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
@@ -331,7 +331,7 @@ ${body}}
 	
       end
 
-      operation 144298 "extraireId"
+      operation 179458 "extraireId"
 	preserve_cpp_body_indent private explicit_return_type "int"
 	nparams 0
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
@@ -350,7 +350,7 @@ ${body}}
 	
       end
 
-      operation 144426 "extraireEtat"
+      operation 179586 "extraireEtat"
 	preserve_cpp_body_indent private explicit_return_type "bool"
 	nparams 0
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};

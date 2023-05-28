@@ -1,6 +1,6 @@
 format 224
 "afficheur" // simulateur::lib::afficheur
-  revision 1
+  revision 2
   modified_by 2 "btssn2"
   // class settings
   
@@ -102,17 +102,7 @@ ${inlines}
 //@param brocheSCL int broche I2C SCL
 //
 
-//@brief Constructeur de la classe Afficheur
-//
-//@fn Afficheur::Afficheur
-//
-//@param adresseI2C int l'adresse I2C de l'afficheur
-//@param brocheSDA int broche I2C SDA
-//@param brocheSCL int broche I2C SCL
-//
-
 ${inline}${typeprefix}${class}::${name}${(}${t0} ${p0}, ${t1} ${p1}, ${t2} ${p2}${)} : SSD1306Wire(adresseI2C, brocheSDA, brocheSCL)
- : SSD1306Wire(adresseI2C, brocheSDA, brocheSCL)
 ${throw}{
 ${body}}
 "
@@ -206,12 +196,6 @@ ${items}};
 //
 //
 
-//@brief Initialise l'afficheur SSD1306Wire
-//
-//@fn Afficheur::initialiser
-//
-//
-
 ${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
 ${body}}
 "
@@ -232,12 +216,6 @@ ${body}}
 //
 //
 
-//@brief Efface l'afficheur
-//
-//@fn Afficheur::effacer
-//
-//
-
 ${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
 ${body}}
 "
@@ -253,12 +231,6 @@ ${body}}
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
 "
 	cpp_def "//@brief Affiche les différentes lignes de l'afficheur
-//
-//@fn Afficheur::afficher
-//
-//
-
-//@brief Affiche les différentes lignes de l'afficheur
 //
 //@fn Afficheur::afficher
 //
@@ -286,13 +258,6 @@ ${body}}
 //@param titre String le titre à afficher
 //
 
-//@brief Fixe un titre à afficher
-//
-//@fn Afficheur::setTitre
-//
-//@param titre String le titre à afficher
-//
-
 ${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}${)}${const}${volatile}${throw}${staticnl}{
 ${body}}
 "
@@ -309,13 +274,6 @@ ${body}}
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
 "
 	cpp_def "//@brief Fixe un sous-titre à afficher
-//
-//@fn Afficheur::setSTitre
-//
-//@param stitre String le sous-titre à afficher
-//
-
-//@brief Fixe un sous-titre à afficher
 //
 //@fn Afficheur::setSTitre
 //
@@ -346,14 +304,6 @@ ${body}}
 //@param message String le message à afficher sur le numéro de ligne correspondant
 //
 
-//@brief Fixe un message à un numéro de ligne
-//
-//@fn Afficheur::setMessageLigne
-//
-//@param ligne Ligne numéro de ligne pour le message
-//@param message String le message à afficher sur le numéro de ligne correspondant
-//
-
 ${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}, ${t1} ${p1}${)}${const}${volatile}${throw}${staticnl}{
 ${body}}
 "
@@ -369,8 +319,8 @@ ${body}}
 	  param in name "ligne" type class_ref 175746 // Ligne
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
 "
-	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
+	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
 "
 	
 	
@@ -431,14 +381,6 @@ ${body}}
 //
 //
 
-// Méthodes privées
-//
-//@brief Affiche un titre sur l'afficheur
-//
-//@fn Afficheur::afficherTitre
-//
-//
-
 ${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
 ${body}}
 "
@@ -456,14 +398,6 @@ ${body}}
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}, ${t1} ${p1}${v1}${)}${const}${volatile}${throw}${abstract};
 "
 	cpp_def "//@brief Affiche un message sur une ligne de l'afficheur
-//
-//@fn Afficheur::afficherMessage
-//
-//@param ligne int numéro de ligne pour le message
-//@param message String le message à afficher sur le numéro de ligne correspondant
-//
-
-//@brief Affiche un message sur une ligne de l'afficheur
 //
 //@fn Afficheur::afficherMessage
 //
@@ -518,7 +452,6 @@ ${namespace_start}
 ${members}
 ${namespace_end}"
       associated_elems
-	class_ref 175618 // typedef1
 	class_ref 175234 // Afficheur
       end
     end

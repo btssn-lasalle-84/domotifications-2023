@@ -27,7 +27,7 @@
   <td id="projectlogo"><img alt="Logo" src="projet-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Projet domotifications
-   &#160;<span id="projectnumber">0.2</span>
+   &#160;<span id="projectnumber">1.0</span>
    </div>
    <div id="projectbrief">BTS SNIR LaSalle Avignon 2023</div>
   </td>
@@ -100,23 +100,25 @@ Graphe de collaboration de Domotification:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_domotification__coll__graph.png" border="0" usemap="#a_domotification_coll__map" alt="Collaboration graph"/></div>
 <map name="a_domotification_coll__map" id="a_domotification_coll__map">
-<area shape="rect" title=" " alt="" coords="146,687,341,925"/>
-<area shape="rect" href="class_i_h_m_domotifications.html" title="La fenêtyre principale de l&#39;application Domotifications." alt="" coords="89,988,371,1461"/>
-<area shape="rect" href="class_q_object.html" title=" " alt="" coords="263,5,338,83"/>
-<area shape="rect" href="class_communication.html" title=" " alt="" coords="209,132,392,371"/>
-<area shape="rect" href="class_module.html" title=" " alt="" coords="361,395,499,663"/>
+<area shape="rect" title=" " alt="" coords="145,657,421,955"/>
+<area shape="rect" href="class_i_h_m_domotifications.html" title="La fenêtyre principale de l&#39;application Domotifications." alt="" coords="139,1017,422,1520"/>
+<area shape="rect" href="class_q_object.html" title=" " alt="" coords="299,5,374,83"/>
+<area shape="rect" href="class_communication.html" title=" " alt="" coords="241,132,432,327"/>
+<area shape="rect" href="class_module.html" title=" " alt="" coords="401,351,539,633"/>
 <area shape="rect" href="class_q_main_window.html" title=" " alt="" coords="5,767,121,845"/>
 </map>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-slots"></a>
 Connecteurs publics</h2></td></tr>
+<tr class="memitem:a57c8bbd155fceca022e77c00ec841c43"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_domotification.html#a57c8bbd155fceca022e77c00ec841c43">gererAcquittement</a> (QString typeModule, int id)</td></tr>
+<tr class="separator:a57c8bbd155fceca022e77c00ec841c43"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af76f9eb09bfe67bf0cfaabb113f594bd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_domotification.html#af76f9eb09bfe67bf0cfaabb113f594bd">gererActivationModule</a> (QString typeModule, int id)</td></tr>
 <tr class="memdesc:af76f9eb09bfe67bf0cfaabb113f594bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gère l'activation d'un module.  <a href="class_domotification.html#af76f9eb09bfe67bf0cfaabb113f594bd">Plus de détails...</a><br /></td></tr>
 <tr class="separator:af76f9eb09bfe67bf0cfaabb113f594bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab0a9afbd52e406810f099a6090933fef"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_domotification.html#ab0a9afbd52e406810f099a6090933fef">gererNotification</a> (QString typeModule, int id)</td></tr>
-<tr class="memdesc:ab0a9afbd52e406810f099a6090933fef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gère une notification.  <a href="class_domotification.html#ab0a9afbd52e406810f099a6090933fef">Plus de détails...</a><br /></td></tr>
-<tr class="separator:ab0a9afbd52e406810f099a6090933fef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a64a130fb503b1d8153e9523c192094e2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_domotification.html#a64a130fb503b1d8153e9523c192094e2">gererNotifications</a> (QVector&lt; bool &gt; machines, QVector&lt; bool &gt; poubelles, bool boite)</td></tr>
+<tr class="memdesc:a64a130fb503b1d8153e9523c192094e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gère les états des notifications.  <a href="class_domotification.html#a64a130fb503b1d8153e9523c192094e2">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a64a130fb503b1d8153e9523c192094e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="signals"></a>
 Signaux</h2></td></tr>
@@ -143,14 +145,19 @@ Fonctions membres publiques</h2></td></tr>
 <tr class="memitem:a38ca648229ed7c25d1bf8606726b03ef"><td class="memItemLeft" align="right" valign="top">QVector&lt; <a class="el" href="class_module.html">Module</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_domotification.html#a38ca648229ed7c25d1bf8606726b03ef">getMachines</a> () const</td></tr>
 <tr class="memdesc:a38ca648229ed7c25d1bf8606726b03ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retourne le vecteur des modules machines.  <a href="class_domotification.html#a38ca648229ed7c25d1bf8606726b03ef">Plus de détails...</a><br /></td></tr>
 <tr class="separator:a38ca648229ed7c25d1bf8606726b03ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a560eadfacd1270f485b0b8d9718596ec"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_domotification.html#a560eadfacd1270f485b0b8d9718596ec">getNotificationModule</a> (QString typeModule, int id)</td></tr>
+<tr class="memdesc:a560eadfacd1270f485b0b8d9718596ec"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_domotification.html#a560eadfacd1270f485b0b8d9718596ec" title="Domotification::getNotificationModule.">Domotification::getNotificationModule</a>.  <a href="class_domotification.html#a560eadfacd1270f485b0b8d9718596ec">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a560eadfacd1270f485b0b8d9718596ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab9daa265e2f43b2a50c91c7af8e3e3a2"><td class="memItemLeft" align="right" valign="top">QVector&lt; <a class="el" href="class_module.html">Module</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_domotification.html#ab9daa265e2f43b2a50c91c7af8e3e3a2">getPoubelles</a> () const</td></tr>
 <tr class="memdesc:ab9daa265e2f43b2a50c91c7af8e3e3a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retourne le vecteur des modules poubelles.  <a href="class_domotification.html#ab9daa265e2f43b2a50c91c7af8e3e3a2">Plus de détails...</a><br /></td></tr>
 <tr class="separator:ab9daa265e2f43b2a50c91c7af8e3e3a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4a345e9992094dff7209a2b2680fb22"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_domotification.html#ac4a345e9992094dff7209a2b2680fb22">initialiserRecuperationNotifications</a> ()</td></tr>
+<tr class="separator:ac4a345e9992094dff7209a2b2680fb22"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa9c32e7ff7e817327c057098e2578c31"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_domotification.html#aa9c32e7ff7e817327c057098e2578c31">notifier</a> (QString message)</td></tr>
 <tr class="memdesc:aa9c32e7ff7e817327c057098e2578c31"><td class="mdescLeft">&#160;</td><td class="mdescRight">envoyer une notification  <a href="class_domotification.html#aa9c32e7ff7e817327c057098e2578c31">Plus de détails...</a><br /></td></tr>
 <tr class="separator:aa9c32e7ff7e817327c057098e2578c31"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a61611a6b7c883af9b73fcb6341f285c9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_domotification.html#a61611a6b7c883af9b73fcb6341f285c9">recupererIndexModule</a> (QString typeModule, int id=0)</td></tr>
-<tr class="memdesc:a61611a6b7c883af9b73fcb6341f285c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Domotification::estGere.  <a href="class_domotification.html#a61611a6b7c883af9b73fcb6341f285c9">Plus de détails...</a><br /></td></tr>
+<tr class="memdesc:a61611a6b7c883af9b73fcb6341f285c9"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_domotification.html#a61611a6b7c883af9b73fcb6341f285c9" title="Domotification::recupererIndexModule.">Domotification::recupererIndexModule</a>.  <a href="class_domotification.html#a61611a6b7c883af9b73fcb6341f285c9">Plus de détails...</a><br /></td></tr>
 <tr class="separator:a61611a6b7c883af9b73fcb6341f285c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0a3bb1c54adf49bcd1224efe4470d871"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_domotification.html#a0a3bb1c54adf49bcd1224efe4470d871">~Domotification</a> ()</td></tr>
 <tr class="memdesc:a0a3bb1c54adf49bcd1224efe4470d871"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructeur de la classe <a class="el" href="class_domotification.html">Domotification</a>.  <a href="class_domotification.html#a0a3bb1c54adf49bcd1224efe4470d871">Plus de détails...</a><br /></td></tr>
@@ -162,12 +169,14 @@ Attributs privés</h2></td></tr>
 <tr class="separator:adf9c288420f2c0fb303de893a7689873"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4a55669424a0bbe4d209f79a12d071c4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_i_h_m_domotifications.html">IHMDomotifications</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_domotification.html#a4a55669424a0bbe4d209f79a12d071c4">ihm</a></td></tr>
 <tr class="separator:a4a55669424a0bbe4d209f79a12d071c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a81f45c1966035711c1bd5f1d41429dc2"><td class="memItemLeft" align="right" valign="top">QTimer *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_domotification.html#a81f45c1966035711c1bd5f1d41429dc2">minuteurRecuperationNotifications</a></td></tr>
+<tr class="separator:a81f45c1966035711c1bd5f1d41429dc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ace4f5c3061739c5e4d19db164e882708"><td class="memItemLeft" align="right" valign="top">QVector&lt; <a class="el" href="class_module.html">Module</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">modules</a></td></tr>
 <tr class="separator:ace4f5c3061739c5e4d19db164e882708"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Description détaillée</h2>
 <div class="textblock">
-<p class="definition">Définition à la ligne <a class="el" href="_domotification_8h_source.html#l00023">23</a> du fichier <a class="el" href="_domotification_8h_source.html">Domotification.h</a>.</p>
+<p class="definition">Définition à la ligne <a class="el" href="_domotification_8h_source.html#l00027">27</a> du fichier <a class="el" href="_domotification_8h_source.html">Domotification.h</a>.</p>
 </div><h2 class="groupheader">Documentation des constructeurs et destructeur</h2>
 <a id="a75b02bee2f32fb067a2c793e4ec3d7cc"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a75b02bee2f32fb067a2c793e4ec3d7cc">&#9670;&nbsp;</a></span>Domotification()</h2>
@@ -195,18 +204,22 @@ Attributs privés</h2></td></tr>
 
 <p class="definition">Définition à la ligne <a class="el" href="_domotification_8cpp_source.html#l00018">18</a> du fichier <a class="el" href="_domotification_8cpp_source.html">Domotification.cpp</a>.</p>
 <div class="fragment"><div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;                                                      :</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <a class="code" href="class_q_object.html">QObject</a>(<a class="code" href="class_domotification.html#a4a55669424a0bbe4d209f79a12d071c4">ihm</a>), <a class="code" href="class_domotification.html#adf9c288420f2c0fb303de893a7689873">communication</a>(<span class="keyword">new</span> <a class="code" href="class_communication.html">Communication</a>(<span class="keyword">this</span>)), <a class="code" href="class_domotification.html#a4a55669424a0bbe4d209f79a12d071c4">ihm</a>(<a class="code" href="class_domotification.html#a4a55669424a0bbe4d209f79a12d071c4">ihm</a>)</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;{</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    qDebug() &lt;&lt; Q_FUNC_INFO;</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <a class="code" href="class_domotification.html#a1237cea4481080ea01ea0df57a3748c8">chargerModules</a>();</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;}</div>
-<div class="ttc" id="aclass_communication_html"><div class="ttname"><a href="class_communication.html">Communication</a></div><div class="ttdef"><b>Definition:</b> <a href="_communication_8h_source.html#l00019">Communication.h:20</a></div></div>
-<div class="ttc" id="aclass_domotification_html_a1237cea4481080ea01ea0df57a3748c8"><div class="ttname"><a href="class_domotification.html#a1237cea4481080ea01ea0df57a3748c8">Domotification::chargerModules</a></div><div class="ttdeci">void chargerModules()</div><div class="ttdoc">Charge à partir de la configuration et crée les modules à gérer.</div><div class="ttdef"><b>Definition:</b> <a href="_domotification_8cpp_source.html#l00202">Domotification.cpp:202</a></div></div>
-<div class="ttc" id="aclass_domotification_html_a4a55669424a0bbe4d209f79a12d071c4"><div class="ttname"><a href="class_domotification.html#a4a55669424a0bbe4d209f79a12d071c4">Domotification::ihm</a></div><div class="ttdeci">IHMDomotifications * ihm</div><div class="ttdef"><b>Definition:</b> <a href="_domotification_8h_source.html#l00029">Domotification.h:29</a></div></div>
-<div class="ttc" id="aclass_domotification_html_adf9c288420f2c0fb303de893a7689873"><div class="ttname"><a href="class_domotification.html#adf9c288420f2c0fb303de893a7689873">Domotification::communication</a></div><div class="ttdeci">Communication * communication</div><div class="ttdef"><b>Definition:</b> <a href="_domotification_8h_source.html#l00028">Domotification.h:28</a></div></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <a class="code" href="class_q_object.html">QObject</a>(<a class="code" href="class_domotification.html#a4a55669424a0bbe4d209f79a12d071c4">ihm</a>), <a class="code" href="class_domotification.html#adf9c288420f2c0fb303de893a7689873">communication</a>(<span class="keyword">new</span> <a class="code" href="class_communication.html">Communication</a>(<span class="keyword">this</span>)), <a class="code" href="class_domotification.html#a4a55669424a0bbe4d209f79a12d071c4">ihm</a>(<a class="code" href="class_domotification.html#a4a55669424a0bbe4d209f79a12d071c4">ihm</a>),</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <a class="code" href="class_domotification.html#a81f45c1966035711c1bd5f1d41429dc2">minuteurRecuperationNotifications</a>(<span class="keyword">nullptr</span>)</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;{</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    qDebug() &lt;&lt; Q_FUNC_INFO;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <a class="code" href="class_domotification.html#a1237cea4481080ea01ea0df57a3748c8">chargerModules</a>();</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <a class="code" href="class_domotification.html#ac4a345e9992094dff7209a2b2680fb22">initialiserRecuperationNotifications</a>();</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;}</div>
+<div class="ttc" id="aclass_communication_html"><div class="ttname"><a href="class_communication.html">Communication</a></div><div class="ttdef"><b>Definition:</b> <a href="_communication_8h_source.html#l00018">Communication.h:19</a></div></div>
+<div class="ttc" id="aclass_domotification_html_a1237cea4481080ea01ea0df57a3748c8"><div class="ttname"><a href="class_domotification.html#a1237cea4481080ea01ea0df57a3748c8">Domotification::chargerModules</a></div><div class="ttdeci">void chargerModules()</div><div class="ttdoc">Charge à partir de la configuration et crée les modules à gérer.</div><div class="ttdef"><b>Definition:</b> <a href="_domotification_8cpp_source.html#l00260">Domotification.cpp:260</a></div></div>
+<div class="ttc" id="aclass_domotification_html_a4a55669424a0bbe4d209f79a12d071c4"><div class="ttname"><a href="class_domotification.html#a4a55669424a0bbe4d209f79a12d071c4">Domotification::ihm</a></div><div class="ttdeci">IHMDomotifications * ihm</div><div class="ttdef"><b>Definition:</b> <a href="_domotification_8h_source.html#l00033">Domotification.h:33</a></div></div>
+<div class="ttc" id="aclass_domotification_html_a81f45c1966035711c1bd5f1d41429dc2"><div class="ttname"><a href="class_domotification.html#a81f45c1966035711c1bd5f1d41429dc2">Domotification::minuteurRecuperationNotifications</a></div><div class="ttdeci">QTimer * minuteurRecuperationNotifications</div><div class="ttdef"><b>Definition:</b> <a href="_domotification_8h_source.html#l00034">Domotification.h:34</a></div></div>
+<div class="ttc" id="aclass_domotification_html_ac4a345e9992094dff7209a2b2680fb22"><div class="ttname"><a href="class_domotification.html#ac4a345e9992094dff7209a2b2680fb22">Domotification::initialiserRecuperationNotifications</a></div><div class="ttdeci">void initialiserRecuperationNotifications()</div><div class="ttdef"><b>Definition:</b> <a href="_domotification_8cpp_source.html#l00294">Domotification.cpp:294</a></div></div>
+<div class="ttc" id="aclass_domotification_html_adf9c288420f2c0fb303de893a7689873"><div class="ttname"><a href="class_domotification.html#adf9c288420f2c0fb303de893a7689873">Domotification::communication</a></div><div class="ttdeci">Communication * communication</div><div class="ttdef"><b>Definition:</b> <a href="_domotification_8h_source.html#l00032">Domotification.h:32</a></div></div>
 <div class="ttc" id="aclass_q_object_html"><div class="ttname"><a href="class_q_object.html">QObject</a></div></div>
 </div><!-- fragment -->
-<p class="reference">Références <a class="el" href="_domotification_8cpp_source.html#l00202">chargerModules()</a>.</p>
+<p class="reference">Références <a class="el" href="_domotification_8cpp_source.html#l00260">chargerModules()</a>, et <a class="el" href="_domotification_8cpp_source.html#l00294">initialiserRecuperationNotifications()</a>.</p>
 
 </div>
 </div>
@@ -227,10 +240,10 @@ Attributs privés</h2></td></tr>
 
 <p>Destructeur de la classe <a class="el" href="class_domotification.html">Domotification</a>. </p>
 
-<p class="definition">Définition à la ligne <a class="el" href="_domotification_8cpp_source.html#l00029">29</a> du fichier <a class="el" href="_domotification_8cpp_source.html">Domotification.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;{</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    qDebug() &lt;&lt; Q_FUNC_INFO;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;}</div>
+<p class="definition">Définition à la ligne <a class="el" href="_domotification_8cpp_source.html#l00031">31</a> du fichier <a class="el" href="_domotification_8cpp_source.html">Domotification.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;{</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    qDebug() &lt;&lt; Q_FUNC_INFO;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -270,10 +283,10 @@ Attributs privés</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Définition à la ligne <a class="el" href="_domotification_8cpp_source.html#l00125">125</a> du fichier <a class="el" href="_domotification_8cpp_source.html">Domotification.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;{</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    qDebug() &lt;&lt; Q_FUNC_INFO &lt;&lt; <span class="stringliteral">&quot;nomModule&quot;</span> &lt;&lt; nomModule &lt;&lt; <span class="stringliteral">&quot;TypeModule&quot;</span> &lt;&lt; type;</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;}</div>
+<p class="definition">Définition à la ligne <a class="el" href="_domotification_8cpp_source.html#l00183">183</a> du fichier <a class="el" href="_domotification_8cpp_source.html">Domotification.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;{</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;    qDebug() &lt;&lt; Q_FUNC_INFO &lt;&lt; <span class="stringliteral">&quot;nomModule&quot;</span> &lt;&lt; nomModule &lt;&lt; <span class="stringliteral">&quot;TypeModule&quot;</span> &lt;&lt; type;</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -293,28 +306,107 @@ Attributs privés</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Charge à partir de la configuration et crée les modules à gérer. </p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000001">A faire:</a></b></dt><dd>Gérer un fichier de configuration INI pour les modules </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000006">A faire:</a></b></dt><dd>Gérer un fichier de configuration INI pour les modules </dd></dl>
 
-<p class="definition">Définition à la ligne <a class="el" href="_domotification_8cpp_source.html#l00202">202</a> du fichier <a class="el" href="_domotification_8cpp_source.html">Domotification.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;{</div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;    <span class="comment">// Pour les tests : 5 modules</span></div>
-<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;    <span class="comment">// 2 machines (0..6)</span></div>
-<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;    <a class="code" href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">modules</a>.push_back(<span class="keyword">new</span> <a class="code" href="class_module.html">Module</a>(<span class="stringliteral">&quot;machine&quot;</span>, Module::TypeModule::Machine, 0, <span class="keyword">this</span>));</div>
-<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;    <a class="code" href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">modules</a>.push_back(<span class="keyword">new</span> <a class="code" href="class_module.html">Module</a>(<span class="stringliteral">&quot;machine&quot;</span>, Module::TypeModule::Machine, 1, <span class="keyword">this</span>));</div>
-<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;    <span class="comment">// 2 poubelles (0..5)</span></div>
-<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;    <a class="code" href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">modules</a>.push_back(<span class="keyword">new</span> <a class="code" href="class_module.html">Module</a>(<span class="stringliteral">&quot;poubelle&quot;</span>, Module::TypeModule::Poubelle, 0, <span class="keyword">this</span>));</div>
-<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;    <a class="code" href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">modules</a>.push_back(<span class="keyword">new</span> <a class="code" href="class_module.html">Module</a>(<span class="stringliteral">&quot;poubelle&quot;</span>, Module::TypeModule::Poubelle, 1, <span class="keyword">this</span>));</div>
-<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;    <a class="code" href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">modules</a>.push_back(<span class="keyword">new</span> <a class="code" href="class_module.html">Module</a>(<span class="stringliteral">&quot;poubelle&quot;</span>, Module::TypeModule::Poubelle, 2, <span class="keyword">this</span>));</div>
-<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;    <span class="comment">// 1 boite (0..1)</span></div>
-<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;    <a class="code" href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">modules</a>.push_back(<span class="keyword">new</span> <a class="code" href="class_module.html">Module</a>(<span class="stringliteral">&quot;boite&quot;</span>, Module::TypeModule::BoiteAuxLettres, 0, <span class="keyword">this</span>));</div>
-<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;    qDebug() &lt;&lt; Q_FUNC_INFO &lt;&lt; <span class="stringliteral">&quot;modules&quot;</span> &lt;&lt; <a class="code" href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">modules</a>;</div>
-<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;}</div>
-<div class="ttc" id="aclass_domotification_html_ace4f5c3061739c5e4d19db164e882708"><div class="ttname"><a href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">Domotification::modules</a></div><div class="ttdeci">QVector&lt; Module * &gt; modules</div><div class="ttdef"><b>Definition:</b> <a href="_domotification_8h_source.html#l00027">Domotification.h:27</a></div></div>
+<p class="definition">Définition à la ligne <a class="el" href="_domotification_8cpp_source.html#l00260">260</a> du fichier <a class="el" href="_domotification_8cpp_source.html">Domotification.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;{</div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;<span class="preprocessor">#ifdef SIMULATION_MODULES</span></div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;    <span class="comment">// Pour les tests : 6 modules</span></div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;    <span class="comment">// 2 machines (0..6)</span></div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;    <a class="code" href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">modules</a>.push_back(<span class="keyword">new</span> <a class="code" href="class_module.html">Module</a>(<span class="stringliteral">&quot;machine&quot;</span>, Module::TypeModule::Machine, 0, <span class="keyword">this</span>));</div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;    <a class="code" href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">modules</a>.push_back(<span class="keyword">new</span> <a class="code" href="class_module.html">Module</a>(<span class="stringliteral">&quot;machine&quot;</span>, Module::TypeModule::Machine, 1, <span class="keyword">this</span>));</div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;    <span class="comment">// 3 poubelles (0..5)</span></div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;    <a class="code" href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">modules</a>.push_back(<span class="keyword">new</span> <a class="code" href="class_module.html">Module</a>(<span class="stringliteral">&quot;poubelle&quot;</span>, Module::TypeModule::Poubelle, 0, <span class="keyword">this</span>));</div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;    <a class="code" href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">modules</a>.push_back(<span class="keyword">new</span> <a class="code" href="class_module.html">Module</a>(<span class="stringliteral">&quot;poubelle&quot;</span>, Module::TypeModule::Poubelle, 1, <span class="keyword">this</span>));</div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;    <a class="code" href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">modules</a>.push_back(<span class="keyword">new</span> <a class="code" href="class_module.html">Module</a>(<span class="stringliteral">&quot;poubelle&quot;</span>, Module::TypeModule::Poubelle, 2, <span class="keyword">this</span>));</div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;    <span class="comment">// 1 boite (0..1)</span></div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;    <a class="code" href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">modules</a>.push_back(<span class="keyword">new</span> <a class="code" href="class_module.html">Module</a>(<span class="stringliteral">&quot;boite&quot;</span>, Module::TypeModule::BoiteAuxLettres, 0, <span class="keyword">this</span>));</div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160; </div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;    <span class="comment">// Pour les tests : simule des états</span></div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;    <span class="comment">// une machine</span></div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;    <a class="code" href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">modules</a>[0]-&gt;setActif(<span class="keyword">true</span>);</div>
+<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;    <a class="code" href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">modules</a>[0]-&gt;setNotifie(<span class="keyword">true</span>);</div>
+<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;    <a class="code" href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">modules</a>[1]-&gt;setActif(<span class="keyword">false</span>);</div>
+<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;    <span class="comment">// une poubelle</span></div>
+<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;    <a class="code" href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">modules</a>[3]-&gt;setActif(<span class="keyword">true</span>);</div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;    <a class="code" href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">modules</a>[3]-&gt;setNotifie(<span class="keyword">true</span>);</div>
+<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;    <a class="code" href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">modules</a>[4]-&gt;setActif(<span class="keyword">false</span>);</div>
+<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;    <span class="comment">// la boite aux lettres</span></div>
+<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;    <a class="code" href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">modules</a>[5]-&gt;setActif(<span class="keyword">true</span>);</div>
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;    <a class="code" href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">modules</a>[5]-&gt;setNotifie(<span class="keyword">true</span>);</div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160; </div>
+<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;    qDebug() &lt;&lt; Q_FUNC_INFO &lt;&lt; <span class="stringliteral">&quot;modules&quot;</span> &lt;&lt; <a class="code" href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">modules</a>;</div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;}</div>
+<div class="ttc" id="aclass_domotification_html_ace4f5c3061739c5e4d19db164e882708"><div class="ttname"><a href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">Domotification::modules</a></div><div class="ttdeci">QVector&lt; Module * &gt; modules</div><div class="ttdef"><b>Definition:</b> <a href="_domotification_8h_source.html#l00031">Domotification.h:31</a></div></div>
 <div class="ttc" id="aclass_module_html"><div class="ttname"><a href="class_module.html">Module</a></div><div class="ttdef"><b>Definition:</b> <a href="_module_8h_source.html#l00015">Module.h:16</a></div></div>
 </div><!-- fragment -->
-<p class="reference">Références <a class="el" href="_domotification_8h_source.html#l00027">modules</a>.</p>
+<p class="reference">Références <a class="el" href="_domotification_8h_source.html#l00031">modules</a>.</p>
 
 <p class="reference">Référencé par <a class="el" href="_domotification_8cpp_source.html#l00018">Domotification()</a>.</p>
+
+</div>
+</div>
+<a id="a57c8bbd155fceca022e77c00ec841c43"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a57c8bbd155fceca022e77c00ec841c43">&#9670;&nbsp;</a></span>gererAcquittement</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Domotification::gererAcquittement </td>
+          <td>(</td>
+          <td class="paramtype">QString&#160;</td>
+          <td class="paramname"><em>typeModule</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>id</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">slot</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<pre class="fragment">       @todo Générer une requête HTTP pour récupérer l'état de l'acquittement de la notification
+</pre><p> et mettre à jour le module avec setNotifie()</p>
+
+<p class="definition">Définition à la ligne <a class="el" href="_domotification_8cpp_source.html#l00038">38</a> du fichier <a class="el" href="_domotification_8cpp_source.html">Domotification.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;{</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    QString api         = typeModule;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordtype">int</span>     indexModule = <a class="code" href="class_domotification.html#a61611a6b7c883af9b73fcb6341f285c9">recupererIndexModule</a>(typeModule, <span class="keywordtype">id</span>);</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    qDebug() &lt;&lt; Q_FUNC_INFO &lt;&lt; <span class="stringliteral">&quot;typeModule&quot;</span> &lt;&lt; typeModule &lt;&lt; <span class="stringliteral">&quot;id&quot;</span> &lt;&lt; <span class="keywordtype">id</span> &lt;&lt; <span class="stringliteral">&quot;indexModule&quot;</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;             &lt;&lt; indexModule;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordflow">if</span>(<a class="code" href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">modules</a>[indexModule]-&gt;estActif())</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    {</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        QByteArray json = <span class="stringliteral">&quot;{&quot;</span>;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        json += <span class="stringliteral">&quot;\&quot;id\&quot;:&quot;</span> + QString::number(<span class="keywordtype">id</span>) + QString(<span class="stringliteral">&quot;,&quot;</span>) + <span class="stringliteral">&quot;\&quot;etat\&quot;:0&quot;</span> + <span class="stringliteral">&quot;}&quot;</span>;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        qDebug() &lt;&lt; Q_FUNC_INFO &lt;&lt; <span class="stringliteral">&quot;api&quot;</span> &lt;&lt; api &lt;&lt; <span class="stringliteral">&quot;json&quot;</span> &lt;&lt; json;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <a class="code" href="class_domotification.html#adf9c288420f2c0fb303de893a7689873">communication</a>-&gt;<a class="code" href="class_communication.html#a4a85eb1a29b7fd8c33362ffaee099956">envoyerRequetePost</a>(api, json);</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    }</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    {</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        qDebug() &lt;&lt; Q_FUNC_INFO &lt;&lt; <span class="stringliteral">&quot;le module n&#39;est pas activé !&quot;</span>;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    }</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;}</div>
+<div class="ttc" id="aclass_communication_html_a4a85eb1a29b7fd8c33362ffaee099956"><div class="ttname"><a href="class_communication.html#a4a85eb1a29b7fd8c33362ffaee099956">Communication::envoyerRequetePost</a></div><div class="ttdeci">void envoyerRequetePost(QString api, const QByteArray &amp;json)</div><div class="ttdoc">Envoie une requete http avec la méthode POST.</div><div class="ttdef"><b>Definition:</b> <a href="_communication_8cpp_source.html#l00032">Communication.cpp:32</a></div></div>
+<div class="ttc" id="aclass_domotification_html_a61611a6b7c883af9b73fcb6341f285c9"><div class="ttname"><a href="class_domotification.html#a61611a6b7c883af9b73fcb6341f285c9">Domotification::recupererIndexModule</a></div><div class="ttdeci">int recupererIndexModule(QString typeModule, int id=0)</div><div class="ttdoc">Domotification::recupererIndexModule.</div><div class="ttdef"><b>Definition:</b> <a href="_domotification_8cpp_source.html#l00109">Domotification.cpp:109</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Références <a class="el" href="_domotification_8h_source.html#l00032">communication</a>, <a class="el" href="_communication_8cpp_source.html#l00032">Communication::envoyerRequetePost()</a>, <a class="el" href="_domotification_8h_source.html#l00031">modules</a>, et <a class="el" href="_domotification_8cpp_source.html#l00109">recupererIndexModule()</a>.</p>
 
 </div>
 </div>
@@ -360,43 +452,44 @@ Attributs privés</h2></td></tr>
   </table>
   </dd>
 </dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000004">A faire:</a></b></dt><dd>Modifier la requête pour activer/désactiver </dd></dl>
 
-<p class="definition">Définition à la ligne <a class="el" href="_domotification_8cpp_source.html#l00041">41</a> du fichier <a class="el" href="_domotification_8cpp_source.html">Domotification.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;{</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordtype">int</span> indexModule = <a class="code" href="class_domotification.html#a61611a6b7c883af9b73fcb6341f285c9">recupererIndexModule</a>(typeModule, <span class="keywordtype">id</span>);</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    qDebug() &lt;&lt; Q_FUNC_INFO &lt;&lt; <span class="stringliteral">&quot;typeModule&quot;</span> &lt;&lt; typeModule &lt;&lt; <span class="stringliteral">&quot;id&quot;</span> &lt;&lt; <span class="keywordtype">id</span> &lt;&lt; <span class="stringliteral">&quot;indexModule&quot;</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;             &lt;&lt; indexModule;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordflow">if</span>(indexModule == <a class="code" href="_constantes_8h.html#af79745369266041dfec45b3d49b9073c">NON_TROUVE</a>)</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    QByteArray json = <span class="stringliteral">&quot;{&quot;</span>;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    json += <span class="stringliteral">&quot;\&quot;module\&quot;:\&quot;&quot;</span> + QString(typeModule) + QString(<span class="stringliteral">&quot;\&quot;&quot;</span>) + QString(<span class="stringliteral">&quot;,&quot;</span>) +</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;            <span class="stringliteral">&quot;\&quot;id\&quot;:&quot;</span> + QString::number(<span class="keywordtype">id</span>) + QString(<span class="stringliteral">&quot;,&quot;</span>);</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    qDebug() &lt;&lt; Q_FUNC_INFO &lt;&lt; <span class="stringliteral">&quot;json&quot;</span> &lt;&lt; json;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordflow">if</span>(<a class="code" href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">modules</a>[indexModule]-&gt;estActif())</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    {</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        json += <span class="stringliteral">&quot;\&quot;etat\&quot;:0&quot;</span>;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    }</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    {</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        json += <span class="stringliteral">&quot;\&quot;etat\&quot;:1&quot;</span>;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    }</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    json += <span class="stringliteral">&quot;}&quot;</span>;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <a class="code" href="class_domotification.html#adf9c288420f2c0fb303de893a7689873">communication</a>-&gt;<a class="code" href="class_communication.html#a4a85eb1a29b7fd8c33362ffaee099956">envoyerRequetePost</a>(typeModule, json);</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <a class="code" href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">modules</a>[indexModule]-&gt;setActif(!<a class="code" href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">modules</a>[indexModule]-&gt;estActif());</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;}</div>
+<p class="definition">Définition à la ligne <a class="el" href="_domotification_8cpp_source.html#l00069">69</a> du fichier <a class="el" href="_domotification_8cpp_source.html">Domotification.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;{</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    QString api         = <span class="stringliteral">&quot;activation&quot;</span>;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordtype">int</span>     indexModule = <a class="code" href="class_domotification.html#a61611a6b7c883af9b73fcb6341f285c9">recupererIndexModule</a>(typeModule, <span class="keywordtype">id</span>);</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    qDebug() &lt;&lt; Q_FUNC_INFO &lt;&lt; <span class="stringliteral">&quot;typeModule&quot;</span> &lt;&lt; typeModule &lt;&lt; <span class="stringliteral">&quot;id&quot;</span> &lt;&lt; <span class="keywordtype">id</span> &lt;&lt; <span class="stringliteral">&quot;indexModule&quot;</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;             &lt;&lt; indexModule;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keywordflow">if</span>(indexModule == <a class="code" href="_constantes_8h.html#af79745369266041dfec45b3d49b9073c">NON_TROUVE</a>)</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    QByteArray json = <span class="stringliteral">&quot;{&quot;</span>;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    json += <span class="stringliteral">&quot;\&quot;module\&quot;:\&quot;&quot;</span> + QString(typeModule) + QString(<span class="stringliteral">&quot;\&quot;&quot;</span>) + QString(<span class="stringliteral">&quot;,&quot;</span>) +</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;            <span class="stringliteral">&quot;\&quot;id\&quot;:&quot;</span> + QString::number(<span class="keywordtype">id</span>) + QString(<span class="stringliteral">&quot;,&quot;</span>);</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keywordflow">if</span>(<a class="code" href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">modules</a>[indexModule]-&gt;estActif())</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    {</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        json += <span class="stringliteral">&quot;\&quot;etat\&quot;:0&quot;</span>;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    }</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    {</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        json += <span class="stringliteral">&quot;\&quot;etat\&quot;:1&quot;</span>;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    }</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    json += <span class="stringliteral">&quot;}&quot;</span>;</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    qDebug() &lt;&lt; Q_FUNC_INFO &lt;&lt; <span class="stringliteral">&quot;api&quot;</span> &lt;&lt; api &lt;&lt; <span class="stringliteral">&quot;json&quot;</span> &lt;&lt; json;</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <a class="code" href="class_domotification.html#adf9c288420f2c0fb303de893a7689873">communication</a>-&gt;<a class="code" href="class_communication.html#a4a85eb1a29b7fd8c33362ffaee099956">envoyerRequetePost</a>(api, json);</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <a class="code" href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">modules</a>[indexModule]-&gt;setActif(!<a class="code" href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">modules</a>[indexModule]-&gt;estActif());</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;}</div>
 <div class="ttc" id="a_constantes_8h_html_af79745369266041dfec45b3d49b9073c"><div class="ttname"><a href="_constantes_8h.html#af79745369266041dfec45b3d49b9073c">NON_TROUVE</a></div><div class="ttdeci">#define NON_TROUVE</div><div class="ttdef"><b>Definition:</b> <a href="_constantes_8h_source.html#l00038">Constantes.h:38</a></div></div>
-<div class="ttc" id="aclass_communication_html_a4a85eb1a29b7fd8c33362ffaee099956"><div class="ttname"><a href="class_communication.html#a4a85eb1a29b7fd8c33362ffaee099956">Communication::envoyerRequetePost</a></div><div class="ttdeci">void envoyerRequetePost(QString api, const QByteArray &amp;json)</div><div class="ttdoc">Envoie une requete http avec la méthode Post.</div><div class="ttdef"><b>Definition:</b> <a href="_communication_8cpp_source.html#l00033">Communication.cpp:33</a></div></div>
-<div class="ttc" id="aclass_domotification_html_a61611a6b7c883af9b73fcb6341f285c9"><div class="ttname"><a href="class_domotification.html#a61611a6b7c883af9b73fcb6341f285c9">Domotification::recupererIndexModule</a></div><div class="ttdeci">int recupererIndexModule(QString typeModule, int id=0)</div><div class="ttdoc">Domotification::estGere.</div><div class="ttdef"><b>Definition:</b> <a href="_domotification_8cpp_source.html#l00076">Domotification.cpp:76</a></div></div>
 </div><!-- fragment -->
-<p class="reference">Références <a class="el" href="_domotification_8h_source.html#l00028">communication</a>, <a class="el" href="_communication_8cpp_source.html#l00033">Communication::envoyerRequetePost()</a>, <a class="el" href="_domotification_8h_source.html#l00027">modules</a>, <a class="el" href="_constantes_8h_source.html#l00038">NON_TROUVE</a>, et <a class="el" href="_domotification_8cpp_source.html#l00076">recupererIndexModule()</a>.</p>
+<p class="reference">Références <a class="el" href="_domotification_8h_source.html#l00032">communication</a>, <a class="el" href="_communication_8cpp_source.html#l00032">Communication::envoyerRequetePost()</a>, <a class="el" href="_domotification_8h_source.html#l00031">modules</a>, <a class="el" href="_constantes_8h_source.html#l00038">NON_TROUVE</a>, et <a class="el" href="_domotification_8cpp_source.html#l00109">recupererIndexModule()</a>.</p>
 
 </div>
 </div>
-<a id="ab0a9afbd52e406810f099a6090933fef"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab0a9afbd52e406810f099a6090933fef">&#9670;&nbsp;</a></span>gererNotification</h2>
+<a id="a64a130fb503b1d8153e9523c192094e2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a64a130fb503b1d8153e9523c192094e2">&#9670;&nbsp;</a></span>gererNotifications</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -405,16 +498,22 @@ Attributs privés</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void Domotification::gererNotification </td>
+          <td class="memname">void Domotification::gererNotifications </td>
           <td>(</td>
-          <td class="paramtype">QString&#160;</td>
-          <td class="paramname"><em>typeModule</em>, </td>
+          <td class="paramtype">QVector&lt; bool &gt;&#160;</td>
+          <td class="paramname"><em>machines</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>id</em>&#160;</td>
+          <td class="paramtype">QVector&lt; bool &gt;&#160;</td>
+          <td class="paramname"><em>poubelles</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>boite</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -429,19 +528,21 @@ Attributs privés</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Gère une notification. </p>
+<p>Gère les états des notifications. </p>
 <dl class="params"><dt>Paramètres</dt><dd>
   <table class="params">
-    <tr><td class="paramname">typeModule</td><td></td></tr>
-    <tr><td class="paramname">id</td><td></td></tr>
+    <tr><td class="paramname">machines</td><td></td></tr>
+    <tr><td class="paramname">poubelles</td><td></td></tr>
+    <tr><td class="paramname">boite</td><td></td></tr>
   </table>
   </dd>
 </dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000005">A faire:</a></b></dt><dd>Gérer les états des notifications reçues de la station et détecter si un ou plusieurs états sont à notifier (IHM). </dd></dl>
 
-<p class="definition">Définition à la ligne <a class="el" href="_domotification_8cpp_source.html#l00114">114</a> du fichier <a class="el" href="_domotification_8cpp_source.html">Domotification.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;{</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    qDebug() &lt;&lt; Q_FUNC_INFO &lt;&lt; <span class="stringliteral">&quot;typeModule&quot;</span> &lt;&lt; typeModule &lt;&lt; <span class="stringliteral">&quot;id&quot;</span> &lt;&lt; id;</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;}</div>
+<p class="definition">Définition à la ligne <a class="el" href="_domotification_8cpp_source.html#l00168">168</a> du fichier <a class="el" href="_domotification_8cpp_source.html">Domotification.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;{</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;    qDebug() &lt;&lt; Q_FUNC_INFO;</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -479,25 +580,25 @@ Attributs privés</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Renvoie</dt><dd></dd></dl>
+<dl class="section return"><dt>Renvoie</dt><dd>bool </dd></dl>
 
-<p class="definition">Définition à la ligne <a class="el" href="_domotification_8cpp_source.html#l00094">94</a> du fichier <a class="el" href="_domotification_8cpp_source.html">Domotification.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;{</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">modules</a>.size(); ++i)</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    {</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        <span class="keywordflow">if</span>(<a class="code" href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">modules</a>[i]-&gt;getNom() == typeModule &amp;&amp; <a class="code" href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">modules</a>[i]-&gt;getId() == <span class="keywordtype">id</span>)</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        {</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;            qDebug() &lt;&lt; Q_FUNC_INFO &lt;&lt; <span class="stringliteral">&quot;typeModule&quot;</span> &lt;&lt; typeModule &lt;&lt; <span class="stringliteral">&quot;id&quot;</span> &lt;&lt; <span class="keywordtype">id</span> &lt;&lt; <span class="stringliteral">&quot;estActif&quot;</span></div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;                     &lt;&lt; <a class="code" href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">modules</a>[i]-&gt;estActif();</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">modules</a>[i]-&gt;estActif();</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        }</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    }</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;}</div>
+<p class="definition">Définition à la ligne <a class="el" href="_domotification_8cpp_source.html#l00127">127</a> du fichier <a class="el" href="_domotification_8cpp_source.html">Domotification.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;{</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">modules</a>.size(); ++i)</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    {</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;        <span class="keywordflow">if</span>(<a class="code" href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">modules</a>[i]-&gt;getNom() == typeModule &amp;&amp; <a class="code" href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">modules</a>[i]-&gt;getId() == <span class="keywordtype">id</span>)</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;        {</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;            qDebug() &lt;&lt; Q_FUNC_INFO &lt;&lt; <span class="stringliteral">&quot;typeModule&quot;</span> &lt;&lt; typeModule &lt;&lt; <span class="stringliteral">&quot;id&quot;</span> &lt;&lt; <span class="keywordtype">id</span> &lt;&lt; <span class="stringliteral">&quot;estActif&quot;</span></div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;                     &lt;&lt; <a class="code" href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">modules</a>[i]-&gt;estActif();</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">modules</a>[i]-&gt;estActif();</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;        }</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    }</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;}</div>
 </div><!-- fragment -->
-<p class="reference">Références <a class="el" href="_domotification_8h_source.html#l00027">modules</a>.</p>
+<p class="reference">Références <a class="el" href="_domotification_8h_source.html#l00031">modules</a>.</p>
 
-<p class="reference">Référencé par <a class="el" href="_ihm_domotifications_8cpp_source.html#l00569">IHMDomotifications::gererBoutonActivationDesactivation()</a>.</p>
+<p class="reference">Référencé par <a class="el" href="_ihm_domotifications_8cpp_source.html#l00622">IHMDomotifications::afficherEtatBoutonActivationDesactivation()</a>.</p>
 
 </div>
 </div>
@@ -519,20 +620,20 @@ Attributs privés</h2></td></tr>
 <p>Retourne le module boite. </p>
 <dl class="section return"><dt>Renvoie</dt><dd></dd></dl>
 
-<p class="definition">Définition à la ligne <a class="el" href="_domotification_8cpp_source.html#l00186">186</a> du fichier <a class="el" href="_domotification_8cpp_source.html">Domotification.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;{</div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;    <span class="keywordflow">for</span>(<span class="keyword">auto</span> i = 0; i &lt; <a class="code" href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">modules</a>.size(); i++)</div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;    {</div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;        <span class="keywordflow">if</span>(<a class="code" href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">modules</a>[i]-&gt;getType() == <a class="code" href="class_module.html#a90e85ec6cf97a3cbae4a1ced05918f95a6ef8225ac258bb9bebeb6a955ff0bb11">Module::BoiteAuxLettres</a>)</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;        {</div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">modules</a>[i];</div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;        }</div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;    }</div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;}</div>
+<p class="definition">Définition à la ligne <a class="el" href="_domotification_8cpp_source.html#l00244">244</a> du fichier <a class="el" href="_domotification_8cpp_source.html">Domotification.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;{</div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;    <span class="keywordflow">for</span>(<span class="keyword">auto</span> i = 0; i &lt; <a class="code" href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">modules</a>.size(); i++)</div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;    {</div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;        <span class="keywordflow">if</span>(<a class="code" href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">modules</a>[i]-&gt;getType() == <a class="code" href="class_module.html#a90e85ec6cf97a3cbae4a1ced05918f95a6ef8225ac258bb9bebeb6a955ff0bb11">Module::BoiteAuxLettres</a>)</div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;        {</div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">modules</a>[i];</div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;        }</div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;    }</div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;}</div>
 <div class="ttc" id="aclass_module_html_a90e85ec6cf97a3cbae4a1ced05918f95a6ef8225ac258bb9bebeb6a955ff0bb11"><div class="ttname"><a href="class_module.html#a90e85ec6cf97a3cbae4a1ced05918f95a6ef8225ac258bb9bebeb6a955ff0bb11">Module::BoiteAuxLettres</a></div><div class="ttdeci">@ BoiteAuxLettres</div><div class="ttdef"><b>Definition:</b> <a href="_module_8h_source.html#l00026">Module.h:26</a></div></div>
 </div><!-- fragment -->
-<p class="reference">Références <a class="el" href="_module_8h_source.html#l00026">Module::BoiteAuxLettres</a>, et <a class="el" href="_domotification_8h_source.html#l00027">modules</a>.</p>
+<p class="reference">Références <a class="el" href="_module_8h_source.html#l00026">Module::BoiteAuxLettres</a>, et <a class="el" href="_domotification_8h_source.html#l00031">modules</a>.</p>
 
 <p class="reference">Référencé par <a class="el" href="_ihm_domotifications_8cpp_source.html#l00097">IHMDomotifications::initialiserWidgets()</a>.</p>
 
@@ -556,25 +657,81 @@ Attributs privés</h2></td></tr>
 <p>Retourne le vecteur des modules machines. </p>
 <dl class="section return"><dt>Renvoie</dt><dd></dd></dl>
 
-<p class="definition">Définition à la ligne <a class="el" href="_domotification_8cpp_source.html#l00146">146</a> du fichier <a class="el" href="_domotification_8cpp_source.html">Domotification.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;{</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;    QVector&lt;Module*&gt; machines;</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;    <span class="keywordflow">for</span>(<span class="keyword">auto</span> i = 0; i &lt; <a class="code" href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">modules</a>.size(); i++)</div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;    {</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;        <span class="keywordflow">if</span>(<a class="code" href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">modules</a>[i]-&gt;getType() == <a class="code" href="class_module.html#a90e85ec6cf97a3cbae4a1ced05918f95a5be02fb77d47bd9853c9771be28a6fee">Module::Machine</a>)</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;        {</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;            qDebug() &lt;&lt; Q_FUNC_INFO &lt;&lt; <span class="stringliteral">&quot;module&quot;</span> &lt;&lt; <a class="code" href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">modules</a>[i]-&gt;getNom() &lt;&lt; <span class="stringliteral">&quot;id&quot;</span></div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;                     &lt;&lt; <a class="code" href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">modules</a>[i]-&gt;getId();</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;            machines.push_back(<a class="code" href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">modules</a>[i]);</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;        }</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;    }</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    <span class="keywordflow">return</span> machines;</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;}</div>
+<p class="definition">Définition à la ligne <a class="el" href="_domotification_8cpp_source.html#l00204">204</a> du fichier <a class="el" href="_domotification_8cpp_source.html">Domotification.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;{</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;    QVector&lt;Module*&gt; machines;</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;    <span class="keywordflow">for</span>(<span class="keyword">auto</span> i = 0; i &lt; <a class="code" href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">modules</a>.size(); i++)</div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;    {</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;        <span class="keywordflow">if</span>(<a class="code" href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">modules</a>[i]-&gt;getType() == <a class="code" href="class_module.html#a90e85ec6cf97a3cbae4a1ced05918f95a5be02fb77d47bd9853c9771be28a6fee">Module::Machine</a>)</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;        {</div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;            qDebug() &lt;&lt; Q_FUNC_INFO &lt;&lt; <span class="stringliteral">&quot;module&quot;</span> &lt;&lt; <a class="code" href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">modules</a>[i]-&gt;getNom() &lt;&lt; <span class="stringliteral">&quot;id&quot;</span></div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;                     &lt;&lt; <a class="code" href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">modules</a>[i]-&gt;getId();</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;            machines.push_back(<a class="code" href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">modules</a>[i]);</div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;        }</div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;    }</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;    <span class="keywordflow">return</span> machines;</div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;}</div>
 <div class="ttc" id="aclass_module_html_a90e85ec6cf97a3cbae4a1ced05918f95a5be02fb77d47bd9853c9771be28a6fee"><div class="ttname"><a href="class_module.html#a90e85ec6cf97a3cbae4a1ced05918f95a5be02fb77d47bd9853c9771be28a6fee">Module::Machine</a></div><div class="ttdeci">@ Machine</div><div class="ttdef"><b>Definition:</b> <a href="_module_8h_source.html#l00027">Module.h:27</a></div></div>
 </div><!-- fragment -->
-<p class="reference">Références <a class="el" href="_module_8h_source.html#l00027">Module::Machine</a>, et <a class="el" href="_domotification_8h_source.html#l00027">modules</a>.</p>
+<p class="reference">Références <a class="el" href="_module_8h_source.html#l00027">Module::Machine</a>, et <a class="el" href="_domotification_8h_source.html#l00031">modules</a>.</p>
 
 <p class="reference">Référencé par <a class="el" href="_ihm_domotifications_8cpp_source.html#l00097">IHMDomotifications::initialiserWidgets()</a>.</p>
+
+</div>
+</div>
+<a id="a560eadfacd1270f485b0b8d9718596ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a560eadfacd1270f485b0b8d9718596ec">&#9670;&nbsp;</a></span>getNotificationModule()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Domotification::getNotificationModule </td>
+          <td>(</td>
+          <td class="paramtype">QString&#160;</td>
+          <td class="paramname"><em>typeModule</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>id</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><a class="el" href="class_domotification.html#a560eadfacd1270f485b0b8d9718596ec" title="Domotification::getNotificationModule.">Domotification::getNotificationModule</a>. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">typeModule</td><td></td></tr>
+    <tr><td class="paramname">id</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>bool </dd></dl>
+
+<p class="definition">Définition à la ligne <a class="el" href="_domotification_8cpp_source.html#l00147">147</a> du fichier <a class="el" href="_domotification_8cpp_source.html">Domotification.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;{</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;    <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">modules</a>.size(); ++i)</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;    {</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;        <span class="keywordflow">if</span>(<a class="code" href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">modules</a>[i]-&gt;getNom() == typeModule &amp;&amp; <a class="code" href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">modules</a>[i]-&gt;getId() == <span class="keywordtype">id</span>)</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;        {</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;            qDebug() &lt;&lt; Q_FUNC_INFO &lt;&lt; <span class="stringliteral">&quot;typeModule&quot;</span> &lt;&lt; typeModule &lt;&lt; <span class="stringliteral">&quot;id&quot;</span> &lt;&lt; <span class="keywordtype">id</span> &lt;&lt; <span class="stringliteral">&quot;estNotifie&quot;</span></div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;                     &lt;&lt; <a class="code" href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">modules</a>[i]-&gt;estNotifie();</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">modules</a>[i]-&gt;estNotifie();</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;        }</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;    }</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;}</div>
+</div><!-- fragment -->
+<p class="reference">Références <a class="el" href="_domotification_8h_source.html#l00031">modules</a>.</p>
+
+<p class="reference">Référencé par <a class="el" href="_ihm_domotifications_8cpp_source.html#l00637">IHMDomotifications::gererEtatBoutonAcquittement()</a>.</p>
 
 </div>
 </div>
@@ -596,25 +753,51 @@ Attributs privés</h2></td></tr>
 <p>Retourne le vecteur des modules poubelles. </p>
 <dl class="section return"><dt>Renvoie</dt><dd></dd></dl>
 
-<p class="definition">Définition à la ligne <a class="el" href="_domotification_8cpp_source.html#l00166">166</a> du fichier <a class="el" href="_domotification_8cpp_source.html">Domotification.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;{</div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;    QVector&lt;Module*&gt; poubelles;</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;    <span class="keywordflow">for</span>(<span class="keyword">auto</span> i = 0; i &lt; <a class="code" href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">modules</a>.size(); i++)</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;    {</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;        <span class="keywordflow">if</span>(<a class="code" href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">modules</a>[i]-&gt;getType() == <a class="code" href="class_module.html#a90e85ec6cf97a3cbae4a1ced05918f95ad216244c46a3d108be774f60734f3533">Module::Poubelle</a>)</div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;        {</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;            qDebug() &lt;&lt; Q_FUNC_INFO &lt;&lt; <span class="stringliteral">&quot;module&quot;</span> &lt;&lt; <a class="code" href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">modules</a>[i]-&gt;getNom() &lt;&lt; <span class="stringliteral">&quot;id&quot;</span></div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;                     &lt;&lt; <a class="code" href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">modules</a>[i]-&gt;getId();</div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;            poubelles.push_back(<a class="code" href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">modules</a>[i]);</div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;        }</div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;    }</div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;    <span class="keywordflow">return</span> poubelles;</div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;}</div>
+<p class="definition">Définition à la ligne <a class="el" href="_domotification_8cpp_source.html#l00224">224</a> du fichier <a class="el" href="_domotification_8cpp_source.html">Domotification.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;{</div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;    QVector&lt;Module*&gt; poubelles;</div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;    <span class="keywordflow">for</span>(<span class="keyword">auto</span> i = 0; i &lt; <a class="code" href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">modules</a>.size(); i++)</div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;    {</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;        <span class="keywordflow">if</span>(<a class="code" href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">modules</a>[i]-&gt;getType() == <a class="code" href="class_module.html#a90e85ec6cf97a3cbae4a1ced05918f95ad216244c46a3d108be774f60734f3533">Module::Poubelle</a>)</div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;        {</div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;            qDebug() &lt;&lt; Q_FUNC_INFO &lt;&lt; <span class="stringliteral">&quot;module&quot;</span> &lt;&lt; <a class="code" href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">modules</a>[i]-&gt;getNom() &lt;&lt; <span class="stringliteral">&quot;id&quot;</span></div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;                     &lt;&lt; <a class="code" href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">modules</a>[i]-&gt;getId();</div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;            poubelles.push_back(<a class="code" href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">modules</a>[i]);</div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;        }</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;    }</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;    <span class="keywordflow">return</span> poubelles;</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;}</div>
 <div class="ttc" id="aclass_module_html_a90e85ec6cf97a3cbae4a1ced05918f95ad216244c46a3d108be774f60734f3533"><div class="ttname"><a href="class_module.html#a90e85ec6cf97a3cbae4a1ced05918f95ad216244c46a3d108be774f60734f3533">Module::Poubelle</a></div><div class="ttdeci">@ Poubelle</div><div class="ttdef"><b>Definition:</b> <a href="_module_8h_source.html#l00028">Module.h:28</a></div></div>
 </div><!-- fragment -->
-<p class="reference">Références <a class="el" href="_domotification_8h_source.html#l00027">modules</a>, et <a class="el" href="_module_8h_source.html#l00028">Module::Poubelle</a>.</p>
+<p class="reference">Références <a class="el" href="_domotification_8h_source.html#l00031">modules</a>, et <a class="el" href="_module_8h_source.html#l00028">Module::Poubelle</a>.</p>
 
 <p class="reference">Référencé par <a class="el" href="_ihm_domotifications_8cpp_source.html#l00097">IHMDomotifications::initialiserWidgets()</a>.</p>
+
+</div>
+</div>
+<a id="ac4a345e9992094dff7209a2b2680fb22"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac4a345e9992094dff7209a2b2680fb22">&#9670;&nbsp;</a></span>initialiserRecuperationNotifications()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Domotification::initialiserRecuperationNotifications </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000007">A faire:</a></b></dt><dd>Instancier le miniteur </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000008">A faire:</a></b></dt><dd>Connecter le signal timeout du minuteur au slot qui effectue la requête HTTP pour récupérer les notifications </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000009">A faire:</a></b></dt><dd>Démarrer le minuteur avec la PERIODE_RECUPERATION_NOTIFICATIONS </dd></dl>
+
+<p class="definition">Définition à la ligne <a class="el" href="_domotification_8cpp_source.html#l00294">294</a> du fichier <a class="el" href="_domotification_8cpp_source.html">Domotification.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;{</div>
+<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;}</div>
+</div><!-- fragment -->
+<p class="reference">Référencé par <a class="el" href="_domotification_8cpp_source.html#l00018">Domotification()</a>.</p>
 
 </div>
 </div>
@@ -642,11 +825,11 @@ Attributs privés</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Définition à la ligne <a class="el" href="_domotification_8cpp_source.html#l00135">135</a> du fichier <a class="el" href="_domotification_8cpp_source.html">Domotification.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;{</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    qDebug() &lt;&lt; Q_FUNC_INFO &lt;&lt; <span class="stringliteral">&quot;message&quot;</span> &lt;&lt; message;</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    emit <a class="code" href="class_domotification.html#a4cdd9a3cd924dcf38d895f42bc691667">nouvelleNotification</a>(message);</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;}</div>
+<p class="definition">Définition à la ligne <a class="el" href="_domotification_8cpp_source.html#l00193">193</a> du fichier <a class="el" href="_domotification_8cpp_source.html">Domotification.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;{</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;    qDebug() &lt;&lt; Q_FUNC_INFO &lt;&lt; <span class="stringliteral">&quot;message&quot;</span> &lt;&lt; message;</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;    emit <a class="code" href="class_domotification.html#a4cdd9a3cd924dcf38d895f42bc691667">nouvelleNotification</a>(message);</div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;}</div>
 <div class="ttc" id="aclass_domotification_html_a4cdd9a3cd924dcf38d895f42bc691667"><div class="ttname"><a href="class_domotification.html#a4cdd9a3cd924dcf38d895f42bc691667">Domotification::nouvelleNotification</a></div><div class="ttdeci">void nouvelleNotification(QString message)</div></div>
 </div><!-- fragment -->
 <p class="reference">Références <a class="el" href="class_domotification.html#a4cdd9a3cd924dcf38d895f42bc691667">nouvelleNotification()</a>.</p>
@@ -677,7 +860,7 @@ Attributs privés</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="reference">Référencé par <a class="el" href="_domotification_8cpp_source.html#l00135">notifier()</a>.</p>
+<p class="reference">Référencé par <a class="el" href="_domotification_8cpp_source.html#l00193">notifier()</a>.</p>
 
 </div>
 </div>
@@ -707,7 +890,7 @@ Attributs privés</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Domotification::estGere. </p>
+<p><a class="el" href="class_domotification.html#a61611a6b7c883af9b73fcb6341f285c9" title="Domotification::recupererIndexModule.">Domotification::recupererIndexModule</a>. </p>
 <dl class="params"><dt>Paramètres</dt><dd>
   <table class="params">
     <tr><td class="paramname">typeModule</td><td></td></tr>
@@ -715,23 +898,23 @@ Attributs privés</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Renvoie</dt><dd></dd></dl>
+<dl class="section return"><dt>Renvoie</dt><dd>int </dd></dl>
 
-<p class="definition">Définition à la ligne <a class="el" href="_domotification_8cpp_source.html#l00076">76</a> du fichier <a class="el" href="_domotification_8cpp_source.html">Domotification.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;{</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">modules</a>.size(); ++i)</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    {</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        <span class="keywordflow">if</span>(<a class="code" href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">modules</a>[i]-&gt;recupererType() == typeModule &amp;&amp; <a class="code" href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">modules</a>[i]-&gt;getId() == <span class="keywordtype">id</span>)</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        {</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;            <span class="keywordflow">return</span> i;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        }</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    }</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="_constantes_8h.html#af79745369266041dfec45b3d49b9073c">NON_TROUVE</a>;</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;}</div>
+<p class="definition">Définition à la ligne <a class="el" href="_domotification_8cpp_source.html#l00109">109</a> du fichier <a class="el" href="_domotification_8cpp_source.html">Domotification.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;{</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">modules</a>.size(); ++i)</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    {</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        <span class="keywordflow">if</span>(<a class="code" href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">modules</a>[i]-&gt;recupererType() == typeModule &amp;&amp; <a class="code" href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">modules</a>[i]-&gt;getId() == <span class="keywordtype">id</span>)</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        {</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;            <span class="keywordflow">return</span> i;</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        }</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    }</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="_constantes_8h.html#af79745369266041dfec45b3d49b9073c">NON_TROUVE</a>;</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;}</div>
 </div><!-- fragment -->
-<p class="reference">Références <a class="el" href="_domotification_8h_source.html#l00027">modules</a>, et <a class="el" href="_constantes_8h_source.html#l00038">NON_TROUVE</a>.</p>
+<p class="reference">Références <a class="el" href="_domotification_8h_source.html#l00031">modules</a>, et <a class="el" href="_constantes_8h_source.html#l00038">NON_TROUVE</a>.</p>
 
-<p class="reference">Référencé par <a class="el" href="_domotification_8cpp_source.html#l00041">gererActivationModule()</a>.</p>
+<p class="reference">Référencé par <a class="el" href="_domotification_8cpp_source.html#l00038">gererAcquittement()</a>, et <a class="el" href="_domotification_8cpp_source.html#l00069">gererActivationModule()</a>.</p>
 
 </div>
 </div>
@@ -756,9 +939,9 @@ Attributs privés</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Définition à la ligne <a class="el" href="_domotification_8h_source.html#l00028">28</a> du fichier <a class="el" href="_domotification_8h_source.html">Domotification.h</a>.</p>
+<p class="definition">Définition à la ligne <a class="el" href="_domotification_8h_source.html#l00032">32</a> du fichier <a class="el" href="_domotification_8h_source.html">Domotification.h</a>.</p>
 
-<p class="reference">Référencé par <a class="el" href="_domotification_8cpp_source.html#l00041">gererActivationModule()</a>.</p>
+<p class="reference">Référencé par <a class="el" href="_domotification_8cpp_source.html#l00038">gererAcquittement()</a>, et <a class="el" href="_domotification_8cpp_source.html#l00069">gererActivationModule()</a>.</p>
 
 </div>
 </div>
@@ -782,7 +965,31 @@ Attributs privés</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Définition à la ligne <a class="el" href="_domotification_8h_source.html#l00029">29</a> du fichier <a class="el" href="_domotification_8h_source.html">Domotification.h</a>.</p>
+<p class="definition">Définition à la ligne <a class="el" href="_domotification_8h_source.html#l00033">33</a> du fichier <a class="el" href="_domotification_8h_source.html">Domotification.h</a>.</p>
+
+</div>
+</div>
+<a id="a81f45c1966035711c1bd5f1d41429dc2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a81f45c1966035711c1bd5f1d41429dc2">&#9670;&nbsp;</a></span>minuteurRecuperationNotifications</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QTimer* Domotification::minuteurRecuperationNotifications</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Définition à la ligne <a class="el" href="_domotification_8h_source.html#l00034">34</a> du fichier <a class="el" href="_domotification_8h_source.html">Domotification.h</a>.</p>
 
 </div>
 </div>
@@ -806,9 +1013,9 @@ Attributs privés</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Définition à la ligne <a class="el" href="_domotification_8h_source.html#l00027">27</a> du fichier <a class="el" href="_domotification_8h_source.html">Domotification.h</a>.</p>
+<p class="definition">Définition à la ligne <a class="el" href="_domotification_8h_source.html#l00031">31</a> du fichier <a class="el" href="_domotification_8h_source.html">Domotification.h</a>.</p>
 
-<p class="reference">Référencé par <a class="el" href="_domotification_8cpp_source.html#l00202">chargerModules()</a>, <a class="el" href="_domotification_8cpp_source.html#l00041">gererActivationModule()</a>, <a class="el" href="_domotification_8cpp_source.html#l00094">getActivationModule()</a>, <a class="el" href="_domotification_8cpp_source.html#l00186">getBoite()</a>, <a class="el" href="_domotification_8cpp_source.html#l00146">getMachines()</a>, <a class="el" href="_domotification_8cpp_source.html#l00166">getPoubelles()</a>, et <a class="el" href="_domotification_8cpp_source.html#l00076">recupererIndexModule()</a>.</p>
+<p class="reference">Référencé par <a class="el" href="_domotification_8cpp_source.html#l00260">chargerModules()</a>, <a class="el" href="_domotification_8cpp_source.html#l00038">gererAcquittement()</a>, <a class="el" href="_domotification_8cpp_source.html#l00069">gererActivationModule()</a>, <a class="el" href="_domotification_8cpp_source.html#l00127">getActivationModule()</a>, <a class="el" href="_domotification_8cpp_source.html#l00244">getBoite()</a>, <a class="el" href="_domotification_8cpp_source.html#l00204">getMachines()</a>, <a class="el" href="_domotification_8cpp_source.html#l00147">getNotificationModule()</a>, <a class="el" href="_domotification_8cpp_source.html#l00224">getPoubelles()</a>, et <a class="el" href="_domotification_8cpp_source.html#l00109">recupererIndexModule()</a>.</p>
 
 </div>
 </div>
@@ -823,7 +1030,7 @@ Attributs privés</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="class_domotification.html">Domotification</a></li>
-    <li class="footer"><img class="footer" src="lasalle-logo.png" height="31" alt="La Salle Avignon"/>&nbsp;<b>Campus La Salle Avignon</b>&nbsp;-&nbsp;9 Rue Notre Dame des 7 douleurs&nbsp;-&nbsp;BP 50165&nbsp;-&nbsp;84008 Avignon&nbsp;-&nbsp;Généré le Mardi 23 Mai 2023 06:05:32 pour Projet domotifications par&nbsp;<a href="https://www.doxygen.org/index.html">doxygen</a>&nbsp;1.9.1&nbsp;</li>
+    <li class="footer"><img class="footer" src="lasalle-logo.png" height="31" alt="La Salle Avignon"/>&nbsp;<b>Campus La Salle Avignon</b>&nbsp;-&nbsp;9 Rue Notre Dame des 7 douleurs&nbsp;-&nbsp;BP 50165&nbsp;-&nbsp;84008 Avignon&nbsp;-&nbsp;Généré le Dimanche 28 Mai 2023 09:59:08 pour Projet domotifications par&nbsp;<a href="https://www.doxygen.org/index.html">doxygen</a>&nbsp;1.9.1&nbsp;</li>
   </ul>
 </div>
 </body>

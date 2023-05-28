@@ -1,8 +1,8 @@
 <map id="Domotification" name="Domotification">
-<area shape="rect" id="node1" title=" " alt="" coords="146,687,341,925"/>
-<area shape="rect" id="node4" href="$class_i_h_m_domotifications.html" title="La fenêtyre principale de l&#39;application Domotifications." alt="" coords="89,988,371,1461"/>
-<area shape="rect" id="node2" href="$class_q_object.html" title=" " alt="" coords="263,5,338,83"/>
-<area shape="rect" id="node3" href="$class_communication.html" title=" " alt="" coords="209,132,392,371"/>
-<area shape="rect" id="node6" href="$class_module.html" title=" " alt="" coords="361,395,499,663"/>
+<area shape="rect" id="node1" title=" " alt="" coords="145,657,421,955"/>
+<area shape="rect" id="node4" href="$class_i_h_m_domotifications.html" title="La fenêtyre principale de l&#39;application Domotifications." alt="" coords="139,1017,422,1520"/>
+<area shape="rect" id="node2" href="$class_q_object.html" title=" " alt="" coords="299,5,374,83"/>
+<area shape="rect" id="node3" href="$class_communication.html" title=" " alt="" coords="241,132,432,327"/>
+<area shape="rect" id="node6" href="$class_module.html" title=" " alt="" coords="401,351,539,633"/>
 <area shape="rect" id="node5" href="$class_q_main_window.html" title=" " alt="" coords="5,767,121,845"/>
 </map>
