@@ -27,7 +27,7 @@
   <td id="projectlogo"><img alt="Logo" src="projet-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Projet domotifications
-   &#160;<span id="projectnumber">0.2</span>
+   &#160;<span id="projectnumber">1.0</span>
    </div>
    <div id="projectbrief">BTS SNIR LaSalle Avignon 2023</div>
   </td>
@@ -89,12 +89,25 @@ $(document).ready(function(){initNavTree('todo.html',''); initResizable(); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><dl class="reflist">
+<dt>Global(e) <a class="el" href="class_communication.html#a56cf4b262e592bcae1d987c3dd00487f">Communication::Communication</a>  (<a class="el" href="class_q_object.html">QObject</a> *parent=nullptr)</dt>
+<dd><a class="anchor" id="_todo000001"></a>Connecter le signal finished() vers le slot qui traite les réponses envoyées par la station  </dd>
+<dt>Global(e) <a class="el" href="class_communication.html#ae1a248b456733c61e953117c823db89e">Communication::recupererNotifications</a>  ()</dt>
+<dd><a class="anchor" id="_todo000002"></a>Emettre la requête permettant de récupérer les états des notifications des modules. La réception des données sra signalée par finished() qui devra déclencher le slot <a class="el" href="class_communication.html#a10a437b6e15dfe64cf94be47f3bd7317" title="Slot qui traite les réponses renvoyées par la station.">traiterReponseStation()</a> qui recevra les états des notifications.  </dd>
+<dt>Global(e) <a class="el" href="class_communication.html#a10a437b6e15dfe64cf94be47f3bd7317">Communication::traiterReponseStation</a>  (QNetworkReply *reponse)</dt>
+<dd><a class="anchor" id="_todo000003"></a>Traiter la réponses et émettre un signal <a class="el" href="class_communication.html#a4d8e3b319a1368e21c43d39d13fbe9ab">etatsNotifications()</a> pour la classe <a class="el" href="class_domotification.html">Domotification</a> (mettre à jour les états et les traiter) et l'IHM pour afficher une notification ...  </dd>
 <dt>Global(e) <a class="el" href="class_domotification.html#a1237cea4481080ea01ea0df57a3748c8">Domotification::chargerModules</a>  ()</dt>
-<dd><a class="anchor" id="_todo000001"></a>Gérer un fichier de configuration INI pour les modules  </dd>
-<dt>Global(e) <a class="el" href="class_i_h_m_domotifications.html#abaac1e9b78bce9ceaf2081dae37936c4">IHMDomotifications::afficherBoutonsActivationDesactivation</a>  ()</dt>
-<dd><a class="anchor" id="_todo000002"></a>Demander l'état actuel d'activation/désactivation  </dd>
+<dd><a class="anchor" id="_todo000006"></a>Gérer un fichier de configuration INI pour les modules  </dd>
+<dt>Global(e) <a class="el" href="class_domotification.html#af76f9eb09bfe67bf0cfaabb113f594bd">Domotification::gererActivationModule</a>  (QString typeModule, int id)</dt>
+<dd><a class="anchor" id="_todo000004"></a>Modifier la requête pour activer/désactiver  </dd>
+<dt>Global(e) <a class="el" href="class_domotification.html#a64a130fb503b1d8153e9523c192094e2">Domotification::gererNotifications</a>  (QVector&lt; bool &gt; machines, QVector&lt; bool &gt; poubelles, bool boite)</dt>
+<dd><a class="anchor" id="_todo000005"></a>Gérer les états des notifications reçues de la station et détecter si un ou plusieurs états sont à notifier (IHM).  </dd>
+<dt>Global(e) <a class="el" href="class_domotification.html#ac4a345e9992094dff7209a2b2680fb22">Domotification::initialiserRecuperationNotifications</a>  ()</dt>
+<dd><p class="startdd"><a class="anchor" id="_todo000007"></a>Instancier le miniteur </p>
+<p class="interdd"><a class="anchor" id="_todo000008"></a>Connecter le signal timeout du minuteur au slot qui effectue la requête HTTP pour récupérer les notifications </p>
+<p class="enddd"><a class="anchor" id="_todo000009"></a>Démarrer le minuteur avec la PERIODE_RECUPERATION_NOTIFICATIONS  </p>
+</dd>
 <dt>Global(e) <a class="el" href="class_module.html#a5b98ee69de08ef6fae32580cfb36744c">Module::getId</a>  () const</dt>
-<dd><a class="anchor" id="_todo000003"></a>Ajouter accesseurs/mutateurs </dd>
+<dd><a class="anchor" id="_todo000010"></a>Ajouter accesseurs/mutateurs </dd>
 </dl>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
@@ -103,7 +116,7 @@ $(document).ready(function(){initNavTree('todo.html',''); initResizable(); });
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer"><img class="footer" src="lasalle-logo.png" height="31" alt="La Salle Avignon"/>&nbsp;<b>Campus La Salle Avignon</b>&nbsp;-&nbsp;9 Rue Notre Dame des 7 douleurs&nbsp;-&nbsp;BP 50165&nbsp;-&nbsp;84008 Avignon&nbsp;-&nbsp;Généré le Mardi 23 Mai 2023 06:05:32 pour Projet domotifications par&nbsp;<a href="https://www.doxygen.org/index.html">doxygen</a>&nbsp;1.9.1&nbsp;</li>
+    <li class="footer"><img class="footer" src="lasalle-logo.png" height="31" alt="La Salle Avignon"/>&nbsp;<b>Campus La Salle Avignon</b>&nbsp;-&nbsp;9 Rue Notre Dame des 7 douleurs&nbsp;-&nbsp;BP 50165&nbsp;-&nbsp;84008 Avignon&nbsp;-&nbsp;Généré le Dimanche 28 Mai 2023 09:59:08 pour Projet domotifications par&nbsp;<a href="https://www.doxygen.org/index.html">doxygen</a>&nbsp;1.9.1&nbsp;</li>
   </ul>
 </div>
 </body>

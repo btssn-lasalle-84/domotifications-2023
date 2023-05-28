@@ -59,7 +59,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "_communication_8cpp.html",
-"globals_vars.html"
+"class_station_lumineuse.html#adb908fdd923e8dc0b56a92b1bfef7602"
 ];
 
 var SYNCONMSG = 'cliquez pour désactiver la synchronisation du panel';

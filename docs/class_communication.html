@@ -27,7 +27,7 @@
   <td id="projectlogo"><img alt="Logo" src="projet-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Projet domotifications
-   &#160;<span id="projectnumber">0.2</span>
+   &#160;<span id="projectnumber">1.0</span>
    </div>
    <div id="projectbrief">BTS SNIR LaSalle Avignon 2023</div>
   </td>
@@ -85,6 +85,8 @@ $(document).ready(function(){initNavTree('class_communication.html',''); initRes
 
 <div class="header">
   <div class="summary">
+<a href="#pub-slots">Connecteurs publics</a> &#124;
+<a href="#signals">Signaux</a> &#124;
 <a href="#pub-methods">Fonctions membres publiques</a> &#124;
 <a href="#pri-attribs">Attributs privés</a>  </div>
   <div class="headertitle">
@@ -98,24 +100,31 @@ Graphe de collaboration de Communication:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_communication__coll__graph.png" border="0" usemap="#a_communication_coll__map" alt="Collaboration graph"/></div>
 <map name="a_communication_coll__map" id="a_communication_coll__map">
-<area shape="rect" title=" " alt="" coords="5,131,188,369"/>
-<area shape="rect" href="class_q_object.html" title=" " alt="" coords="59,5,134,83"/>
+<area shape="rect" title=" " alt="" coords="5,131,196,325"/>
+<area shape="rect" href="class_q_object.html" title=" " alt="" coords="63,5,138,83"/>
 </map>
 </div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-slots"></a>
+Connecteurs publics</h2></td></tr>
+<tr class="memitem:ae1a248b456733c61e953117c823db89e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_communication.html#ae1a248b456733c61e953117c823db89e">recupererNotifications</a> ()</td></tr>
+<tr class="separator:ae1a248b456733c61e953117c823db89e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a10a437b6e15dfe64cf94be47f3bd7317"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_communication.html#a10a437b6e15dfe64cf94be47f3bd7317">traiterReponseStation</a> (QNetworkReply *reponse)</td></tr>
+<tr class="memdesc:a10a437b6e15dfe64cf94be47f3bd7317"><td class="mdescLeft">&#160;</td><td class="mdescRight">Slot qui traite les réponses renvoyées par la station.  <a href="class_communication.html#a10a437b6e15dfe64cf94be47f3bd7317">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a10a437b6e15dfe64cf94be47f3bd7317"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="signals"></a>
+Signaux</h2></td></tr>
+<tr class="memitem:a4d8e3b319a1368e21c43d39d13fbe9ab"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_communication.html#a4d8e3b319a1368e21c43d39d13fbe9ab">etatsNotifications</a> (QVector&lt; bool &gt; machines, QVector&lt; bool &gt; poubelles, bool boite)</td></tr>
+<tr class="separator:a4d8e3b319a1368e21c43d39d13fbe9ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Fonctions membres publiques</h2></td></tr>
 <tr class="memitem:a56cf4b262e592bcae1d987c3dd00487f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_communication.html#a56cf4b262e592bcae1d987c3dd00487f">Communication</a> (<a class="el" href="class_q_object.html">QObject</a> *parent=nullptr)</td></tr>
 <tr class="separator:a56cf4b262e592bcae1d987c3dd00487f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeae61e5cae6ba02d71d41f73309559f9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_communication.html#aeae61e5cae6ba02d71d41f73309559f9">configurer</a> (QString <a class="el" href="class_communication.html#a761686d72b2a9bced5a1605dcafb9c7d">identifiant</a>, QString <a class="el" href="class_communication.html#aef5688f514e101e409f095b0ea391086">motDePasse</a>, int <a class="el" href="class_communication.html#a827a23145721608e036b6437775b8c3e">httpPort</a>)</td></tr>
-<tr class="separator:aeae61e5cae6ba02d71d41f73309559f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a49a00e5a4ca7e8cec970232fc4e2c263"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_communication.html#a49a00e5a4ca7e8cec970232fc4e2c263">connecter</a> ()</td></tr>
-<tr class="separator:a49a00e5a4ca7e8cec970232fc4e2c263"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4a85eb1a29b7fd8c33362ffaee099956"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_communication.html#a4a85eb1a29b7fd8c33362ffaee099956">envoyerRequetePost</a> (QString api, const QByteArray &amp;json)</td></tr>
-<tr class="memdesc:a4a85eb1a29b7fd8c33362ffaee099956"><td class="mdescLeft">&#160;</td><td class="mdescRight">Envoie une requete http avec la méthode Post.  <a href="class_communication.html#a4a85eb1a29b7fd8c33362ffaee099956">Plus de détails...</a><br /></td></tr>
+<tr class="memdesc:a4a85eb1a29b7fd8c33362ffaee099956"><td class="mdescLeft">&#160;</td><td class="mdescRight">Envoie une requete http avec la méthode POST.  <a href="class_communication.html#a4a85eb1a29b7fd8c33362ffaee099956">Plus de détails...</a><br /></td></tr>
 <tr class="separator:a4a85eb1a29b7fd8c33362ffaee099956"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a67b85e724ebe1147a659e7b88324b25b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_communication.html#a67b85e724ebe1147a659e7b88324b25b">recevoirNotification</a> ()</td></tr>
-<tr class="separator:a67b85e724ebe1147a659e7b88324b25b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a75ba08ce908d45251e28e4c1db94e6f4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_communication.html#a75ba08ce908d45251e28e4c1db94e6f4">~Communication</a> ()</td></tr>
 <tr class="separator:a75ba08ce908d45251e28e4c1db94e6f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -125,10 +134,6 @@ Attributs privés</h2></td></tr>
 <tr class="separator:a17734bbdfa787beef2bd1fe89f1a9fbb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a827a23145721608e036b6437775b8c3e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_communication.html#a827a23145721608e036b6437775b8c3e">httpPort</a></td></tr>
 <tr class="separator:a827a23145721608e036b6437775b8c3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a761686d72b2a9bced5a1605dcafb9c7d"><td class="memItemLeft" align="right" valign="top">QString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_communication.html#a761686d72b2a9bced5a1605dcafb9c7d">identifiant</a></td></tr>
-<tr class="separator:a761686d72b2a9bced5a1605dcafb9c7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aef5688f514e101e409f095b0ea391086"><td class="memItemLeft" align="right" valign="top">QString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_communication.html#aef5688f514e101e409f095b0ea391086">motDePasse</a></td></tr>
-<tr class="separator:aef5688f514e101e409f095b0ea391086"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a31ff273a956ddf2b60a51b6e38c34022"><td class="memItemLeft" align="right" valign="top">QNetworkReply *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_communication.html#a31ff273a956ddf2b60a51b6e38c34022">reponseReseau</a></td></tr>
 <tr class="separator:a31ff273a956ddf2b60a51b6e38c34022"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2eeadc5667a84a49e547738dab5baf1b"><td class="memItemLeft" align="right" valign="top">QString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_communication.html#a2eeadc5667a84a49e547738dab5baf1b">requeteJSON</a></td></tr>
@@ -138,7 +143,7 @@ Attributs privés</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Description détaillée</h2>
 <div class="textblock">
-<p class="definition">Définition à la ligne <a class="el" href="_communication_8h_source.html#l00019">19</a> du fichier <a class="el" href="_communication_8h_source.html">Communication.h</a>.</p>
+<p class="definition">Définition à la ligne <a class="el" href="_communication_8h_source.html#l00018">18</a> du fichier <a class="el" href="_communication_8h_source.html">Communication.h</a>.</p>
 </div><h2 class="groupheader">Documentation des constructeurs et destructeur</h2>
 <a id="a56cf4b262e592bcae1d987c3dd00487f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a56cf4b262e592bcae1d987c3dd00487f">&#9670;&nbsp;</a></span>Communication()</h2>
@@ -155,19 +160,17 @@ Attributs privés</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000001">A faire:</a></b></dt><dd>Connecter le signal finished() vers le slot qui traite les réponses envoyées par la station </dd></dl>
 
 <p class="definition">Définition à la ligne <a class="el" href="_communication_8cpp_source.html#l00011">11</a> du fichier <a class="el" href="_communication_8cpp_source.html">Communication.cpp</a>.</p>
 <div class="fragment"><div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;                                            :</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <a class="code" href="class_q_object.html">QObject</a>(parent), <a class="code" href="class_communication.html#a761686d72b2a9bced5a1605dcafb9c7d">identifiant</a>(<span class="stringliteral">&quot;&quot;</span>), <a class="code" href="class_communication.html#aef5688f514e101e409f095b0ea391086">motDePasse</a>(<span class="stringliteral">&quot;&quot;</span>), <a class="code" href="class_communication.html#a827a23145721608e036b6437775b8c3e">httpPort</a>(<a class="code" href="_constantes_8h.html#a5158b1e31a4e7aa84de308e3d792a1de">PORT_HTTP</a>),</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <a class="code" href="class_communication.html#a17734bbdfa787beef2bd1fe89f1a9fbb">accesReseau</a>(<span class="keyword">new</span> QNetworkAccessManager(<span class="keyword">this</span>))</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    qDebug() &lt;&lt; Q_FUNC_INFO;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;}</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <a class="code" href="class_q_object.html">QObject</a>(parent), <a class="code" href="class_communication.html#a17734bbdfa787beef2bd1fe89f1a9fbb">accesReseau</a>(<span class="keyword">new</span> QNetworkAccessManager(<span class="keyword">this</span>)), <a class="code" href="class_communication.html#a827a23145721608e036b6437775b8c3e">httpPort</a>(<a class="code" href="_constantes_8h.html#a5158b1e31a4e7aa84de308e3d792a1de">PORT_HTTP</a>)</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    qDebug() &lt;&lt; Q_FUNC_INFO;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;}</div>
 <div class="ttc" id="a_constantes_8h_html_a5158b1e31a4e7aa84de308e3d792a1de"><div class="ttname"><a href="_constantes_8h.html#a5158b1e31a4e7aa84de308e3d792a1de">PORT_HTTP</a></div><div class="ttdeci">#define PORT_HTTP</div><div class="ttdoc">Le numéro de port par défaut de la station de notifications.</div><div class="ttdef"><b>Definition:</b> <a href="_constantes_8h_source.html#l00036">Constantes.h:36</a></div></div>
-<div class="ttc" id="aclass_communication_html_a17734bbdfa787beef2bd1fe89f1a9fbb"><div class="ttname"><a href="class_communication.html#a17734bbdfa787beef2bd1fe89f1a9fbb">Communication::accesReseau</a></div><div class="ttdeci">QNetworkAccessManager * accesReseau</div><div class="ttdef"><b>Definition:</b> <a href="_communication_8h_source.html#l00027">Communication.h:27</a></div></div>
-<div class="ttc" id="aclass_communication_html_a761686d72b2a9bced5a1605dcafb9c7d"><div class="ttname"><a href="class_communication.html#a761686d72b2a9bced5a1605dcafb9c7d">Communication::identifiant</a></div><div class="ttdeci">QString identifiant</div><div class="ttdef"><b>Definition:</b> <a href="_communication_8h_source.html#l00024">Communication.h:24</a></div></div>
+<div class="ttc" id="aclass_communication_html_a17734bbdfa787beef2bd1fe89f1a9fbb"><div class="ttname"><a href="class_communication.html#a17734bbdfa787beef2bd1fe89f1a9fbb">Communication::accesReseau</a></div><div class="ttdeci">QNetworkAccessManager * accesReseau</div><div class="ttdef"><b>Definition:</b> <a href="_communication_8h_source.html#l00023">Communication.h:23</a></div></div>
 <div class="ttc" id="aclass_communication_html_a827a23145721608e036b6437775b8c3e"><div class="ttname"><a href="class_communication.html#a827a23145721608e036b6437775b8c3e">Communication::httpPort</a></div><div class="ttdeci">int httpPort</div><div class="ttdef"><b>Definition:</b> <a href="_communication_8h_source.html#l00026">Communication.h:26</a></div></div>
-<div class="ttc" id="aclass_communication_html_aef5688f514e101e409f095b0ea391086"><div class="ttname"><a href="class_communication.html#aef5688f514e101e409f095b0ea391086">Communication::motDePasse</a></div><div class="ttdeci">QString motDePasse</div><div class="ttdef"><b>Definition:</b> <a href="_communication_8h_source.html#l00025">Communication.h:25</a></div></div>
 <div class="ttc" id="aclass_q_object_html"><div class="ttname"><a href="class_q_object.html">QObject</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -187,73 +190,14 @@ Attributs privés</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Définition à la ligne <a class="el" href="_communication_8cpp_source.html#l00018">18</a> du fichier <a class="el" href="_communication_8cpp_source.html">Communication.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;{</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    qDebug() &lt;&lt; Q_FUNC_INFO;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;}</div>
+<p class="definition">Définition à la ligne <a class="el" href="_communication_8cpp_source.html#l00021">21</a> du fichier <a class="el" href="_communication_8cpp_source.html">Communication.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;{</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    qDebug() &lt;&lt; Q_FUNC_INFO;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;}</div>
 </div><!-- fragment -->
 </div>
 </div>
 <h2 class="groupheader">Documentation des fonctions membres</h2>
-<a id="aeae61e5cae6ba02d71d41f73309559f9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeae61e5cae6ba02d71d41f73309559f9">&#9670;&nbsp;</a></span>configurer()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Communication::configurer </td>
-          <td>(</td>
-          <td class="paramtype">QString&#160;</td>
-          <td class="paramname"><em>identifiant</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">QString&#160;</td>
-          <td class="paramname"><em>motDePasse</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>httpPort</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Définition à la ligne <a class="el" href="_communication_8cpp_source.html#l00055">55</a> du fichier <a class="el" href="_communication_8cpp_source.html">Communication.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;{</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;}</div>
-</div><!-- fragment -->
-</div>
-</div>
-<a id="a49a00e5a4ca7e8cec970232fc4e2c263"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a49a00e5a4ca7e8cec970232fc4e2c263">&#9670;&nbsp;</a></span>connecter()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Communication::connecter </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Définition à la ligne <a class="el" href="_communication_8cpp_source.html#l00023">23</a> du fichier <a class="el" href="_communication_8cpp_source.html">Communication.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;{</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;}</div>
-</div><!-- fragment -->
-</div>
-</div>
 <a id="a4a85eb1a29b7fd8c33362ffaee099956"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4a85eb1a29b7fd8c33362ffaee099956">&#9670;&nbsp;</a></span>envoyerRequetePost()</h2>
 
@@ -280,7 +224,7 @@ Attributs privés</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Envoie une requete http avec la méthode Post. </p>
+<p>Envoie une requete http avec la méthode POST. </p>
 <dl class="params"><dt>Paramètres</dt><dd>
   <table class="params">
     <tr><td class="paramname">api</td><td>le type de requête </td></tr>
@@ -289,49 +233,130 @@ Attributs privés</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Définition à la ligne <a class="el" href="_communication_8cpp_source.html#l00033">33</a> du fichier <a class="el" href="_communication_8cpp_source.html">Communication.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;{</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    api = <span class="stringliteral">&quot;activation&quot;</span>;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    QUrl url(<a class="code" href="_constantes_8h.html#a565338b0a58e3ae45f6e2ab6900fa1bf">URL_STATION</a> + api);</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    qDebug() &lt;&lt; Q_FUNC_INFO &lt;&lt; <span class="stringliteral">&quot;url&quot;</span> &lt;&lt; url.toString();</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    qDebug() &lt;&lt; Q_FUNC_INFO &lt;&lt; <span class="stringliteral">&quot;json&quot;</span> &lt;&lt; json;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    QNetworkRequest requetePost;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    requetePost.setUrl(url);</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    requetePost.setHeader(QNetworkRequest::ContentTypeHeader, <span class="stringliteral">&quot;application/x-www-form-urlencoded&quot;</span>);</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    requetePost.setRawHeader(<span class="stringliteral">&quot;Content-Type&quot;</span>, <span class="stringliteral">&quot;application/json&quot;</span>);</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    requetePost.setRawHeader(<span class="stringliteral">&quot;Content-Length&quot;</span>, QByteArray::number(json.size()));</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="preprocessor">#ifndef SANS_STATION</span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    qDebug() &lt;&lt; Q_FUNC_INFO &lt;&lt; url &lt;&lt; json;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <a class="code" href="class_communication.html#a17734bbdfa787beef2bd1fe89f1a9fbb">accesReseau</a>-&gt;post(requetePost, json);</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;}</div>
+<p class="definition">Définition à la ligne <a class="el" href="_communication_8cpp_source.html#l00032">32</a> du fichier <a class="el" href="_communication_8cpp_source.html">Communication.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;{</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    QNetworkRequest requetePost;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    QUrl            url(<a class="code" href="_constantes_8h.html#a565338b0a58e3ae45f6e2ab6900fa1bf">URL_STATION</a> + api);</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    requetePost.setUrl(url);</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    requetePost.setHeader(QNetworkRequest::ContentTypeHeader, <span class="stringliteral">&quot;application/x-www-form-urlencoded&quot;</span>);</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    requetePost.setRawHeader(<span class="stringliteral">&quot;Content-Type&quot;</span>, <span class="stringliteral">&quot;application/json&quot;</span>);</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    requetePost.setRawHeader(<span class="stringliteral">&quot;Content-Length&quot;</span>, QByteArray::number(json.size()));</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    qDebug() &lt;&lt; Q_FUNC_INFO &lt;&lt; <span class="stringliteral">&quot;url&quot;</span> &lt;&lt; url &lt;&lt; <span class="stringliteral">&quot;json&quot;</span> &lt;&lt; json;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="preprocessor">#ifndef SANS_STATION</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <a class="code" href="class_communication.html#a17734bbdfa787beef2bd1fe89f1a9fbb">accesReseau</a>-&gt;post(requetePost, json);</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;}</div>
 <div class="ttc" id="a_constantes_8h_html_a565338b0a58e3ae45f6e2ab6900fa1bf"><div class="ttname"><a href="_constantes_8h.html#a565338b0a58e3ae45f6e2ab6900fa1bf">URL_STATION</a></div><div class="ttdeci">#define URL_STATION</div><div class="ttdoc">L'URL de la station de notifications.</div><div class="ttdef"><b>Definition:</b> <a href="_constantes_8h_source.html#l00030">Constantes.h:30</a></div></div>
 </div><!-- fragment -->
-<p class="reference">Références <a class="el" href="_communication_8h_source.html#l00027">accesReseau</a>, et <a class="el" href="_constantes_8h_source.html#l00030">URL_STATION</a>.</p>
+<p class="reference">Références <a class="el" href="_communication_8h_source.html#l00023">accesReseau</a>, et <a class="el" href="_constantes_8h_source.html#l00030">URL_STATION</a>.</p>
 
-<p class="reference">Référencé par <a class="el" href="_domotification_8cpp_source.html#l00041">Domotification::gererActivationModule()</a>.</p>
+<p class="reference">Référencé par <a class="el" href="_domotification_8cpp_source.html#l00038">Domotification::gererAcquittement()</a>, et <a class="el" href="_domotification_8cpp_source.html#l00069">Domotification::gererActivationModule()</a>.</p>
 
 </div>
 </div>
-<a id="a67b85e724ebe1147a659e7b88324b25b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a67b85e724ebe1147a659e7b88324b25b">&#9670;&nbsp;</a></span>recevoirNotification()</h2>
+<a id="a4d8e3b319a1368e21c43d39d13fbe9ab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4d8e3b319a1368e21c43d39d13fbe9ab">&#9670;&nbsp;</a></span>etatsNotifications</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void Communication::recevoirNotification </td>
+          <td class="memname">void Communication::etatsNotifications </td>
+          <td>(</td>
+          <td class="paramtype">QVector&lt; bool &gt;&#160;</td>
+          <td class="paramname"><em>machines</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">QVector&lt; bool &gt;&#160;</td>
+          <td class="paramname"><em>poubelles</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>boite</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">signal</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae1a248b456733c61e953117c823db89e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae1a248b456733c61e953117c823db89e">&#9670;&nbsp;</a></span>recupererNotifications</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Communication::recupererNotifications </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">slot</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000002">A faire:</a></b></dt><dd>Emettre la requête permettant de récupérer les états des notifications des modules. La réception des données sra signalée par finished() qui devra déclencher le slot <a class="el" href="class_communication.html#a10a437b6e15dfe64cf94be47f3bd7317" title="Slot qui traite les réponses renvoyées par la station.">traiterReponseStation()</a> qui recevra les états des notifications. </dd></dl>
+
+<p class="definition">Définition à la ligne <a class="el" href="_communication_8cpp_source.html#l00050">50</a> du fichier <a class="el" href="_communication_8cpp_source.html">Communication.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;{</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a10a437b6e15dfe64cf94be47f3bd7317"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a10a437b6e15dfe64cf94be47f3bd7317">&#9670;&nbsp;</a></span>traiterReponseStation</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Communication::traiterReponseStation </td>
+          <td>(</td>
+          <td class="paramtype">QNetworkReply *&#160;</td>
+          <td class="paramname"><em>reponse</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">slot</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p class="definition">Définition à la ligne <a class="el" href="_communication_8cpp_source.html#l00051">51</a> du fichier <a class="el" href="_communication_8cpp_source.html">Communication.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;{</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;}</div>
+<p>Slot qui traite les réponses renvoyées par la station. </p>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000003">A faire:</a></b></dt><dd>Traiter la réponses et émettre un signal <a class="el" href="class_communication.html#a4d8e3b319a1368e21c43d39d13fbe9ab">etatsNotifications()</a> pour la classe <a class="el" href="class_domotification.html">Domotification</a> (mettre à jour les états et les traiter) et l'IHM pour afficher une notification ... </dd></dl>
+
+<p class="definition">Définition à la ligne <a class="el" href="_communication_8cpp_source.html#l00063">63</a> du fichier <a class="el" href="_communication_8cpp_source.html">Communication.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;{</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    qDebug() &lt;&lt; Q_FUNC_INFO;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -356,9 +381,9 @@ Attributs privés</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Définition à la ligne <a class="el" href="_communication_8h_source.html#l00027">27</a> du fichier <a class="el" href="_communication_8h_source.html">Communication.h</a>.</p>
+<p class="definition">Définition à la ligne <a class="el" href="_communication_8h_source.html#l00023">23</a> du fichier <a class="el" href="_communication_8h_source.html">Communication.h</a>.</p>
 
-<p class="reference">Référencé par <a class="el" href="_communication_8cpp_source.html#l00033">envoyerRequetePost()</a>.</p>
+<p class="reference">Référencé par <a class="el" href="_communication_8cpp_source.html#l00032">envoyerRequetePost()</a>.</p>
 
 </div>
 </div>
@@ -386,54 +411,6 @@ Attributs privés</h2></td></tr>
 
 </div>
 </div>
-<a id="a761686d72b2a9bced5a1605dcafb9c7d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a761686d72b2a9bced5a1605dcafb9c7d">&#9670;&nbsp;</a></span>identifiant</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">QString Communication::identifiant</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Définition à la ligne <a class="el" href="_communication_8h_source.html#l00024">24</a> du fichier <a class="el" href="_communication_8h_source.html">Communication.h</a>.</p>
-
-</div>
-</div>
-<a id="aef5688f514e101e409f095b0ea391086"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aef5688f514e101e409f095b0ea391086">&#9670;&nbsp;</a></span>motDePasse</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">QString Communication::motDePasse</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Définition à la ligne <a class="el" href="_communication_8h_source.html#l00025">25</a> du fichier <a class="el" href="_communication_8h_source.html">Communication.h</a>.</p>
-
-</div>
-</div>
 <a id="a31ff273a956ddf2b60a51b6e38c34022"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a31ff273a956ddf2b60a51b6e38c34022">&#9670;&nbsp;</a></span>reponseReseau</h2>
 
@@ -454,7 +431,7 @@ Attributs privés</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Définition à la ligne <a class="el" href="_communication_8h_source.html#l00028">28</a> du fichier <a class="el" href="_communication_8h_source.html">Communication.h</a>.</p>
+<p class="definition">Définition à la ligne <a class="el" href="_communication_8h_source.html#l00024">24</a> du fichier <a class="el" href="_communication_8h_source.html">Communication.h</a>.</p>
 
 </div>
 </div>
@@ -478,7 +455,7 @@ Attributs privés</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Définition à la ligne <a class="el" href="_communication_8h_source.html#l00030">30</a> du fichier <a class="el" href="_communication_8h_source.html">Communication.h</a>.</p>
+<p class="definition">Définition à la ligne <a class="el" href="_communication_8h_source.html#l00027">27</a> du fichier <a class="el" href="_communication_8h_source.html">Communication.h</a>.</p>
 
 </div>
 </div>
@@ -502,7 +479,7 @@ Attributs privés</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Définition à la ligne <a class="el" href="_communication_8h_source.html#l00029">29</a> du fichier <a class="el" href="_communication_8h_source.html">Communication.h</a>.</p>
+<p class="definition">Définition à la ligne <a class="el" href="_communication_8h_source.html#l00025">25</a> du fichier <a class="el" href="_communication_8h_source.html">Communication.h</a>.</p>
 
 </div>
 </div>
@@ -517,7 +494,7 @@ Attributs privés</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="class_communication.html">Communication</a></li>
-    <li class="footer"><img class="footer" src="lasalle-logo.png" height="31" alt="La Salle Avignon"/>&nbsp;<b>Campus La Salle Avignon</b>&nbsp;-&nbsp;9 Rue Notre Dame des 7 douleurs&nbsp;-&nbsp;BP 50165&nbsp;-&nbsp;84008 Avignon&nbsp;-&nbsp;Généré le Mardi 23 Mai 2023 06:05:32 pour Projet domotifications par&nbsp;<a href="https://www.doxygen.org/index.html">doxygen</a>&nbsp;1.9.1&nbsp;</li>
+    <li class="footer"><img class="footer" src="lasalle-logo.png" height="31" alt="La Salle Avignon"/>&nbsp;<b>Campus La Salle Avignon</b>&nbsp;-&nbsp;9 Rue Notre Dame des 7 douleurs&nbsp;-&nbsp;BP 50165&nbsp;-&nbsp;84008 Avignon&nbsp;-&nbsp;Généré le Dimanche 28 Mai 2023 09:59:08 pour Projet domotifications par&nbsp;<a href="https://www.doxygen.org/index.html">doxygen</a>&nbsp;1.9.1&nbsp;</li>
   </ul>
 </div>
 </body>
