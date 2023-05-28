@@ -12,6 +12,7 @@ var _constantes_8h =
     [ "LARGEUR_IMAGE", "_constantes_8h.html#a91b2ba83eb56bef256a8a8633464a620", null ],
     [ "NOM_STATION", "_constantes_8h.html#a48979c0c41c24dd34a9636103d278313", null ],
     [ "NON_TROUVE", "_constantes_8h.html#af79745369266041dfec45b3d49b9073c", null ],
+    [ "PERIODE_RECUPERATION_NOTIFICATIONS", "_constantes_8h.html#a170b1fa3f790dd712299c055e6741b41", null ],
     [ "PORT_HTTP", "_constantes_8h.html#a5158b1e31a4e7aa84de308e3d792a1de", null ],
     [ "TITRE_APPLICATION", "_constantes_8h.html#a9eb2396052c2167d0e0f70355a4f6ed5", null ],
     [ "URL_STATION", "_constantes_8h.html#a565338b0a58e3ae45f6e2ab6900fa1bf", null ]

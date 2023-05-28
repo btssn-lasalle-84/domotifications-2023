@@ -16,6 +16,7 @@ var class_module =
     [ "getType", "class_module.html#aff6dc77e0596be7d13764f43e1a56ad9", null ],
     [ "recupererType", "class_module.html#a7824fca317c222d09dd77c89a5eb2244", null ],
     [ "setActif", "class_module.html#a65c4843bc7e7b08950678a5cf66719a1", null ],
+    [ "setNotifie", "class_module.html#a2e4fb2e347cc8d7e42afe1125e673ed3", null ],
     [ "actif", "class_module.html#afd56e824505f1af8fcbd9b76a681d4bd", null ],
     [ "id", "class_module.html#ac7bb470526ebe0c25781e5e6a0a97c09", null ],
     [ "nom", "class_module.html#ad0bf9e3ccf9fe8a81471218f623c82c1", null ],

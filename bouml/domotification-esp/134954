@@ -1,6 +1,6 @@
 format 224
 "StationLumineuse" // station-notifications-lumineuses::lib::StationLumineuse
-  revision 3
+  revision 4
   modified_by 42 "tv"
   // class settings
   
@@ -129,10 +129,10 @@ ${inlines}
 	private explicit_type "bool"
 	multiplicity "[NB_LEDS_NOTIFICATION_POUBELLES]"
 	init_value "=  { false,
-                                                               false,
-                                                               false,
-                                                               false,
-                                                               false }"
+                                                           false,
+                                                           false,
+                                                           false,
+                                                           false }"
 	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${multiplicity}${h_value};
 "
 	java_decl ""
@@ -158,14 +158,62 @@ ${inlines}
 	comment "!< les couleurs des poubelles"
       end
 
+      attribute 148266 "activationBoiteAuxLettres"
+	private explicit_type "bool"
+	init_value "=  true"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${h_value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "!< l'état d'activation de la boîte aux lettres"
+      end
+
+      attribute 148394 "activationMachines"
+	private explicit_type "bool"
+	multiplicity "[NB_LEDS_NOTIFICATION_MACHINES]"
+	init_value "=  {
+        true, true, true, true, true, true
+    }"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${multiplicity}${h_value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "!< l'état d'activation des machines"
+      end
+
+      attribute 148522 "activationPoubelles"
+	private explicit_type "bool"
+	multiplicity "[NB_LEDS_NOTIFICATION_POUBELLES]"
+	init_value "=  {
+        true, true, true, true, true
+    }"
+	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${multiplicity}${h_value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+	comment "!< l'état d'activation des poubelles"
+      end
+
       operation 135850 "StationLumineuse"
 	preserve_cpp_body_indent public explicit_return_type ""
 	nparams 0
 	cpp_decl "    ${comment}${inline}${name}${(}${)}${volatile}${throw}${abstract};
 "
-	cpp_def "//@brief Constructeur par défaut de la classe StationLumineuse.
-//@fn StationLumineuse::StationLumineuse
-//@details Ce constructeur initialise les attributs de la classe
+	cpp_def "//@brief Constructeur de la classe StationLumineuse
+//@fn StationLumineuse::StationLumineuse()
+//@details Initialise la bande de LEDs, ainsi que les couleurs associées aux poubelles. Les couleurs sont définies dans le tableau couleursPoubelles.
 //
 
 ${inline}${typeprefix}${class}::${name}${(}${)} :
@@ -204,15 +252,55 @@ ${body}}
 	
       end
 
+      operation 160170 "recupererEtatsNotifications"
+	preserve_cpp_body_indent public explicit_return_type "void"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "//@brief Récupère les états des notifications depuis les préférences
+//@fn StationLumineuse::recupererEtatsNotifications()
+//@details Récupère les états des différentes notifications (boîte aux lettres, machines, poubelles) depuis les préférences enregistrées dans la mémoire. 
+//Ces états sont stockés dans les variables correspondantes de la classe.
+//
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 160298 "recupererEtatsActivations"
+	preserve_cpp_body_indent public explicit_return_type "void"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "//@brief Récupère les états d'activation depuis les préférences
+//@fn StationLumineuse::recupererEtatsActivations()
+//@details Récupère les états d'activation des différentes fonctionnalités (boîte aux lettres, machines, poubelles) depuis les
+// préférences enregistrées dans la mémoire. Ces états d'activation sont stockés dans les variables correspondantes de la classe.
+//
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+      end
+
       operation 135978 "initialiserPreferences"
 	preserve_cpp_body_indent public explicit_return_type "void"
 	nparams 0
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
 "
 	cpp_def "//@brief Initialise les préférences de la station lumineuse
-//@fn StationLumineuse::initialiserPreferences
-//@details Charge les préférences depuis la mémoire EEPROM ou les valeurs par défaut si les
-//préférences n'ont pas été définies
+//@fn StationLumineuse::initialiserPreferences()
+//@details Démarre la gestion des préférences en utilisant la mémoire EEPROM. Ensuite, appelle les fonctions pour récupérer les états des notifications
+//et les états d'activation depuis les préférences enregistrées dans la mémoire.
 //
 
 ${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
@@ -229,9 +317,10 @@ ${body}}
 	nparams 0
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
 "
-	cpp_def "//@brief Initialisation de l'état des notifications
-//@fn  StationLumineuse::initialiserNotifications
-//@details Allumer/Eteindre les leds de notifications à partir des états sauvegardés
+	cpp_def "//@brief Initialise les notifications lumineuses
+//@fn StationLumineuse::initialiserNotifications()
+//@details Initialise les LEDs et configure les notifications lumineuses en fonction des états et des activations enregistrés.
+//Les notifications des différents capteurs sont allumées ou éteintes en fonction de ces paramètres.
 //
 
 ${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
@@ -264,6 +353,143 @@ ${body}}
 	
       end
 
+      operation 160426 "setActivationBoiteAuxLettres"
+	preserve_cpp_body_indent public explicit_return_type "void"
+	nparams 1
+	  param in name "etat" explicit_type "bool"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "//@brief Modifie l'état d'activation de la boîte aux lettres
+//@fn StationLumineuse::setActivationBoiteAuxLettres(bool etat)
+//@param etat Nouvel état d'activation de la boîte aux lettres
+//@details Modifie l'état d'activation de la boîte aux lettres et enregistre cette valeur dans les préférences.
+//L'état d'activation détermine si la notification lumineuse de la boîte aux lettres sera activée ou désactivée.
+//
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 160554 "getActivationBoiteAuxLettres"
+	preserve_cpp_body_indent public explicit_return_type "bool"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "//@brief Obtient l'état d'activation de la boîte aux lettres
+//@fn bool StationLumineuse::getActivationBoiteAuxLettres()
+//@details Renvoie l'état d'activation actuel de la boîte aux lettres. L'état d'activation détermine si la notification lumineuse de la boîte aux lettres 
+//est activée ou désactivée.
+//@return activationBoiteAuxLettres État d'activation de la boîte aux lettres (true si activée, false sinon).
+//
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 160682 "setActivationMachine"
+	preserve_cpp_body_indent public explicit_return_type "void"
+	nparams 2
+	  param in name "id" explicit_type "int"
+	  param in name "etat" explicit_type "bool"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}, ${t1} ${p1}${v1}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "//@brief Modifie l'état d'activation de la machine spécifiée
+//@fn void StationLumineuse::setActivationMachine(int id, bool etat)
+//@param id Identifiant de la machine à modifier
+//@param etat Nouvel état d'activation de la machine
+//@details Modifie l'état d'activation de la machine spécifiée par son identifiant. Si l'identifiant de la machine est valide,
+//l'état d'activation est mis à jour et enregistré dans les préférences. Sinon, un message d'erreur est affiché dans la console.
+//
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}, ${t1} ${p1}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 160810 "getActivationMachine"
+	preserve_cpp_body_indent public explicit_return_type "bool"
+	nparams 1
+	  param in name "id" explicit_type "int"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "//@brief Obtient l'état d'activation de la machine spécifiée
+//@fn bool StationLumineuse::getActivationMachine(int id)
+//@param id Identifiant de la machine
+//@details Renvoie l'état d'activation actuel de la machine spécifiée par son identifiant. Si l'identifiant de la machine est valide,
+//l'état d'activation correspondant est renvoyé. Sinon, un message d'erreur est affiché dans la console et la valeur par défaut (false) est renvoyée.
+//@return État d'activation de la machine (true si activée, false sinon).
+//
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 160938 "setActivationPoubelle"
+	preserve_cpp_body_indent public explicit_return_type "void"
+	nparams 2
+	  param in name "id" explicit_type "int"
+	  param in name "etat" explicit_type "bool"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}, ${t1} ${p1}${v1}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "//@brief Modifie l'état d'activation de la poubelle spécifiée
+//@fn void StationLumineuse::setActivationPoubelle(int id, bool etat)
+//@param id Identifiant de la poubelle à modifier
+//@param etat Nouvel état d'activation de la poubelle
+//@details Modifie l'état d'activation de la poubelle spécifiée par son identifiant. Si l'identifiant de la poubelle est valide, l'état d'activation
+// est mis à jour et enregistré dans les préférences. Sinon, un message d'erreur est affiché dans la console.
+//
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}, ${t1} ${p1}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+      end
+
+      operation 161066 "getActivationPoubelle"
+	preserve_cpp_body_indent public explicit_return_type "bool"
+	nparams 1
+	  param in name "id" explicit_type "int"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "//@brief Obtient l'état d'activation de la poubelle spécifiée
+//@fn bool StationLumineuse::getActivationPoubelle(int id)
+//@param id Identifiant de la poubelle
+//@details Renvoie l'état d'activation actuel de la poubelle spécifiée par son identifiant. Si l'identifiant de la poubelle est valide, l'état d'activation
+//correspondant est renvoyé. Sinon, un message d'erreur est affiché dans la console et la valeur par défaut (false) est renvoyée.
+//@return État d'activation de la poubelle (true si activée, false sinon).
+//
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+      end
+
       operation 136234 "getEtatBoiteAuxLettres"
 	preserve_cpp_body_indent public explicit_return_type "bool"
 	nparams 0
@@ -272,7 +498,7 @@ ${body}}
 	cpp_def "//@brief Obtient l'état de la boîte aux lettres
 //@fn StationLumineuse::getEtatBoiteAuxLettres
 //@details Obtient l'état actuel de la boîte aux lettres, vrai si elle est pleine, faux sinon
-//@return etatBoiteAuxLettres
+//@return etatBoiteAuxLettres État de la boîte aux lettres (true si ouverte, false si fermée).
 //
 
 ${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
@@ -291,10 +517,10 @@ ${body}}
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
 "
 	cpp_def "//@brief Modifie l'état de la boîte aux lettres
-//@fn StationLumineuse::setEtatBoiteAuxLettres
-//@details Modifie l'état actuel de la boîte aux lettres et allume ou éteint les leds en fonction
-//de celui-ci
-//@param etat
+//@fn void StationLumineuse::setEtatBoiteAuxLettres(bool etat)
+//@param etat Nouvel état de la boîte aux lettres (true si ouverte, false si fermée)
+//@details Modifie l'état de la boîte aux lettres et enregistre cette valeur dans les préférences. Si l'activation de la boîte aux lettres est activée,
+//la notification lumineuse sera allumée ou éteinte en fonction de l'état spécifié.
 //
 
 ${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}${)}${const}${volatile}${throw}${staticnl}{
@@ -312,8 +538,9 @@ ${body}}
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
 "
 	cpp_def "//@brief Réinitialise l'état de la boîte aux lettres
-//@fn StationLumineuse::resetEtatBoiteAuxLettres
-//@details Change l'état de boite aux lettres en false et eteint les leds attribuer a celle-ci
+//@fn void StationLumineuse::resetEtatBoiteAuxLettres()
+//@details Rétablit l'état de la boîte aux lettres à sa valeur par défaut, c'est-à-dire fermée. Enregistre cette valeur dans les préférences et éteint 
+//la notification lumineuse de la boîte aux lettres.
 //
 
 ${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
@@ -350,7 +577,7 @@ ${body}}
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
 "
 	cpp_def "//@brief Eteint la notification lumineuse de la boîte aux lettres
-//@fn void StationLumineuse::eteindreNotificationBoiteAuxLettre
+//@fn void StationLumineuse::eteindreNotificationBoiteAuxLettres
 //@details Eteint les LEDS de couleur rouge pour indiquer que la boîte aux lettres est vide
 //
 
@@ -370,8 +597,8 @@ ${body}}
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
 "
 	cpp_def "//@brief Vérifie si l'ID de la machine est valide
-//@fn StationLumineuse::estIdValideMachines
-//@param numeroMachine
+//@fn StationLumineuse::estIdValideMachine
+//@param numeroMachine Identifiant de la machine à vérifier
 //@return bool true si l'ID est valide sinon false
 //@details renvoie Vrai si l'ID de la machine est compris entre 1 et NB_MACHINES, faux sinon
 //
@@ -392,7 +619,7 @@ ${body}}
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
 "
 	cpp_def "//@brief Récupère l'état de la machine donnée
-//@fn  StationLumineuse::getEtatMachines
+//@fn  StationLumineuse::getEtatMachine
 //@param numeroMachine Numéro de la machine
 //@return l'état true ou false de la machine
 //@details renvoie l'etat de la machine si l'id et valide, faux sinon
@@ -414,12 +641,12 @@ ${body}}
 	  param in name "etat" explicit_type "bool"
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}, ${t1} ${p1}${v1}${)}${const}${volatile}${throw}${abstract};
 "
-	cpp_def "//@brief Modifie l'état de la machine donnée
-//@fn StationLumineuse::setEtatMachine
-//@param numeroMachine
-//@param etat
-//@details Modifie l'état de la machine spécifiée par le numéro donné. Enregistre l'état dans les
-//préférences, et allume ou éteint la notification de la machine en fonction de son nouvel état.
+	cpp_def "//@brief Modifie l'état de la machine spécifiée
+//@fn void StationLumineuse::setEtatMachine(int numeroMachine, bool etat)
+//@param numeroMachine Numéro de la machine à modifier
+//@param etat Nouvel état de la machine (true si allumée, false sinon)
+//@details Modifie l'état de la machine spécifiée par son numéro. Si l'activation de la machine est activée et si l'identifiant de la machine est valide,
+//l'état de la machine est mis à jour et enregistré dans les préférences. En fonction du nouvel état, la notification lumineuse de la machine est allumée ou éteinte.
 //
 
 ${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}, ${t1} ${p1}${)}${const}${volatile}${throw}${staticnl}{
@@ -433,15 +660,18 @@ ${body}}
 
       operation 137258 "resetEtatMachines"
 	preserve_cpp_body_indent public explicit_return_type "void"
-	nparams 0
-	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+	nparams 1
+	  param in name "numeroMachine" explicit_type "int"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
 "
-	cpp_def "//@brief Réinitialise l'état de toutes les machines
-//@fn StationLumineuse::resetEtatMachines
-//@details Change l'état de toutes les machines en false et éteint les notifications associées
+	cpp_def "//@brief Réinitialise l'état de la machine spécifiée
+//@fn void StationLumineuse::resetEtatMachines(int numeroMachine)
+//@param numeroMachine Numéro de la machine à réinitialiser
+//@details Rétablit l'état de la machine spécifiée par son numéro à la valeur par défaut (false). Enregistre cette valeur dans les préférences et éteint 
+//la notification lumineuse de la machine.
 //
 
-${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}${)}${const}${volatile}${throw}${staticnl}{
 ${body}}
 "
 	
@@ -458,7 +688,7 @@ ${body}}
 "
 	cpp_def "//@brief Allume la notification de la machine donnée
 //@fn StationLumineuse::allumerNotificationMachine
-//@param numeroMachine
+//@param numeroMachine Numéro de la machine  a allumer
 //@details Allume les LEDs de couleur verte pour indiquer que la machine spécifiée est finie
 //
 
@@ -490,7 +720,7 @@ ${body}}
 "
 	cpp_def "//@brief Éteint la notification de la machine donnée
 //@fn StationLumineuse::eteindreNotificationMachine
-//@param numeroMachine
+//@param numeroMachine Numéro de la machine a éteindre
 //@details Éteint les LEDS associées à la notification de la machine donnée
 //
 
@@ -520,12 +750,12 @@ ${body}}
 	  param in name "numeroPoubelle" explicit_type "int"
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
 "
-	cpp_def "//@brief Vérifie si le numero de la poubelle est valide
-//@fn StationLumineuse::estIdValidePoubelle
-//@param numeroPoubelle
-//@return bool true si le numeroPoubelle est valide sinon false
-//@details renvoie Vrai si l'numeroPoubelle de la poubelle est compris entre 1 et NB_POUBELLES,
-//faux sinon
+	cpp_def "//@brief Vérifie si l'identifiant de la poubelle est valide
+//@fn bool StationLumineuse::estIdValidePoubelle(int numeroPoubelle)
+//@param numeroPoubelle Identifiant de la poubelle à vérifier
+//@details Vérifie si l'identifiant de la poubelle est compris entre 0 et le nombre maximum de poubelles (NB_LEDS_NOTIFICATION_POUBELLES).
+//Renvoie true si l'identifiant est valide, sinon renvoie false.
+//@return true si l'identifiant de la poubelle est valide, false sinon.
 //
 
 ${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}${)}${const}${volatile}${throw}${staticnl}{
@@ -543,11 +773,12 @@ ${body}}
 	  param in name "numeroPoubelle" explicit_type "int"
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
 "
-	cpp_def "//@brief Récupère l'état de la poubelle donnée
-//@fn  StationLumineuse::getEtatPoubelle
+	cpp_def "//@brief Obtient l'état de la poubelle spécifiée
+//@fn bool StationLumineuse::getEtatPoubelle(int numeroPoubelle)
 //@param numeroPoubelle Numéro de la poubelle
-//@return etatPoubelle[numeroPoubelle]
-//@details renvoie l'etat de la poubelle si l'id et valide, faux sinon
+//@details Renvoie l'état actuel de la poubelle spécifiée par son numéro. Si l'identifiant de la poubelle est valide, l'état correspondant est renvoyé. 
+//Sinon, false est renvoyé.
+//@return État de la poubelle (true si pleine, false si vide ou si l'identifiant est invalide).
 //
 
 ${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}${)}${const}${volatile}${throw}${staticnl}{
@@ -566,12 +797,12 @@ ${body}}
 	  param in name "etat" explicit_type "bool"
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}, ${t1} ${p1}${v1}${)}${const}${volatile}${throw}${abstract};
 "
-	cpp_def "//@brief Modifie l'état de la poubelle donnée
-//@fn StationLumineuse::setEtatPoubelle
-//@param numeroPoubelle
-//@param etat
-//@details Modifie l'état de la poubelle spécifiée par le numéro donné. Enregistre l'état dans les
-//préférences, et allume ou éteint la notification de la poubelle en fonction de son nouvel état.
+	cpp_def "//@brief Modifie l'état de la poubelle spécifiée
+//@fn void StationLumineuse::setEtatPoubelle(int numeroPoubelle, bool etat)
+//@param numeroPoubelle Numéro de la poubelle à modifier
+//@param etat Nouvel état de la poubelle (true si pleine, false si vide)
+//@details Modifie l'état de la poubelle spécifiée par son numéro. Si l'activation de la poubelle est activée et si l'identifiant de la poubelle est valide, 
+//l'état de la poubelle est mis à jour et enregistré dans les préférences. En fonction du nouvel état, la notification lumineuse de la poubelle est allumée ou éteinte.
 //
 
 ${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}, ${t1} ${p1}${)}${const}${volatile}${throw}${staticnl}{
@@ -585,15 +816,18 @@ ${body}}
 
       operation 138410 "resetEtatPoubelles"
 	preserve_cpp_body_indent public explicit_return_type "void"
-	nparams 0
-	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+	nparams 1
+	  param in name "numeroPoubelle" explicit_type "int"
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
 "
-	cpp_def "//@brief Réinitialise l'état de toutes les poubelles
-//@fn StationLumineuse::resetEtatPoubelles
-//@details Change l'état de toutes les poubelles et éteint les notifications associées
+	cpp_def "//@brief Réinitialise l'état de la poubelle spécifiée
+//@fn void StationLumineuse::resetEtatPoubelles(int numeroPoubelle)
+//@param numeroPoubelle Numéro de la poubelle à réinitialiser
+//@details Rétablit l'état de la poubelle spécifiée par son numéro à la valeur par défaut (false). Enregistre cette valeur dans les préférences 
+//et éteint la notification lumineuse de la poubelle.
 //
 
-${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}${)}${const}${volatile}${throw}${staticnl}{
 ${body}}
 "
 	
@@ -608,11 +842,11 @@ ${body}}
 	  param in name "numeroPoubelle" explicit_type "int"
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
 "
-	cpp_def "//@brief Allume la notification de la poubelle donnée
-//@fn StationLumineuse::allumerNotificationPoubelle
-//@param numeroPoubelle
-//@details Allume les LEDS en fonction de la couleur correspond aux poublles 0 ROUGE 1 VERT 2 BLEU
-//3 GRIS 4 JAUNE pour indiquer quelle poubelle sortir
+	cpp_def "//@brief Allume la notification lumineuse de la poubelle spécifiée
+//@fn void StationLumineuse::allumerNotificationPoubelle(int numeroPoubelle)
+//@param numeroPoubelle Numéro de la poubelle
+//@details Allume la notification lumineuse de la poubelle spécifiée par son numéro. Si l'identifiant de la poubelle est valide, 
+//la couleur correspondante est appliquée aux LED de la poubelle et le bandeau lumineux est mis à jour pour afficher la notification.
 //
 
 ${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}${)}${const}${volatile}${throw}${staticnl}{
@@ -630,10 +864,11 @@ ${body}}
 	  param in name "numeroPoubelle" explicit_type "int"
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
 "
-	cpp_def "//@brief Éteint la notification de la poubelle donnée
-//@fn StationLumineuse::eteindreNotificationPoubelle
-//@param numeroPoubelle
-//@details Éteint les LEDS associées à la notification de la poubelle donnée
+	cpp_def "//@brief Éteint la notification lumineuse de la poubelle spécifiée
+//@fn void StationLumineuse::eteindreNotificationPoubelle(int numeroPoubelle)
+//@param numeroPoubelle Numéro de la poubelle
+//@details Éteint la notification lumineuse de la poubelle spécifiée par son numéro. Si l'identifiant de la poubelle est valide, 
+//la LED correspondante est éteinte en attribuant la couleur noire (0, 0, 0). Le bandeau lumineux est mis à jour pour refléter cette modification.
 //
 
 ${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}${)}${const}${volatile}${throw}${staticnl}{

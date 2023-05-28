@@ -16,8 +16,13 @@ class ServeurWeb
 #endif
     }
 !!!153130.cpp!!!	installerGestionnairesRequetes() : void
+
     on("/", HTTP_GET, std::bind(&ServeurWeb::afficherAccueil, this));
     on("/notifications", std::bind(&ServeurWeb::traiterRequeteGETNotifications, this));
+
+    on("/activations", HTTP_GET, std::bind(&ServeurWeb::traiterRequeteGETActivations, this));
+    on("/activation", HTTP_POST, std::bind(&ServeurWeb::traiterRequetePOSTActivation, this));
+
     on("/boite", HTTP_GET, std::bind(&ServeurWeb::traiterRequeteGETBoite, this));
     on("/boite", HTTP_POST, std::bind(&ServeurWeb::traiterRequetePOSTBoite, this));
     on("/machine", HTTP_GET, std::bind(&ServeurWeb::traiterRequeteGETMachine, this));
@@ -56,7 +61,7 @@ class ServeurWeb
     {
         machines.add(stationLumineuse->getEtatMachine(i));
     }
-    JsonArray poubelle = documentJSON.createNestedArray("poubelle");
+    JsonArray poubelle = documentJSON.createNestedArray("poubelles");
     for(int i = 0; i < NB_LEDS_NOTIFICATION_POUBELLES; ++i)
     {
         poubelle.add(stationLumineuse->getEtatPoubelle(i));
@@ -70,6 +75,157 @@ class ServeurWeb
     char buffer[TAILLE_JSON];
     serializeJson(documentJSON, buffer);
     send(200, "application/json", buffer);
+!!!159914.cpp!!!	traiterRequeteGETActivations() : void
+#ifdef DEBUG_SERVEUR_WEB
+    Serial.print(F("ServeurWeb::traiterRequeteGETActivations() : requête = "));
+    Serial.println((method() == HTTP_GET) ? "GET" : "POST");
+    Serial.print(F("URI : "));
+    Serial.println(uri());
+#endif
+
+    documentJSON.clear();
+    documentJSON["boite"] =
+      stationLumineuse
+        ->getActivationBoiteAuxLettres(); // Remplacez par la méthode appropriée pour obtenir l'état
+                                          // d'activation de la boîte aux lettres
+    JsonArray machines = documentJSON.createNestedArray("machines");
+    for(int i = 0; i < NB_LEDS_NOTIFICATION_MACHINES; ++i)
+    {
+        machines.add(stationLumineuse->getActivationMachine(
+          i)); // Remplacez par la méthode appropriée pour obtenir l'état d'activation de la machine
+    }
+    JsonArray poubelles = documentJSON.createNestedArray("poubelles");
+    for(int i = 0; i < NB_LEDS_NOTIFICATION_POUBELLES; ++i)
+    {
+        poubelles.add(
+          stationLumineuse->getActivationPoubelle(i)); // Remplacez par la méthode appropriée pour
+                                                       // obtenir l'état d'activation de la poubelle
+    }
+
+#ifdef DEBUG_SERVEUR_WEB
+    Serial.print(F("JSON : "));
+    serializeJson(documentJSON, Serial);
+    Serial.println();
+#endif
+    char buffer[TAILLE_JSON];
+    serializeJson(documentJSON, buffer);
+    send(200, "application/json", buffer);
+!!!160042.cpp!!!	traiterRequetePOSTActivation() : void
+#ifdef DEBUG_SERVEUR_WEB
+    Serial.print(F("ServeurWeb::traiterRequetePOSTActivation() : requête = "));
+    Serial.println((method() == HTTP_GET) ? "GET" : "POST");
+    Serial.print(F("URI : "));
+    Serial.println(uri());
+#endif
+
+    if(hasArg("plain") == false)
+    {
+#ifdef DEBUG_SERVEUR_WEB
+        Serial.println(F("Erreur !"));
+#endif
+        send(400,
+             "application/json",
+             "{\"error\": { \"code\": \"invalidRequest\", \"message\": \"La demande est vide ou "
+             "incorrecte.\"}}");
+        return;
+    }
+
+    String body = arg("plain");
+#ifdef DEBUG_SERVEUR_WEB
+    Serial.println(body);
+#endif
+    DeserializationError erreur = deserializeJson(documentJSON, body);
+    if(erreur)
+    {
+#ifdef DEBUG_SERVEUR_WEB
+        Serial.print(F("Erreur deserializeJson() : "));
+        Serial.println(erreur.f_str());
+#endif
+        send(400,
+             "application/json",
+             "{\"error\": { \"code\": \"invalidRequest\", \"message\": \"La demande est mal "
+             "exprimée ou incorrecte.\"}}");
+        return;
+    }
+    else
+    {
+        JsonObject objetJSON = documentJSON.as<JsonObject>();
+        if(objetJSON.containsKey("etat") && objetJSON.containsKey("id") &&
+           objetJSON.containsKey("module"))
+        {
+#ifdef DEBUG_SERVEUR_WEB
+            Serial.print(F("module : "));
+            Serial.println(documentJSON["module"].as<String>());
+            Serial.print(F("id : "));
+            Serial.println(documentJSON["id"].as<int>());
+            Serial.print(F("etat : "));
+            Serial.println(documentJSON["etat"].as<bool>());
+#endif
+
+            String module = documentJSON["module"].as<String>();
+            int    id     = documentJSON["id"].as<int>();
+            bool   etat   = documentJSON["etat"].as<bool>();
+
+            if(module == "machine")
+            {
+                if(stationLumineuse->estIdValideMachine(id))
+                {
+                    stationLumineuse->setActivationMachine(id, etat);
+                    send(200, "application/json", "{\"machine\": \"ok\"}");
+                }
+                else
+                {
+                    send(404,
+                         "application/json",
+                         "{\"error\": { \"code\": \"notFound\", \"message\": \"La machine demandée "
+                         "n'existe pas.\"}}");
+                }
+            }
+            else if(module == "poubelle")
+            {
+                if(stationLumineuse->estIdValidePoubelle(id))
+                {
+                    stationLumineuse->setActivationPoubelle(id, etat);
+                    send(200, "application/json", "{\"poubelle\": \"ok\"}");
+                }
+                else
+                {
+                    send(404,
+                         "application/json",
+                         "{\"error\": { \"code\": \"notFound\", \"message\": \"La poubelle "
+                         "demandée n'existe pas.\"}}");
+                }
+            }
+            else if(module == "boite")
+            {
+                // Pour la boite aux lettres, il n'y a pas d'ID spécifique.
+                stationLumineuse->setActivationBoiteAuxLettres(etat);
+                send(200, "application/json", "{\"boite\": \"ok\"}");
+            }
+            else
+            {
+#ifdef DEBUG_SERVEUR_WEB
+                Serial.print(F("Erreur : module non reconnu"));
+#endif
+                send(400,
+                     "application/json",
+                     "{\"error\": { \"code\": \"invalidRequest\", \"message\": \"Le module "
+                     "spécifié n'est pas reconnu.\"}}");
+                return;
+            }
+        }
+        else
+        {
+#ifdef DEBUG_SERVEUR_WEB
+            Serial.print(F("Erreur : champ etat, id ou module manquant"));
+#endif
+            send(400,
+                 "application/json",
+                 "{\"error\": { \"code\": \"invalidRequest\", \"message\": \"La demande est "
+                 "incomplète.\"}}");
+            return;
+        }
+    }
 !!!134954.cpp!!!	traiterRequeteGETBoite() : void
 #ifdef DEBUG_SERVEUR_WEB
     Serial.print(F("ServeurWeb::traiterRequeteGETBoite() : requête = "));
@@ -552,8 +708,26 @@ class ServeurWeb
     Serial.print(F("ServeurWeb::demarrer() : adresse IP = "));
     Serial.println(WiFi.localIP());
 #endif
+    // Installe les gestionnaires de requêtes
+    on("/", HTTP_GET, std::bind(&ServeurWeb::afficherAccueil, this));
+    on("/notifications", std::bind(&ServeurWeb::traiterRequeteGETNotifications, this));
 
-    installerGestionnairesRequetes();
+    on("/activations", HTTP_GET, std::bind(&ServeurWeb::traiterRequeteGETActivations, this));
+    on("/activation", HTTP_POST, std::bind(&ServeurWeb::traiterRequetePOSTActivation, this));
+
+    on("/boite", HTTP_GET, std::bind(&ServeurWeb::traiterRequeteGETBoite, this));
+    on("/boite", HTTP_POST, std::bind(&ServeurWeb::traiterRequetePOSTBoite, this));
+    on("/machine", HTTP_GET, std::bind(&ServeurWeb::traiterRequeteGETMachine, this));
+    on("/machine",
+       HTTP_POST,
+       std::bind(&ServeurWeb::traiterRequetePOSTMachine,
+                 this)); // Ajout de la route /machine en POST
+    on("/poubelle", HTTP_GET, std::bind(&ServeurWeb::traiterRequeteGETPoubelle, this));
+    on("/poubelle",
+       HTTP_POST,
+       std::bind(&ServeurWeb::traiterRequetePOSTPoubelle,
+                 this)); // Ajout de la route /poubelle en POST
+    onNotFound(std::bind(&ServeurWeb::traiterRequeteNonTrouvee, this));
 
     // Démarre le serveur
     begin();
