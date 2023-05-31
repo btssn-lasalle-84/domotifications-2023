@@ -30,6 +30,10 @@ Domotification::Domotification(IHMDomotifications* ihm) :
  */
 Domotification::~Domotification()
 {
+    /**
+     * @todo Tester l'enregistrement à la fermeture
+     */
+    // enregistrerModules();
     qDebug() << Q_FUNC_INFO;
 }
 
@@ -256,17 +260,17 @@ Module* Domotification::getBoite() const
  */
 void Domotification::chargerModules()
 {
-    QSettings parametre("config.ini", QSettings::IniFormat);
-    int       nombrePoubelles = parametre.value("Poubelles/nb").toInt();
-    int       nombreMachines  = parametre.value("Machines/nb").toInt();
-    int       nombreBoite     = parametre.value("BoiteAuxLettres/nb").toInt();
+    QSettings parametres(CONFIGURATION_APPLICATION, QSettings::IniFormat);
+    int       nombrePoubelles = parametres.value("Poubelles/nb").toInt();
+    int       nombreMachines  = parametres.value("Machines/nb").toInt();
+    int       nombreBoite     = parametres.value("BoiteAuxLettres/nb").toInt();
     qDebug() << Q_FUNC_INFO << "nombrePoubelles" << nombrePoubelles << "nombreMachines"
              << nombreMachines << "nombreBoite" << nombreBoite;
     for(auto i = 0; i < nombrePoubelles; i++)
     {
         QString sectionName = QString("Poubelle%1").arg(i);
-        QString nom         = parametre.value(sectionName + "/nom").toString();
-        bool    actif       = parametre.value(sectionName + "/actif").toBool();
+        QString nom         = parametres.value(sectionName + "/nom").toString();
+        bool    actif       = parametres.value(sectionName + "/actif").toBool();
         qDebug() << Q_FUNC_INFO << "Poubelle" << i << "Nom" << nom << ", Actif:" << actif;
         modules.push_back(new Module(nom, Module::TypeModule::Poubelle, i, actif, this));
     }
@@ -274,16 +278,16 @@ void Domotification::chargerModules()
     for(auto i = 0; i < nombreMachines; i++)
     {
         QString sectionName = QString("Machine%1").arg(i);
-        QString nom         = parametre.value(sectionName + "/nom").toString();
-        bool    actif       = parametre.value(sectionName + "/actif").toBool();
+        QString nom         = parametres.value(sectionName + "/nom").toString();
+        bool    actif       = parametres.value(sectionName + "/actif").toBool();
         modules.push_back(new Module(nom, Module::TypeModule::Machine, i, actif, this));
     }
 
     for(auto i = 0; i < nombreBoite; i++)
     {
         QString sectionName = QString("BoiteAuxLettres%1").arg(i);
-        QString nom         = parametre.value(sectionName + "/nom").toString();
-        bool    actif       = parametre.value(sectionName + "/actif").toBool();
+        QString nom         = parametres.value(sectionName + "/nom").toString();
+        bool    actif       = parametres.value(sectionName + "/actif").toBool();
         modules.push_back(new Module(nom, Module::TypeModule::BoiteAuxLettres, i, actif, this));
     }
 
@@ -314,6 +318,18 @@ void Domotification::chargerModules()
 
 #endif
     qDebug() << Q_FUNC_INFO << "modules" << modules;
+}
+
+/**
+ * @brief Enregistre dans le fichier de configuration les modules gérés
+ * @fn Domotification::enregistrerModules
+ */
+void Domotification::enregistrerModules()
+{
+    QSettings parametres(CONFIGURATION_APPLICATION, QSettings::IniFormat);
+    /**
+     * @todo Enregistrer dans le fichier de configuration les modules gérés
+     */
 }
 
 void Domotification::initialiserRecuperationNotifications()

@@ -44,6 +44,7 @@ class Domotification : public QObject
     QVector<Module*> getMachines() const;
     Module*          getBoite() const;
     void             chargerModules();
+    void             enregistrerModules();
     void             initialiserRecuperationNotifications();
 
   signals:

@@ -12,6 +12,12 @@
 #include <QString>
 
 /**
+ * @def CONFIGURATION_APPLICATION
+ * @brief Le nom du fichier de configuration
+ */
+#define CONFIGURATION_APPLICATION "config.ini"
+
+/**
  * @def TITRE_APPLICATION
  * @brief Le nom de l'application dans la barre de titre
  */

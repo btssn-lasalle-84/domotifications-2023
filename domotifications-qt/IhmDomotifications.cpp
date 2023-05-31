@@ -41,12 +41,14 @@ IHMDomotifications::~IHMDomotifications()
     delete imageBoutonActivation;
     delete imageBoutonDesactivation;
     delete imageBoutonAcquittement;
-    delete imageLogoBTS;
-    delete imageLogoParametre;
+    // delete imageLogoBTS;
+    // delete imageLogoParametre;
     for(int i = 0; i < poubelles.size(); i++)
     {
         delete imagesLogoPoubelle[i];
     }
+    delete imageLogoMachine;
+    delete imageLogoBoiteAuxLettres;
     qDebug() << Q_FUNC_INFO;
 }
 

@@ -28,4 +28,9 @@ FORMS += \
 RESOURCES += \
     images.qrc
 
+COPIES += configuration
+configuration.files = config.ini
+configuration.path = $$OUT_PWD/
+configuration.base = $$PWD/
+
 CONFIG(release, debug|release):DEFINES+=QT_NO_DEBUG_OUTPUT

@@ -7,6 +7,7 @@
  */
 
 #include "Communication.h"
+#include <QNetworkReply>
 
 Communication::Communication(QObject* parent) :
     QObject(parent), accesReseau(new QNetworkAccessManager(this)), httpPort(PORT_HTTP)
@@ -58,7 +59,8 @@ void Communication::recupererNotifications()
  * @brief Slot qui traite les réponses renvoyées par la station
  * @fn Communication::traiterReponseStation
  */
-void Communication::traiterReponseStation(QNetworkReply* reponseReseau)
+void Communication::traiterReponseStation(QNetworkReply* reponseStation)
 {
-    qDebug() << Q_FUNC_INFO << "reponse" << reponseReseau;
+    QByteArray donneesReponse = reponseStation->readAll();
+    qDebug() << Q_FUNC_INFO << "donneesReponse" << donneesReponse;
 }
