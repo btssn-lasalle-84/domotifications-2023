@@ -12,10 +12,10 @@ Communication::Communication(QObject* parent) :
     QObject(parent), accesReseau(new QNetworkAccessManager(this)), httpPort(PORT_HTTP)
 {
     qDebug() << Q_FUNC_INFO;
-    /**
-     * @todo Connecter le signal finished() vers le slot qui traite les réponses envoyées par la
-     * station
-     */
+    connect(accesReseau,
+            SIGNAL(finished(QNetworkReply*)),
+            this,
+            SLOT(traiterReponseStation(QNetworkReply*)));
 }
 
 Communication::~Communication()
@@ -49,23 +49,16 @@ void Communication::envoyerRequetePost(QString api, const QByteArray& json)
  */
 void Communication::recupererNotifications()
 {
-    /**
-     * @todo Emettre la requête permettant de récupérer les états des notifications des modules. La
-     * réception des données sra signalée par finished() qui devra déclencher le slot
-     * traiterReponseStation() qui recevra les états des notifications.
-     */
+    QString api = "notifications";
+
+    traiterReponseStation(reponseReseau);
 }
 
 /**
  * @brief Slot qui traite les réponses renvoyées par la station
  * @fn Communication::traiterReponseStation
  */
-void Communication::traiterReponseStation(QNetworkReply* reponse)
+void Communication::traiterReponseStation(QNetworkReply* reponseReseau)
 {
-    qDebug() << Q_FUNC_INFO;
-    /**
-     * @todo Traiter la réponses et émettre un signal etatsNotifications() pour la classe
-     * Domotification (mettre à jour les états et les traiter) et l'IHM pour afficher une
-     * notification ...
-     */
+    qDebug() << Q_FUNC_INFO << "reponse" << reponseReseau;
 }

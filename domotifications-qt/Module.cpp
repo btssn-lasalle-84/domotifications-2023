@@ -17,7 +17,7 @@
  * @param id
  * @param parent
  */
-Module::Module(QString nomModule, Module::TypeModule type, int id, QObject* parent) :
+Module::Module(QString nomModule, Module::TypeModule type, int id, bool actif, QObject* parent) :
     QObject(parent), id(id), nom(nomModule), type(type), actif(true), notifie(false)
 {
     qDebug() << Q_FUNC_INFO << "id" << id << "nomModule" << nomModule << "TypeModule" << type;

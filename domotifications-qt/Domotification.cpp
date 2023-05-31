@@ -71,9 +71,6 @@ void Domotification::gererActivationModule(QString typeModule, int id)
     QString api         = "activation";
     int     indexModule = recupererIndexModule(typeModule, id);
 
-    /**
-     * @todo Modifier la requête pour activer/désactiver
-     */
     qDebug() << Q_FUNC_INFO << "typeModule" << typeModule << "id" << id << "indexModule"
              << indexModule;
     if(indexModule == NON_TROUVE)
@@ -259,9 +256,37 @@ Module* Domotification::getBoite() const
  */
 void Domotification::chargerModules()
 {
-/**
- * @todo Gérer un fichier de configuration INI pour les modules
- */
+    QSettings parametre("config.ini", QSettings::IniFormat);
+    int       nombrePoubelles = parametre.value("Poubelles/nb").toInt();
+    int       nombreMachines  = parametre.value("Machines/nb").toInt();
+    int       nombreBoite     = parametre.value("BoiteAuxLettres/nb").toInt();
+    qDebug() << Q_FUNC_INFO << "nombrePoubelles" << nombrePoubelles << "nombreMachines"
+             << nombreMachines << "nombreBoite" << nombreBoite;
+    for(auto i = 0; i < nombrePoubelles; i++)
+    {
+        QString sectionName = QString("Poubelle%1").arg(i);
+        QString nom         = parametre.value(sectionName + "/nom").toString();
+        bool    actif       = parametre.value(sectionName + "/actif").toBool();
+        qDebug() << Q_FUNC_INFO << "Poubelle" << i << "Nom" << nom << ", Actif:" << actif;
+        modules.push_back(new Module(nom, Module::TypeModule::Poubelle, i, actif, this));
+    }
+
+    for(auto i = 0; i < nombreMachines; i++)
+    {
+        QString sectionName = QString("Machine%1").arg(i);
+        QString nom         = parametre.value(sectionName + "/nom").toString();
+        bool    actif       = parametre.value(sectionName + "/actif").toBool();
+        modules.push_back(new Module(nom, Module::TypeModule::Machine, i, actif, this));
+    }
+
+    for(auto i = 0; i < nombreBoite; i++)
+    {
+        QString sectionName = QString("BoiteAuxLettres%1").arg(i);
+        QString nom         = parametre.value(sectionName + "/nom").toString();
+        bool    actif       = parametre.value(sectionName + "/actif").toBool();
+        modules.push_back(new Module(nom, Module::TypeModule::BoiteAuxLettres, i, actif, this));
+    }
+
 #ifdef SIMULATION_MODULES
     // Pour les tests : 6 modules
     // 2 machines (0..6)
