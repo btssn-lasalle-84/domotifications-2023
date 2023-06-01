@@ -63,6 +63,9 @@ IHMDomotifications::~IHMDomotifications()
  */
 void IHMDomotifications::visualiserNotification(QString message, TypeNotification type)
 {
+    Q_UNUSED(type)
+
+    // Seul type pris en charge actuellement
     QSystemTrayIcon::MessageIcon messageIcon =
       QSystemTrayIcon::MessageIcon(QSystemTrayIcon::Critical);
 
@@ -346,6 +349,7 @@ int IHMDomotifications::recupererIdModule(QPushButton* boutonModule)
     {
         return 0;
     }
+    return 0; // supprime le warning
 }
 
 /**

@@ -207,7 +207,7 @@ QVector<Module*> Domotification::getMachines() const
         if(modules[i]->getType() == Module::Machine)
         {
             qDebug() << Q_FUNC_INFO << "module" << modules[i]->getNom() << "id"
-                     << modules[i]->getId();
+                     << modules[i]->getId() << "actif" << modules[i]->estActif();
             machines.push_back(modules[i]);
         }
     }
@@ -227,7 +227,7 @@ QVector<Module*> Domotification::getPoubelles() const
         if(modules[i]->getType() == Module::Poubelle)
         {
             qDebug() << Q_FUNC_INFO << "module" << modules[i]->getNom() << "id"
-                     << modules[i]->getId();
+                     << modules[i]->getId() << "actif" << modules[i]->estActif();
             poubelles.push_back(modules[i]);
         }
     }
@@ -245,6 +245,8 @@ Module* Domotification::getBoite() const
     {
         if(modules[i]->getType() == Module::BoiteAuxLettres)
         {
+            qDebug() << Q_FUNC_INFO << "module" << modules[i]->getNom() << "id"
+                     << modules[i]->getId() << "actif" << modules[i]->estActif();
             return modules[i];
         }
     }
@@ -258,11 +260,16 @@ Module* Domotification::getBoite() const
 void Domotification::chargerModules()
 {
     QSettings parametres(CONFIGURATION_APPLICATION, QSettings::IniFormat);
-    int       nombrePoubelles = parametres.value("Poubelles/nb").toInt();
-    int       nombreMachines  = parametres.value("Machines/nb").toInt();
-    int       nombreBoite     = parametres.value("BoiteAuxLettres/nb").toInt();
+    QString   urlStation = parametres.value("Domotifications/station").toString();
+    communication->setUrlStation(urlStation);
+    int nombrePoubelles = parametres.value("Poubelles/nb").toInt();
+    int nombreMachines  = parametres.value("Machines/nb").toInt();
+    int nombreBoite     = parametres.value("BoiteAuxLettres/nb").toInt();
     qDebug() << Q_FUNC_INFO << "nombrePoubelles" << nombrePoubelles << "nombreMachines"
              << nombreMachines << "nombreBoite" << nombreBoite;
+    /**
+     * @todo Supprimer la clé "actif" et assurer la récupération de l'état via la station
+     */
     for(auto i = 0; i < nombrePoubelles; i++)
     {
         QString sectionName = QString("Poubelle%1").arg(i);
@@ -322,6 +329,9 @@ void Domotification::chargerModules()
  */
 void Domotification::enregistrerModules()
 {
+    /**
+     * @todo Supprimer la clé "actif" si la récupération de l'état via la station a été réalisée
+     */
     QSettings parametres(CONFIGURATION_APPLICATION, QSettings::IniFormat);
     qDebug() << Q_FUNC_INFO << "CONFIGURATION_APPLICATION" << CONFIGURATION_APPLICATION;
     QVector<Module*> poubelles = getPoubelles();
@@ -331,28 +341,35 @@ void Domotification::enregistrerModules()
         QString nomSection = QString("Poubelle%1").arg(i);
         parametres.setValue(nomSection + "/nom", poubelles[i]->getNom());
         parametres.setValue(nomSection + "/actif", poubelles[i]->estActif());
-        qDebug() << Q_FUNC_INFO << "nomSection" << nomSection << "/nom" << poubelles[i]->getNom()
-                 << ", /actif" << poubelles[i]->estActif();
+        qDebug() << Q_FUNC_INFO << "nomSection" << nomSection << "nom" << poubelles[i]->getNom()
+                 << "actif" << poubelles[i]->estActif();
     }
 
     QVector<Module*> machines = getMachines();
     parametres.setValue(QString("Machines") + "/nb", machines.size());
     for(auto i = 0; i < machines.size(); i++)
     {
-        QString nomSection = QString("Machines%1").arg(i);
+        QString nomSection = QString("Machine%1").arg(i);
         parametres.setValue(nomSection + "/nom", machines[i]->getNom());
         parametres.setValue(nomSection + "/actif", machines[i]->estActif());
-        qDebug() << Q_FUNC_INFO << "nomSection" << nomSection << "/nom" << machines[i]->getNom()
-                 << ", /actif" << machines[i]->estActif();
+        qDebug() << Q_FUNC_INFO << "nomSection" << nomSection << "nom" << machines[i]->getNom()
+                 << "actif" << machines[i]->estActif();
     }
 
     Module* boite = getBoite();
-    parametres.setValue(QString("Boite") + "/nb", 0);
-    QString nomSection = QString("BoiteAuxLettres") + "0";
-    parametres.setValue(nomSection + "/nom", boite->getNom());
-    parametres.setValue(nomSection + "/actif", boite->estActif());
-    qDebug() << Q_FUNC_INFO << "nomSection" << nomSection << "/nom" << boite->getNom() << ", /actif"
-             << boite->estActif();
+    if(boite == nullptr)
+        parametres.setValue(QString("BoiteAuxLettres") + "/nb", 0);
+    else
+    {
+        parametres.setValue(QString("BoiteAuxLettres") + "/nb", 1);
+        QString nomSection = QString("BoiteAuxLettres") + "0";
+        parametres.setValue(nomSection + "/nom", boite->getNom());
+        parametres.setValue(nomSection + "/actif", boite->estActif());
+        qDebug() << Q_FUNC_INFO << "nomSection" << nomSection << "nom" << boite->getNom() << "actif"
+                 << boite->estActif();
+    }
+
+    parametres.setValue(QString("Domotifications") + "/station", communication->getUrlStation());
 }
 
 void Domotification::initialiserRecuperationNotifications()

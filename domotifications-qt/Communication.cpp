@@ -33,7 +33,7 @@ Communication::~Communication()
 void Communication::envoyerRequetePost(QString api, const QByteArray& json)
 {
     QNetworkRequest requetePost;
-    QUrl            url(URL_STATION + api);
+    QUrl            url(urlStation + api);
     requetePost.setUrl(url);
     requetePost.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
     requetePost.setRawHeader("Content-Type", "application/json");
@@ -42,6 +42,26 @@ void Communication::envoyerRequetePost(QString api, const QByteArray& json)
 #ifndef SANS_STATION
     accesReseau->post(requetePost, json);
 #endif
+}
+
+/**
+ * @brief Retourne l'URL de la station
+ * @fn Communication::getUrlStation
+ * @return QString
+ */
+QString Communication::getUrlStation()
+{
+    return this->urlStation;
+}
+
+/**
+ * @brief Modifie l'URL de la station
+ * @fn Communication::setUrlStation
+ * @param urlStation
+ */
+void Communication::setUrlStation(QString urlStation)
+{
+    this->urlStation = urlStation;
 }
 
 /**
