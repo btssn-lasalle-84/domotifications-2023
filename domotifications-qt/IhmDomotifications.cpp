@@ -259,6 +259,7 @@ void IHMDomotifications::afficherBoutonActivation(QPushButton* boutonModule)
 void IHMDomotifications::afficherBoutonDesactivation(QPushButton* boutonModule)
 {
     boutonModule->setIcon(*iconeDesactivation);
+
     /*boutonModule->setIconSize(
       imageBoutonDesactivation->scaled(HAUTEUR_IMAGE, LARGEUR_IMAGE).size());
     boutonModule->setFixedSize(
@@ -624,6 +625,8 @@ void IHMDomotifications::gererBoutonActivationDesactivation()
 void IHMDomotifications::afficherEtatBoutonActivationDesactivation(QPushButton* boutonModule,
                                                                    int          id)
 {
+    qDebug() << Q_FUNC_INFO << "boutonModule" << boutonModule->objectName() << "id" << id << "actif"
+             << domotification->getActivationModule(boutonModule->objectName(), id);
     if(boutonModule == nullptr)
         return;
     if(domotification->getActivationModule(boutonModule->objectName(), id))

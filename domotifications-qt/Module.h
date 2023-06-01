@@ -42,15 +42,16 @@ class Module : public QObject
            bool               actif,
            QObject*           parent = nullptr);
     ~Module();
-    int                getId() const;
-    QString            getNom() const;
-    Module::TypeModule getType() const;
-    bool               estActif() const;
-    bool               estNotifie() const;
-    void               setActif(bool actif);
-    void               setNotifie(bool notifie);
-    QString            recupererType();
-    static QString     getType(Module::TypeModule type);
+    int                       getId() const;
+    QString                   getNom() const;
+    Module::TypeModule        getType() const;
+    bool                      estActif() const;
+    bool                      estNotifie() const;
+    void                      setActif(bool actif);
+    void                      setNotifie(bool notifie);
+    QString                   recupererType();
+    static QString            getType(Module::TypeModule type);
+    static Module::TypeModule getType(QString type);
 };
 
 #endif // MODULE_H

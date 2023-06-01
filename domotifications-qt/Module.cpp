@@ -20,7 +20,8 @@
 Module::Module(QString nomModule, Module::TypeModule type, int id, bool actif, QObject* parent) :
     QObject(parent), id(id), nom(nomModule), type(type), actif(true), notifie(false)
 {
-    qDebug() << Q_FUNC_INFO << "id" << id << "nomModule" << nomModule << "TypeModule" << type;
+    qDebug() << Q_FUNC_INFO << "id" << id << "nomModule" << nomModule << "TypeModule" << type
+             << "actif" << actif;
 }
 
 /**
@@ -92,6 +93,8 @@ bool Module::estNotifie() const
  */
 void Module::setActif(bool actif)
 {
+    qDebug() << Q_FUNC_INFO << "id" << id << "nom" << nom << "TypeModule" << type << "actif"
+             << actif << this;
     this->actif = actif;
 }
 
@@ -138,4 +141,16 @@ QString Module::getType(Module::TypeModule type)
             return QString();
             break;
     }
+}
+
+Module::TypeModule Module::getType(QString type)
+{
+    QVector<QString> typesModule = { "inconnu", "boite", "machine", "poubelle" };
+
+    for(int i = 0; i < typesModule.size(); i++)
+    {
+        if(type == typesModule[i])
+            return Module::TypeModule(i);
+    }
+    return Module::TypeModule::Inconnu;
 }
