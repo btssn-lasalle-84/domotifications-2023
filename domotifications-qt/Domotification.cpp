@@ -327,9 +327,29 @@ void Domotification::chargerModules()
 void Domotification::enregistrerModules()
 {
     QSettings parametres(CONFIGURATION_APPLICATION, QSettings::IniFormat);
-    /**
-     * @todo Enregistrer dans le fichier de configuration les modules gérés
-     */
+    int       nombrePoubelles = getPoubelles().size();
+    int       nombreMachines  = getMachines().size();
+    qDebug() << Q_FUNC_INFO << "nombreMachines" << nombreMachines << "nombrePoubelles"
+             << nombrePoubelles;
+    for(auto i = 0; i < nombrePoubelles; i++)
+    {
+        QString nom         = "Poubelles";
+        bool    actif       = true;
+        QString sectionName = QString("Poubelles%1").arg(i);
+        parametres.setValue(sectionName + "/nom", nom);
+        parametres.setValue(sectionName + "/actif", actif);
+        qDebug() << Q_FUNC_INFO << "Poubelle" << i << "Nom" << nom << ", Actif:" << actif;
+    }
+
+    for(auto i = 0; i < nombreMachines; i++)
+    {
+        QString nom         = "Machines";
+        bool    actif       = true;
+        QString sectionName = QString("Machines%1").arg(i);
+        parametres.setValue(sectionName + "/nom", nom);
+        parametres.setValue(sectionName + "/actif", actif);
+        qDebug() << Q_FUNC_INFO << "Machine" << i << "Nom" << nom << ", Actif:" << actif;
+    }
 }
 
 void Domotification::initialiserRecuperationNotifications()
