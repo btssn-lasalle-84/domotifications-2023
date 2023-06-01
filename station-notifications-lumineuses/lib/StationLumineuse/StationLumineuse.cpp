@@ -17,8 +17,8 @@ StationLumineuse::StationLumineuse() :
         leds.Color(0, 0, 255),     // Couleur poubelle 0 (bleue)
         leds.Color(0, 255, 0),     // Couleur poubelle 1 (verte)
         leds.Color(255, 255, 0),   // Couleur poubelle 2 (jaune)
-        leds.Color(128, 128, 128), // Couleur poubelle 3 (grise)
-        leds.Color(255, 0, 0)      // Couleur poubelle 4 (rouge)
+        leds.Color(255, 0, 0),      // Couleur poubelle 3 (rouge)
+        leds.Color(128, 128, 128) // Couleur poubelle 4 (grise)
     }
 {
     for (int i = 0; i < NB_LEDS_NOTIFICATION_POUBELLES; i++) {
@@ -73,13 +73,13 @@ void StationLumineuse::recupererEtatsActivations()
     activationBoiteAuxLettres = preferences.getBool("activationBoite", true);
     for(int i = 0; i < NB_LEDS_NOTIFICATION_MACHINES; ++i)
     {
-        sprintf((char*)cle, "%s%d", "activationMachine", i);
+        sprintf((char*)cle, "%s%d", "activeMachine", i);
         activationMachines[i] = preferences.getBool(cle, true);
     }
 
     for(int i = 0; i < NB_LEDS_NOTIFICATION_POUBELLES; ++i)
     {
-        sprintf((char*)cle, "%s%d", "activationPoubelle", i);
+        sprintf((char*)cle, "%s%d", "activePoubelle", i);
         activationPoubelles[i] = preferences.getBool(cle, true);
     }
 }
@@ -177,7 +177,8 @@ void StationLumineuse::initialiserCouleursPoubelles()
 
 void StationLumineuse::setIntervallePoubelle(int numeroPoubelle, int intervalle)
 {
-    if(estIdValidePoubelle(numeroPoubelle)) {
+    if(estIdValidePoubelle(numeroPoubelle))
+    {
         intervallePoubelles[numeroPoubelle] = intervalle;
         char cle[64] = "";
         sprintf((char*)cle, "%s%d", "intervallePoubelle", numeroPoubelle);
@@ -185,7 +186,8 @@ void StationLumineuse::setIntervallePoubelle(int numeroPoubelle, int intervalle)
     }
 }
 
-long StationLumineuse::getDateActuelle() {
+long StationLumineuse::getDateActuelle()
+{
     return millis() / 1000 / 60 / 60 / 24; // Convertir le temps en jours
 }
 
@@ -309,7 +311,7 @@ void StationLumineuse::setActivationMachine(int id, bool etat)
     {
         activationMachines[id] = etat;
         char cle[64] = "";
-        sprintf((char*)cle, "%s%d", "activationMachine", id);
+        sprintf((char*)cle, "%s%d", "activeMachine", id);
         preferences.putBool(cle, etat);
     }
     else
@@ -468,7 +470,7 @@ void StationLumineuse::setActivationPoubelle(int id, bool etat)
     {
         activationPoubelles[id] = etat;
         char cle[64] = "";
-        sprintf((char*)cle, "%s%d", "activationPoubelle", id);
+        sprintf((char*)cle, "%s%d", "activePoubelle", id);
         preferences.putBool(cle, etat);
     }
     else
@@ -550,7 +552,7 @@ void StationLumineuse::setEtatPoubelle(int numeroPoubelle, bool etat) {
         if(etat && (getDateActuelle() - dateDerniereSortiePoubelles[numeroPoubelle]) >= intervallePoubelles[numeroPoubelle])
         {
             allumerNotificationPoubelle(numeroPoubelle);
-         //   dateDerniereSortiePoubelles[numeroPoubelle] = getDateActuelle();
+            dateDerniereSortiePoubelles[numeroPoubelle] = getDateActuelle();
         }
         else
         {

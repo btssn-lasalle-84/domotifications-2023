@@ -53,6 +53,8 @@ void ServeurWeb::demarrer()
        HTTP_POST,
        std::bind(&ServeurWeb::traiterRequetePOSTPoubelle,
                  this)); // Ajout de la route /poubelle en POST
+    on("/intervallePoubelle", HTTP_POST, std::bind(&ServeurWeb::traiterRequetePOSTIntervallePoubelle, this));
+
     onNotFound(std::bind(&ServeurWeb::traiterRequeteNonTrouvee, this));
 
     // Démarre le serveur
@@ -128,6 +130,7 @@ void ServeurWeb::installerGestionnairesRequetes()
        HTTP_POST,
        std::bind(&ServeurWeb::traiterRequetePOSTPoubelle,
                  this)); // Ajout de la route /poubelle en POST
+    on("/intervallePoubelle", HTTP_POST, std::bind(&ServeurWeb::traiterRequetePOSTIntervallePoubelle, this));
     onNotFound(std::bind(&ServeurWeb::traiterRequeteNonTrouvee, this));
 }
 
@@ -255,7 +258,7 @@ void ServeurWeb::traiterRequetePOSTActivation()
     Serial.println(uri());
 #endif
 
-    if(hasArg("plain") == false)
+    if (hasArg("plain") == false)
     {
 #ifdef DEBUG_SERVEUR_WEB
         Serial.println(F("Erreur !"));
@@ -272,7 +275,7 @@ void ServeurWeb::traiterRequetePOSTActivation()
     Serial.println(body);
 #endif
     DeserializationError erreur = deserializeJson(documentJSON, body);
-    if(erreur)
+    if (erreur)
     {
 #ifdef DEBUG_SERVEUR_WEB
         Serial.print(F("Erreur deserializeJson() : "));
@@ -287,8 +290,8 @@ void ServeurWeb::traiterRequetePOSTActivation()
     else
     {
         JsonObject objetJSON = documentJSON.as<JsonObject>();
-        if(objetJSON.containsKey("etat") && objetJSON.containsKey("id") &&
-           objetJSON.containsKey("module"))
+        if (objetJSON.containsKey("etat") && objetJSON.containsKey("id") &&
+            objetJSON.containsKey("module"))
         {
 #ifdef DEBUG_SERVEUR_WEB
             Serial.print(F("module : "));
@@ -300,13 +303,19 @@ void ServeurWeb::traiterRequetePOSTActivation()
 #endif
 
             String module = documentJSON["module"].as<String>();
-            int    id     = documentJSON["id"].as<int>();
-            bool   etat   = documentJSON["etat"].as<bool>();
+            int id = documentJSON["id"].as<int>();
+            bool etat = documentJSON["etat"].as<bool>();
 
-            if(module == "machine")
+            if (module == "machine")
             {
-                if(stationLumineuse->estIdValideMachine(id))
+                if (stationLumineuse->estIdValideMachine(id))
                 {
+                    // Vérifier si l'état a changé
+                    if (stationLumineuse->getActivationMachine(id) != etat)
+                    {
+                        // Réinitialiser l'état des LED
+                        stationLumineuse->resetEtatMachines(id);
+                    }
                     stationLumineuse->setActivationMachine(id, etat);
                     send(200, "application/json", "{\"machine\": \"ok\"}");
                 }
@@ -318,10 +327,16 @@ void ServeurWeb::traiterRequetePOSTActivation()
                          "n'existe pas.\"}}");
                 }
             }
-            else if(module == "poubelle")
+            else if (module == "poubelle")
             {
-                if(stationLumineuse->estIdValidePoubelle(id))
+                if (stationLumineuse->estIdValidePoubelle(id))
                 {
+                    // Vérifier si l'état a changé
+                    if (stationLumineuse->getActivationPoubelle(id) != etat)
+                    {
+                        // Réinitialiser l'état des LED
+                        stationLumineuse->resetEtatPoubelles(id);
+                    }
                     stationLumineuse->setActivationPoubelle(id, etat);
                     send(200, "application/json", "{\"poubelle\": \"ok\"}");
                 }
@@ -333,9 +348,14 @@ void ServeurWeb::traiterRequetePOSTActivation()
                          "demandée n'existe pas.\"}}");
                 }
             }
-            else if(module == "boite")
+            else if (module == "boite")
             {
-                // Pour la boite aux lettres, il n'y a pas d'ID spécifique.
+                // Vérifier si l'état a changé
+                if (stationLumineuse->getActivationBoiteAuxLettres() != etat)
+                {
+                    // Réinitialiser l'état des LED
+                    stationLumineuse->resetEtatBoiteAuxLettres();
+                }
                 stationLumineuse->setActivationBoiteAuxLettres(etat);
                 send(200, "application/json", "{\"boite\": \"ok\"}");
             }
@@ -364,6 +384,7 @@ void ServeurWeb::traiterRequetePOSTActivation()
         }
     }
 }
+
 
 /**
  * @brief Traite une requête HTTP GET relative à la boîte aux lettres
@@ -856,6 +877,92 @@ void ServeurWeb::traiterRequetePOSTPoubelle()
         }
     }
 }
+
+void ServeurWeb::traiterRequetePOSTIntervallePoubelle()
+{
+#ifdef DEBUG_SERVEUR_WEB
+    Serial.print(F("ServeurWeb::traiterRequetePOSTIntervallePoubelle() : requête = "));
+    Serial.println((method() == HTTP_GET) ? "GET" : "POST");
+    Serial.print(F("URI : "));
+    Serial.println(uri());
+#endif
+
+    if(hasArg("plain") == false)
+    {
+#ifdef DEBUG_SERVEUR_WEB
+        Serial.println(F("Erreur !"));
+#endif
+        send(400,
+             "application/json",
+             "{\"error\": { \"code\": \"invalidRequest\", \"message\": "
+             "\"La demande est vide ou incorrecte.\"}}");
+        return;
+    }
+
+    String body = arg("plain");
+#ifdef DEBUG_SERVEUR_WEB
+    Serial.println(body);
+#endif
+    DeserializationError erreur = deserializeJson(documentJSON, body);
+    if(erreur)
+    {
+#ifdef DEBUG_SERVEUR_WEB
+        Serial.print(F("Erreur deserializeJson() : "));
+        Serial.println(erreur.f_str());
+#endif
+        send(400,
+             "application/json",
+             "{\"error\": { \"code\": \"invalidRequest\", \"message\": "
+             "\"La demande est mal exprimée ou incorrecte.\"}}");
+        return;
+    }
+    else
+    {
+        JsonObject objetJSON = documentJSON.as<JsonObject>();
+        if(objetJSON.containsKey("intervalle") && objetJSON.containsKey("id"))
+        {
+#ifdef DEBUG_SERVEUR_WEB
+            Serial.print(F("id : "));
+            Serial.println(documentJSON["id"].as<int>());
+            Serial.print(F("intervalle : "));
+            Serial.println(documentJSON["intervalle"].as<int>());
+#endif
+
+            // Modifier l'intervalle de la Poubelle ici
+            int  numeroPoubelle = documentJSON["id"].as<int>();
+            int  intervallePoubelle   = documentJSON["intervalle"].as<int>();
+
+            if(stationLumineuse->estIdValidePoubelle(numeroPoubelle))
+            {
+                stationLumineuse->setIntervallePoubelle(numeroPoubelle, intervallePoubelle);
+
+                send(200,
+                     "application/json",
+                     "{\"poubelle\": "
+                     "\"ok\"}");
+            }
+            else
+            {
+                send(404,
+                     "application/json",
+                     "{\"error\": { \"code\": \"notFound\", \"message\": "
+                     "\"La poubelle demandée n'existe pas.\"}}");
+            }
+        }
+        else
+        {
+#ifdef DEBUG_SERVEUR_WEB
+            Serial.print(F("Erreur : champ intervalle ou numeroPoubelle manquant"));
+#endif
+            send(400,
+                 "application/json",
+                 "{\"error\": { \"code\": \"invalidRequest\", \"message\": "
+                 "\"La demande est incomplète.\"}}");
+            return;
+        }
+    }
+}
+
 
 /**
  * @brief Traite une requête qui n'a pas été trouvée
