@@ -878,6 +878,15 @@ void ServeurWeb::traiterRequetePOSTPoubelle()
     }
 }
 
+/**
+  * @brief Traite une requête POST pour modifier l'intervalle d'une poubelle
+  * @fn ServeurWeb::traiterRequetePOSTIntervallePoubelle
+  * @details Cette méthode traite une requête POST pour modifier l'intervalle d'une poubelle de la station lumineuse. Elle récupère les paramètres "intervalle"
+  * et "id" de la requête, puis utilise ces valeurs pour modifier l'intervalle de la poubelle correspondante en appelant la méthode setIntervallePoubelle de
+  * la classe StationLumineuse. Si la poubelle spécifiée n'existe pas, elle renvoie une réponse d'erreur. Sinon, elle renvoie une réponse indiquant que la
+  * modification a été effectuée avec succès.
+  * @return Aucune valeur de retour.
+  */
 void ServeurWeb::traiterRequetePOSTIntervallePoubelle()
 {
 #ifdef DEBUG_SERVEUR_WEB

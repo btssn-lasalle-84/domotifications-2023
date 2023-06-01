@@ -8,10 +8,12 @@
 #include "StationLumineuse.h"
 
 /**
-* @brief Constructeur de la classe StationLumineuse
-* @fn StationLumineuse::StationLumineuse()
-* @details Initialise la bande de LEDs, ainsi que les couleurs associées aux poubelles. Les couleurs sont définies dans le tableau couleursPoubelles.
- */
+  * @brief Constructeur de la classe StationLumineuse
+  * @fn StationLumineuse::StationLumineuse
+  * @details Ce constructeur initialise une instance de la classe StationLumineuse. Il configure le bandeau de LEDs avec le nombre de LEDs,
+  *  le pin de contrôle et le type de LEDs. Il définit également les couleurs associées à chaque poubelle. De plus, il initialise les variables pour
+  *  la gestion des sorties des poubelles, en les initialisant à zéro.
+  */
 StationLumineuse::StationLumineuse() :
     leds(NB_LEDS, PIN_BANDEAU, NEO_GRB + NEO_KHZ800), couleursPoubelles{
         leds.Color(0, 0, 255),     // Couleur poubelle 0 (bleue)
@@ -25,7 +27,6 @@ StationLumineuse::StationLumineuse() :
         dateDerniereSortiePoubelles[i] = 0;
         intervallePoubelles[i] = 0;
     }
-    // initialiserCouleursPoubelles();
 }
 
 
@@ -175,6 +176,15 @@ void StationLumineuse::initialiserCouleursPoubelles()
     }
 }
 
+/**
+  * @brief Modifie l'intervalle de temps pour la notification de la poubelle spécifiée
+  * @fn StationLumineuse::setIntervallePoubelle
+  * @param numeroPoubelle Le numéro de la poubelle
+  * @param intervalle L'intervalle de temps en minutes
+  * @details Cette méthode permet de modifier l'intervalle de temps entre les notifications de la poubelle spécifiée. Elle vérifie d'abord si l'identifiant
+  *  de la poubelle est valide, puis met à jour l'intervalle dans le tableau intervallePoubelles et le stocke dans la mémoire EEPROM à l'aide de la bibliothèque
+  *  Preferences.
+  */
 void StationLumineuse::setIntervallePoubelle(int numeroPoubelle, int intervalle)
 {
     if(estIdValidePoubelle(numeroPoubelle))
@@ -186,6 +196,13 @@ void StationLumineuse::setIntervallePoubelle(int numeroPoubelle, int intervalle)
     }
 }
 
+/**
+  * @brief Obtient la date actuelle en jours
+  * @fn StationLumineuse::getDateActuelle
+  * @details Cette méthode retourne la date actuelle en jours. Elle utilise la fonction millis() pour obtenir le temps écoulé depuis le démarrage de la
+  *  station lumineuse, puis le convertit en jours en divisant par les facteurs de conversion appropriés.
+  * @return La date actuelle en jours.
+  */
 long StationLumineuse::getDateActuelle()
 {
     return millis() / 1000 / 60 / 60 / 24; // Convertir le temps en jours
@@ -562,11 +579,14 @@ void StationLumineuse::setEtatPoubelle(int numeroPoubelle, bool etat) {
 }
 
 /**
- * @brief Réinitialise l'état de la poubelle spécifiée
- * @fn void StationLumineuse::resetEtatPoubelles(int numeroPoubelle)
- * @param numeroPoubelle Numéro de la poubelle à réinitialiser
- * @details Rétablit l'état de la poubelle spécifiée par son numéro à la valeur par défaut (false). Enregistre cette valeur dans les préférences 
- * et éteint la notification lumineuse de la poubelle.
+ * @brief Modifie l'état de la poubelle donnée
+ * @fn StationLumineuse::setEtatPoubelle
+ * @param numeroPoubelle Le numéro de la poubelle à modifier
+ * @param etat Le nouvel état de la poubelle
+ * @details Cette méthode modifie l'état de la poubelle spécifiée. Si l'activation de la poubelle est activée et le numéro de poubelle est valide, 
+ * l'état de la poubelle est mis à jour et enregistré dans les préférences. Si l'état est vrai (poubelle sortie) et si la durée écoulée depuis la dernière sortie
+ *  de la poubelle est supérieure ou égale à l'intervalle spécifié pour cette poubelle, la notification de la poubelle est allumée et la date de la dernière 
+ * sortie est mise à jour. Sinon, la notification de la poubelle est éteinte.
  */
 void StationLumineuse::resetEtatPoubelles(int numeroPoubelle)
 {
