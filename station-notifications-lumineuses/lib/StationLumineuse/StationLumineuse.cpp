@@ -21,8 +21,13 @@ StationLumineuse::StationLumineuse() :
         leds.Color(255, 0, 0)      // Couleur poubelle 4 (rouge)
     }
 {
+    for (int i = 0; i < NB_LEDS_NOTIFICATION_POUBELLES; i++) {
+        dateDerniereSortiePoubelles[i] = 0;
+        intervallePoubelles[i] = 0;
+    }
     // initialiserCouleursPoubelles();
 }
+
 
 /**
  * @brief Destructeur de la classe StationLumineuse.
@@ -168,6 +173,20 @@ void StationLumineuse::initialiserCouleursPoubelles()
         couleursPoubelles[i] =
           leds.Color(couleursRGB[i][ROUGE], couleursRGB[i][VERT], couleursRGB[i][BLEU]);
     }
+}
+
+void StationLumineuse::setIntervallePoubelle(int numeroPoubelle, int intervalle)
+{
+    if(estIdValidePoubelle(numeroPoubelle)) {
+        intervallePoubelles[numeroPoubelle] = intervalle;
+        char cle[64] = "";
+        sprintf((char*)cle, "%s%d", "intervallePoubelle", numeroPoubelle);
+        preferences.putInt(cle, intervallePoubelles[numeroPoubelle]);
+    }
+}
+
+long StationLumineuse::getDateActuelle() {
+    return millis() / 1000 / 60 / 60 / 24; // Convertir le temps en jours
 }
 
 /**
@@ -520,19 +539,18 @@ bool StationLumineuse::getEtatPoubelle(int numeroPoubelle)
   * @details Modifie l'état de la poubelle spécifiée par son numéro. Si l'activation de la poubelle est activée et si l'identifiant de la poubelle est valide, 
   * l'état de la poubelle est mis à jour et enregistré dans les préférences. En fonction du nouvel état, la notification lumineuse de la poubelle est allumée ou éteinte.
   */
-void StationLumineuse::setEtatPoubelle(int numeroPoubelle, bool etat)
-{
-    if(activationPoubelles[numeroPoubelle])
-    {
+void StationLumineuse::setEtatPoubelle(int numeroPoubelle, bool etat) {
+    if(activationPoubelles[numeroPoubelle]) {
         if(!estIdValidePoubelle(numeroPoubelle))
             return;
         etatPoubelles[numeroPoubelle] = etat;
-        char cle[64]                  = "";
+        char cle[64] = "";
         sprintf((char*)cle, "%s%d", "poubelle", numeroPoubelle);
         preferences.putBool(cle, etatPoubelles[numeroPoubelle]);
-        if(etat)
+        if(etat && (getDateActuelle() - dateDerniereSortiePoubelles[numeroPoubelle]) >= intervallePoubelles[numeroPoubelle])
         {
             allumerNotificationPoubelle(numeroPoubelle);
+         //   dateDerniereSortiePoubelles[numeroPoubelle] = getDateActuelle();
         }
         else
         {
