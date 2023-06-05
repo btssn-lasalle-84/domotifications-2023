@@ -8,21 +8,27 @@
 #include "StationLumineuse.h"
 
 /**
-* @brief Constructeur de la classe StationLumineuse
-* @fn StationLumineuse::StationLumineuse()
-* @details Initialise la bande de LEDs, ainsi que les couleurs associées aux poubelles. Les couleurs sont définies dans le tableau couleursPoubelles.
- */
+  * @brief Constructeur de la classe StationLumineuse
+  * @fn StationLumineuse::StationLumineuse
+  * @details Ce constructeur initialise une instance de la classe StationLumineuse. Il configure le bandeau de LEDs avec le nombre de LEDs,
+  *  le pin de contrôle et le type de LEDs. Il définit également les couleurs associées à chaque poubelle. De plus, il initialise les variables pour
+  *  la gestion des sorties des poubelles, en les initialisant à zéro.
+  */
 StationLumineuse::StationLumineuse() :
     leds(NB_LEDS, PIN_BANDEAU, NEO_GRB + NEO_KHZ800), couleursPoubelles{
         leds.Color(0, 0, 255),     // Couleur poubelle 0 (bleue)
         leds.Color(0, 255, 0),     // Couleur poubelle 1 (verte)
         leds.Color(255, 255, 0),   // Couleur poubelle 2 (jaune)
-        leds.Color(128, 128, 128), // Couleur poubelle 3 (grise)
-        leds.Color(255, 0, 0)      // Couleur poubelle 4 (rouge)
+        leds.Color(255, 0, 0),      // Couleur poubelle 3 (rouge)
+        leds.Color(128, 128, 128) // Couleur poubelle 4 (grise)
     }
 {
-    // initialiserCouleursPoubelles();
+    for (int i = 0; i < NB_LEDS_NOTIFICATION_POUBELLES; i++) {
+        dateDerniereSortiePoubelles[i] = 0;
+        intervallePoubelles[i] = 0;
+    }
 }
+
 
 /**
  * @brief Destructeur de la classe StationLumineuse.
@@ -68,13 +74,13 @@ void StationLumineuse::recupererEtatsActivations()
     activationBoiteAuxLettres = preferences.getBool("activationBoite", true);
     for(int i = 0; i < NB_LEDS_NOTIFICATION_MACHINES; ++i)
     {
-        sprintf((char*)cle, "%s%d", "activationMachine", i);
+        sprintf((char*)cle, "%s%d", "activeMachine", i);
         activationMachines[i] = preferences.getBool(cle, true);
     }
 
     for(int i = 0; i < NB_LEDS_NOTIFICATION_POUBELLES; ++i)
     {
-        sprintf((char*)cle, "%s%d", "activationPoubelle", i);
+        sprintf((char*)cle, "%s%d", "activePoubelle", i);
         activationPoubelles[i] = preferences.getBool(cle, true);
     }
 }
@@ -168,6 +174,38 @@ void StationLumineuse::initialiserCouleursPoubelles()
         couleursPoubelles[i] =
           leds.Color(couleursRGB[i][ROUGE], couleursRGB[i][VERT], couleursRGB[i][BLEU]);
     }
+}
+
+/**
+  * @brief Modifie l'intervalle de temps pour la notification de la poubelle spécifiée
+  * @fn StationLumineuse::setIntervallePoubelle
+  * @param numeroPoubelle Le numéro de la poubelle
+  * @param intervalle L'intervalle de temps en minutes
+  * @details Cette méthode permet de modifier l'intervalle de temps entre les notifications de la poubelle spécifiée. Elle vérifie d'abord si l'identifiant
+  *  de la poubelle est valide, puis met à jour l'intervalle dans le tableau intervallePoubelles et le stocke dans la mémoire EEPROM à l'aide de la bibliothèque
+  *  Preferences.
+  */
+void StationLumineuse::setIntervallePoubelle(int numeroPoubelle, int intervalle)
+{
+    if(estIdValidePoubelle(numeroPoubelle))
+    {
+        intervallePoubelles[numeroPoubelle] = intervalle;
+        char cle[64] = "";
+        sprintf((char*)cle, "%s%d", "intervallePoubelle", numeroPoubelle);
+        preferences.putInt(cle, intervallePoubelles[numeroPoubelle]);
+    }
+}
+
+/**
+  * @brief Obtient la date actuelle en jours
+  * @fn StationLumineuse::getDateActuelle
+  * @details Cette méthode retourne la date actuelle en jours. Elle utilise la fonction millis() pour obtenir le temps écoulé depuis le démarrage de la
+  *  station lumineuse, puis le convertit en jours en divisant par les facteurs de conversion appropriés.
+  * @return La date actuelle en jours.
+  */
+long StationLumineuse::getDateActuelle()
+{
+    return millis() / 1000 / 60 / 60 / 24; // Convertir le temps en jours
 }
 
 /**
@@ -290,7 +328,7 @@ void StationLumineuse::setActivationMachine(int id, bool etat)
     {
         activationMachines[id] = etat;
         char cle[64] = "";
-        sprintf((char*)cle, "%s%d", "activationMachine", id);
+        sprintf((char*)cle, "%s%d", "activeMachine", id);
         preferences.putBool(cle, etat);
     }
     else
@@ -449,7 +487,7 @@ void StationLumineuse::setActivationPoubelle(int id, bool etat)
     {
         activationPoubelles[id] = etat;
         char cle[64] = "";
-        sprintf((char*)cle, "%s%d", "activationPoubelle", id);
+        sprintf((char*)cle, "%s%d", "activePoubelle", id);
         preferences.putBool(cle, etat);
     }
     else
@@ -520,19 +558,18 @@ bool StationLumineuse::getEtatPoubelle(int numeroPoubelle)
   * @details Modifie l'état de la poubelle spécifiée par son numéro. Si l'activation de la poubelle est activée et si l'identifiant de la poubelle est valide, 
   * l'état de la poubelle est mis à jour et enregistré dans les préférences. En fonction du nouvel état, la notification lumineuse de la poubelle est allumée ou éteinte.
   */
-void StationLumineuse::setEtatPoubelle(int numeroPoubelle, bool etat)
-{
-    if(activationPoubelles[numeroPoubelle])
-    {
+void StationLumineuse::setEtatPoubelle(int numeroPoubelle, bool etat) {
+    if(activationPoubelles[numeroPoubelle]) {
         if(!estIdValidePoubelle(numeroPoubelle))
             return;
         etatPoubelles[numeroPoubelle] = etat;
-        char cle[64]                  = "";
+        char cle[64] = "";
         sprintf((char*)cle, "%s%d", "poubelle", numeroPoubelle);
         preferences.putBool(cle, etatPoubelles[numeroPoubelle]);
-        if(etat)
+        if(etat && (getDateActuelle() - dateDerniereSortiePoubelles[numeroPoubelle]) >= intervallePoubelles[numeroPoubelle])
         {
             allumerNotificationPoubelle(numeroPoubelle);
+            dateDerniereSortiePoubelles[numeroPoubelle] = getDateActuelle();
         }
         else
         {
@@ -542,11 +579,14 @@ void StationLumineuse::setEtatPoubelle(int numeroPoubelle, bool etat)
 }
 
 /**
- * @brief Réinitialise l'état de la poubelle spécifiée
- * @fn void StationLumineuse::resetEtatPoubelles(int numeroPoubelle)
- * @param numeroPoubelle Numéro de la poubelle à réinitialiser
- * @details Rétablit l'état de la poubelle spécifiée par son numéro à la valeur par défaut (false). Enregistre cette valeur dans les préférences 
- * et éteint la notification lumineuse de la poubelle.
+ * @brief Modifie l'état de la poubelle donnée
+ * @fn StationLumineuse::setEtatPoubelle
+ * @param numeroPoubelle Le numéro de la poubelle à modifier
+ * @param etat Le nouvel état de la poubelle
+ * @details Cette méthode modifie l'état de la poubelle spécifiée. Si l'activation de la poubelle est activée et le numéro de poubelle est valide, 
+ * l'état de la poubelle est mis à jour et enregistré dans les préférences. Si l'état est vrai (poubelle sortie) et si la durée écoulée depuis la dernière sortie
+ *  de la poubelle est supérieure ou égale à l'intervalle spécifié pour cette poubelle, la notification de la poubelle est allumée et la date de la dernière 
+ * sortie est mise à jour. Sinon, la notification de la poubelle est éteinte.
  */
 void StationLumineuse::resetEtatPoubelles(int numeroPoubelle)
 {
