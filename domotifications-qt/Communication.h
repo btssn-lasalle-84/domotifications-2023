@@ -30,7 +30,9 @@ class Communication : public QObject
     Communication(QObject* parent = nullptr);
     ~Communication();
 
-    void envoyerRequetePost(QString api, const QByteArray& json);
+    void    envoyerRequetePost(QString api, const QByteArray& json);
+    QString getUrlStation();
+    void    setUrlStation(QString urlStation);
 
   public slots:
     void recupererNotifications();

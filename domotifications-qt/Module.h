@@ -36,20 +36,22 @@ class Module : public QObject
     bool       notifie;
 
   public:
-    Module(QString nomModule, Module::TypeModule type, int id, QObject* parent = nullptr);
+    Module(QString            nomModule,
+           Module::TypeModule type,
+           int                id,
+           bool               actif,
+           QObject*           parent = nullptr);
     ~Module();
-    /**
-     * @todo Ajouter accesseurs/mutateurs
-     */
-    int                getId() const;
-    QString            getNom() const;
-    Module::TypeModule getType() const;
-    bool               estActif() const;
-    bool               estNotifie() const;
-    void               setActif(bool actif);
-    void               setNotifie(bool notifie);
-    QString            recupererType();
-    static QString     getType(Module::TypeModule type);
+    int                       getId() const;
+    QString                   getNom() const;
+    Module::TypeModule        getType() const;
+    bool                      estActif() const;
+    bool                      estNotifie() const;
+    void                      setActif(bool actif);
+    void                      setNotifie(bool notifie);
+    QString                   recupererType();
+    static QString            getType(Module::TypeModule type);
+    static Module::TypeModule getType(QString type);
 };
 
 #endif // MODULE_H

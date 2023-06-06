@@ -12,6 +12,12 @@
 #include <QString>
 
 /**
+ * @def CONFIGURATION_APPLICATION
+ * @brief Le nom du fichier de configuration
+ */
+#define CONFIGURATION_APPLICATION "config.ini"
+
+/**
  * @def TITRE_APPLICATION
  * @brief Le nom de l'application dans la barre de titre
  */
@@ -57,6 +63,8 @@
 #define PERIODE_RECUPERATION_NOTIFICATIONS 10000 // en ms
 
 // Pour les tests
+// Pour définir la création initiale de modules
+//#define SIMULATION_MODULES
 //#define SANS_STATION
 //#define TEST_NOTIFICATIONS
 

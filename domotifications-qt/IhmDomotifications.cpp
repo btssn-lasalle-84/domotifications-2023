@@ -41,12 +41,14 @@ IHMDomotifications::~IHMDomotifications()
     delete imageBoutonActivation;
     delete imageBoutonDesactivation;
     delete imageBoutonAcquittement;
-    delete imageLogoBTS;
-    delete imageLogoParametre;
+    // delete imageLogoBTS;
+    // delete imageLogoParametre;
     for(int i = 0; i < poubelles.size(); i++)
     {
         delete imagesLogoPoubelle[i];
     }
+    delete imageLogoMachine;
+    delete imageLogoBoiteAuxLettres;
     qDebug() << Q_FUNC_INFO;
 }
 
@@ -61,6 +63,9 @@ IHMDomotifications::~IHMDomotifications()
  */
 void IHMDomotifications::visualiserNotification(QString message, TypeNotification type)
 {
+    Q_UNUSED(type)
+
+    // Seul type pris en charge actuellement
     QSystemTrayIcon::MessageIcon messageIcon =
       QSystemTrayIcon::MessageIcon(QSystemTrayIcon::Critical);
 
@@ -257,6 +262,7 @@ void IHMDomotifications::afficherBoutonActivation(QPushButton* boutonModule)
 void IHMDomotifications::afficherBoutonDesactivation(QPushButton* boutonModule)
 {
     boutonModule->setIcon(*iconeDesactivation);
+
     /*boutonModule->setIconSize(
       imageBoutonDesactivation->scaled(HAUTEUR_IMAGE, LARGEUR_IMAGE).size());
     boutonModule->setFixedSize(
@@ -343,6 +349,7 @@ int IHMDomotifications::recupererIdModule(QPushButton* boutonModule)
     {
         return 0;
     }
+    return 0; // supprime le warning
 }
 
 /**
@@ -622,6 +629,8 @@ void IHMDomotifications::gererBoutonActivationDesactivation()
 void IHMDomotifications::afficherEtatBoutonActivationDesactivation(QPushButton* boutonModule,
                                                                    int          id)
 {
+    qDebug() << Q_FUNC_INFO << "boutonModule" << boutonModule->objectName() << "id" << id << "actif"
+             << domotification->getActivationModule(boutonModule->objectName(), id);
     if(boutonModule == nullptr)
         return;
     if(domotification->getActivationModule(boutonModule->objectName(), id))

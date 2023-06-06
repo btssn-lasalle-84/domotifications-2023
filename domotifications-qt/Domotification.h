@@ -13,12 +13,10 @@
 #include <QString>
 #include <QVector>
 #include <QTimer>
+#include <QSettings>
 
 #include "Constantes.h"
 #include "Module.h"
-
-// Pour définir la création initiale de modules
-#define SIMULATION_MODULES
 
 class Module;
 class Communication;
@@ -46,6 +44,7 @@ class Domotification : public QObject
     QVector<Module*> getMachines() const;
     Module*          getBoite() const;
     void             chargerModules();
+    void             enregistrerModules();
     void             initialiserRecuperationNotifications();
 
   signals:
