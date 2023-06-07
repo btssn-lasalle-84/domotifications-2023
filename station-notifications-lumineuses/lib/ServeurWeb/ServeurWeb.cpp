@@ -37,6 +37,8 @@ void ServeurWeb::demarrer()
     // Installe les gestionnaires de requêtes
     on("/", HTTP_GET, std::bind(&ServeurWeb::afficherAccueil, this));
     on("/notifications", std::bind(&ServeurWeb::traiterRequeteGETNotifications, this));
+    on("/notification",std::bind(&ServeurWeb::traiterRequetePOSTNotifications, this));
+
 
     on("/activations", HTTP_GET, std::bind(&ServeurWeb::traiterRequeteGETActivations, this));
     on("/activation", HTTP_POST, std::bind(&ServeurWeb::traiterRequetePOSTActivation, this));
@@ -114,6 +116,7 @@ void ServeurWeb::installerGestionnairesRequetes()
 
     on("/", HTTP_GET, std::bind(&ServeurWeb::afficherAccueil, this));
     on("/notifications", std::bind(&ServeurWeb::traiterRequeteGETNotifications, this));
+    on("/notification",std::bind(&ServeurWeb::traiterRequetePOSTNotifications, this));
 
     on("/activations", HTTP_GET, std::bind(&ServeurWeb::traiterRequeteGETActivations, this));
     on("/activation", HTTP_POST, std::bind(&ServeurWeb::traiterRequetePOSTActivation, this));
@@ -195,6 +198,58 @@ void ServeurWeb::traiterRequeteGETNotifications()
     serializeJson(documentJSON, buffer);
     send(200, "application/json", buffer);
 }
+
+void ServeurWeb::traiterRequetePOSTNotifications()
+{
+#ifdef DEBUG_SERVEUR_WEB
+    Serial.print(F("ServeurWeb::traiterRequetePOSTNotifications() : requête = "));
+    Serial.println((method() == HTTP_POST) ? "POST" : "GET");
+    Serial.print(F("URI : "));
+    Serial.println(uri());
+#endif
+
+    if(method() == HTTP_POST)
+    {
+        documentJSON.clear();
+        documentJSON["boite"] = stationLumineuse->getEtatBoiteAuxLettres();
+        JsonArray machines    = documentJSON.createNestedArray("machines");
+        for(int i = 0; i < NB_LEDS_NOTIFICATION_MACHINES; ++i)
+        {
+            machines.add(stationLumineuse->getEtatMachine(i));
+        }
+        JsonArray poubelle = documentJSON.createNestedArray("poubelles");
+        for(int i = 0; i < NB_LEDS_NOTIFICATION_POUBELLES; ++i)
+        {
+            poubelle.add(stationLumineuse->getEtatPoubelle(i));
+        }
+
+#ifdef DEBUG_SERVEUR_WEB
+        Serial.print(F("JSON : "));
+        serializeJson(documentJSON, Serial);
+        Serial.println();
+#endif
+        char buffer[TAILLE_JSON];
+        serializeJson(documentJSON, buffer);
+        send(200, "application/json", buffer);
+    }
+    else
+    {
+        String message = "400 Bad Request\n\n";
+        message += "URI: ";
+        message += uri();
+        message += "\nMethod: ";
+        message += (method() == HTTP_POST) ? "POST" : "GET";
+        message += "\nArguments: ";
+        message += args();
+        message += "\n";
+        for(uint8_t i = 0; i < args(); i++)
+        {
+            message += " " + argName(i) + ": " + arg(i) + "\n";
+        }
+        send(400, "text/plain", message);
+    }
+}
+
 
 /**
   * @brief Traite une requête GET pour obtenir les états d'activation
