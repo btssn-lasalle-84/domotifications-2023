@@ -22,6 +22,10 @@ Domotification::Domotification(IHMDomotifications* ihm) :
     qDebug() << Q_FUNC_INFO;
     chargerModules();
     initialiserRecuperationNotifications();
+    connect(this,
+            SIGNAL(nouvelleNotification(QString)),
+            ihm,
+            SLOT(visualiserNotification(QString)));
 }
 
 /**
@@ -43,17 +47,14 @@ void Domotification::gererAcquittement(QString typeModule, int id)
     qDebug() << Q_FUNC_INFO << "typeModule" << typeModule << "id" << id << "indexModule"
              << indexModule;
 
-    if(modules[indexModule]->estActif())
+    if(modules[indexModule]->estActif() && modules[indexModule]->estNotifie())
     {
         QByteArray json = "{";
         json += "\"id\":" + QString::number(id) + QString(",") + "\"etat\":0" + "}";
 
         qDebug() << Q_FUNC_INFO << "api" << api << "json" << json;
         communication->envoyerRequetePost(api, json);
-        /**
-         * @todo Générer une requête HTTP pour récupérer l'état de l'acquittement de la notification
-et mettre à jour le module avec setNotifie()
-        */
+        modules[indexModule]->setNotifie(false);
     }
     else
     {
@@ -374,14 +375,12 @@ void Domotification::enregistrerModules()
 
 void Domotification::initialiserRecuperationNotifications()
 {
-    /**
-     * @todo Instancier le miniteur
-     */
-    /**
-     * @todo Connecter le signal timeout du minuteur au slot qui effectue la requête HTTP
-     * pour récupérer les notifications
-     */
-    /**
-     * @todo Démarrer le minuteur avec la PERIODE_RECUPERATION_NOTIFICATIONS
-     */
+    QTimer* minuteurRecuperationNotifications = new QTimer(this);
+
+    connect(minuteurRecuperationNotifications,
+            SIGNAL(timeout()),
+            communication,
+            SLOT(recupererNotifications()));
+
+    minuteurRecuperationNotifications->start(PERIODE_RECUPERATION_NOTIFICATIONS);
 }

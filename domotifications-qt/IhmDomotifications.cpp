@@ -53,7 +53,7 @@ IHMDomotifications::~IHMDomotifications()
 }
 
 /**
- * @brief Visualisation des notifications
+ * @brief Slot pour la visualisation des notifications
  *
  * @fn IHMDomotifications::visualiserNotification
  * @details Affiche une notification système avec un type de message et un message prédéfinis
@@ -61,15 +61,16 @@ IHMDomotifications::~IHMDomotifications()
  * @param message de la notification
  * @param type pour les différents types de notifications en fonction de la gravité
  */
-void IHMDomotifications::visualiserNotification(QString message, TypeNotification type)
+void IHMDomotifications::visualiserNotification(QString message)
 {
-    Q_UNUSED(type)
+    qDebug() << Q_FUNC_INFO << "message" << message;
 
-    // Seul type pris en charge actuellement
     QSystemTrayIcon::MessageIcon messageIcon =
       QSystemTrayIcon::MessageIcon(QSystemTrayIcon::Critical);
 
     iconeSysteme->showMessage(TITRE_APPLICATION, message, messageIcon);
+    qDebug() << Q_FUNC_INFO << "TITRE_APPLICATION" << TITRE_APPLICATION << "message" << message
+             << "messageIcon" << messageIcon;
 }
 
 /**
@@ -249,8 +250,8 @@ void IHMDomotifications::afficherBoutonsActivationDesactivation()
 void IHMDomotifications::afficherBoutonActivation(QPushButton* boutonModule)
 {
     boutonModule->setIcon(*iconeActivation);
-    /*boutonModule->setIconSize(imageBoutonActivation->scaled(HAUTEUR_IMAGE, LARGEUR_IMAGE).size());
-    boutonModule->setFixedSize(imageBoutonActivation->scaled(HAUTEUR_IMAGE,
+    /*boutonModule->setIconSize(imageBoutonAmessageIconctivation->scaled(HAUTEUR_IMAGE,
+    LARGEUR_IMAGE).size()); boutonModule->setFixedSize(imageBoutonActivation->scaled(HAUTEUR_IMAGE,
     LARGEUR_IMAGE).size());*/
 }
 
@@ -563,10 +564,7 @@ void IHMDomotifications::initialiserSignauxSlots()
 #ifdef TEST_NOTIFICATIONS
     // connect(boutonParametres, SIGNAL(clicked(bool)), this, SLOT(testerNotification()));
 #endif
-    connect(domotification,
-            SIGNAL(nouvelleNotification(QString)),
-            this,
-            SLOT(visualiserNotification(QString)));
+
     // les boutons d'activation/désactivation des modules
     for(int index = 0; index < poubelles.size(); index++)
     {

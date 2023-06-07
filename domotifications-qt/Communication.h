@@ -12,14 +12,21 @@
 #include <QObject>
 #include <QString>
 #include <QtNetwork/QNetworkAccessManager>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonArray>
 
 #include "Constantes.h"
+#include "Domotification.h"
+
+class Domotification;
 
 class Communication : public QObject
 {
     Q_OBJECT
 
   private:
+    Domotification*        domotification;
     QNetworkAccessManager* accesReseau;
     QNetworkReply*         reponseReseau;
     QString                urlStation;

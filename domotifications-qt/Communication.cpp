@@ -56,7 +56,7 @@ QString Communication::getUrlStation()
 
 /**
  * @brief Modifie l'URL de la station
- * @fn Communication::setUrlStation
+ * @fn Communication::se-tUrlStation
  * @param urlStation
  */
 void Communication::setUrlStation(QString urlStation)
@@ -70,7 +70,16 @@ void Communication::setUrlStation(QString urlStation)
  */
 void Communication::recupererNotifications()
 {
-    QString api = "notifications";
+    QString         api = "notifications";
+    QNetworkRequest requetePost;
+    QUrl            url(URL_STATION + api);
+    requetePost.setUrl(url);
+    requetePost.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
+    requetePost.setRawHeader("Content-Type", "application/json");
+    qDebug() << Q_FUNC_INFO << "url" << url;
+#ifndef SANS_STATION
+    reponseReseau = accesReseau->get(requetePost);
+#endif
 
     traiterReponseStation(reponseReseau);
 }
@@ -83,4 +92,52 @@ void Communication::traiterReponseStation(QNetworkReply* reponseStation)
 {
     QByteArray donneesReponse = reponseStation->readAll();
     qDebug() << Q_FUNC_INFO << "donneesReponse" << donneesReponse;
+
+    QJsonDocument jsonDocument = QJsonDocument::fromJson(donneesReponse);
+    QJsonObject   jsonObject   = jsonDocument.object();
+
+    bool boite = jsonObject["boite"].toBool();
+    if(boite)
+    {
+        domotification->notifier(NOTIFICATION_BOITE);
+    }
+
+    QJsonArray machinesArray = jsonObject["machines"].toArray();
+    for(int i = 0; i < machinesArray.size(); ++i)
+    {
+        bool machine = machinesArray.at(i).toBool();
+        if(machine)
+        {
+            domotification->notifier(NOTIFICATION_MACHINE);
+        }
+    }
+
+    QJsonArray poubellesArray = jsonObject["poubelles"].toArray();
+    for(int i = 0; i < poubellesArray.size(); ++i)
+    {
+        bool poubelle = poubellesArray.at(i).toBool();
+        if(poubelle)
+        {
+            switch(i)
+            {
+                case 0:
+                    domotification->notifier(NOTIFICATION_POUBELLE_BLEUE);
+                    break;
+                case 1:
+                    domotification->notifier(NOTIFICATION_POUBELLE_VERTE);
+                    break;
+                case 2:
+                    domotification->notifier(NOTIFICATION_POUBELLE_JAUNE);
+                    break;
+                case 3:
+                    domotification->notifier(NOTIFICATION_POUBELLE_ROUGE);
+                    break;
+                case 4:
+                    domotification->notifier(NOTIFICATION_POUBELLE_GRISE);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
 }

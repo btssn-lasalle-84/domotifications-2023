@@ -29,6 +29,16 @@
  */
 #define NOM_STATION QString("station-lumineuse.local")
 
+#define NOTIFICATION_BOITE QString("La boite est pleine !")
+
+#define NOTIFICATION_MACHINE QString("La machine est finie !")
+
+#define NOTIFICATION_POUBELLE_GRISE QString("La Poubelle grise est pleine !")
+#define NOTIFICATION_POUBELLE_JAUNE QString("La Poubelle jaune est pleine !")
+#define NOTIFICATION_POUBELLE_VERTE QString("La Poubelle verte est pleine !")
+#define NOTIFICATION_POUBELLE_BLEUE QString("La Poubelle bleue est pleine !")
+#define NOTIFICATION_POUBELLE_ROUGE QString("La Poubelle rouge est pleine !")
+
 /**
  * @def URL_STATION
  * @brief L'URL de la station de notifications
