@@ -599,19 +599,23 @@ void ServeurWeb::traiterRequeteGETMachine()
     }
     else
     {
-        String message = "400 Bad Request\n\n";
-        message += "URI: ";
-        message += uri();
-        message += "\nMethod: ";
-        message += (method() == HTTP_GET) ? "GET" : "POST";
-        message += "\nArguments: ";
-        message += args();
-        message += "\n";
-        for(uint8_t i = 0; i < args(); i++)
+        // Construire le JSON de réponse
+        String jsonResponse = "{ \"machines\": {";
+        for(int i = 0; i < NB_LEDS_NOTIFICATION_MACHINES; ++i)
         {
-            message += " " + argName(i) + ": " + arg(i) + "\n";
+            bool etat = stationLumineuse->getEtatMachine(i);
+            jsonResponse += "\"";
+            jsonResponse += i;
+            jsonResponse += "\": ";
+            jsonResponse += etat ? "true" : "false";
+
+            if(i < NB_LEDS_NOTIFICATION_MACHINES - 1)
+            {
+                jsonResponse += ",";
+            }
         }
-        send(400, "text/plain", message);
+        jsonResponse += "} }";
+        send(200, "application/json", jsonResponse);
     }
 }
 
@@ -769,19 +773,23 @@ void ServeurWeb::traiterRequeteGETPoubelle()
     }
     else
     {
-        String message = "400 Bad Request\n\n";
-        message += "URI: ";
-        message += uri();
-        message += "\nMethod: ";
-        message += (method() == HTTP_GET) ? "GET" : "POST";
-        message += "\nArguments: ";
-        message += args();
-        message += "\n";
-        for(uint8_t i = 0; i < args(); i++)
+        // Construire le JSON de réponse
+        String jsonResponse = "{ \"poubelles\": {";
+        for(int i = 0; i < NB_LEDS_NOTIFICATION_POUBELLES; ++i)
         {
-            message += " " + argName(i) + ": " + arg(i) + "\n";
+            bool etat = stationLumineuse->getEtatPoubelle(i);
+            jsonResponse += "\"";
+            jsonResponse += i;
+            jsonResponse += "\": ";
+            jsonResponse += etat ? "true" : "false";
+
+            if(i < NB_LEDS_NOTIFICATION_POUBELLES - 1)
+            {
+                jsonResponse += ",";
+            }
         }
-        send(400, "text/plain", message);
+        jsonResponse += "} }";
+        send(200, "application/json", jsonResponse);
     }
 }
 
