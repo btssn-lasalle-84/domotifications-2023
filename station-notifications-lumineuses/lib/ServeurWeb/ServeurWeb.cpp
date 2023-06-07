@@ -199,6 +199,14 @@ void ServeurWeb::traiterRequeteGETNotifications()
     send(200, "application/json", buffer);
 }
 
+/**
+  * @brief Traite une requête POST pour obtenir les états de notification
+  * @fn ServeurWeb::traiterRequetePOSTNotifications
+  * @details Cette méthode traite une requête POST pour obtenir les états de notification de la station lumineuse. Si la requête est de type POST,
+  * elle récupère les états de notification de la boîte aux lettres, des machines et des poubelles à l'aide des méthodes appropriées de la classe
+  * StationLumineuse, puis les stocke dans un document JSON. Le document JSON est ensuite envoyé en réponse à la requête. Si la requête n'est pas de type
+  * POST, une réponse "400 Bad Request" est renvoyée.
+    */
 void ServeurWeb::traiterRequetePOSTNotifications()
 {
 #ifdef DEBUG_SERVEUR_WEB
