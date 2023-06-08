@@ -33,12 +33,13 @@ Communication::~Communication()
 void Communication::envoyerRequetePost(QString api, const QByteArray& json)
 {
     QNetworkRequest requetePost;
-    QUrl            url(urlStation + api);
+    QUrl            url = this->urlStation.resolved(QUrl(api));
     requetePost.setUrl(url);
     requetePost.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
     requetePost.setRawHeader("Content-Type", "application/json");
     requetePost.setRawHeader("Content-Length", QByteArray::number(json.size()));
     qDebug() << Q_FUNC_INFO << "url" << url << "json" << json;
+    requeteApi = api;
 #ifndef SANS_STATION
     accesReseau->post(requetePost, json);
 #endif
@@ -49,17 +50,17 @@ void Communication::envoyerRequetePost(QString api, const QByteArray& json)
  * @fn Communication::getUrlStation
  * @return QString
  */
-QString Communication::getUrlStation()
+QUrl Communication::getUrlStation()
 {
     return this->urlStation;
 }
 
 /**
  * @brief Modifie l'URL de la station
- * @fn Communication::se-tUrlStation
+ * @fn Communication::setUrlStation
  * @param urlStation
  */
-void Communication::setUrlStation(QString urlStation)
+void Communication::setUrlStation(QUrl urlStation)
 {
     this->urlStation = urlStation;
 }
@@ -71,17 +72,17 @@ void Communication::setUrlStation(QString urlStation)
 void Communication::recupererNotifications()
 {
     QString         api = "notifications";
-    QNetworkRequest requetePost;
-    QUrl            url(URL_STATION + api);
-    requetePost.setUrl(url);
-    requetePost.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
-    requetePost.setRawHeader("Content-Type", "application/json");
+    QNetworkRequest requeteGet;
+    QUrl            url = this->urlStation.resolved(QUrl(api));
+    requeteGet.setUrl(url);
+    // requeteGet.setHeader(QNetworkRequest::ContentTypeHeader,
+    // "application/x-www-form-urlencoded");
+    // requeteGet.setRawHeader("Content-Type", "application/json");
     qDebug() << Q_FUNC_INFO << "url" << url;
+    requeteApi = api;
 #ifndef SANS_STATION
-    reponseReseau = accesReseau->get(requetePost);
+    reponseReseau = accesReseau->get(requeteGet);
 #endif
-
-    traiterReponseStation(reponseReseau);
 }
 
 /**
@@ -93,51 +94,49 @@ void Communication::traiterReponseStation(QNetworkReply* reponseStation)
     QByteArray donneesReponse = reponseStation->readAll();
     qDebug() << Q_FUNC_INFO << "donneesReponse" << donneesReponse;
 
-    QJsonDocument jsonDocument = QJsonDocument::fromJson(donneesReponse);
-    QJsonObject   jsonObject   = jsonDocument.object();
+    /*
+     {
+        "boite":true,
+        "machines":[false,false,false,false,false,false],
+        "poubelles":[false,false,false,false,false]
+     }
+     */
 
-    bool boite = jsonObject["boite"].toBool();
-    if(boite)
-    {
-        domotification->notifier(NOTIFICATION_BOITE);
-    }
+    QJsonDocument documentJson = QJsonDocument::fromJson(donneesReponse);
+    QJsonObject   objetJson    = documentJson.object();
 
-    QJsonArray machinesArray = jsonObject["machines"].toArray();
-    for(int i = 0; i < machinesArray.size(); ++i)
+    if(objetJson.contains("boite") && objetJson.contains("machines") &&
+       objetJson.contains("poubelles"))
     {
-        bool machine = machinesArray.at(i).toBool();
-        if(machine)
+        QJsonArray    etatsPoubelles = objetJson["poubelles"].toArray();
+        QVector<bool> poubelles;
+        for(int i = 0; i < etatsPoubelles.size(); ++i)
         {
-            domotification->notifier(NOTIFICATION_MACHINE);
+            poubelles.push_back(etatsPoubelles.at(i).toBool());
         }
-    }
+        qDebug() << Q_FUNC_INFO << "poubelles" << poubelles;
 
-    QJsonArray poubellesArray = jsonObject["poubelles"].toArray();
-    for(int i = 0; i < poubellesArray.size(); ++i)
-    {
-        bool poubelle = poubellesArray.at(i).toBool();
-        if(poubelle)
+        QJsonArray    etatsMachines = objetJson["machines"].toArray();
+        QVector<bool> machines;
+        for(int i = 0; i < etatsMachines.size(); i++)
         {
-            switch(i)
-            {
-                case 0:
-                    domotification->notifier(NOTIFICATION_POUBELLE_BLEUE);
-                    break;
-                case 1:
-                    domotification->notifier(NOTIFICATION_POUBELLE_VERTE);
-                    break;
-                case 2:
-                    domotification->notifier(NOTIFICATION_POUBELLE_JAUNE);
-                    break;
-                case 3:
-                    domotification->notifier(NOTIFICATION_POUBELLE_ROUGE);
-                    break;
-                case 4:
-                    domotification->notifier(NOTIFICATION_POUBELLE_GRISE);
-                    break;
-                default:
-                    break;
-            }
+            machines.push_back(etatsMachines.at(i).toBool());
+        }
+        qDebug() << Q_FUNC_INFO << "machines" << machines;
+
+        bool boite = objetJson["boite"].toBool();
+
+        qDebug() << Q_FUNC_INFO << "boite" << boite;
+
+        if(requeteApi == "notifications")
+        {
+            emit etatsNotifications(machines, poubelles, boite);
+            requeteApi.clear();
+        }
+        else if(requeteApi == "activations")
+        {
+            // emit etatsActivations(machines, poubelles, boite);
+            requeteApi.clear();
         }
     }
 }

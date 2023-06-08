@@ -281,28 +281,16 @@ void IHMDomotifications::afficherBoutonAcquittement()
     {
         boutonsAcquittementMachine[i]->setIcon(*iconeAcquittement);
         gererEtatBoutonAcquittement(boutonsAcquittementMachine[i], i);
-        /*boutonsAcquittementMachine[i]->setIconSize(
-          imageBoutonAcquittement->scaled(HAUTEUR_IMAGE, LARGEUR_IMAGE).size());
-        boutonsAcquittementMachine[i]->setFixedSize(
-          imageBoutonAcquittement->scaled(HAUTEUR_IMAGE, LARGEUR_IMAGE).size());*/
     }
 
     for(auto i = 0; i < poubelles.size(); i++)
     {
         boutonsAcquittementPoubelle[i]->setIcon(*iconeAcquittement);
         gererEtatBoutonAcquittement(boutonsAcquittementPoubelle[i], i);
-        /*boutonsAcquittementPoubelle[i]->setIconSize(
-          imageBoutonAcquittement->scaled(HAUTEUR_IMAGE, LARGEUR_IMAGE).size());
-        boutonsAcquittementPoubelle[i]->setFixedSize(
-          imageBoutonAcquittement->scaled(HAUTEUR_IMAGE, LARGEUR_IMAGE).size());*/
     }
 
     boutonAcquittementBoiteAuxLettres->setIcon(*iconeAcquittement);
     gererEtatBoutonAcquittement(boutonAcquittementBoiteAuxLettres, 0);
-    /*boutonAcquittementBoiteAuxLettres->setIconSize(
-      imageBoutonAcquittement->scaled(HAUTEUR_IMAGE, LARGEUR_IMAGE).size());
-    boutonAcquittementBoiteAuxLettres->setFixedSize(
-      imageBoutonAcquittement->scaled(HAUTEUR_IMAGE, LARGEUR_IMAGE).size());*/
 }
 
 /**
@@ -560,9 +548,12 @@ void IHMDomotifications::afficherIconeBarreDesTaches()
 void IHMDomotifications::initialiserSignauxSlots()
 {
     connect(iconeSysteme, SIGNAL(messageClicked()), this, SLOT(acquitterNotification()));
-
+    connect(domotification,
+            SIGNAL(nouvelleNotification(QString)),
+            this,
+            SLOT(visualiserNotification(QString)));
 #ifdef TEST_NOTIFICATIONS
-    // connect(boutonParametres, SIGNAL(clicked(bool)), this, SLOT(testerNotification()));
+    connect(boutonParametres, SIGNAL(clicked(bool)), this, SLOT(testerNotification()));
 #endif
 
     // les boutons d'activation/désactivation des modules
@@ -647,11 +638,11 @@ void IHMDomotifications::gererEtatBoutonAcquittement(QPushButton* boutonModule, 
         return;
     if(domotification->getNotificationModule(boutonModule->objectName(), id))
     {
-        boutonModule->setEnabled(true);
+        boutonModule->setEnabled(false);
     }
     else
     {
-        boutonModule->setEnabled(false);
+        boutonModule->setEnabled(true);
     }
 }
 

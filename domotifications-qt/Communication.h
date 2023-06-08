@@ -29,17 +29,17 @@ class Communication : public QObject
     Domotification*        domotification;
     QNetworkAccessManager* accesReseau;
     QNetworkReply*         reponseReseau;
-    QString                urlStation;
+    QUrl                   urlStation;
     int                    httpPort;
-    QString                requeteJSON;
+    QString                requeteApi;
 
   public:
     Communication(QObject* parent = nullptr);
     ~Communication();
 
-    void    envoyerRequetePost(QString api, const QByteArray& json);
-    QString getUrlStation();
-    void    setUrlStation(QString urlStation);
+    void envoyerRequetePost(QString api, const QByteArray& json);
+    QUrl getUrlStation();
+    void setUrlStation(QUrl urlStation);
 
   public slots:
     void recupererNotifications();
