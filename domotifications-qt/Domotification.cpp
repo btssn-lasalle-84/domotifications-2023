@@ -42,6 +42,9 @@ Domotification::~Domotification()
 
 void Domotification::gererAcquittement(QString typeModule, int id)
 {
+    /**
+     * @todo Actualiser les boutons d'acquittements sur l'ihm en fonction de l'état du module
+     */
     QString api         = typeModule;
     int     indexModule = recupererIndexModule(typeModule, id);
     qDebug() << Q_FUNC_INFO << "typeModule" << typeModule << "id" << id << "indexModule"
@@ -153,6 +156,9 @@ bool Domotification::getNotificationModule(QString typeModule, int id)
                      << modules[i]->estNotifie();
             return modules[i]->estNotifie();
         }
+        /**
+         * @todo Actualiser les boutons d'acquittements sur l'ihm en fonction de l'état du module
+         */
     }
     return false;
 }
