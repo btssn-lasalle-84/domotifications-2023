@@ -22,6 +22,10 @@ Domotification::Domotification(IHMDomotifications* ihm) :
     qDebug() << Q_FUNC_INFO;
     chargerModules();
     initialiserRecuperationNotifications();
+    connect(communication,
+            SIGNAL(etatsNotifications(QVector<bool>, QVector<bool>, bool)),
+            this,
+            SLOT(gererNotifications(QVector<bool>, QVector<bool>, bool)));
 }
 
 /**
@@ -38,22 +42,22 @@ Domotification::~Domotification()
 
 void Domotification::gererAcquittement(QString typeModule, int id)
 {
+    /**
+     * @todo Actualiser les boutons d'acquittements sur l'ihm en fonction de l'état du module
+     */
     QString api         = typeModule;
     int     indexModule = recupererIndexModule(typeModule, id);
     qDebug() << Q_FUNC_INFO << "typeModule" << typeModule << "id" << id << "indexModule"
              << indexModule;
 
-    if(modules[indexModule]->estActif())
+    if(modules[indexModule]->estActif() && modules[indexModule]->estNotifie())
     {
         QByteArray json = "{";
         json += "\"id\":" + QString::number(id) + QString(",") + "\"etat\":0" + "}";
 
         qDebug() << Q_FUNC_INFO << "api" << api << "json" << json;
         communication->envoyerRequetePost(api, json);
-        /**
-         * @todo Générer une requête HTTP pour récupérer l'état de l'acquittement de la notification
-et mettre à jour le module avec setNotifie()
-        */
+        modules[indexModule]->setNotifie(false);
     }
     else
     {
@@ -152,6 +156,9 @@ bool Domotification::getNotificationModule(QString typeModule, int id)
                      << modules[i]->estNotifie();
             return modules[i]->estNotifie();
         }
+        /**
+         * @todo Actualiser les boutons d'acquittements sur l'ihm en fonction de l'état du module
+         */
     }
     return false;
 }
@@ -163,13 +170,58 @@ bool Domotification::getNotificationModule(QString typeModule, int id)
  * @param poubelles
  * @param boite
  */
-void Domotification::gererNotifications(QVector<bool> machines, QVector<bool> poubelles, bool boite)
+void Domotification::gererNotifications(QVector<bool> etatsmachines,
+                                        QVector<bool> etatspoubelles,
+                                        bool          etatboite)
 {
-    qDebug() << Q_FUNC_INFO;
-    /**
-     * @todo Gérer les états des notifications reçues de la station et détecter si un ou
-     * plusieurs états sont à notifier (IHM).
-     */
+    qDebug() << Q_FUNC_INFO << "etatsmachines" << etatsmachines << "poubelles" << etatspoubelles
+             << "etatboite" << etatboite;
+    for(auto i = 0; i < etatspoubelles.size(); i++)
+    {
+        if(etatspoubelles[i])
+        {
+            switch(i)
+            {
+                case 0:
+                    getPoubelles()[0]->setNotifie(true);
+                    notifier(NOTIFICATION_POUBELLE_BLEUE);
+                    break;
+                case 1:
+                    getPoubelles()[1]->setNotifie(true);
+                    notifier(NOTIFICATION_POUBELLE_VERTE);
+                    break;
+                case 2:
+                    getPoubelles()[2]->setNotifie(true);
+                    notifier(NOTIFICATION_POUBELLE_JAUNE);
+                    break;
+                case 3:
+                    getPoubelles()[3]->setNotifie(true);
+                    notifier(NOTIFICATION_POUBELLE_ROUGE);
+                    break;
+                case 4:
+                    getPoubelles()[4]->setNotifie(true);
+                    notifier(NOTIFICATION_POUBELLE_GRISE);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+    for(auto i = 0; i < etatsmachines.size(); i++)
+    {
+        if(etatsmachines[i])
+        {
+            getMachines()[i]->setNotifie(true);
+            notifier(NOTIFICATION_MACHINE);
+            qDebug() << Q_FUNC_INFO << "etatNotificationMachines" << getMachines()[i]->estNotifie();
+            getNotificationModule("machine", i);
+        }
+    }
+    if(etatboite)
+    {
+        getBoite()->setNotifie(true);
+        notifier(NOTIFICATION_BOITE);
+    }
 }
 
 /**
@@ -260,13 +312,13 @@ Module* Domotification::getBoite() const
 void Domotification::chargerModules()
 {
     QSettings parametres(CONFIGURATION_APPLICATION, QSettings::IniFormat);
-    QString   urlStation = parametres.value("Domotifications/station").toString();
+    QUrl      urlStation = parametres.value("Domotifications/station").toUrl();
     communication->setUrlStation(urlStation);
     int nombrePoubelles = parametres.value("Poubelles/nb").toInt();
     int nombreMachines  = parametres.value("Machines/nb").toInt();
     int nombreBoite     = parametres.value("BoiteAuxLettres/nb").toInt();
     qDebug() << Q_FUNC_INFO << "nombrePoubelles" << nombrePoubelles << "nombreMachines"
-             << nombreMachines << "nombreBoite" << nombreBoite;
+             << nombreMachines << "nombreBoite" << nombreBoite << "urlStation" << urlStation;
     /**
      * @todo Supprimer la clé "actif" et assurer la récupération de l'état via la station
      */
@@ -369,19 +421,18 @@ void Domotification::enregistrerModules()
                  << boite->estActif();
     }
 
-    parametres.setValue(QString("Domotifications") + "/station", communication->getUrlStation());
+    parametres.setValue(QString("Domotifications") + "/station",
+                        communication->getUrlStation().toString());
 }
 
 void Domotification::initialiserRecuperationNotifications()
 {
-    /**
-     * @todo Instancier le miniteur
-     */
-    /**
-     * @todo Connecter le signal timeout du minuteur au slot qui effectue la requête HTTP
-     * pour récupérer les notifications
-     */
-    /**
-     * @todo Démarrer le minuteur avec la PERIODE_RECUPERATION_NOTIFICATIONS
-     */
+    QTimer* minuteurRecuperationNotifications = new QTimer(this);
+
+    connect(minuteurRecuperationNotifications,
+            SIGNAL(timeout()),
+            communication,
+            SLOT(recupererNotifications()));
+
+    minuteurRecuperationNotifications->start(PERIODE_RECUPERATION_NOTIFICATIONS);
 }

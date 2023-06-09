@@ -105,6 +105,8 @@ void Module::setActif(bool actif)
  */
 void Module::setNotifie(bool notifie)
 {
+    qDebug() << Q_FUNC_INFO << "id" << id << "nom" << nom << "TypeModule" << type << "actif"
+             << notifie << this;
     this->notifie = notifie;
 }
 
