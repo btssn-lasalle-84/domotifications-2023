@@ -5,13 +5,17 @@
 # Le projet domotifications 2023
 
 - [Le projet domotifications 2023](#le-projet-domotifications-2023)
+  - [Fonctionnalités](#fonctionnalit%C3%A9s)
   - [Documentation du code](#documentation-du-code)
-  - [Versions](#versions)
+  - [Présentations](#pr%C3%A9sentations)
+  - [Vidéo](#vid%C3%A9o)
+  - [Diagramme de classes](#diagramme-de-classes)
+  - [Protocole](#protocole)
+  - [Screenshots](#screenshots)
+  - [Historique des versions](#historique-des-versions)
     - [1.0](#10)
     - [0.2](#02)
     - [0.1](#01)
-  - [Diagramme de classes](#diagramme-de-classes)
-  - [Protocole](#protocole)
   - [Auteurs](#auteurs)
 
 ---
@@ -28,60 +32,64 @@ La [station de notifications lumineuses](station-notifications-lumineuses/README
 
 ![](images/modules.png)
 
+## Fonctionnalités
+
 La [station de notifications lumineuses](station-notifications-lumineuses/README.md) assure la visualisation des notifications lumineuses.
 
 ![](images/uc-station.png)
+
+| Fonctionnalité   | OUI | NON |
+| ------------------------- |:-----:|:-----:|
+| Afficher une notification | X |  |
+| Acquitter une notification | X |  |
+| Traiter les requêtes GET et POST | X |  |
+| Dialoguer avec l’IHM | X |  |
+| Dialoguer les modules | X |  |
+| Activer/Désactiver un module | X |  |
 
 L’application PC Desktop permet de configurer l’ensemble du système, activer/désactiver un module et afficher/acquitter une notification.
 
 ![](images/uc-desktop.png)
 
+| Fonctionnalité   | OUI | NON |
+| ------------------------- |:-----:|:-----:|
+| Configurer le système | X |  |
+| Acquitter une notification | X |  |
+| Activer/Désactiver un module | X |  |
+| Afficher une notification | X |  |
+| Dialoguer avec la station lumineuse | X |  |
 
 ## Documentation du code
 
 https://btssn-lasalle-84.github.io/domotifications-2023/
 
-## Versions
+## Présentations
 
-![](images/livraisons.png)
+Diaporamas étudiants IR :
 
-### 1.0
+- Alexis VAILLEN (ESP32) : [Revue finale - VAILLEN.pptx](./diaporamas/Revue%20finale%20-%20VAILLEN.pptx)
+- Mathieu MOYAERTS (Application Qt) : [Revue finale - MOYAERTS.pptx](./diaporamas/Revue%20finale%20-%20MOYAERTS.pptx)
 
-![](images/roadbook.png)
 
-![](images/screenshot-qt-domotifications-v1.0.png)
+## Vidéo
 
-![](images/screenshot-qt-notification-v1.0.png)
-
-![](images/station.png)
-
-### 0.2
-
-![](images/jira-tickets-v0.2.png)
-
-![](images/screenshot-qt-domotifications-v0.2.png)
-
-### 0.1
-
-![](images/jira-tickets-v0.1.png)
+https://www.youtube.com/@projets-btssn-lasalle84
 
 ## Diagramme de classes
 
 - Qt :
 
-![](images/dc-qt.png)
+![](images/dc-domotifications-qt.png)
 
 - Station (ESP32) :
 
-![](images/dc-esp32.png)
+![](images/dc-domotifications-esp32.png)
 
 ## Protocole
 
 - [Protocole HTTP Domotifications.pdf](docs/Protocole%20HTTP%20Domotifications.pdf)
 
-![](images/domotifications-requetes-http-1.png)
-
-![](images/domotifications-requetes-http-2.png)
+![](images/domotifications-requetes-http.png)
 
 Exemple :
 
@@ -93,6 +101,30 @@ $ curl -X GET "http://station-lumineuse.local/poubelle?id=0&etat=1"
 $ curl http://station-lumineuse.local/notifications
 {"boite":false,"machines":[true,false,false,false,false,false],"poubelle":[ true,false,false,false,false]}
 ```
+
+## Screenshots
+
+![](images/screenshot-qt-domotifications-v1.1.png)
+
+![](images/screenshot-qt-notification-v1.0.png)
+
+![](images/station.png)
+
+## Historique des versions
+
+![](images/livraisons.png)
+
+### 1.0
+
+![](images/jira-tickets-v1.0.png)
+
+### 0.2
+
+![](images/jira-tickets-v0.2.png)
+
+### 0.1
+
+![](images/jira-tickets-v0.1.png)
 
 ## Auteurs
 
