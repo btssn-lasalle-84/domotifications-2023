@@ -27,7 +27,7 @@
   <td id="projectlogo"><img alt="Logo" src="projet-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Projet domotifications
-   &#160;<span id="projectnumber">1.0</span>
+   &#160;<span id="projectnumber">1.1</span>
    </div>
    <div id="projectbrief">BTS SNIR LaSalle Avignon 2023</div>
   </td>
@@ -92,90 +92,107 @@ $(document).ready(function(){initNavTree('_module_8cpp_source.html',''); initRes
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_module_8h.html">Module.h</a>&quot;</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;QDebug&gt;</span></div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="class_module.html#a8e169414669873404e85c4bac72b2e46">   20</a></span>&#160;<a class="code" href="class_module.html#a8e169414669873404e85c4bac72b2e46">Module::Module</a>(QString nomModule, <a class="code" href="class_module.html#a90e85ec6cf97a3cbae4a1ced05918f95">Module::TypeModule</a> type, <span class="keywordtype">int</span> <span class="keywordtype">id</span>, <a class="code" href="class_q_object.html">QObject</a>* parent) :</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <a class="code" href="class_q_object.html">QObject</a>(parent), id(id), nom(nomModule), type(type), actif(true), notifie(false)</div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="class_module.html#a6a685b6c828efead748911f9c1338a4a">   20</a></span>&#160;<a class="code" href="class_module.html#a6a685b6c828efead748911f9c1338a4a">Module::Module</a>(QString nomModule, <a class="code" href="class_module.html#a90e85ec6cf97a3cbae4a1ced05918f95">Module::TypeModule</a> type, <span class="keywordtype">int</span> <span class="keywordtype">id</span>, <span class="keywordtype">bool</span> actif, <a class="code" href="class_q_object.html">QObject</a>* parent) :</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <a class="code" href="class_q_object.html">QObject</a>(parent), id(id), nom(nomModule), type(type), actif(actif), notifie(false)</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;{</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    qDebug() &lt;&lt; Q_FUNC_INFO &lt;&lt; <span class="stringliteral">&quot;id&quot;</span> &lt;&lt; <span class="keywordtype">id</span> &lt;&lt; <span class="stringliteral">&quot;nomModule&quot;</span> &lt;&lt; nomModule &lt;&lt; <span class="stringliteral">&quot;TypeModule&quot;</span> &lt;&lt; <a class="code" href="class_module.html#af08e5256f194c94b73869db300684c5c">type</a>;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;}</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="class_module.html#a7c9d9c096786d127590fdd8aa2b7d681">   31</a></span>&#160;<a class="code" href="class_module.html#a7c9d9c096786d127590fdd8aa2b7d681">Module::~Module</a>()</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;{</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    qDebug() &lt;&lt; Q_FUNC_INFO &lt;&lt; <span class="stringliteral">&quot;id&quot;</span> &lt;&lt; <span class="keywordtype">id</span> &lt;&lt; <span class="stringliteral">&quot;nomModule&quot;</span> &lt;&lt; <a class="code" href="class_module.html#ad0bf9e3ccf9fe8a81471218f623c82c1">nom</a> &lt;&lt; <span class="stringliteral">&quot;TypeModule&quot;</span> &lt;&lt; <a class="code" href="class_module.html#af08e5256f194c94b73869db300684c5c">type</a>;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;}</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="class_module.html#a5b98ee69de08ef6fae32580cfb36744c">   41</a></span>&#160;<span class="keywordtype">int</span> <a class="code" href="class_module.html#a5b98ee69de08ef6fae32580cfb36744c">Module::getId</a>()<span class="keyword"> const</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="keyword"></span>{</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="class_module.html#ac7bb470526ebe0c25781e5e6a0a97c09">id</a>;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;}</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="class_module.html#a1cb7dde43e97fbb22553d935bca50944">   51</a></span>&#160;QString <a class="code" href="class_module.html#a1cb7dde43e97fbb22553d935bca50944">Module::getNom</a>()<span class="keyword"> const</span></div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="keyword"></span>{</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="class_module.html#ad0bf9e3ccf9fe8a81471218f623c82c1">nom</a>;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;}</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="class_module.html#ad118116221977dcf7ed04d3df4239838">   62</a></span>&#160;<a class="code" href="class_module.html#a90e85ec6cf97a3cbae4a1ced05918f95">Module::TypeModule</a> <a class="code" href="class_module.html#ad118116221977dcf7ed04d3df4239838">Module::getType</a>()<span class="keyword"> const</span></div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="keyword"></span>{</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="class_module.html#af08e5256f194c94b73869db300684c5c">type</a>;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;}</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno"><a class="line" href="class_module.html#a6dec861218496b7700140fbc34233f73">   73</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="class_module.html#a6dec861218496b7700140fbc34233f73">Module::estActif</a>()<span class="keyword"> const</span></div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="keyword"></span>{</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="class_module.html#afd56e824505f1af8fcbd9b76a681d4bd">actif</a>;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;}</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
-<div class="line"><a name="l00083"></a><span class="lineno"><a class="line" href="class_module.html#a07eb0d63b2e46789a70f014507c695a0">   83</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="class_module.html#a07eb0d63b2e46789a70f014507c695a0">Module::estNotifie</a>()<span class="keyword"> const</span></div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="keyword"></span>{</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="class_module.html#a96229cbf993fbd8c8a61c295ba8c1da0">notifie</a>;</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;}</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
-<div class="line"><a name="l00093"></a><span class="lineno"><a class="line" href="class_module.html#a65c4843bc7e7b08950678a5cf66719a1">   93</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="class_module.html#a65c4843bc7e7b08950678a5cf66719a1">Module::setActif</a>(<span class="keywordtype">bool</span> actif)</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;{</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    this-&gt;actif = <a class="code" href="class_module.html#afd56e824505f1af8fcbd9b76a681d4bd">actif</a>;</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;}</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
-<div class="line"><a name="l00103"></a><span class="lineno"><a class="line" href="class_module.html#a2e4fb2e347cc8d7e42afe1125e673ed3">  103</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="class_module.html#a2e4fb2e347cc8d7e42afe1125e673ed3">Module::setNotifie</a>(<span class="keywordtype">bool</span> notifie)</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;{</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    this-&gt;notifie = <a class="code" href="class_module.html#a96229cbf993fbd8c8a61c295ba8c1da0">notifie</a>;</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;}</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160; </div>
-<div class="line"><a name="l00113"></a><span class="lineno"><a class="line" href="class_module.html#a7824fca317c222d09dd77c89a5eb2244">  113</a></span>&#160;QString <a class="code" href="class_module.html#a7824fca317c222d09dd77c89a5eb2244">Module::recupererType</a>()</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;{</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="class_module.html#ad118116221977dcf7ed04d3df4239838">getType</a>(<a class="code" href="class_module.html#af08e5256f194c94b73869db300684c5c">type</a>);</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;}</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; </div>
-<div class="line"><a name="l00124"></a><span class="lineno"><a class="line" href="class_module.html#aff6dc77e0596be7d13764f43e1a56ad9">  124</a></span>&#160;QString <a class="code" href="class_module.html#ad118116221977dcf7ed04d3df4239838">Module::getType</a>(<a class="code" href="class_module.html#a90e85ec6cf97a3cbae4a1ced05918f95">Module::TypeModule</a> type)</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;{</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    <span class="keywordflow">switch</span>(<a class="code" href="class_module.html#af08e5256f194c94b73869db300684c5c">type</a>)</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    {</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;        <span class="keywordflow">case</span> Module::TypeModule::Machine:</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;            <span class="keywordflow">return</span> QString(<span class="stringliteral">&quot;machine&quot;</span>);</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;            <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;        <span class="keywordflow">case</span> Module::TypeModule::Poubelle:</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;            <span class="keywordflow">return</span> QString(<span class="stringliteral">&quot;poubelle&quot;</span>);</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;            <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;        <span class="keywordflow">case</span> Module::TypeModule::BoiteAuxLettres:</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;            <span class="keywordflow">return</span> QString(<span class="stringliteral">&quot;boite&quot;</span>);</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;            <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;        <span class="keywordflow">default</span>:</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;            <span class="keywordflow">return</span> QString();</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;            <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    }</div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;}</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    qDebug() &lt;&lt; Q_FUNC_INFO &lt;&lt; <span class="stringliteral">&quot;id&quot;</span> &lt;&lt; <span class="keywordtype">id</span> &lt;&lt; <span class="stringliteral">&quot;nomModule&quot;</span> &lt;&lt; nomModule &lt;&lt; <span class="stringliteral">&quot;TypeModule&quot;</span> &lt;&lt; <a class="code" href="class_module.html#af08e5256f194c94b73869db300684c5c">type</a></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;             &lt;&lt; <span class="stringliteral">&quot;actif&quot;</span> &lt;&lt; <a class="code" href="class_module.html#afd56e824505f1af8fcbd9b76a681d4bd">actif</a>;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;}</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="class_module.html#a7c9d9c096786d127590fdd8aa2b7d681">   32</a></span>&#160;<a class="code" href="class_module.html#a7c9d9c096786d127590fdd8aa2b7d681">Module::~Module</a>()</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;{</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    qDebug() &lt;&lt; Q_FUNC_INFO &lt;&lt; <span class="stringliteral">&quot;id&quot;</span> &lt;&lt; <span class="keywordtype">id</span> &lt;&lt; <span class="stringliteral">&quot;nomModule&quot;</span> &lt;&lt; <a class="code" href="class_module.html#ad0bf9e3ccf9fe8a81471218f623c82c1">nom</a> &lt;&lt; <span class="stringliteral">&quot;TypeModule&quot;</span> &lt;&lt; <a class="code" href="class_module.html#af08e5256f194c94b73869db300684c5c">type</a>;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;}</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="class_module.html#a5b98ee69de08ef6fae32580cfb36744c">   42</a></span>&#160;<span class="keywordtype">int</span> <a class="code" href="class_module.html#a5b98ee69de08ef6fae32580cfb36744c">Module::getId</a>()<span class="keyword"> const</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="keyword"></span>{</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="class_module.html#ac7bb470526ebe0c25781e5e6a0a97c09">id</a>;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;}</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="class_module.html#a1cb7dde43e97fbb22553d935bca50944">   52</a></span>&#160;QString <a class="code" href="class_module.html#a1cb7dde43e97fbb22553d935bca50944">Module::getNom</a>()<span class="keyword"> const</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="keyword"></span>{</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="class_module.html#ad0bf9e3ccf9fe8a81471218f623c82c1">nom</a>;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;}</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="class_module.html#ad118116221977dcf7ed04d3df4239838">   63</a></span>&#160;<a class="code" href="class_module.html#a90e85ec6cf97a3cbae4a1ced05918f95">Module::TypeModule</a> <a class="code" href="class_module.html#ad118116221977dcf7ed04d3df4239838">Module::getType</a>()<span class="keyword"> const</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="keyword"></span>{</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="class_module.html#af08e5256f194c94b73869db300684c5c">type</a>;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;}</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
+<div class="line"><a name="l00074"></a><span class="lineno"><a class="line" href="class_module.html#a6dec861218496b7700140fbc34233f73">   74</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="class_module.html#a6dec861218496b7700140fbc34233f73">Module::estActif</a>()<span class="keyword"> const</span></div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="keyword"></span>{</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="class_module.html#afd56e824505f1af8fcbd9b76a681d4bd">actif</a>;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;}</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
+<div class="line"><a name="l00084"></a><span class="lineno"><a class="line" href="class_module.html#a07eb0d63b2e46789a70f014507c695a0">   84</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="class_module.html#a07eb0d63b2e46789a70f014507c695a0">Module::estNotifie</a>()<span class="keyword"> const</span></div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="keyword"></span>{</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="class_module.html#a96229cbf993fbd8c8a61c295ba8c1da0">notifie</a>;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;}</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
+<div class="line"><a name="l00094"></a><span class="lineno"><a class="line" href="class_module.html#a65c4843bc7e7b08950678a5cf66719a1">   94</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="class_module.html#a65c4843bc7e7b08950678a5cf66719a1">Module::setActif</a>(<span class="keywordtype">bool</span> actif)</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;{</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    qDebug() &lt;&lt; Q_FUNC_INFO &lt;&lt; <span class="stringliteral">&quot;id&quot;</span> &lt;&lt; <span class="keywordtype">id</span> &lt;&lt; <span class="stringliteral">&quot;nom&quot;</span> &lt;&lt; <a class="code" href="class_module.html#ad0bf9e3ccf9fe8a81471218f623c82c1">nom</a> &lt;&lt; <span class="stringliteral">&quot;TypeModule&quot;</span> &lt;&lt; <a class="code" href="class_module.html#af08e5256f194c94b73869db300684c5c">type</a> &lt;&lt; <span class="stringliteral">&quot;actif&quot;</span></div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;             &lt;&lt; <a class="code" href="class_module.html#afd56e824505f1af8fcbd9b76a681d4bd">actif</a> &lt;&lt; <span class="keyword">this</span>;</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    this-&gt;actif = <a class="code" href="class_module.html#afd56e824505f1af8fcbd9b76a681d4bd">actif</a>;</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;}</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
+<div class="line"><a name="l00106"></a><span class="lineno"><a class="line" href="class_module.html#a2e4fb2e347cc8d7e42afe1125e673ed3">  106</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="class_module.html#a2e4fb2e347cc8d7e42afe1125e673ed3">Module::setNotifie</a>(<span class="keywordtype">bool</span> notifie)</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;{</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    qDebug() &lt;&lt; Q_FUNC_INFO &lt;&lt; <span class="stringliteral">&quot;id&quot;</span> &lt;&lt; <span class="keywordtype">id</span> &lt;&lt; <span class="stringliteral">&quot;nom&quot;</span> &lt;&lt; <a class="code" href="class_module.html#ad0bf9e3ccf9fe8a81471218f623c82c1">nom</a> &lt;&lt; <span class="stringliteral">&quot;TypeModule&quot;</span> &lt;&lt; <a class="code" href="class_module.html#af08e5256f194c94b73869db300684c5c">type</a> &lt;&lt; <span class="stringliteral">&quot;actif&quot;</span></div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;             &lt;&lt; <a class="code" href="class_module.html#a96229cbf993fbd8c8a61c295ba8c1da0">notifie</a> &lt;&lt; <span class="keyword">this</span>;</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    this-&gt;notifie = <a class="code" href="class_module.html#a96229cbf993fbd8c8a61c295ba8c1da0">notifie</a>;</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;}</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
+<div class="line"><a name="l00118"></a><span class="lineno"><a class="line" href="class_module.html#a7824fca317c222d09dd77c89a5eb2244">  118</a></span>&#160;QString <a class="code" href="class_module.html#a7824fca317c222d09dd77c89a5eb2244">Module::recupererType</a>()</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;{</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="class_module.html#ad118116221977dcf7ed04d3df4239838">getType</a>(<a class="code" href="class_module.html#af08e5256f194c94b73869db300684c5c">type</a>);</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;}</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160; </div>
+<div class="line"><a name="l00129"></a><span class="lineno"><a class="line" href="class_module.html#aff6dc77e0596be7d13764f43e1a56ad9">  129</a></span>&#160;QString <a class="code" href="class_module.html#ad118116221977dcf7ed04d3df4239838">Module::getType</a>(<a class="code" href="class_module.html#a90e85ec6cf97a3cbae4a1ced05918f95">Module::TypeModule</a> type)</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;{</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    <span class="keywordflow">switch</span>(<a class="code" href="class_module.html#af08e5256f194c94b73869db300684c5c">type</a>)</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    {</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;        <span class="keywordflow">case</span> Module::TypeModule::Machine:</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;            <span class="keywordflow">return</span> QString(<span class="stringliteral">&quot;machine&quot;</span>);</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;            <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;        <span class="keywordflow">case</span> Module::TypeModule::Poubelle:</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;            <span class="keywordflow">return</span> QString(<span class="stringliteral">&quot;poubelle&quot;</span>);</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;            <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;        <span class="keywordflow">case</span> Module::TypeModule::BoiteAuxLettres:</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;            <span class="keywordflow">return</span> QString(<span class="stringliteral">&quot;boite&quot;</span>);</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;            <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;        <span class="keywordflow">default</span>:</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;            <span class="keywordflow">return</span> QString();</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;            <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    }</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;}</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160; </div>
+<div class="line"><a name="l00148"></a><span class="lineno"><a class="line" href="class_module.html#ad25f46a082194f45ccf8a5ae19ddd59b">  148</a></span>&#160;<a class="code" href="class_module.html#a90e85ec6cf97a3cbae4a1ced05918f95">Module::TypeModule</a> <a class="code" href="class_module.html#ad118116221977dcf7ed04d3df4239838">Module::getType</a>(QString type)</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;{</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;    QVector&lt;QString&gt; typesModule = { <span class="stringliteral">&quot;inconnu&quot;</span>, <span class="stringliteral">&quot;boite&quot;</span>, <span class="stringliteral">&quot;machine&quot;</span>, <span class="stringliteral">&quot;poubelle&quot;</span> };</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160; </div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i = 0; i &lt; typesModule.size(); i++)</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    {</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;        <span class="keywordflow">if</span>(<a class="code" href="class_module.html#af08e5256f194c94b73869db300684c5c">type</a> == typesModule[i])</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="class_module.html#a90e85ec6cf97a3cbae4a1ced05918f95">Module::TypeModule</a>(i);</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    }</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;    <span class="keywordflow">return</span> Module::TypeModule::Inconnu;</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;}</div>
 <div class="ttc" id="a_module_8h_html"><div class="ttname"><a href="_module_8h.html">Module.h</a></div><div class="ttdoc">Déclaration de la classe Module.</div></div>
-<div class="ttc" id="aclass_module_html_a07eb0d63b2e46789a70f014507c695a0"><div class="ttname"><a href="class_module.html#a07eb0d63b2e46789a70f014507c695a0">Module::estNotifie</a></div><div class="ttdeci">bool estNotifie() const</div><div class="ttdoc">Retourne l'état de notification.</div><div class="ttdef"><b>Definition:</b> <a href="_module_8cpp_source.html#l00083">Module.cpp:83</a></div></div>
-<div class="ttc" id="aclass_module_html_a1cb7dde43e97fbb22553d935bca50944"><div class="ttname"><a href="class_module.html#a1cb7dde43e97fbb22553d935bca50944">Module::getNom</a></div><div class="ttdeci">QString getNom() const</div><div class="ttdoc">Retourne le nom du module.</div><div class="ttdef"><b>Definition:</b> <a href="_module_8cpp_source.html#l00051">Module.cpp:51</a></div></div>
-<div class="ttc" id="aclass_module_html_a2e4fb2e347cc8d7e42afe1125e673ed3"><div class="ttname"><a href="class_module.html#a2e4fb2e347cc8d7e42afe1125e673ed3">Module::setNotifie</a></div><div class="ttdeci">void setNotifie(bool notifie)</div><div class="ttdoc">Change l'attribut notifie d'un module.</div><div class="ttdef"><b>Definition:</b> <a href="_module_8cpp_source.html#l00103">Module.cpp:103</a></div></div>
-<div class="ttc" id="aclass_module_html_a5b98ee69de08ef6fae32580cfb36744c"><div class="ttname"><a href="class_module.html#a5b98ee69de08ef6fae32580cfb36744c">Module::getId</a></div><div class="ttdeci">int getId() const</div><div class="ttdoc">retourn l'id du module</div><div class="ttdef"><b>Definition:</b> <a href="_module_8cpp_source.html#l00041">Module.cpp:41</a></div></div>
-<div class="ttc" id="aclass_module_html_a65c4843bc7e7b08950678a5cf66719a1"><div class="ttname"><a href="class_module.html#a65c4843bc7e7b08950678a5cf66719a1">Module::setActif</a></div><div class="ttdeci">void setActif(bool actif)</div><div class="ttdoc">Change l'attribut actif d'un module.</div><div class="ttdef"><b>Definition:</b> <a href="_module_8cpp_source.html#l00093">Module.cpp:93</a></div></div>
-<div class="ttc" id="aclass_module_html_a6dec861218496b7700140fbc34233f73"><div class="ttname"><a href="class_module.html#a6dec861218496b7700140fbc34233f73">Module::estActif</a></div><div class="ttdeci">bool estActif() const</div><div class="ttdoc">retourne l'état du module</div><div class="ttdef"><b>Definition:</b> <a href="_module_8cpp_source.html#l00073">Module.cpp:73</a></div></div>
-<div class="ttc" id="aclass_module_html_a7824fca317c222d09dd77c89a5eb2244"><div class="ttname"><a href="class_module.html#a7824fca317c222d09dd77c89a5eb2244">Module::recupererType</a></div><div class="ttdeci">QString recupererType()</div><div class="ttdoc">Retourne le type de module sous forme de QString.</div><div class="ttdef"><b>Definition:</b> <a href="_module_8cpp_source.html#l00113">Module.cpp:113</a></div></div>
-<div class="ttc" id="aclass_module_html_a7c9d9c096786d127590fdd8aa2b7d681"><div class="ttname"><a href="class_module.html#a7c9d9c096786d127590fdd8aa2b7d681">Module::~Module</a></div><div class="ttdeci">~Module()</div><div class="ttdoc">Destructeur de la classe Module.</div><div class="ttdef"><b>Definition:</b> <a href="_module_8cpp_source.html#l00031">Module.cpp:31</a></div></div>
-<div class="ttc" id="aclass_module_html_a8e169414669873404e85c4bac72b2e46"><div class="ttname"><a href="class_module.html#a8e169414669873404e85c4bac72b2e46">Module::Module</a></div><div class="ttdeci">Module(QString nomModule, Module::TypeModule type, int id, QObject *parent=nullptr)</div><div class="ttdoc">Constructeur de la classe Module.</div><div class="ttdef"><b>Definition:</b> <a href="_module_8cpp_source.html#l00020">Module.cpp:20</a></div></div>
+<div class="ttc" id="aclass_module_html_a07eb0d63b2e46789a70f014507c695a0"><div class="ttname"><a href="class_module.html#a07eb0d63b2e46789a70f014507c695a0">Module::estNotifie</a></div><div class="ttdeci">bool estNotifie() const</div><div class="ttdoc">Retourne l'état de notification.</div><div class="ttdef"><b>Definition:</b> <a href="_module_8cpp_source.html#l00084">Module.cpp:84</a></div></div>
+<div class="ttc" id="aclass_module_html_a1cb7dde43e97fbb22553d935bca50944"><div class="ttname"><a href="class_module.html#a1cb7dde43e97fbb22553d935bca50944">Module::getNom</a></div><div class="ttdeci">QString getNom() const</div><div class="ttdoc">Retourne le nom du module.</div><div class="ttdef"><b>Definition:</b> <a href="_module_8cpp_source.html#l00052">Module.cpp:52</a></div></div>
+<div class="ttc" id="aclass_module_html_a2e4fb2e347cc8d7e42afe1125e673ed3"><div class="ttname"><a href="class_module.html#a2e4fb2e347cc8d7e42afe1125e673ed3">Module::setNotifie</a></div><div class="ttdeci">void setNotifie(bool notifie)</div><div class="ttdoc">Change l'attribut notifie d'un module.</div><div class="ttdef"><b>Definition:</b> <a href="_module_8cpp_source.html#l00106">Module.cpp:106</a></div></div>
+<div class="ttc" id="aclass_module_html_a5b98ee69de08ef6fae32580cfb36744c"><div class="ttname"><a href="class_module.html#a5b98ee69de08ef6fae32580cfb36744c">Module::getId</a></div><div class="ttdeci">int getId() const</div><div class="ttdoc">retourn l'id du module</div><div class="ttdef"><b>Definition:</b> <a href="_module_8cpp_source.html#l00042">Module.cpp:42</a></div></div>
+<div class="ttc" id="aclass_module_html_a65c4843bc7e7b08950678a5cf66719a1"><div class="ttname"><a href="class_module.html#a65c4843bc7e7b08950678a5cf66719a1">Module::setActif</a></div><div class="ttdeci">void setActif(bool actif)</div><div class="ttdoc">Change l'attribut actif d'un module.</div><div class="ttdef"><b>Definition:</b> <a href="_module_8cpp_source.html#l00094">Module.cpp:94</a></div></div>
+<div class="ttc" id="aclass_module_html_a6a685b6c828efead748911f9c1338a4a"><div class="ttname"><a href="class_module.html#a6a685b6c828efead748911f9c1338a4a">Module::Module</a></div><div class="ttdeci">Module(QString nomModule, Module::TypeModule type, int id, bool actif, QObject *parent=nullptr)</div><div class="ttdoc">Constructeur de la classe Module.</div><div class="ttdef"><b>Definition:</b> <a href="_module_8cpp_source.html#l00020">Module.cpp:20</a></div></div>
+<div class="ttc" id="aclass_module_html_a6dec861218496b7700140fbc34233f73"><div class="ttname"><a href="class_module.html#a6dec861218496b7700140fbc34233f73">Module::estActif</a></div><div class="ttdeci">bool estActif() const</div><div class="ttdoc">retourne l'état du module</div><div class="ttdef"><b>Definition:</b> <a href="_module_8cpp_source.html#l00074">Module.cpp:74</a></div></div>
+<div class="ttc" id="aclass_module_html_a7824fca317c222d09dd77c89a5eb2244"><div class="ttname"><a href="class_module.html#a7824fca317c222d09dd77c89a5eb2244">Module::recupererType</a></div><div class="ttdeci">QString recupererType()</div><div class="ttdoc">Retourne le type de module sous forme de QString.</div><div class="ttdef"><b>Definition:</b> <a href="_module_8cpp_source.html#l00118">Module.cpp:118</a></div></div>
+<div class="ttc" id="aclass_module_html_a7c9d9c096786d127590fdd8aa2b7d681"><div class="ttname"><a href="class_module.html#a7c9d9c096786d127590fdd8aa2b7d681">Module::~Module</a></div><div class="ttdeci">~Module()</div><div class="ttdoc">Destructeur de la classe Module.</div><div class="ttdef"><b>Definition:</b> <a href="_module_8cpp_source.html#l00032">Module.cpp:32</a></div></div>
 <div class="ttc" id="aclass_module_html_a90e85ec6cf97a3cbae4a1ced05918f95"><div class="ttname"><a href="class_module.html#a90e85ec6cf97a3cbae4a1ced05918f95">Module::TypeModule</a></div><div class="ttdeci">TypeModule</div><div class="ttdoc">Les différents types de module.</div><div class="ttdef"><b>Definition:</b> <a href="_module_8h_source.html#l00023">Module.h:24</a></div></div>
 <div class="ttc" id="aclass_module_html_a96229cbf993fbd8c8a61c295ba8c1da0"><div class="ttname"><a href="class_module.html#a96229cbf993fbd8c8a61c295ba8c1da0">Module::notifie</a></div><div class="ttdeci">bool notifie</div><div class="ttdef"><b>Definition:</b> <a href="_module_8h_source.html#l00036">Module.h:36</a></div></div>
 <div class="ttc" id="aclass_module_html_ac7bb470526ebe0c25781e5e6a0a97c09"><div class="ttname"><a href="class_module.html#ac7bb470526ebe0c25781e5e6a0a97c09">Module::id</a></div><div class="ttdeci">int id</div><div class="ttdef"><b>Definition:</b> <a href="_module_8h_source.html#l00032">Module.h:32</a></div></div>
 <div class="ttc" id="aclass_module_html_ad0bf9e3ccf9fe8a81471218f623c82c1"><div class="ttname"><a href="class_module.html#ad0bf9e3ccf9fe8a81471218f623c82c1">Module::nom</a></div><div class="ttdeci">QString nom</div><div class="ttdef"><b>Definition:</b> <a href="_module_8h_source.html#l00033">Module.h:33</a></div></div>
-<div class="ttc" id="aclass_module_html_ad118116221977dcf7ed04d3df4239838"><div class="ttname"><a href="class_module.html#ad118116221977dcf7ed04d3df4239838">Module::getType</a></div><div class="ttdeci">Module::TypeModule getType() const</div><div class="ttdef"><b>Definition:</b> <a href="_module_8cpp_source.html#l00062">Module.cpp:62</a></div></div>
+<div class="ttc" id="aclass_module_html_ad118116221977dcf7ed04d3df4239838"><div class="ttname"><a href="class_module.html#ad118116221977dcf7ed04d3df4239838">Module::getType</a></div><div class="ttdeci">Module::TypeModule getType() const</div><div class="ttdef"><b>Definition:</b> <a href="_module_8cpp_source.html#l00063">Module.cpp:63</a></div></div>
 <div class="ttc" id="aclass_module_html_af08e5256f194c94b73869db300684c5c"><div class="ttname"><a href="class_module.html#af08e5256f194c94b73869db300684c5c">Module::type</a></div><div class="ttdeci">TypeModule type</div><div class="ttdef"><b>Definition:</b> <a href="_module_8h_source.html#l00034">Module.h:34</a></div></div>
 <div class="ttc" id="aclass_module_html_afd56e824505f1af8fcbd9b76a681d4bd"><div class="ttname"><a href="class_module.html#afd56e824505f1af8fcbd9b76a681d4bd">Module::actif</a></div><div class="ttdeci">bool actif</div><div class="ttdef"><b>Definition:</b> <a href="_module_8h_source.html#l00035">Module.h:35</a></div></div>
 <div class="ttc" id="aclass_q_object_html"><div class="ttname"><a href="class_q_object.html">QObject</a></div></div>
@@ -186,7 +203,7 @@ $(document).ready(function(){initNavTree('_module_8cpp_source.html',''); initRes
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_b9428594c0a642b61ab4082ecaceb181.html">domotifications-qt</a></li><li class="navelem"><a class="el" href="_module_8cpp.html">Module.cpp</a></li>
-    <li class="footer"><img class="footer" src="lasalle-logo.png" height="31" alt="La Salle Avignon"/>&nbsp;<b>Campus La Salle Avignon</b>&nbsp;-&nbsp;9 Rue Notre Dame des 7 douleurs&nbsp;-&nbsp;BP 50165&nbsp;-&nbsp;84008 Avignon&nbsp;-&nbsp;Généré le Dimanche 28 Mai 2023 09:59:08 pour Projet domotifications par&nbsp;<a href="https://www.doxygen.org/index.html">doxygen</a>&nbsp;1.9.1&nbsp;</li>
+    <li class="footer"><img class="footer" src="lasalle-logo.png" height="31" alt="La Salle Avignon"/>&nbsp;<b>Campus La Salle Avignon</b>&nbsp;-&nbsp;9 Rue Notre Dame des 7 douleurs&nbsp;-&nbsp;BP 50165&nbsp;-&nbsp;84008 Avignon&nbsp;-&nbsp;Généré le Lundi 19 Juin 2023 22:26:24 pour Projet domotifications par&nbsp;<a href="https://www.doxygen.org/index.html">doxygen</a>&nbsp;1.9.1&nbsp;</li>
   </ul>
 </div>
 </body>

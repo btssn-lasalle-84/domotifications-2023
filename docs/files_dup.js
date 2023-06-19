@@ -6,7 +6,9 @@ var files_dup =
     ] ],
     [ "Constantes.h", "_constantes_8h.html", "_constantes_8h" ],
     [ "Domotification.cpp", "_domotification_8cpp.html", null ],
-    [ "Domotification.h", "_domotification_8h.html", "_domotification_8h" ],
+    [ "Domotification.h", "_domotification_8h.html", [
+      [ "Domotification", "class_domotification.html", "class_domotification" ]
+    ] ],
     [ "IhmDomotifications.cpp", "_ihm_domotifications_8cpp.html", null ],
     [ "IhmDomotifications.h", "_ihm_domotifications_8h.html", [
       [ "IHMDomotifications", "class_i_h_m_domotifications.html", "class_i_h_m_domotifications" ]

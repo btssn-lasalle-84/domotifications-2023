@@ -27,7 +27,7 @@
   <td id="projectlogo"><img alt="Logo" src="projet-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Projet domotifications
-   &#160;<span id="projectnumber">1.0</span>
+   &#160;<span id="projectnumber">1.1</span>
    </div>
    <div id="projectbrief">BTS SNIR LaSalle Avignon 2023</div>
   </td>
@@ -231,11 +231,17 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 
 
 <h3><a id="index_d"></a>- d -</h3><ul>
+<li>dateDerniereSortiePoubelles
+: <a class="el" href="class_station_lumineuse.html#a839646f077bc873f1c83ef3bd2134754">StationLumineuse</a>
+</li>
 <li>demarrer()
 : <a class="el" href="class_serveur_web.html#a7147869e70008982dd3e2985326db7a2">ServeurWeb</a>
 </li>
 <li>documentJSON
 : <a class="el" href="class_serveur_web.html#a4566392acbd1940336f6a527ba44af75">ServeurWeb</a>
+</li>
+<li>domotification
+: <a class="el" href="class_communication.html#a67faec74fc625c4a898d2851bc89152d">Communication</a>
 </li>
 <li>Domotification()
 : <a class="el" href="class_domotification.html#a75b02bee2f32fb067a2c793e4ec3d7cc">Domotification</a>
@@ -247,6 +253,9 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 
 
 <h3><a id="index_e"></a>- e -</h3><ul>
+<li>enregistrerModules()
+: <a class="el" href="class_domotification.html#adbb06dc8cacc8779d166fdc22297c351">Domotification</a>
+</li>
 <li>envoyerRequetePost()
 : <a class="el" href="class_communication.html#a4a85eb1a29b7fd8c33362ffaee099956">Communication</a>
 </li>
@@ -332,6 +341,9 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 <li>getBoite()
 : <a class="el" href="class_domotification.html#a8f1dba6878539be73c79e1d76109574c">Domotification</a>
 </li>
+<li>getDateActuelle()
+: <a class="el" href="class_station_lumineuse.html#a1063161cb5450c4b50632ed47e08ec44">StationLumineuse</a>
+</li>
 <li>getEtatBoiteAuxLettres()
 : <a class="el" href="class_station_lumineuse.html#addecd2769104656ca44254d78d4e313e">StationLumineuse</a>
 </li>
@@ -358,6 +370,9 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 </li>
 <li>getType()
 : <a class="el" href="class_module.html#ad118116221977dcf7ed04d3df4239838">Module</a>
+</li>
+<li>getUrlStation()
+: <a class="el" href="class_communication.html#a3430c2f326467d852c42bfb0b22e49d9">Communication</a>
 </li>
 </ul>
 
@@ -451,6 +466,9 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 <li>installerGestionnairesRequetes()
 : <a class="el" href="class_serveur_web.html#a60f62c9f2a9f49f38870f745c92aea5c">ServeurWeb</a>
 </li>
+<li>intervallePoubelles
+: <a class="el" href="class_station_lumineuse.html#a7dadbd9bafaf1de096ee6b7651f9772d">StationLumineuse</a>
+</li>
 </ul>
 
 
@@ -517,7 +535,7 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 : <a class="el" href="class_domotification.html#a81f45c1966035711c1bd5f1d41429dc2">Domotification</a>
 </li>
 <li>Module()
-: <a class="el" href="class_module.html#a8e169414669873404e85c4bac72b2e46">Module</a>
+: <a class="el" href="class_module.html#a6a685b6c828efead748911f9c1338a4a">Module</a>
 </li>
 <li>modules
 : <a class="el" href="class_domotification.html#ace4f5c3061739c5e4d19db164e882708">Domotification</a>
@@ -582,8 +600,8 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 <li>reponseReseau
 : <a class="el" href="class_communication.html#a31ff273a956ddf2b60a51b6e38c34022">Communication</a>
 </li>
-<li>requeteJSON
-: <a class="el" href="class_communication.html#a2eeadc5667a84a49e547738dab5baf1b">Communication</a>
+<li>requeteApi
+: <a class="el" href="class_communication.html#ad6a9714fa997dedd36a5330c4f213177">Communication</a>
 </li>
 <li>resetEtatBoiteAuxLettres()
 : <a class="el" href="class_station_lumineuse.html#af30790faec73ba1a8eb884d7bef8c3ee">StationLumineuse</a>
@@ -620,13 +638,19 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 : <a class="el" href="class_station_lumineuse.html#a1c3667b92c082b8a5de643c9dcf22dd2">StationLumineuse</a>
 </li>
 <li>setEtatPoubelle()
-: <a class="el" href="class_station_lumineuse.html#aee2d61f8cad8bd21600e6754c6f73c9f">StationLumineuse</a>
+: <a class="el" href="class_station_lumineuse.html#a5a09a0b83d2f6a2a00a59dca474c551e">StationLumineuse</a>
+</li>
+<li>setIntervallePoubelle()
+: <a class="el" href="class_station_lumineuse.html#a8772904cf41c80da4b7cf8037e61a98e">StationLumineuse</a>
 </li>
 <li>setNom()
 : <a class="el" href="class_serveur_web.html#ab533334d7ff03f38d7e36bae6a34891e">ServeurWeb</a>
 </li>
 <li>setNotifie()
 : <a class="el" href="class_module.html#a2e4fb2e347cc8d7e42afe1125e673ed3">Module</a>
+</li>
+<li>setUrlStation()
+: <a class="el" href="class_communication.html#a67c836628f628b69be0299fa10d633dc">Communication</a>
 </li>
 <li>stationLumineuse
 : <a class="el" href="class_serveur_web.html#a8d37983975578b93e06b8792eb5943c4">ServeurWeb</a>
@@ -665,6 +689,9 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 <li>traiterRequetePOSTBoite()
 : <a class="el" href="class_serveur_web.html#aae07d478b576b3bb9c71f2d5e3a8c36e">ServeurWeb</a>
 </li>
+<li>traiterRequetePOSTIntervallePoubelle()
+: <a class="el" href="class_serveur_web.html#a302b90fb3105d2ce5b770bb0aea76d37">ServeurWeb</a>
+</li>
 <li>traiterRequetePOSTMachine()
 : <a class="el" href="class_serveur_web.html#af7eadfab5c95b0789003a5c436998638">ServeurWeb</a>
 </li>
@@ -691,14 +718,14 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 : <a class="el" href="class_i_h_m_domotifications.html#af6a2bcd786ef083364b59bf691efcd4a">IHMDomotifications</a>
 </li>
 <li>urlStation
-: <a class="el" href="class_communication.html#a3cc84dc448afe3ab5ca3ab623a809b70">Communication</a>
+: <a class="el" href="class_communication.html#ab4c227142a66909fdc21e0300242d66e">Communication</a>
 </li>
 </ul>
 
 
 <h3><a id="index_v"></a>- v -</h3><ul>
 <li>visualiserNotification()
-: <a class="el" href="class_i_h_m_domotifications.html#af02e4c5ad78de81b7566ca5247f99db1">IHMDomotifications</a>
+: <a class="el" href="class_i_h_m_domotifications.html#abe5daa955f2b1d2c337fcb57672de13d">IHMDomotifications</a>
 </li>
 </ul>
 
@@ -733,7 +760,7 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer"><img class="footer" src="lasalle-logo.png" height="31" alt="La Salle Avignon"/>&nbsp;<b>Campus La Salle Avignon</b>&nbsp;-&nbsp;9 Rue Notre Dame des 7 douleurs&nbsp;-&nbsp;BP 50165&nbsp;-&nbsp;84008 Avignon&nbsp;-&nbsp;Généré le Dimanche 28 Mai 2023 09:59:08 pour Projet domotifications par&nbsp;<a href="https://www.doxygen.org/index.html">doxygen</a>&nbsp;1.9.1&nbsp;</li>
+    <li class="footer"><img class="footer" src="lasalle-logo.png" height="31" alt="La Salle Avignon"/>&nbsp;<b>Campus La Salle Avignon</b>&nbsp;-&nbsp;9 Rue Notre Dame des 7 douleurs&nbsp;-&nbsp;BP 50165&nbsp;-&nbsp;84008 Avignon&nbsp;-&nbsp;Généré le Lundi 19 Juin 2023 22:26:24 pour Projet domotifications par&nbsp;<a href="https://www.doxygen.org/index.html">doxygen</a>&nbsp;1.9.1&nbsp;</li>
   </ul>
 </div>
 </body>

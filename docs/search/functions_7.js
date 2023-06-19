@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['main_352',['main',['../domotifications-qt_2main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97',1,'main.cpp']]],
-  ['module_353',['Module',['../class_module.html#a8e169414669873404e85c4bac72b2e46',1,'Module']]]
+  ['main_369',['main',['../domotifications-qt_2main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97',1,'main.cpp']]],
+  ['module_370',['Module',['../class_module.html#a6a685b6c828efead748911f9c1338a4a',1,'Module']]]
 ];

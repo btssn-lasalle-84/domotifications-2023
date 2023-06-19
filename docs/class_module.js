@@ -6,7 +6,7 @@ var class_module =
       [ "Machine", "class_module.html#a90e85ec6cf97a3cbae4a1ced05918f95a5be02fb77d47bd9853c9771be28a6fee", null ],
       [ "Poubelle", "class_module.html#a90e85ec6cf97a3cbae4a1ced05918f95ad216244c46a3d108be774f60734f3533", null ]
     ] ],
-    [ "Module", "class_module.html#a8e169414669873404e85c4bac72b2e46", null ],
+    [ "Module", "class_module.html#a6a685b6c828efead748911f9c1338a4a", null ],
     [ "~Module", "class_module.html#a7c9d9c096786d127590fdd8aa2b7d681", null ],
     [ "estActif", "class_module.html#a6dec861218496b7700140fbc34233f73", null ],
     [ "estNotifie", "class_module.html#a07eb0d63b2e46789a70f014507c695a0", null ],
@@ -14,6 +14,7 @@ var class_module =
     [ "getNom", "class_module.html#a1cb7dde43e97fbb22553d935bca50944", null ],
     [ "getType", "class_module.html#ad118116221977dcf7ed04d3df4239838", null ],
     [ "getType", "class_module.html#aff6dc77e0596be7d13764f43e1a56ad9", null ],
+    [ "getType", "class_module.html#ad25f46a082194f45ccf8a5ae19ddd59b", null ],
     [ "recupererType", "class_module.html#a7824fca317c222d09dd77c89a5eb2244", null ],
     [ "setActif", "class_module.html#a65c4843bc7e7b08950678a5cf66719a1", null ],
     [ "setNotifie", "class_module.html#a2e4fb2e347cc8d7e42afe1125e673ed3", null ],

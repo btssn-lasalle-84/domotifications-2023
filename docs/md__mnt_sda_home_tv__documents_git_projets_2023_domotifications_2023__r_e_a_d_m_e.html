@@ -27,7 +27,7 @@
   <td id="projectlogo"><img alt="Logo" src="projet-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Projet domotifications
-   &#160;<span id="projectnumber">1.0</span>
+   &#160;<span id="projectnumber">1.1</span>
    </div>
    <div id="projectbrief">BTS SNIR LaSalle Avignon 2023</div>
   </td>
@@ -93,15 +93,19 @@ $(document).ready(function(){initNavTree('md__mnt_sda_home_tv__documents_git_pro
 <h1>Le projet domotifications 2023</h1>
 <ul>
 <li><a href="#le-projet-domotifications-2023">Le projet domotifications 2023</a><ul>
+<li><a href="#fonctionnalit%C3%A9s">Fonctionnalités</a></li>
 <li><a href="#documentation-du-code">Documentation du code</a></li>
-<li><a href="#versions">Versions</a><ul>
+<li><a href="#pr%C3%A9sentations">Présentations</a></li>
+<li><a href="#vid%C3%A9o">Vidéo</a></li>
+<li><a href="#diagramme-de-classes">Diagramme de classes</a></li>
+<li><a href="#protocole">Protocole</a></li>
+<li><a href="#screenshots">Screenshots</a></li>
+<li><a href="#historique-des-versions">Historique des versions</a><ul>
 <li><a href="#10">1.0</a></li>
 <li><a href="#02">0.2</a></li>
 <li><a href="#01">0.1</a></li>
 </ul>
 </li>
-<li><a href="#diagramme-de-classes">Diagramme de classes</a></li>
-<li><a href="#protocole">Protocole</a></li>
 <li><a href="#auteurs">Auteurs</a></li>
 </ul>
 </li>
@@ -116,39 +120,65 @@ $(document).ready(function(){initNavTree('md__mnt_sda_home_tv__documents_git_pro
 <li>en rouge/bleu/vert/gris/jaune : la notification d'une poubelle de tri à sortir.</li>
 </ul>
 <p><img src="modules.png" alt="" class="inline"/></p>
+<h2>Fonctionnalités</h2>
 <p>La <a class="el" href="md__mnt_sda_home_tv__documents_git_projets_2023_domotifications_2023_station_notifications_lumineuses__r_e_a_d_m_e.html">station de notifications lumineuses</a> assure la visualisation des notifications lumineuses.</p>
 <p><img src="uc-station.png" alt="" class="inline"/></p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Fonctionnalité   </th><th class="markdownTableHeadCenter">OUI   </th><th class="markdownTableHeadCenter">NON    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">Afficher une notification   </td><td class="markdownTableBodyCenter">X   </td><td class="markdownTableBodyCenter"></td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">Acquitter une notification   </td><td class="markdownTableBodyCenter">X   </td><td class="markdownTableBodyCenter"></td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">Traiter les requêtes GET et POST   </td><td class="markdownTableBodyCenter">X   </td><td class="markdownTableBodyCenter"></td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">Dialoguer avec l’IHM   </td><td class="markdownTableBodyCenter">X   </td><td class="markdownTableBodyCenter"></td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">Dialoguer les modules   </td><td class="markdownTableBodyCenter">X   </td><td class="markdownTableBodyCenter"></td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">Activer/Désactiver un module   </td><td class="markdownTableBodyCenter">X   </td><td class="markdownTableBodyCenter"></td></tr>
+</table>
 <p>L’application PC Desktop permet de configurer l’ensemble du système, activer/désactiver un module et afficher/acquitter une notification.</p>
 <p><img src="uc-desktop.png" alt="" class="inline"/></p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Fonctionnalité   </th><th class="markdownTableHeadCenter">OUI   </th><th class="markdownTableHeadCenter">NON    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">Configurer le système   </td><td class="markdownTableBodyCenter">X   </td><td class="markdownTableBodyCenter"></td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">Acquitter une notification   </td><td class="markdownTableBodyCenter">X   </td><td class="markdownTableBodyCenter"></td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">Activer/Désactiver un module   </td><td class="markdownTableBodyCenter">X   </td><td class="markdownTableBodyCenter"></td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">Afficher une notification   </td><td class="markdownTableBodyCenter">X   </td><td class="markdownTableBodyCenter"></td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">Dialoguer avec la station lumineuse   </td><td class="markdownTableBodyCenter">X   </td><td class="markdownTableBodyCenter"></td></tr>
+</table>
 <h2>Documentation du code</h2>
 <p><a href="https://btssn-lasalle-84.github.io/domotifications-2023/">https://btssn-lasalle-84.github.io/domotifications-2023/</a></p>
-<h2>Versions</h2>
-<p><img src="livraisons.png" alt="" class="inline"/></p>
-<h3>1.0</h3>
-<p><img src="roadbook.png" alt="" class="inline"/></p>
-<p><img src="screenshot-qt-domotifications-v1.0.png" alt="" class="inline"/></p>
-<p><img src="screenshot-qt-notification-v1.0.png" alt="" class="inline"/></p>
-<p><img src="station.png" alt="" class="inline"/></p>
-<h3>0.2</h3>
-<p><img src="jira-tickets-v0.2.png" alt="" class="inline"/></p>
-<p><img src="screenshot-qt-domotifications-v0.2.png" alt="" class="inline"/></p>
-<h3>0.1</h3>
-<p><img src="jira-tickets-v0.1.png" alt="" class="inline"/></p>
+<h2>Présentations</h2>
+<p>Diaporamas étudiants IR :</p>
+<ul>
+<li>Alexis VAILLEN (ESP32) : <a href="./diaporamas/Revue%20finale%20-%20VAILLEN.pptx">Revue finale - VAILLEN.pptx</a></li>
+<li>Mathieu MOYAERTS (Application Qt) : <a href="./diaporamas/Revue%20finale%20-%20MOYAERTS.pptx">Revue finale - MOYAERTS.pptx</a></li>
+</ul>
+<h2>Vidéo</h2>
+<p><a href="https://www.youtube.com/@projets-btssn-lasalle84">https://www.youtube.com/@projets-btssn-lasalle84</a></p>
 <h2>Diagramme de classes</h2>
 <ul>
 <li>Qt :</li>
 </ul>
-<p><img src="dc-qt.png" alt="" class="inline"/></p>
+<p><img src="dc-domotifications-qt.png" alt="" class="inline"/></p>
 <ul>
 <li>Station (ESP32) :</li>
 </ul>
-<p><img src="dc-esp32.png" alt="" class="inline"/></p>
+<p><img src="dc-domotifications-esp32.png" alt="" class="inline"/></p>
 <h2>Protocole</h2>
 <ul>
 <li><a href="docs/Protocole%20HTTP%20Domotifications.pdf">Protocole HTTP Domotifications.pdf</a></li>
 </ul>
-<p><img src="domotifications-requetes-http-1.png" alt="" class="inline"/></p>
-<p><img src="domotifications-requetes-http-2.png" alt="" class="inline"/></p>
+<p><img src="domotifications-requetes-http.png" alt="" class="inline"/></p>
 <p>Exemple :</p>
 <div class="fragment"><div class="line">$ curl -X GET &quot;http://station-lumineuse.local/poubelle?id=0&amp;etat=1&quot;</div>
 <div class="line">{&quot;poubelle&quot;: &quot;ok&quot;}</div>
@@ -156,7 +186,19 @@ $(document).ready(function(){initNavTree('md__mnt_sda_home_tv__documents_git_pro
 <div class="line">// Vérification</div>
 <div class="line">$ curl http://station-lumineuse.local/notifications</div>
 <div class="line">{&quot;boite&quot;:false,&quot;machines&quot;:[true,false,false,false,false,false],&quot;poubelle&quot;:[ true,false,false,false,false]}</div>
-</div><!-- fragment --><h2>Auteurs</h2>
+</div><!-- fragment --><h2>Screenshots</h2>
+<p><img src="screenshot-qt-domotifications-v1.1.png" alt="" class="inline"/></p>
+<p><img src="screenshot-qt-notification-v1.0.png" alt="" class="inline"/></p>
+<p><img src="station.png" alt="" class="inline"/></p>
+<h2>Historique des versions</h2>
+<p><img src="livraisons.png" alt="" class="inline"/></p>
+<h3>1.0</h3>
+<p><img src="jira-tickets-v1.0.png" alt="" class="inline"/></p>
+<h3>0.2</h3>
+<p><img src="jira-tickets-v0.2.png" alt="" class="inline"/></p>
+<h3>0.1</h3>
+<p><img src="jira-tickets-v0.1.png" alt="" class="inline"/></p>
+<h2>Auteurs</h2>
 <ul>
 <li>Étudiant IR : Alexis VAILLEN (<a class="el" href="md__mnt_sda_home_tv__documents_git_projets_2023_domotifications_2023_station_notifications_lumineuses__r_e_a_d_m_e.html">Station ESP32</a>)</li>
 <li>Étudiant IR : Mathieu MOYAERTS (Application Qt)</li>
@@ -170,7 +212,7 @@ $(document).ready(function(){initNavTree('md__mnt_sda_home_tv__documents_git_pro
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer"><img class="footer" src="lasalle-logo.png" height="31" alt="La Salle Avignon"/>&nbsp;<b>Campus La Salle Avignon</b>&nbsp;-&nbsp;9 Rue Notre Dame des 7 douleurs&nbsp;-&nbsp;BP 50165&nbsp;-&nbsp;84008 Avignon&nbsp;-&nbsp;Généré le Dimanche 28 Mai 2023 09:59:08 pour Projet domotifications par&nbsp;<a href="https://www.doxygen.org/index.html">doxygen</a>&nbsp;1.9.1&nbsp;</li>
+    <li class="footer"><img class="footer" src="lasalle-logo.png" height="31" alt="La Salle Avignon"/>&nbsp;<b>Campus La Salle Avignon</b>&nbsp;-&nbsp;9 Rue Notre Dame des 7 douleurs&nbsp;-&nbsp;BP 50165&nbsp;-&nbsp;84008 Avignon&nbsp;-&nbsp;Généré le Lundi 19 Juin 2023 22:26:24 pour Projet domotifications par&nbsp;<a href="https://www.doxygen.org/index.html">doxygen</a>&nbsp;1.9.1&nbsp;</li>
   </ul>
 </div>
 </body>
