@@ -32,7 +32,7 @@ var class_i_h_m_domotifications =
     [ "initialiserWidgets", "class_i_h_m_domotifications.html#aca20a5e3c32aaed31558bfdd498a41a5", null ],
     [ "recupererIdModule", "class_i_h_m_domotifications.html#a0ccf659b9dc214c8b5ed8ffe1af0e97b", null ],
     [ "recupererTypeModule", "class_i_h_m_domotifications.html#a259fe88b1a5c0513a4f232ea681a5b35", null ],
-    [ "visualiserNotification", "class_i_h_m_domotifications.html#af02e4c5ad78de81b7566ca5247f99db1", null ],
+    [ "visualiserNotification", "class_i_h_m_domotifications.html#abe5daa955f2b1d2c337fcb57672de13d", null ],
     [ "actionMaximiser", "class_i_h_m_domotifications.html#a3aa1f8d0774cf81cbbc65e32aaa86556", null ],
     [ "actionMinimiser", "class_i_h_m_domotifications.html#a173c5e2826bbbb5ad559cd4d20057adf", null ],
     [ "actionQuitter", "class_i_h_m_domotifications.html#a50c49f82d992d86dbe414045f4159a32", null ],

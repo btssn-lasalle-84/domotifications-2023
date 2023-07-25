@@ -61,6 +61,8 @@ class StationLumineuse
     bool activationPoubelles[NB_LEDS_NOTIFICATION_POUBELLES] = {
         true, true, true, true, true
     }; //!< l'état d'activation des poubelles
+    int intervallePoubelles[NB_LEDS_NOTIFICATION_POUBELLES];
+    long dateDerniereSortiePoubelles[NB_LEDS_NOTIFICATION_POUBELLES];
 
   public:
     StationLumineuse();
@@ -70,6 +72,8 @@ class StationLumineuse
     void initialiserPreferences();
     void initialiserNotifications();
     void initialiserCouleursPoubelles();
+    void setIntervallePoubelle(int numeroPoubelle, int intervalle);
+    long getDateActuelle();
     void setActivationBoiteAuxLettres(bool etat);
     bool getActivationBoiteAuxLettres();
     void setActivationMachine(int id, bool etat);

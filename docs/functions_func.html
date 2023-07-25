@@ -27,7 +27,7 @@
   <td id="projectlogo"><img alt="Logo" src="projet-logo.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Projet domotifications
-   &#160;<span id="projectnumber">1.0</span>
+   &#160;<span id="projectnumber">1.1</span>
    </div>
    <div id="projectbrief">BTS SNIR LaSalle Avignon 2023</div>
   </td>
@@ -171,6 +171,9 @@ $(document).ready(function(){initNavTree('functions_func.html',''); initResizabl
 
 
 <h3><a id="index_e"></a>- e -</h3><ul>
+<li>enregistrerModules()
+: <a class="el" href="class_domotification.html#adbb06dc8cacc8779d166fdc22297c351">Domotification</a>
+</li>
 <li>envoyerRequetePost()
 : <a class="el" href="class_communication.html#a4a85eb1a29b7fd8c33362ffaee099956">Communication</a>
 </li>
@@ -244,6 +247,9 @@ $(document).ready(function(){initNavTree('functions_func.html',''); initResizabl
 <li>getBoite()
 : <a class="el" href="class_domotification.html#a8f1dba6878539be73c79e1d76109574c">Domotification</a>
 </li>
+<li>getDateActuelle()
+: <a class="el" href="class_station_lumineuse.html#a1063161cb5450c4b50632ed47e08ec44">StationLumineuse</a>
+</li>
 <li>getEtatBoiteAuxLettres()
 : <a class="el" href="class_station_lumineuse.html#addecd2769104656ca44254d78d4e313e">StationLumineuse</a>
 </li>
@@ -270,6 +276,9 @@ $(document).ready(function(){initNavTree('functions_func.html',''); initResizabl
 </li>
 <li>getType()
 : <a class="el" href="class_module.html#ad118116221977dcf7ed04d3df4239838">Module</a>
+</li>
+<li>getUrlStation()
+: <a class="el" href="class_communication.html#a3430c2f326467d852c42bfb0b22e49d9">Communication</a>
 </li>
 </ul>
 
@@ -313,7 +322,7 @@ $(document).ready(function(){initNavTree('functions_func.html',''); initResizabl
 
 <h3><a id="index_m"></a>- m -</h3><ul>
 <li>Module()
-: <a class="el" href="class_module.html#a8e169414669873404e85c4bac72b2e46">Module</a>
+: <a class="el" href="class_module.html#a6a685b6c828efead748911f9c1338a4a">Module</a>
 </li>
 </ul>
 
@@ -385,13 +394,19 @@ $(document).ready(function(){initNavTree('functions_func.html',''); initResizabl
 : <a class="el" href="class_station_lumineuse.html#a1c3667b92c082b8a5de643c9dcf22dd2">StationLumineuse</a>
 </li>
 <li>setEtatPoubelle()
-: <a class="el" href="class_station_lumineuse.html#aee2d61f8cad8bd21600e6754c6f73c9f">StationLumineuse</a>
+: <a class="el" href="class_station_lumineuse.html#a5a09a0b83d2f6a2a00a59dca474c551e">StationLumineuse</a>
+</li>
+<li>setIntervallePoubelle()
+: <a class="el" href="class_station_lumineuse.html#a8772904cf41c80da4b7cf8037e61a98e">StationLumineuse</a>
 </li>
 <li>setNom()
 : <a class="el" href="class_serveur_web.html#ab533334d7ff03f38d7e36bae6a34891e">ServeurWeb</a>
 </li>
 <li>setNotifie()
 : <a class="el" href="class_module.html#a2e4fb2e347cc8d7e42afe1125e673ed3">Module</a>
+</li>
+<li>setUrlStation()
+: <a class="el" href="class_communication.html#a67c836628f628b69be0299fa10d633dc">Communication</a>
 </li>
 <li>StationLumineuse()
 : <a class="el" href="class_station_lumineuse.html#adb908fdd923e8dc0b56a92b1bfef7602">StationLumineuse</a>
@@ -427,6 +442,9 @@ $(document).ready(function(){initNavTree('functions_func.html',''); initResizabl
 <li>traiterRequetePOSTBoite()
 : <a class="el" href="class_serveur_web.html#aae07d478b576b3bb9c71f2d5e3a8c36e">ServeurWeb</a>
 </li>
+<li>traiterRequetePOSTIntervallePoubelle()
+: <a class="el" href="class_serveur_web.html#a302b90fb3105d2ce5b770bb0aea76d37">ServeurWeb</a>
+</li>
 <li>traiterRequetePOSTMachine()
 : <a class="el" href="class_serveur_web.html#af7eadfab5c95b0789003a5c436998638">ServeurWeb</a>
 </li>
@@ -441,7 +459,7 @@ $(document).ready(function(){initNavTree('functions_func.html',''); initResizabl
 
 <h3><a id="index_v"></a>- v -</h3><ul>
 <li>visualiserNotification()
-: <a class="el" href="class_i_h_m_domotifications.html#af02e4c5ad78de81b7566ca5247f99db1">IHMDomotifications</a>
+: <a class="el" href="class_i_h_m_domotifications.html#abe5daa955f2b1d2c337fcb57672de13d">IHMDomotifications</a>
 </li>
 </ul>
 
@@ -469,7 +487,7 @@ $(document).ready(function(){initNavTree('functions_func.html',''); initResizabl
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer"><img class="footer" src="lasalle-logo.png" height="31" alt="La Salle Avignon"/>&nbsp;<b>Campus La Salle Avignon</b>&nbsp;-&nbsp;9 Rue Notre Dame des 7 douleurs&nbsp;-&nbsp;BP 50165&nbsp;-&nbsp;84008 Avignon&nbsp;-&nbsp;Généré le Dimanche 28 Mai 2023 09:59:08 pour Projet domotifications par&nbsp;<a href="https://www.doxygen.org/index.html">doxygen</a>&nbsp;1.9.1&nbsp;</li>
+    <li class="footer"><img class="footer" src="lasalle-logo.png" height="31" alt="La Salle Avignon"/>&nbsp;<b>Campus La Salle Avignon</b>&nbsp;-&nbsp;9 Rue Notre Dame des 7 douleurs&nbsp;-&nbsp;BP 50165&nbsp;-&nbsp;84008 Avignon&nbsp;-&nbsp;Généré le Lundi 19 Juin 2023 22:26:24 pour Projet domotifications par&nbsp;<a href="https://www.doxygen.org/index.html">doxygen</a>&nbsp;1.9.1&nbsp;</li>
   </ul>
 </div>
 </body>

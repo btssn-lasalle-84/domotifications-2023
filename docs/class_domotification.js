@@ -4,6 +4,7 @@ var class_domotification =
     [ "~Domotification", "class_domotification.html#a0a3bb1c54adf49bcd1224efe4470d871", null ],
     [ "ajouterModule", "class_domotification.html#a2a9510088afb5c1be0729f77e9046bca", null ],
     [ "chargerModules", "class_domotification.html#a1237cea4481080ea01ea0df57a3748c8", null ],
+    [ "enregistrerModules", "class_domotification.html#adbb06dc8cacc8779d166fdc22297c351", null ],
     [ "gererAcquittement", "class_domotification.html#a57c8bbd155fceca022e77c00ec841c43", null ],
     [ "gererActivationModule", "class_domotification.html#af76f9eb09bfe67bf0cfaabb113f594bd", null ],
     [ "gererNotifications", "class_domotification.html#a64a130fb503b1d8153e9523c192094e2", null ],

@@ -12,6 +12,12 @@
 #include <QString>
 
 /**
+ * @def CONFIGURATION_APPLICATION
+ * @brief Le nom du fichier de configuration
+ */
+#define CONFIGURATION_APPLICATION "config.ini"
+
+/**
  * @def TITRE_APPLICATION
  * @brief Le nom de l'application dans la barre de titre
  */
@@ -22,6 +28,16 @@
  * @brief Le nom de la station de notifications
  */
 #define NOM_STATION QString("station-lumineuse.local")
+
+#define NOTIFICATION_BOITE QString("La boite est pleine !")
+
+#define NOTIFICATION_MACHINE QString("La machine est finie !")
+
+#define NOTIFICATION_POUBELLE_GRISE QString("La Poubelle grise est pleine !")
+#define NOTIFICATION_POUBELLE_JAUNE QString("La Poubelle jaune est pleine !")
+#define NOTIFICATION_POUBELLE_VERTE QString("La Poubelle verte est pleine !")
+#define NOTIFICATION_POUBELLE_BLEUE QString("La Poubelle bleue est pleine !")
+#define NOTIFICATION_POUBELLE_ROUGE QString("La Poubelle rouge est pleine !")
 
 /**
  * @def URL_STATION
@@ -57,6 +73,8 @@
 #define PERIODE_RECUPERATION_NOTIFICATIONS 10000 // en ms
 
 // Pour les tests
+// Pour définir la création initiale de modules
+//#define SIMULATION_MODULES
 //#define SANS_STATION
 //#define TEST_NOTIFICATIONS
 

@@ -12,25 +12,34 @@
 #include <QObject>
 #include <QString>
 #include <QtNetwork/QNetworkAccessManager>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonArray>
 
 #include "Constantes.h"
+#include "Domotification.h"
+
+class Domotification;
 
 class Communication : public QObject
 {
     Q_OBJECT
 
   private:
+    Domotification*        domotification;
     QNetworkAccessManager* accesReseau;
     QNetworkReply*         reponseReseau;
-    QString                urlStation;
+    QUrl                   urlStation;
     int                    httpPort;
-    QString                requeteJSON;
+    QString                requeteApi;
 
   public:
     Communication(QObject* parent = nullptr);
     ~Communication();
 
     void envoyerRequetePost(QString api, const QByteArray& json);
+    QUrl getUrlStation();
+    void setUrlStation(QUrl urlStation);
 
   public slots:
     void recupererNotifications();

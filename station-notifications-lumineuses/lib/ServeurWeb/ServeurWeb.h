@@ -55,6 +55,7 @@ class ServeurWeb : public WebServer
     void traiterRequetePOSTMachine();
     void traiterRequeteGETPoubelle();
     void traiterRequetePOSTPoubelle();
+    void traiterRequetePOSTIntervallePoubelle();
     void traiterRequeteNonTrouvee();
     int  extraireId();
     bool extraireEtat();
