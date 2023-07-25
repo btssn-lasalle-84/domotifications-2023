@@ -15,6 +15,7 @@ var class_serveur_web =
     [ "traiterRequeteNonTrouvee", "class_serveur_web.html#aaecca9c5962378e9adb491b935371dd8", null ],
     [ "traiterRequetePOSTActivation", "class_serveur_web.html#aefd981d35334c49dffc5bdab2ebc8dea", null ],
     [ "traiterRequetePOSTBoite", "class_serveur_web.html#aae07d478b576b3bb9c71f2d5e3a8c36e", null ],
+    [ "traiterRequetePOSTIntervallePoubelle", "class_serveur_web.html#a302b90fb3105d2ce5b770bb0aea76d37", null ],
     [ "traiterRequetePOSTMachine", "class_serveur_web.html#af7eadfab5c95b0789003a5c436998638", null ],
     [ "traiterRequetePOSTPoubelle", "class_serveur_web.html#a0cee2b47156893da6dd682cd55e91d70", null ],
     [ "traiterRequetes", "class_serveur_web.html#ae67b92478d41e2b4c9b8b172c6360418", null ],

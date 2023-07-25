@@ -1,4 +1,8 @@
 <map id="Communication" name="Communication">
-<area shape="rect" id="node1" title=" " alt="" coords="5,131,196,325"/>
-<area shape="rect" id="node2" href="$class_q_object.html" title=" " alt="" coords="63,5,138,83"/>
+<area shape="rect" id="node1" title=" " alt="" coords="172,132,363,356"/>
+<area shape="rect" id="node3" href="$class_domotification.html" title=" " alt="" coords="145,701,421,1013"/>
+<area shape="rect" id="node2" href="$class_q_object.html" title=" " alt="" coords="363,5,438,83"/>
+<area shape="rect" id="node6" href="$class_module.html" title=" " alt="" coords="421,380,559,677"/>
+<area shape="rect" id="node4" href="$class_i_h_m_domotifications.html" title="La fenêtyre principale de l&#39;application Domotifications." alt="" coords="141,1076,423,1579"/>
+<area shape="rect" id="node5" href="$class_q_main_window.html" title=" " alt="" coords="5,819,121,896"/>
 </map>
